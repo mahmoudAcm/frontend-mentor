@@ -1,6 +1,6 @@
 # Frontend Mentor - Launch countdown timer solution
 
-This is a solution to the [Launch countdown timer challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/launch-countdown-timer-N0XkGfyz-). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Launch countdown timer challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/launch-countdown-timer-N0XkGfyz-). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -23,12 +23,13 @@ Users should be able to:
 - **Bonus**: When a number changes, make the card flip from the middle
 
 ### Screenshot
+
 ![Solution](./design/screenshot.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Solution](https://github.com/mahmoudAcm/frontend-mentor/tree/master/launch-countdown-timer)
+- Live Site URL: [Live Site](https://mahmoudacm.github.io/frontend-mentor/launch-countdown-timer)
 
 ## My process
 
@@ -42,6 +43,7 @@ Users should be able to:
 - JavaScript
 
 ### Continued development
+
 I will try to add flip effect and try to make this project pixel prefect.
 
 ## Author
