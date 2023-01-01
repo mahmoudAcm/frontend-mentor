@@ -1,0 +1,51 @@
+@media (max-width: 767px) {
+  h2 {
+    margin-bottom: 59px;
+  }
+
+  .bg-pattern-hills,
+  .bg-stars {
+    width: 200vw;
+    margin-left: -100vw;
+  }
+
+  .card-wrapper {
+    row-gap: 12px;
+  }
+
+  .units-list {
+    column-gap: 13px;
+  }
+
+  .unit {
+    width: 73px;
+    height: 67px;
+    box-shadow: 0 5px hsl(234, 17%, 12%);
+  }
+
+  .unit .top,
+  .unit .bottom {
+    height: 33.5px;
+  }
+
+  .unit span {
+    font-size: 37px;
+  }
+
+  .unit .top span {
+    margin-top: 8px;
+  }
+
+  .unit .bottom span {
+    margin-top: -25.5px;
+  }
+
+  .card-wrapper .type {
+    font-size: 8px;
+    letter-spacing: 2.5px;
+  }
+
+  footer {
+    bottom: 40px;
+  }
+}
