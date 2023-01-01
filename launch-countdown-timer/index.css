@@ -174,8 +174,12 @@ footer {
   transform: translateX(-50%);
 }
 
-footer img:hover {
-  color: black !important;
+footer svg path {
+  transition: 0.3s fill;
+}
+
+footer svg:hover path {
+  fill: #d55070 !important;
 }
 
 /* experments */
