@@ -32,7 +32,7 @@ function addUnit(type, intialText) {
 }
 
 (function startTimer() {
-  let timestamps = 8 * 24 * 60 * 60;
+  let timestamps = 14 * 24 * 60 * 60;
   const { days, hours, minutes, seconds } = formatTime(timestamps);
   addUnit("days", days);
   addUnit("hours", hours);
