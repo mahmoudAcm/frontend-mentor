@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 16px;
+  font-family: "Rubik", sans-serif;
+}
+
+body {
+  background-color: #f5f6fa;
+}
+
+button,
+textarea {
+  transition: 0.3s background, 0.3s border-color;
+}
+
+textarea:hover {
+  border-color: #5358b4;
+}
+
+button:not(.button):hover {
+  background-color: #c4c6ef;
+}
+
+.textarea {
+  @apply resize-none rounded-md border-[1px] border-[#ccc] px-[15px] py-[11px] text-[#32383e] focus:outline-0;
+}
+
+.button {
+  @apply h-fit rounded-md px-[20px] py-[8px] font-bold uppercase text-white;
+}
+
+svg {
+  cursor: pointer;
+}
