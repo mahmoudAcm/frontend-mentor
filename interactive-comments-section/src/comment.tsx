@@ -68,8 +68,15 @@ export default function Comment(props: CommentProps) {
       setEditSectionOpening(false);
       return;
     }
-    if (type === "comment") editCommentOrReplay(bodyContent, props.id, type);
-    else editCommentOrReplay(bodyContent, props.parentId, type, props.id);
+    if (type === "comment")
+      editCommentOrReplay({ content: bodyContent }, props.id, type);
+    else
+      editCommentOrReplay(
+        { content: bodyContent },
+        props.parentId,
+        type,
+        props.id
+      );
     setEditSectionOpening(false);
   };
 
@@ -81,7 +88,13 @@ export default function Comment(props: CommentProps) {
           width: props.width ?? (isWidthLessThan375 ? "340px" : "545px"),
         }}
       >
-        {!isWidthLessThan375 ? <VoteButton>{props.score}</VoteButton> : <></>}
+        {!isWidthLessThan375 ? (
+          <VoteButton type={props.type} parentId={props.parentId} id={props.id}>
+            {props.score}
+          </VoteButton>
+        ) : (
+          <></>
+        )}
 
         <div className="flex w-full flex-col gap-y-[10px]">
           <CommentHeader
@@ -110,7 +123,13 @@ export default function Comment(props: CommentProps) {
           {isWidthLessThan375 ? (
             <div className="flex items-center">
               <span className="flex-1">
-                <VoteButton>{props.score}</VoteButton>
+                <VoteButton
+                  type={props.type}
+                  parentId={props.parentId}
+                  id={props.id}
+                >
+                  {props.score}
+                </VoteButton>
               </span>
               <CommentActions
                 owner={owner}

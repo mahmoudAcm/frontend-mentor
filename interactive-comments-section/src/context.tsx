@@ -13,7 +13,10 @@ const context = createContext({
   addComment: (content: string) => {},
   addReplay: (id: string, content: string, replyingTo: string) => {},
   editCommentOrReplay: (
-    content: string,
+    updateObj: {
+      content?: string;
+      score?: number;
+    },
     id: string,
     type: "comment" | "replay",
     replayId?: string
@@ -120,7 +123,10 @@ export default function DataProvider({ children }: { children: ReactNode }) {
    * @param id is the comment id or the parent comment id for a replay
    */
   const editCommentOrReplay = (
-    content: string,
+    updateObj: {
+      content?: string;
+      score?: number;
+    },
     id: string,
     type: "comment" | "replay",
     replayId?: string
@@ -132,7 +138,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
           if (comment.id === id) {
             return {
               ...comment,
-              content,
+              ...updateObj,
             };
           }
           return comment;
@@ -149,7 +155,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
                 if (replay.id === replayId!) {
                   return {
                     ...replay,
-                    content,
+                    ...updateObj,
                   };
                 }
                 return replay;
