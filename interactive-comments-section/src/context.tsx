@@ -10,6 +10,7 @@ import {
 import data from "./data.json";
 
 const context = createContext({
+  vote: (cb: (val: boolean) => boolean) => {},
   addComment: (content: string) => {},
   addReplay: (id: string, content: string, replyingTo: string) => {},
   editCommentOrReplay: (
@@ -36,13 +37,14 @@ export const useData = () => {
 
 export default function DataProvider({ children }: { children: ReactNode }) {
   const [internalData, setData] = useState(data);
-  const [id, setId] = useState(
-    localStorage.getItem("interactive-comments-section-id") ?? "5"
-  );
+  const [voted, setVoted] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("interactive-comments-section-id", id);
-  }, [id]);
+    setData((data) => ({
+      currentUser: data.currentUser,
+      comments: data.comments.sort((a, b) => b.score - a.score),
+    }));
+  }, [voted]);
 
   const addComment = (content: string) => {
     const time = Date.now();
@@ -51,7 +53,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
       comments: data.comments.concat({
         id: crypto.randomUUID(),
         content,
-        createdAt: time.toLocaleString(),
+        createdAt: time,
         replies: [],
         user: data.currentUser,
         score: 0,
@@ -75,7 +77,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
               replyingTo,
               id: crypto.randomUUID(),
               content,
-              createdAt: time.toLocaleString(),
+              createdAt: time,
               user: data.currentUser,
               score: 0,
             }),
@@ -171,6 +173,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
   return (
     <context.Provider
       value={{
+        vote: setVoted,
         addComment,
         addReplay,
         editCommentOrReplay,

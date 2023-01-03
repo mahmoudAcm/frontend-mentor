@@ -16,7 +16,7 @@ export default function VoteButton({
   parentId: string;
   id: string;
 }) {
-  const { editCommentOrReplay } = useData();
+  const { editCommentOrReplay, vote } = useData();
   const [voteCount, setCount] = useState(children);
 
   const handleUpvote = () => {
@@ -28,6 +28,7 @@ export default function VoteButton({
   };
 
   useEffect(() => {
+    vote((val) => !val);
     if (voteCount !== children) {
       editCommentOrReplay(
         {
@@ -49,7 +50,7 @@ export default function VoteButton({
           className="transition-[0.5s] group-hover:fill-[#5358b4]"
         />
       </span>
-      <span>{voteCount}</span>
+      <span className="select-none">{voteCount}</span>
       <span className="group cursor-pointer" onClick={handleDownvote}>
         <MinusIcon
           width="9"
