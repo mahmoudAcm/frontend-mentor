@@ -56,7 +56,10 @@ export default function CommentForm(props: CommentFormProps) {
       {isWidthLessThan375 ? (
         <div className="flex items-center justify-between">
           <img src={currentUser.image.png} className="h-[28px] w-[28px]" />
-          <button className="button w-fit bg-[#5358b4] text-[13px]">
+          <button
+            className="button w-fit bg-[#5358b4] text-[13px]"
+            onClick={handleForm}
+          >
             {buttonText[props.type]}
           </button>
         </div>
