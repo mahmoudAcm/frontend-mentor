@@ -22,6 +22,8 @@ type CommentProps = DataType["comments"][0] & {
   type: "comment" | "replay";
 };
 
+const usernamePattern = /@[a-z]+/gi;
+
 export default function Comment(props: CommentProps) {
   const { content, type, ...headerProps } = props;
   const { currentUser, editCommentOrReplay, removeCommentOrReplay } = useData();
@@ -108,7 +110,7 @@ export default function Comment(props: CommentProps) {
             className={
               isEditSectionOpen
                 ? "textarea"
-                : "break-words text-[13px] text-[#6f7279]"
+                : "whitespace-pre-wrap break-words text-[13px] text-[#6f7279]"
             }
             placeholder="Edit..."
             rows={4}
@@ -117,7 +119,21 @@ export default function Comment(props: CommentProps) {
               setBodyContent(e.currentTarget.value);
             }}
           >
-            {content}
+            {content
+              .replace(
+                usernamePattern,
+                (matched) => "=====>" + matched + "=====>"
+              )
+              .split("=====>")
+              .map((token) => {
+                if (token.match(usernamePattern) && !isEditSectionOpen)
+                  return (
+                    <a className="font-bold text-[#5358b4]" href={"#" + token}>
+                      {token}
+                    </a>
+                  );
+                return token;
+              })}
           </Body>
 
           {isWidthLessThan375 ? (
