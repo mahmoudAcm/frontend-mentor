@@ -1,12 +1,12 @@
 //types
-import { CommentType } from "./App";
+import { DataType } from "./context";
 import CommentActions, { CommentActionsProps } from "./comment-actions";
 
 //hooks
 import useMaxWidth from "./hooks/useMaxWidth";
 
 interface CommentHeaderProps
-  extends Omit<CommentType["comments"][0], "content" | "score">,
+  extends Omit<DataType["comments"][0], "content" | "score">,
     CommentActionsProps {}
 
 export default function CommentHeader(props: CommentHeaderProps) {

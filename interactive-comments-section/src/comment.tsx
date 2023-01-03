@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //components
 import VoteButton from "./vote-btn";
@@ -7,22 +7,27 @@ import CommentForm from "./comment-form";
 import Modal from "./delete-modal";
 
 //types
-import { CommentType } from "./App";
+import { DataType } from "./context";
 
 //hooks
 import useMaxWidth from "./hooks/useMaxWidth";
 import CommentActions from "./comment-actions";
 
-type CommentProps = CommentType["comments"][0] & {
-  currentUser: CommentType["currentUser"];
+//contexts
+import { useData } from "./context";
+
+type CommentProps = DataType["comments"][0] & {
   width?: string | number;
+  parentId: string;
+  type: "comment" | "replay";
 };
 
 export default function Comment(props: CommentProps) {
-  const { content, ...headerProps } = props;
+  const { content, type, ...headerProps } = props;
+  const { currentUser, editCommentOrReplay, removeCommentOrReplay } = useData();
+  const [bodyContent, setBodyContent] = useState(content);
 
   const isWidthLessThan375 = useMaxWidth(375);
-  console.log(isWidthLessThan375);
 
   /** modal state */
   const deleteModalState = useState({ open: false, save: false });
@@ -33,7 +38,7 @@ export default function Comment(props: CommentProps) {
 
   const Body = isEditSectionOpen ? "textarea" : "p";
 
-  const owner = props.currentUser.username === props.user.username;
+  const owner = currentUser.username === props.user.username;
 
   const handleReplay = () => {
     setReplaySectionOpening((prev) => !prev);
@@ -45,6 +50,27 @@ export default function Comment(props: CommentProps) {
 
   const handleDelete = () => {
     deleteModalState[1]({ open: true, save: false });
+  };
+
+  //watching delete confirmation
+  useEffect(() => {
+    if (deleteModalState[0].save) {
+      if (type === "comment") removeCommentOrReplay(props.id, type);
+      else {
+        removeCommentOrReplay(props.parentId, type, props.id);
+        console.log(props.parentId, props.id);
+      }
+    }
+  }, [deleteModalState]);
+
+  const handleUpdate = () => {
+    if (bodyContent === content) {
+      setEditSectionOpening(false);
+      return;
+    }
+    if (type === "comment") editCommentOrReplay(bodyContent, props.id, type);
+    else editCommentOrReplay(bodyContent, props.parentId, type, props.id);
+    setEditSectionOpening(false);
   };
 
   return (
@@ -73,6 +99,10 @@ export default function Comment(props: CommentProps) {
             }
             placeholder="Edit..."
             rows={4}
+            value={bodyContent}
+            onChange={(e: any) => {
+              setBodyContent(e.currentTarget.value);
+            }}
           >
             {content}
           </Body>
@@ -97,9 +127,7 @@ export default function Comment(props: CommentProps) {
             <div className="flex w-full justify-end">
               <button
                 className="button bg-[#5358b4] text-[13px]"
-                onClick={() => {
-                  setEditSectionOpening(false);
-                }}
+                onClick={handleUpdate}
               >
                 UPDATE
               </button>
@@ -110,7 +138,11 @@ export default function Comment(props: CommentProps) {
         </div>
       </div>
       {isReplaySectionOpen ? (
-        <CommentForm type="replay" user={props.currentUser} />
+        <CommentForm
+          type="replay"
+          commentId={props.parentId}
+          replyingTo={props.user.username}
+        />
       ) : (
         <></>
       )}
@@ -123,8 +155,9 @@ export default function Comment(props: CommentProps) {
             {props.replies.map((replay) => (
               <Comment
                 {...replay}
+                parentId={props.parentId}
+                type="replay"
                 replies={[]}
-                currentUser={props.currentUser}
                 key={replay.id}
                 width={isWidthLessThan375 ? "310px" : "487px"}
               />

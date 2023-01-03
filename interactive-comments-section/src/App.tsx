@@ -4,25 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import Comment from "./comment";
 import CommentForm from "./comment-form";
 
-//data
-import data from "./data.json";
-
-export type CommentType = typeof data;
+//context
+import { useData } from "./context";
 
 function App() {
   const [isPageLoading, setPageLoading] = useState(true);
-  const [comments, setComments] = useState<CommentType["comments"]>([]);
-  const [currentUser, setCurrentUser] = useState<CommentType["currentUser"]>({
-    image: {
-      png: "",
-      webp: "",
-    },
-    username: "",
-  });
+  const { comments } = useData();
 
   useEffect(() => {
-    setComments(data.comments);
-    setCurrentUser(data.currentUser);
     window.addEventListener("load", () => {
       document.fonts.ready.then(() => {
         setPageLoading(false);
@@ -42,9 +31,14 @@ function App() {
       ></div>
       <div className="my-[32px] flex max-w-[545px] flex-col gap-y-[16px] [@media_(max-width:375px)]:max-w-[375px]">
         {comments.map((comment) => (
-          <Comment {...comment} currentUser={currentUser} key={comment.id} />
+          <Comment
+            {...comment}
+            key={comment.id}
+            parentId={comment.id}
+            type="comment"
+          />
         ))}
-        <CommentForm type="comment" user={currentUser} />
+        <CommentForm type="comment" />
       </div>
     </div>
   );

@@ -10,8 +10,8 @@ interface ModalProps {
 }
 
 export default function Modal(props: ModalProps) {
-  const handleClose = () => {
-    props.state[1]({ open: false, save: false });
+  const handleClose = (save: boolean) => () => {
+    props.state[1]({ open: false, save });
   };
   return (
     <dialog className="fixed inset-0 z-20 flex h-full w-full select-none items-center justify-center bg-[rgba(0,_0,_0,_.5)]">
@@ -25,13 +25,13 @@ export default function Modal(props: ModalProps) {
         <div className="flex gap-[10px] text-[11px] [@media_(width<=375px)]:text-[12px]">
           <button
             className="button w-[109px] bg-[#69717e] [@media_(max-width:375px)]:w-full"
-            onClick={handleClose}
+            onClick={handleClose(false)}
           >
             No, Cancel
           </button>
           <button
             className="button w-[109px] bg-[#ee6368] [@media_(width<=375px)]:w-full"
-            onClick={handleClose}
+            onClick={handleClose(true)}
           >
             Yes Delete
           </button>
