@@ -29,8 +29,8 @@ textarea:hover {
   border-color: #5358b4;
 }
 
-button:not(.button):hover {
-  background-color: #c4c6ef;
+button:hover {
+  background-color: #c4c6ef !important;
 }
 
 .textarea {
