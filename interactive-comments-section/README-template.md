@@ -60,7 +60,7 @@ yarn add tailwindcss autoprefixer postcss-media-minmax -D
 
 and add them to the plugin object like the code below
 
-```json
+```js
 module.exports = {
   plugins: {
     tailwindcss: {},
