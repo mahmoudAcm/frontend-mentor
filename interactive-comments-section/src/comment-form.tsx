@@ -18,7 +18,7 @@ export default function CommentForm(props: CommentFormProps) {
   const isWidthLessThan375 = useMaxWidth(375);
 
   return (
-    <div className="flex min-h-[100px] gap-[10px] rounded-md bg-white p-[17px] [@media(max-width:375px)]:flex-col">
+    <div className="flex min-h-[100px] gap-[10px] rounded-md bg-white p-[17px] [@media(width_<=_375px)]:flex-col">
       {!isWidthLessThan375 ? (
         <img src={props.user.image.png} className="h-[28px] w-[28px]" />
       ) : (
