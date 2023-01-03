@@ -32,7 +32,13 @@ export default function CommentHeader(props: CommentHeaderProps) {
 
   return (
     <div className="flex h-[23px] flex-1 items-center gap-x-[10px] text-[12px]">
-      <img src={user.image.png} className="w-[23px]" />
+      <img
+        src={user.image.png}
+        className="w-[23px]"
+        alt="profile picture"
+        width="24"
+        height="24"
+      />
       <span className="font-bold text-[#38404a]">{user.username}</span>
       {props.owner ? (
         <span className="select-none rounded-sm bg-[#5358b4] px-[3px] font-medium text-white">

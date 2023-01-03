@@ -41,7 +41,13 @@ export default function CommentForm(props: CommentFormProps) {
   return (
     <div className="flex min-h-[100px] gap-[10px] rounded-md bg-white p-[17px] [@media(width_<=_375px)]:flex-col">
       {!isWidthLessThan375 ? (
-        <img src={currentUser.image.png} className="h-[28px] w-[28px]" />
+        <img
+          src={currentUser.image.png}
+          className="h-[28px] w-[28px]"
+          alt="profile picture"
+          width="24"
+          height="24"
+        />
       ) : (
         <></>
       )}
@@ -55,7 +61,13 @@ export default function CommentForm(props: CommentFormProps) {
       />
       {isWidthLessThan375 ? (
         <div className="flex items-center justify-between">
-          <img src={currentUser.image.png} className="h-[28px] w-[28px]" />
+          <img
+            src={currentUser.image.png}
+            className="h-[28px] w-[28px]"
+            alt="profile picture"
+            width="24"
+            height="24"
+          />
           <button
             className="button w-fit bg-[#5358b4] text-[13px]"
             onClick={handleForm}
