@@ -11,6 +11,15 @@ body {
   background-color: #f5f6fa;
 }
 
+.loader {
+  transition: 1s opacity, 0s z-index 1s;
+}
+
+.fade-out-loader {
+  opacity: 0;
+  z-index: -1 !important;
+}
+
 button,
 textarea {
   transition: 0.3s background, 0.3s border-color;
