@@ -86,7 +86,7 @@
 
     <!-- second half -->
     <div class="h-[100vh] flex-1 flex justify-center items-center">
-      <form class="flex-col gap-y-[24px] hidden">
+      <form class="flex-col gap-y-[24px] flex">
         <div class="form">
           <label for="cardholder-name">CARDHOLDER NAME</label>
           <input
@@ -130,7 +130,7 @@
       </form>
 
       <!-- complete state -->
-      <div class="flex flex-col items-center">
+      <div class="hidden flex-col items-center" id="complete-state">
         <svg
           width="80"
           height="80"
@@ -168,6 +168,8 @@
         </button>
       </div>
     </div>
+
+    <div class="fixed z-50 inset-0 w-full h-full bg-[rgb(223,223,228)]" id="loader"></div>
     <div class="attribution hidden">
       Challenge by
       <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"

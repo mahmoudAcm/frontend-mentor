@@ -37,3 +37,12 @@ html {
 .form input:hover {
   border-color: hsl(278, 68%, 11%);
 }
+
+#loader {
+  transition: 1.5s opacity, 0s z-index 1.5s;
+}
+
+.fade {
+  opacity: 0;
+  z-index: -1;
+}

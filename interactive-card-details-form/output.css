@@ -610,6 +610,13 @@ video {
   position: sticky;
 }
 
+.inset-0 {
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
 .-inset-1 {
   top: -0.25rem;
   right: -0.25rem;
@@ -649,6 +656,10 @@ video {
   isolation: auto;
 }
 
+.z-50 {
+  z-index: 50;
+}
+
 .float-right {
   float: right;
 }
@@ -681,10 +692,6 @@ video {
   margin-top: 10px;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
 .mt-\[31px\] {
   margin-top: 31px;
 }
@@ -693,12 +700,12 @@ video {
   margin-bottom: 12px;
 }
 
-.mb-\[30px\] {
-  margin-bottom: 30px;
-}
-
 .mb-\[20px\] {
   margin-bottom: 20px;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .box-border {
@@ -813,8 +820,8 @@ video {
   height: 32px;
 }
 
-.h-\[62px\] {
-  height: 62px;
+.h-full {
+  height: 100%;
 }
 
 .w-\[373px\] {
@@ -851,10 +858,6 @@ video {
 
 .w-\[68px\] {
   width: 68px;
-}
-
-.w-\[62px\] {
-  width: 62px;
 }
 
 .flex-1 {
@@ -1778,6 +1781,11 @@ video {
   background-color: hsl(278 68% 11% / var(--tw-bg-opacity));
 }
 
+.bg-\[rgb\(223\2c 223\2c 228\)\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(223 223 228 / var(--tw-bg-opacity));
+}
+
 .bg-\[rgb\(255\2c 0\2c 0\)\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
@@ -1793,10 +1801,6 @@ video {
 
 .bg-\[url\(\'\.\/images\/bg-card-back\.png\'\)\] {
   background-image: url('./images/bg-card-back.png');
-}
-
-.bg-\[linear-gradient\(180deg\2c \#6335df\2c \#6410aa\)\] {
-  background-image: linear-gradient(180deg,#6335df,#6410aa);
 }
 
 .decoration-slice {
@@ -2092,18 +2096,9 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-\[\#336699\]\/\[\.35\] {
-  color: rgb(51 102 153 / .35);
-}
-
-.text-blue-500 {
+.text-\[hsl\(278\2c _68\%\2c _11\%\)\] {
   --tw-text-opacity: 1;
-  color: rgb(59 130 246 / var(--tw-text-opacity));
-}
-
-.text-\[\#ccc\] {
-  --tw-text-opacity: 1;
-  color: rgb(204 204 204 / var(--tw-text-opacity));
+  color: hsl(278 68% 11% / var(--tw-text-opacity));
 }
 
 .text-\[gray\] {
@@ -2111,9 +2106,13 @@ video {
   color: rgb(128 128 128 / var(--tw-text-opacity));
 }
 
-.text-\[hsl\(278\2c _68\%\2c _11\%\)\] {
+.text-\[\#336699\]\/\[\.35\] {
+  color: rgb(51 102 153 / .35);
+}
+
+.text-blue-500 {
   --tw-text-opacity: 1;
-  color: hsl(278 68% 11% / var(--tw-text-opacity));
+  color: rgb(59 130 246 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -2495,6 +2494,15 @@ html {
 
 .form input:hover {
   border-color: hsl(278, 68%, 11%);
+}
+
+#loader {
+  transition: 1.5s opacity, 0s z-index 1.5s;
+}
+
+.fade {
+  opacity: 0;
+  z-index: -1;
 }
 
 .hover\:font-bold:hover {
