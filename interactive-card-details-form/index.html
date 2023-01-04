@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Interactive card details form</title>
+    <link href="./output.css" rel="stylesheet" />
+    <script src="./main.js" defer></script>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body class="flex">
+    <!-- first half -->
+    <div
+      class="h-[100vh] relative w-[373px] bg-[url('./images/bg-main-desktop.png')]"
+    >
+      <!-- front card -->
+      <div
+        class="w-[348px] top-[144px] shadow-xl right-[-100px] absolute p-[23px] h-[189px] rounded-lg overflow-hidden bg-white bg-[url('./images/bg-card-front.png')] bg-cover bg-center flex flex-col justify-between"
+      >
+        <div class="flex items-center gap-x-[15px]">
+          <div class="w-[38px] h-[38px] bg-white rounded-[50%]"></div>
+          <span
+            class="w-[16px] h-[16px] border-white border-[1px] rounded-[50%]"
+          ></span>
+        </div>
+        <div class="w-full front-card-bottom flex flex-col gap-y-[15px]">
+          <p
+            class="text-white text-xl font-medium tracking-widest"
+            data-name="card-number"
+          >
+            0000 0000 0000 0000
+          </p>
+          <div class="flex">
+            <span
+              class="text-[12px] tracking-wide text-white flex-1 break-words capitalize"
+              data-name="cardholder-name"
+              >JANE APPLESEED</span
+            >
+            <span class="text-[12px] tracking-wide text-white" data-name="exp"
+              ><span data-name="mm">00</span>/<span data-name="yy"
+                >00</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- card back -->
+      <div
+        class="w-[348px] top-[365px] shadow-xl right-[-173px] absolute p-[23px] h-[189px] rounded-lg overflow-hidden bg-white bg-[url('./images/bg-card-back.png')] bg-cover bg-center flex flex-col justify-between"
+      >
+        <div
+          class="w-[283px] pr-[15px] items-center flex justify-end h-[32px] absolute top-[78px] rounded-sm left-[50%] translate-x-[-50%]"
+        >
+          <span class="text-[12px] text-white tracking-wide" data-name="cvc"
+            >000</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- second half -->
+    <div class="h-[100vh] flex-1 flex justify-center items-center">
+      <form class="flex flex-col gap-y-[24px]">
+        <div class="form">
+          <label for="cardholder-name">CARDHOLDER NAME</label>
+          <input
+            class="input w-[370px]"
+            placeholder="e.g. Jane Appleseed"
+            name="cardholder-name"
+            id="cardholder-name"
+          />
+          <span class="feedback text-[11px]"></span>
+        </div>
+        <div class="form">
+          <label for="card-number">CARD NUMBER</label>
+          <input
+            class="input w-[370px]"
+            placeholder="e.g. 1234 5678 9123 0000"
+            name="card-number"
+            id="card-number"
+          />
+          <span class="feedback text-[11px]"></span>
+        </div>
+        <div class="flex justify-between">
+          <div class="form">
+            <label for="mm">EXP. DATE (MM/YY)</label>
+            <div class="w-[140px] flex gap-x-[7px]">
+              <input placeholder="MM" class="w-[68px]" name="mm" id="mm" />
+              <input placeholder="YY" class="w-[68px]" name="yy" id="yy" />
+            </div>
+            <span class="feedback text-[11px]"></span>
+          </div>
+          <div class="form">
+            <label for="cvc">CVC</label>
+            <input placeholder="e.g. 123" name="cvc" id="cvc" />
+            <span class="feedback text-[11px]"></span>
+          </div>
+        </div>
+        <button
+          class="bg-[hsl(278,_68%,_11%)] text-white rounded-md p-[9px] tracking-wide mt-[10px]"
+        >
+          Confirm
+        </button>
+      </form>
+    </div>
+    <div class="attribution hidden">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Your Name Here</a>.
+    </div>
+  </body>
+</html>
