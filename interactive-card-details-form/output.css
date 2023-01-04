@@ -685,6 +685,22 @@ video {
   margin-top: 0.5rem;
 }
 
+.mt-\[31px\] {
+  margin-top: 31px;
+}
+
+.mb-\[12px\] {
+  margin-bottom: 12px;
+}
+
+.mb-\[30px\] {
+  margin-bottom: 30px;
+}
+
+.mb-\[20px\] {
+  margin-bottom: 20px;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -797,6 +813,10 @@ video {
   height: 32px;
 }
 
+.h-\[62px\] {
+  height: 62px;
+}
+
 .w-\[373px\] {
   width: 373px;
 }
@@ -831,6 +851,10 @@ video {
 
 .w-\[68px\] {
   width: 68px;
+}
+
+.w-\[62px\] {
+  width: 62px;
 }
 
 .flex-1 {
@@ -1771,6 +1795,10 @@ video {
   background-image: url('./images/bg-card-back.png');
 }
 
+.bg-\[linear-gradient\(180deg\2c \#6335df\2c \#6410aa\)\] {
+  background-image: linear-gradient(180deg,#6335df,#6410aa);
+}
+
 .decoration-slice {
   -webkit-box-decoration-break: slice;
           box-decoration-break: slice;
@@ -1970,6 +1998,11 @@ video {
   font-size: 11px;
 }
 
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .font-medium {
   font-weight: 500;
 }
@@ -2066,6 +2099,21 @@ video {
 .text-blue-500 {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+.text-\[\#ccc\] {
+  --tw-text-opacity: 1;
+  color: rgb(204 204 204 / var(--tw-text-opacity));
+}
+
+.text-\[gray\] {
+  --tw-text-opacity: 1;
+  color: rgb(128 128 128 / var(--tw-text-opacity));
+}
+
+.text-\[hsl\(278\2c _68\%\2c _11\%\)\] {
+  --tw-text-opacity: 1;
+  color: hsl(278 68% 11% / var(--tw-text-opacity));
 }
 
 .underline {

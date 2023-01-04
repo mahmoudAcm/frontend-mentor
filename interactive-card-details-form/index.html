@@ -86,7 +86,7 @@
 
     <!-- second half -->
     <div class="h-[100vh] flex-1 flex justify-center items-center">
-      <form class="flex flex-col gap-y-[24px]">
+      <form class="flex-col gap-y-[24px] hidden">
         <div class="form">
           <label for="cardholder-name">CARDHOLDER NAME</label>
           <input
@@ -128,6 +128,45 @@
           Confirm
         </button>
       </form>
+
+      <!-- complete state -->
+      <div class="flex flex-col items-center">
+        <svg
+          width="80"
+          height="80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="40" cy="40" r="40" fill="url(#a)" />
+          <path d="M28 39.92 36.08 48l16-16" stroke="#fff" stroke-width="3" />
+          <defs>
+            <linearGradient
+              id="a"
+              x1="-23.014"
+              y1="11.507"
+              x2="0"
+              y2="91.507"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#6348FE" />
+              <stop offset="1" stop-color="#610595" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <h2
+          class="text-[hsl(278,_68%,_11%)] text-xl tracking-widest mt-[31px] mb-[12px]"
+        >
+          THANK YOU!
+        </h2>
+        <p class="text-[gray] text-sm mb-[20px]">
+          We've added your card details
+        </p>
+        <button
+          class="bg-[hsl(278,_68%,_11%)] w-[370px] text-white rounded-md p-[9px] tracking-wide mt-[10px]"
+        >
+          Continue
+        </button>
+      </div>
     </div>
     <div class="attribution hidden">
       Challenge by
