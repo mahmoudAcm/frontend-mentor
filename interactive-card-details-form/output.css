@@ -648,18 +648,6 @@ video {
   left: 50% !important;
 }
 
-.bottom-0 {
-  bottom: 0px !important;
-}
-
-.right-0 {
-  right: 0px !important;
-}
-
-.top-0 {
-  top: 0px !important;
-}
-
 .isolate {
   isolation: isolate !important;
 }
@@ -704,8 +692,8 @@ video {
   margin: 0.25rem !important;
 }
 
-.mb-\[40px\] {
-  margin-bottom: 40px !important;
+.mb-\[60px\] {
+  margin-bottom: 60px !important;
 }
 
 .mt-\[10px\] {
@@ -726,10 +714,6 @@ video {
 
 .mt-2 {
   margin-top: 0.5rem !important;
-}
-
-.mb-\[60px\] {
-  margin-bottom: 60px !important;
 }
 
 .box-border {
@@ -824,10 +808,6 @@ video {
   display: none !important;
 }
 
-.h-\[100vh\] {
-  height: 100vh !important;
-}
-
 .h-\[189px\] {
   height: 189px !important;
 }
@@ -842,6 +822,10 @@ video {
 
 .h-\[32px\] {
   height: 32px !important;
+}
+
+.h-\[100vh\] {
+  height: 100vh !important;
 }
 
 .h-full {
@@ -890,6 +874,10 @@ video {
 
 .w-\[68px\] {
   width: 68px !important;
+}
+
+.w-\[56\%\] {
+  width: 56% !important;
 }
 
 .flex-1 {
@@ -2632,20 +2620,12 @@ html {
     margin-top: 100px !important;
   }
 
-  .mobile\:h-\[280px\] {
-    height: 280px !important;
-  }
-
   .mobile\:max-h-\[280px\] {
     max-height: 280px !important;
   }
 
   .mobile\:min-h-\[270px\] {
     min-height: 270px !important;
-  }
-
-  .mobile\:w-full {
-    width: 100% !important;
   }
 
   .mobile\:w-\[100vw\] {
@@ -2658,10 +2638,6 @@ html {
 
   .mobile\:bg-\[url\(\'\.\/images\/bg-main-mobile\.png\'\)\] {
     background-image: url('./images/bg-main-mobile.png') !important;
-  }
-
-  .mobile\:bg-cover {
-    background-size: cover !important;
   }
 
   .mobile\:text-2xl {
@@ -2682,5 +2658,17 @@ html {
 
   .mobile-sm\:w-\[172px\] {
     width: 172px !important;
+  }
+
+  .mobile-sm\:w-\[53\%\] {
+    width: 53% !important;
+  }
+
+  .mobile-sm\:w-\[50\%\] {
+    width: 50% !important;
+  }
+
+  .mobile-sm\:w-\[47\%\] {
+    width: 47% !important;
   }
 }
