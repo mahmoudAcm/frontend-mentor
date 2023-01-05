@@ -33,14 +33,14 @@
       }
     </style>
   </head>
-  <body class="flex">
+  <body class="flex mobile:flex-col">
     <!-- first half -->
     <div
-      class="h-[100vh] relative w-[373px] bg-[url('./images/bg-main-desktop.png')]"
+      class="min-h-[100vh] relative w-[373px] bg-no-repeat bg-cover mobile:max-h-[280px] mobile:min-h-[270px] mobile:w-[100vw] mobile:bg-[url('./images/bg-main-mobile.png')] bg-[url('./images/bg-main-desktop.png')]"
     >
       <!-- front card -->
       <div
-        class="w-[348px] top-[144px] shadow-xl right-[-100px] absolute p-[23px] h-[189px] rounded-lg overflow-hidden bg-white bg-[url('./images/bg-card-front.png')] bg-cover bg-center flex flex-col justify-between"
+        class="w-[348px] top-[144px] mobile:z-10 mobile:right-auto mobile:left-[14px] shadow-xl right-[-100px] absolute p-[23px] h-[189px] rounded-lg overflow-hidden bg-white bg-[url('./images/bg-card-front.png')] bg-cover bg-center flex flex-col justify-between"
       >
         <div class="flex items-center gap-x-[15px]">
           <div class="w-[38px] h-[38px] bg-white rounded-[50%]"></div>
@@ -72,7 +72,7 @@
 
       <!-- card back -->
       <div
-        class="w-[348px] top-[365px] shadow-xl right-[-173px] absolute p-[23px] h-[189px] rounded-lg overflow-hidden bg-white bg-[url('./images/bg-card-back.png')] bg-cover bg-center flex flex-col justify-between"
+        class="w-[348px] top-[365px] mobile:right-[14px] mobile:top-[37px] shadow-xl right-[-173px] absolute p-[23px] h-[189px] rounded-lg overflow-hidden bg-white bg-[url('./images/bg-card-back.png')] bg-cover bg-center flex flex-col justify-between"
       >
         <div
           class="w-[283px] pr-[15px] items-center flex justify-end h-[32px] absolute top-[78px] rounded-sm left-[50%] translate-x-[-50%]"
@@ -85,12 +85,14 @@
     </div>
 
     <!-- second half -->
-    <div class="h-[100vh] flex-1 flex justify-center items-center">
-      <form class="flex-col gap-y-[24px] flex">
+    <div
+      class="h-[100vh] flex-1 flex justify-center items-center mobile:mt-[100px] mb-[60px]"
+    >
+      <form class="flex-col gap-y-[24px] flex w-[370px] mobile-sm:w-[92vw]">
         <div class="form">
           <label for="cardholder-name">CARDHOLDER NAME</label>
           <input
-            class="input w-[370px]"
+            class="input"
             placeholder="e.g. Jane Appleseed"
             name="cardholder-name"
             id="cardholder-name"
@@ -100,7 +102,7 @@
         <div class="form">
           <label for="card-number">CARD NUMBER</label>
           <input
-            class="input w-[370px]"
+            class="input"
             placeholder="e.g. 1234 5678 9123 0000"
             name="card-number"
             id="card-number"
@@ -116,7 +118,7 @@
             </div>
             <span class="feedback text-[11px]"></span>
           </div>
-          <div class="form">
+          <div class="form mobile-sm:w-[172px]">
             <label for="cvc">CVC</label>
             <input placeholder="e.g. 123" name="cvc" id="cvc" />
             <span class="feedback text-[11px]"></span>
@@ -154,11 +156,11 @@
           </defs>
         </svg>
         <h2
-          class="text-[hsl(278,_68%,_11%)] text-xl tracking-widest mt-[31px] mb-[12px]"
+          class="text-[hsl(278,_68%,_11%)] text-xl mobile:text-2xl tracking-widest mt-[31px] mb-[12px]"
         >
           THANK YOU!
         </h2>
-        <p class="text-[gray] text-sm mb-[20px]">
+        <p class="text-[gray] text-sm mobile:text-lg mb-[20px]">
           We've added your card details
         </p>
         <button
@@ -169,7 +171,10 @@
       </div>
     </div>
 
-    <div class="fixed z-50 inset-0 w-full h-full bg-[rgb(223,223,228)]" id="loader"></div>
+    <div
+      class="fixed z-50 inset-0 w-full h-full bg-[rgb(223,223,228)]"
+      id="loader"
+    ></div>
     <div class="attribution hidden">
       Challenge by
       <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
