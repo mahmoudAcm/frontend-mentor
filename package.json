@@ -1,0 +1,30 @@
+{
+  "name": "frontend-mentor",
+  "version": "1.0.0",
+  "description": "contains mahmoudAcm solution for the frontend mentor challanges",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tailwindcss -i ./input.css -o ./output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahmoudAcm/frontend-mentor.git"
+  },
+  "keywords": [
+    "challanges",
+    "design",
+    "frontend",
+    "mentor",
+    "js",
+    "html"
+  ],
+  "author": "mahmoudAcm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mahmoudAcm/frontend-mentor/issues"
+  },
+  "homepage": "https://github.com/mahmoudAcm/frontend-mentor#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
+  }
+}
