@@ -2,7 +2,8 @@ const root = document.getElementById("root");
 
 /**
  * @param {string} src image url
- * @param {string} livePreviewLink solution url
+ * @param {string} livePreviewLink
+ * @param {string} sourceCodeLink
  */
 function solution(src, livePreviewLink, sourceCodeLink) {
   return `<div class="p-1 border shadow-xl flex flex-col h-fit gap-y-1 rounded">
