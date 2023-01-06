@@ -13,7 +13,7 @@ function solution(src, livePreviewLink, sourceCodeLink) {
         style="background-image: url('${src}');background-position:top center;"
       ></div>
       <div
-        class="absolute inset-0 w-full h-full z-0 bg-[linear-gradient(180deg,white,gray)]"
+        class="absolute inset-0 w-full h-full z-0 bg-[linear-gradient(180deg,white_35%,gray)]"
       ></div>
     </div>
     <a href="${livePreviewLink ?? "#"}" target="_blank">
