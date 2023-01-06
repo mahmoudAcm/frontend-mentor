@@ -2,13 +2,13 @@ const path = require("path");
 const fs = require("fs");
 
 const dist_dir = path.join(__dirname, "gallery");
-const templatePath = path.join(__dirname, "template.html");
+const templatePath = path.join(__dirname, "index.html");
 const indexPath = path.join(dist_dir, "index.html");
 
 //src
-const appJs_path = path.join(__dirname, "app.js");
-const dataJs_path = path.join(__dirname, "data.js");
-const outputCss_path = path.join(__dirname, "output.css");
+const appJs_path = path.join(__dirname, "app.[id].js");
+const dataJs_path = path.join(__dirname, "data.[id].js");
+const outputCss_path = path.join(__dirname, "output.[id].css");
 const templateContent = fs.readFileSync(templatePath).toString();
 const appContent = fs.readFileSync(appJs_path).toString();
 const dataContent = fs.readFileSync(dataJs_path).toString();
