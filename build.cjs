@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 
-const dist_dir = path.join(__dirname, "dist");
+const dist_dir = path.join(__dirname, "gallery");
 const templatePath = path.join(__dirname, "template.html");
 const indexPath = path.join(dist_dir, "index.html");
 
