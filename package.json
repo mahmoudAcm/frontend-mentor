@@ -4,7 +4,8 @@
   "description": "contains mahmoudAcm solution for the frontend mentor challanges",
   "main": "index.js",
   "scripts": {
-    "dev": "tailwindcss -i ./input.css -o ./output.css --watch"
+    "dev": "tailwindcss -i ./input.css -o ./output.css --watch",
+    "build": "node build.cjs"
   },
   "repository": {
     "type": "git",
