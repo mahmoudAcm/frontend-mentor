@@ -109,6 +109,10 @@ export const StyledStepTwo = styled(Box)(({ theme }) => ({
     },
     "& .item": {
       inset: 0,
+      "& svg": {
+        width: 95,
+        height: 105,
+      },
     },
     "& .lvl1": {
       position: "absolute",
