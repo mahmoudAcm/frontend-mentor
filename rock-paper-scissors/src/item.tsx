@@ -5,7 +5,7 @@ import { ItemWrapper, StyledItem } from "./item.styles";
 interface ItemProps {
   colors: [string, string];
   type: Type;
-  src: string;
+  icon: JSX.Element;
 }
 
 export default function Item(props: ItemProps) {
@@ -21,9 +21,7 @@ export default function Item(props: ItemProps) {
         }}
         sx={{ borderColor: props.colors[0] }}
       >
-        <Box className="_1">
-          <img src={props.src} />
-        </Box>
+        <Box className="_1">{props.icon}</Box>
       </StyledItem>
     </ItemWrapper>
   );

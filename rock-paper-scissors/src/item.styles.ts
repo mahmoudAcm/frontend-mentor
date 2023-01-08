@@ -33,9 +33,15 @@ export const StyledItem = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    "& img": {
-      marginBottom: "var(--border-width)",
-      width: "calc(2.5 * var(--border-width))",
+    "& svg": {
+      marginBottom: "calc(1 * var(--border-width))",
+      width: 59,
+      height: 88,
+      [theme.breakpoints.down("md")]: {
+        width: 40,
+        height: 51,
+        marginBottom: "calc(1 * var(--border-width))",
+      },
     },
   },
 }));
