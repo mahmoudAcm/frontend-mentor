@@ -70,7 +70,7 @@ export const StyledStepTwo = styled(Box)(({ theme }) => ({
     position: "relative",
     zIndex: 5,
     [theme.breakpoints.down("md")]: {
-      fontSize: 15,
+      fontSize: 14,
     },
   },
   "& .container": {
