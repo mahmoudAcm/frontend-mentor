@@ -8,10 +8,55 @@ import { StyledStepTwoWrapper, StyledStepTwo } from "./styles";
 export default function StepTwo() {
   const theme = useTheme();
   const isMobile = useMediaQuery(() => theme.breakpoints.down("md"));
+  const { picked, result } = useGame();
+  const housePicked = useStateWinner();
+
+  const rippleElements = (
+    <>
+      <span className="lvl1"></span>
+      <span className="lvl2"></span>
+      <span className="lvl3"></span>
+    </>
+  );
+
+  return (
+    <StyledStepTwoWrapper>
+      <StyledStepTwo>
+        <div className="container">
+          <h3>YOU PICKED</h3>
+          <div className="circle">
+            {result == "WIN" ? rippleElements : <></>}
+            {items[picked]}
+          </div>
+        </div>
+        {!isMobile ? <Result /> : <></>}
+        <div className="container">
+          <h3>THE HOUSE PICKED</h3>
+          <div className="circle">
+            {result == "LOSE" ? rippleElements : <></>}
+            {items[housePicked]}
+          </div>
+        </div>
+      </StyledStepTwo>
+      {isMobile ? <Result /> : <></>}
+    </StyledStepTwoWrapper>
+  );
+}
+
+const useRandomeType = () => {
+  const [housePicked, setHousePicked] = useState<Type>("None");
+  useEffect(() => {
+    const types: Type[] = ["Paper", "Rock", "Scissors"];
+    const randomeIndex = Math.floor(Math.random() * 1000000) % 3;
+    setHousePicked(types[randomeIndex]);
+  }, []);
+  return housePicked;
+};
+
+const useStateWinner = () => {
   const { picked, setResult, setScore } = useGame();
   const housePicked = useRandomeType();
 
-  //watch house choice
   useEffect(() => {
     if (housePicked !== "None") {
       if (picked == "Paper" && housePicked == "Rock") {
@@ -32,35 +77,5 @@ export default function StepTwo() {
     }
   }, [housePicked]);
 
-  return (
-    <StyledStepTwoWrapper>
-      <StyledStepTwo>
-        <div className="container">
-          <h3>YOU PICKED</h3>
-          <div className="circle">
-            <span className="lvl1"></span>
-            <span className="lvl2"></span>
-            <span className="lvl3"></span>
-            {items[picked]}
-          </div>
-        </div>
-        {!isMobile ? <Result /> : <></>}
-        <div className="container">
-          <h3>THE HOUSE PICKED</h3>
-          <div className="circle">{items[housePicked]}</div>
-        </div>
-      </StyledStepTwo>
-      {isMobile ? <Result /> : <></>}
-    </StyledStepTwoWrapper>
-  );
-}
-
-const useRandomeType = () => {
-  const [housePicked, setHousePicked] = useState<Type>("None");
-  useEffect(() => {
-    const types: Type[] = ["Paper", "Rock", "Scissors"];
-    const randomeIndex = Math.floor(Math.random() * 1000000) % 3;
-    setHousePicked(types[randomeIndex]);
-  }, []);
   return housePicked;
 };

@@ -1,4 +1,4 @@
-import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import { useGame } from "../context";
 import StepOne from "./step-one";
 import StepTwo from "./step-two";
@@ -8,7 +8,7 @@ export default function Playground() {
   const { picked } = useGame();
   return (
     <StyledPlayground>
-      {picked === "None" ? <StepOne /> : <StepTwo/>}
+      <Container>{picked === "None" ? <StepOne /> : <StepTwo />}</Container>
     </StyledPlayground>
   );
 }

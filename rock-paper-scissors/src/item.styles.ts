@@ -20,6 +20,7 @@ export const StyledItem = styled(Box)(({ theme }) => ({
   borderStyle: "solid",
   zIndex: 200,
   overflow: "hidden",
+  cursor: "pointer",
   "& ._1": {
     position: "absolute",
     width: "calc(var(--circle-radius) - 30px)",

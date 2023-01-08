@@ -5,6 +5,7 @@ import Screen from "./screen";
 import Button from "./rules/button";
 import Playground from "./playground";
 import GameProvider from "./context";
+import Rules from "./rules";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Screen />
         <Button />
         <Playground />
+        <Rules />
       </StyledApp>
     </GameProvider>
   );

@@ -5,4 +5,5 @@ export const StyledApp = styled(Box)(({}) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  overflowX: "hidden",
 }));

@@ -1,6 +1,16 @@
 //components
+import { useGame } from "../context";
 import { StyledButton } from "./styles";
 
 export default function Button() {
-  return <StyledButton>RULES</StyledButton>;
+  const { setRulesModelOpening } = useGame();
+  return (
+    <StyledButton
+      onClick={() => {
+        setRulesModelOpening(true);
+      }}
+    >
+      RULES
+    </StyledButton>
+  );
 }
