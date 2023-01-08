@@ -10,6 +10,8 @@ export const StyledScreen = styled(Box)(({ theme }) => ({
   borderRadius: 10,
   marginTop: 44,
   padding: "24px 25px",
+  position: "relative",
+  zIndex: 5,
   "& img": {
     width: 157,
     height: 97,
