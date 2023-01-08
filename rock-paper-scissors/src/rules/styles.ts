@@ -57,6 +57,9 @@ export const Modal = styled(Box)(({ theme }) => ({
     color: "hsl(229, 25%, 31%)",
     height: "fit-content",
   },
+  "& .rules-icon": {
+    marginTop: 20,
+  },
   "& .close-icon": {
     marginTop: 13,
   },
