@@ -29,8 +29,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Solution](https://github.com/mahmoudAcm/frontend-mentor/tree/master/rock-paper-scissors)
+- Live Site URL: [Live Site](https://mahmoudacm.github.io/frontend-mentor/rock-paper-scissors/dist/)
 
 ## My process
 
