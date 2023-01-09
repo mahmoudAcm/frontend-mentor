@@ -38,8 +38,8 @@ export const StyledItem = styled(Box)(({ theme }) => ({
       width: 59,
       height: 88,
       [theme.breakpoints.down("md")]: {
-        width: 40,
-        height: 51,
+        width: "40px !important",
+        height: "51px !important",
         marginBottom: "calc(1 * var(--border-width))",
       },
     },
