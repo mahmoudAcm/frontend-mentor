@@ -1,0 +1,37 @@
+{
+  "id": "/",
+  "name": "RockPaperScissorsGame",
+  "short_name": "RockPaperScissors",
+  "orientation": "portrait",
+  "background_color": "#1f3756",
+  "start_url": ".",
+  "display": "standalone",
+  "description": "A Simple Rock, Paper and Scissors game.",
+  "theme_color": "white",
+  "icons": [
+    {
+      "src": "images/logo-36x36.svg",
+      "sizes": "36x36",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo-96x96.svg",
+      "sizes": "96x96",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo-144x144.svg",
+      "sizes": "144x144",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

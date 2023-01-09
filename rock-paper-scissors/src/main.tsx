@@ -8,6 +8,10 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({});
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js");
+}
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
