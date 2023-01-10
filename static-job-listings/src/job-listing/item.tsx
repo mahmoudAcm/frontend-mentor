@@ -2,22 +2,31 @@
 import { Avatar } from "@mui/material";
 import { StyledItem, JobDiscriptionFirstColumn } from "./styles";
 import Title from "./title";
-import Languages from "./languages";
+import LanguagesAndTools from "./languages-and-tools";
 
-export default function Item() {
+//types
+import { Job } from "../types";
+
+interface ItemProps extends Job {}
+
+export default function Item(props: ItemProps) {
   return (
     <StyledItem component="li">
-      <Avatar src="./images/photosnap.svg"></Avatar>
+      <Avatar src={props.logo} alt="company logo"></Avatar>
       <JobDiscriptionFirstColumn>
-        <Title />
-        <h2>Senior Frontend Developer</h2>
+        <Title
+          company={props.company}
+          new={props.new}
+          featured={props.featured}
+        />
+        <h2>{props.position}</h2>
         <div className="last-row">
-          <span>1d ago</span>
-          <span>Full Time</span>
-          <span>USA only</span>
+          <span>{props.postedAt}</span>
+          <span>{props.contract}</span>
+          <span>{props.location}</span>
         </div>
       </JobDiscriptionFirstColumn>
-      <Languages />
+      <LanguagesAndTools list={[props.role, props.level, ...props.tools, ...props.languages]}/>
     </StyledItem>
   );
 }

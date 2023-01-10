@@ -1,7 +1,7 @@
 import Box, { BoxProps } from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 
-export const StyledLanguages = styled(Box)(({ theme }) => ({
+export const StyledLanguagesAndTools = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: 10,
   margin: 0,
@@ -14,7 +14,7 @@ export const StyledLanguages = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const Language = styled(function (props: BoxProps) {
+export const Tag = styled(function (props: BoxProps) {
   return (
     <Box {...props} component="li">
       {props.children}

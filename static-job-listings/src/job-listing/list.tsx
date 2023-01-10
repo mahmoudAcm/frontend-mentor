@@ -2,10 +2,19 @@
 import { StyledList } from "./styles";
 import Item from "./item";
 
-export default function List() {
+//types
+import { Job } from "../types";
+
+interface ListProps {
+  jobs: Job[];
+}
+
+export default function List(props: ListProps) {
   return (
     <StyledList component="ul">
-      <Item />
+      {props.jobs.map((job) => (
+        <Item {...job} key={job.id} />
+      ))}
     </StyledList>
   );
 }
