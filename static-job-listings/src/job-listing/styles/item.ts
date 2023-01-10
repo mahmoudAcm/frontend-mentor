@@ -25,7 +25,7 @@ export const StyledItem = styled(Box)(({ theme }) => ({
       width: 49,
       height: 49,
       position: "absolute",
-      top: "calc(49px / -2)"
+      top: "calc(49px / -2)",
     },
   },
 }));
@@ -38,6 +38,11 @@ export const JobDiscriptionFirstColumn = styled(Box)(({ theme }) => ({
     margin: "5px 0",
     color: "#333c3b",
     fontWeight: 700,
+    cursor: "pointer",
+    transition: "0.2s color",
+    "&:hover": {
+      color: "#5da5a3",
+    },
     [theme.breakpoints.down("md")]: {
       ...theme.typography.body2,
       fontWeight: 700,

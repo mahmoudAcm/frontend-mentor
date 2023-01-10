@@ -29,4 +29,10 @@ export const Tag = styled(function (props: BoxProps) {
   borderRadius: 5,
   lineHeight: "18px",
   backgroundColor: "hsl(180, 52%, 96%)",
+  cursor: "pointer",
+  transition: "0.3s background-color, 0.3s color",
+  "&:hover": {
+    backgroundColor: "#5da5a3",
+    color: "white",
+  },
 }));
