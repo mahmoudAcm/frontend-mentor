@@ -18,6 +18,7 @@ export const StyledTitle = styled(Box)(({ theme }) => ({
     borderRadius: 15,
     lineHeight: "18px",
     marginRight: 10,
+    userSelect: "none",
     "&.new": {
       backgroundColor: "#5da5a3",
     },
@@ -29,6 +30,6 @@ export const StyledTitle = styled(Box)(({ theme }) => ({
     marginTop: 15,
     "& h3": {
       fontSize: "1rem",
-    }
-  }
+    },
+  },
 }));

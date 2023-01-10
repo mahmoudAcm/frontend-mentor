@@ -35,4 +35,5 @@ export const Tag = styled(function (props: BoxProps) {
     backgroundColor: "#5da5a3",
     color: "white",
   },
+  userSelect: "none"
 }));
