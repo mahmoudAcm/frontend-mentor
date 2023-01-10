@@ -40,6 +40,7 @@ export const JobDiscriptionFirstColumn = styled(Box)(({ theme }) => ({
     fontWeight: 700,
     cursor: "pointer",
     transition: "0.2s color",
+    width: "fit-content",
     "&:hover": {
       color: "#5da5a3",
     },
