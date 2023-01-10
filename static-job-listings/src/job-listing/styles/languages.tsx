@@ -1,11 +1,17 @@
 import Box, { BoxProps } from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 
-export const StyledLanguages = styled(Box)(() => ({
+export const StyledLanguages = styled(Box)(({ theme }) => ({
   display: "flex",
-  columnGap: 10,
+  gap: 10,
   margin: 0,
   padding: 0,
+  [theme.breakpoints.down("md")]: {
+    borderTop: "1px solid #7e8786",
+    flexWrap: "wrap",
+    paddingTop: 15,
+    marginTop: 13,
+  },
 }));
 
 export const Language = styled(function (props: BoxProps) {

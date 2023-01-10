@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 
-export const StyledTitle = styled(Box)(() => ({
+export const StyledTitle = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   height: "fit-content",
@@ -25,4 +25,10 @@ export const StyledTitle = styled(Box)(() => ({
       backgroundColor: "#333c3b",
     },
   },
+  [theme.breakpoints.down("md")]: {
+    marginTop: 15,
+    "& h3": {
+      fontSize: "1rem",
+    }
+  }
 }));

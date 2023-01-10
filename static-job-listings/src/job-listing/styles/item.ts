@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 
-export const StyledItem = styled(Box)(() => ({
+export const StyledItem = styled(Box)(({ theme }) => ({
   maxWidth: 1105,
   minHeight: 90,
   backgroundColor: "white",
@@ -16,9 +16,21 @@ export const StyledItem = styled(Box)(() => ({
     width: 90,
     height: 90,
   },
+  [theme.breakpoints.down("md")]: {
+    padding: 20,
+    flexDirection: "column",
+    alignItems: "flex-start",
+    position: "relative",
+    "& .MuiAvatar-root": {
+      width: 49,
+      height: 49,
+      position: "absolute",
+      top: "calc(49px / -2)"
+    },
+  },
 }));
 
-export const JobDiscriptionFirstColumn = styled(Box)(() => ({
+export const JobDiscriptionFirstColumn = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   flex: 1,
@@ -26,10 +38,16 @@ export const JobDiscriptionFirstColumn = styled(Box)(() => ({
     margin: "5px 0",
     color: "#333c3b",
     fontWeight: 700,
+    [theme.breakpoints.down("md")]: {
+      ...theme.typography.body2,
+      fontWeight: 700,
+      marginTop: 10,
+    },
   },
   "& .last-row": {
+    "--column-gap": "20px",
     display: "flex",
-    columnGap: 20,
+    columnGap: "var(--column-gap)",
     "& span": {
       color: "#7e8786",
       fontWeight: 500,
@@ -43,7 +61,10 @@ export const JobDiscriptionFirstColumn = styled(Box)(() => ({
       height: 4,
       background: "#b8bab9",
       borderRadius: "50%",
-      marginLeft: 20,
+      marginLeft: "var(--column-gap)",
+    },
+    [theme.breakpoints.down("md")]: {
+      "--column-gap": "10px",
     },
   },
 }));
