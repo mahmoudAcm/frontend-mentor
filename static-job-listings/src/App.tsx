@@ -1,9 +1,13 @@
+//hooks
+import { useEffect, useState } from "react";
+
 //utils
 import { CssBaseline } from "@mui/material";
 
 //components
 import Layout from "./layout";
 import JobListing from "./job-listing";
+import { LoadingScreen } from "./styles";
 
 //data
 import data from "./data.json";
@@ -12,6 +16,7 @@ import data from "./data.json";
 import FilterProvider from "./filter/context";
 
 export default function App() {
+  const isLoading = useLoader();
   return (
     <>
       <CssBaseline />
@@ -20,6 +25,21 @@ export default function App() {
           <JobListing jobs={data} />
         </Layout>
       </FilterProvider>
+      <LoadingScreen className={!isLoading ? "fade" : ""} />
     </>
   );
+}
+
+function useLoader() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const onLoad = () => {
+      setLoading(false);
+    };
+    window.addEventListener("load", onLoad);
+    return () => {
+      window.removeEventListener("load", onLoad);
+    };
+  }, []);
+  return loading;
 }

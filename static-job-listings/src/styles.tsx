@@ -40,3 +40,17 @@ export const Tag = styled(function (props: BoxProps) {
   },
   userSelect: "none",
 }));
+
+export const LoadingScreen = styled(Box)(({ theme }) => ({
+  position: "fixed",
+  inset: 0,
+  width: "100%",
+  height: "100%",
+  zIndex: theme.zIndex.modal * 3,
+  backgroundImage: "linear-gradient(hsl(180, 8%, 52%), hsl(180, 52%, 96%))",
+  transition: "1s opacity, 0s z-index 1.2s",
+  "&.fade": {
+    opacity: 0,
+    zIndex: -1,
+  },
+}));
