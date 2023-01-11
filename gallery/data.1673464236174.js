@@ -27,4 +27,11 @@ const solutions = [
     sourceCodeLink:
       "https://github.com/mahmoudAcm/frontend-mentor/tree/master/rock-paper-scissors",
   },
+  {
+    src: "https://mahmoudacm.github.io/frontend-mentor/static-job-listings/design/screenshot.png",
+    livePreviewLink:
+      "https://mahmoudacm.github.io/frontend-mentor/static-job-listings/dist",
+    sourceCodeLink:
+      "https://github.com/mahmoudAcm/frontend-mentor/tree/master/static-job-listings",
+  },
 ];
