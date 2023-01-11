@@ -1,6 +1,5 @@
 import Box, { BoxProps } from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import { styled } from "@mui/material/styles";
+import { styled, alpha } from "@mui/material/styles";
 import { Tag } from "../styles";
 
 export const StyledFilter = styled(Box)(() => ({
@@ -13,7 +12,7 @@ export const Paper = styled(Box)(({ theme }) => ({
   maxWidth: "100%",
   minHeight: 100,
   backgroundColor: "white",
-  boxShadow: "0 23px 23px -19px #ccc",
+  boxShadow: `0 23px 23px -22px ${alpha("#5da5a3", 0.6)}`,
   borderRadius: 5,
   padding: 20,
   display: "flex",

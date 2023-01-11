@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
+import { styled, alpha } from "@mui/material/styles";
 
 export const StyledItem = styled(Box)(({ theme }) => ({
   maxWidth: 1105,
@@ -11,7 +11,7 @@ export const StyledItem = styled(Box)(({ theme }) => ({
   display: "flex",
   columnGap: 25,
   alignItems: "center",
-  boxShadow: "0 23px 23px -19px #ccc",
+  boxShadow: `0 23px 23px -22px ${alpha("#5da5a3", 0.6)}`,
   "&.active": {
     borderLeft: "5px solid #5da5a3",
   },
