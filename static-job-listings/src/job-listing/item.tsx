@@ -7,11 +7,13 @@ import LanguagesAndTools from "./languages-and-tools";
 //types
 import { Job } from "../types";
 
-interface ItemProps extends Job {}
+interface ItemProps extends Job {
+  className?: string;
+}
 
 export default function Item(props: ItemProps) {
   return (
-    <StyledItem component="li">
+    <StyledItem component="li" className={props.className}>
       <Avatar src={props.logo} alt="company logo"></Avatar>
       <JobDiscriptionFirstColumn>
         <Title

@@ -6,12 +6,15 @@ export const StyledItem = styled(Box)(({ theme }) => ({
   minHeight: 90,
   backgroundColor: "white",
   borderRadius: 5,
-  borderLeft: "5px solid #5da5a3",
+  borderLeft: "5px solid transparent",
   padding: 33,
   display: "flex",
   columnGap: 25,
   alignItems: "center",
   boxShadow: "0 23px 23px -19px #ccc",
+  "&.active": {
+    borderLeft: "5px solid #5da5a3",
+  },
   "& .MuiAvatar-root": {
     width: 90,
     height: 90,

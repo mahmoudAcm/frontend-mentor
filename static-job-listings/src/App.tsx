@@ -8,13 +8,18 @@ import JobListing from "./job-listing";
 //data
 import data from "./data.json";
 
+//contexts
+import FilterProvider from "./filter/context";
+
 export default function App() {
   return (
     <>
       <CssBaseline />
-      <Layout>
-        <JobListing jobs={data}/>
-      </Layout>
+      <FilterProvider>
+        <Layout>
+          <JobListing jobs={data} />
+        </Layout>
+      </FilterProvider>
     </>
   );
 }

@@ -1,5 +1,6 @@
 //components
-import { StyledLanguagesAndTools, Tag } from "./styles";
+import { StyledLanguagesAndTools } from "./styles";
+import { Tag } from "../styles";
 
 interface LanguagesAndToolsProps {
   list: string[];
