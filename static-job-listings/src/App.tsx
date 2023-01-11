@@ -34,8 +34,11 @@ function useLoader() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const onLoad = () => {
-      setLoading(false);
+      document.fonts.ready.then(() => {
+        setLoading(false);
+      });
     };
+    onLoad();
     window.addEventListener("load", onLoad);
     return () => {
       window.removeEventListener("load", onLoad);
