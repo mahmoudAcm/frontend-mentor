@@ -24,12 +24,12 @@ Users should be able to:
 
 ### Screenshot
 
-![](./design/screenshot.png)
+![solution](./design/screenshot.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Solution](https://github.com/mahmoudAcm/frontend-mentor/tree/master/static-job-listings)
+- Live Site URL: [Live Site](https://mahmoudacm.github.io/frontend-mentor/static-job-listings/dist/)
 
 ## My process
 
