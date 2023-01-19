@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 export const Section = styled("section")(() => ({
   width: "100%",
   minHeight: "100vh",
+  paddingBottom: "10vh",
 }));
 
 export const Browsers = styled(Box)(({ theme }) => ({
