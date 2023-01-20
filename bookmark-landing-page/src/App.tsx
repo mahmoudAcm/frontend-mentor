@@ -6,6 +6,7 @@ import Header from "./components/header";
 import Home from "./components/home";
 import Download from "./components/download";
 import Contact from "./components/contact";
+import Faq from "./components/faq";
 import Box from "@mui/material/Box";
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
       {/* <Header /> */}
       {/* <Home /> */}
       <Download />
+      <Faq />
       <Contact />
       {/* <Box
         className="dev"
