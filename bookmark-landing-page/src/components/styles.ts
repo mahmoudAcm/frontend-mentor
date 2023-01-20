@@ -8,9 +8,12 @@ export const StyledSectionHeader = styled(Box)(({ theme }) => ({
   "& .title": {
     fontWeight: 500,
     "--title-width": 100 / (1.76 * 18) + "vw",
-    fontSize: "clamp(1.34rem, var(--title-width), 1.76rem)",
+    fontSize: "clamp(1.35rem, var(--title-width), 1.76rem)",
     textAlign: "center",
     color: "#232643",
+    [theme.breakpoints.down("sm")]: {
+      width: 305,
+    },
   },
   "& .subtitle": {
     maxWidth: 537,
@@ -20,7 +23,7 @@ export const StyledSectionHeader = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("sm")]: {
       marginTop: "10px",
       fontSize: "0.85rem",
-      width: 290,
+      width: 305,
     },
   },
 }));
