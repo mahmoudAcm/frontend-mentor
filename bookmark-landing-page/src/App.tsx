@@ -13,7 +13,7 @@ export default function App() {
   return (
     <>
       <CssBaseline />
-      {/* <Header /> */}
+      <Header />
       {/* <Home /> */}
       <Download />
       <Faq />
