@@ -6,11 +6,12 @@ export const Header = styled(AppBar)(() => ({}));
 export const Container = styled(Toolbar)(({ theme }) => ({
   justifyContent: "space-between",
   [theme.breakpoints.up("lg")]: {
+    minHeight: 137.55,
     paddingLeft: 171,
     paddingRight: 171,
   },
-  [theme.breakpoints.up("md")]: {
-    minHeight: 137.55,
+  [theme.breakpoints.between("md", "lg")]: {
+    minHeight: 105,
     paddingLeft: 32,
     paddingRight: 32,
   },
