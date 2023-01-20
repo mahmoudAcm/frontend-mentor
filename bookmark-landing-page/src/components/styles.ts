@@ -5,6 +5,7 @@ export const StyledSectionHeader = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   flexDirection: "column",
+  marginTop: 77,
   "& .title": {
     fontWeight: 500,
     "--title-width": 100 / (1.76 * 18) + "vw",
