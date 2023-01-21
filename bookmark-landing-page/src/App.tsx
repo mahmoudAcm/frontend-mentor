@@ -15,7 +15,7 @@ export default function App() {
     <>
       <CssBaseline />
       <Header />
-      {/* <Home /> */}
+      <Home />
       <Download />
       <Faq />
       <Contact />
