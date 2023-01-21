@@ -35,7 +35,7 @@ export default function Faq() {
           {faqs.map((faq, idx) => (
             <Item {...faq} key={idx} />
           ))}
-          <StyledButton variant="contained">More Info</StyledButton>
+          <StyledButton variant="contained" disableElevation>More Info</StyledButton>
         </QuestionAndAnswer>
       </Container>
     </StyledFaq>
