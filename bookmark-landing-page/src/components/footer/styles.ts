@@ -70,4 +70,7 @@ export const List = styled("ul")(({ theme }) => ({
 export const Links = styled(Box)(() => ({
   display: "flex",
   gap: 40,
+  "& img": {
+    cursor: "pointer",
+  },
 }));
