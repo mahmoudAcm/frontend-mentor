@@ -43,28 +43,11 @@ export const FirstHalf = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   marginTop: 136,
   rowGap: 25,
-  "& h3": {
-    fontSize: "clamp(1.7rem, 40vh, 2.65rem)",
-  },
-  "& p": {
-    maxWidth: 490,
-    fontSize: "1.02rem",
-  },
   [theme.breakpoints.down("lg")]: {
     width: "100%",
     textAlign: "center",
     alignItems: "center",
     marginTop: 70,
-  },
-  [theme.breakpoints.down("md")]: {
-    "& h3": {
-      fontSize: "1.7rem",
-      width: 305,
-    },
-    "& p": {
-      fontSize: "0.85rem",
-      width: 305,
-    },
   },
 }));
 

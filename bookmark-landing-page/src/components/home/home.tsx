@@ -9,30 +9,39 @@ import {
 } from "./styles";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import TitleAndSubtitle from "../titleAndSubtitle";
 
 //utils
-import { useTheme, Theme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-
-const useMedia = (cb: (theme: Theme) => string) => {
-  const theme = useTheme();
-  return useMediaQuery(() => cb(theme));
-};
+import { useTheme } from "@mui/material/styles";
 
 export default function Home() {
-  const isMobile = useMedia((theme) => theme.breakpoints.down("md"));
+  const theme = useTheme();
   return (
     <Section>
       <Container>
         <FirstHalf>
-          <Typography fontWeight={500} variant="h3">
-            A Simple Bookmark Manager
-          </Typography>
-          <Typography color="#a4a6ab">
-            A clean and simple interface to organize your favourite websites.
+          <TitleAndSubtitle
+            title="A Simple Bookmark Manager"
+            subtitle="A clean and simple interface to organize your favourite websites.
             Open a new browser tab and see your sites load instantly. Try it for
-            free.
-          </Typography>
+            free."
+            sx={{
+              marginTop: 0,
+              [theme.breakpoints.up("lg")]: {
+                alignItems: "flex-start",
+                "& .title": {
+                  fontSize: "2.65rem",
+                  textAlign: "start",
+                  lineHeight: 1.14,
+                },
+                "& .subtitle": {
+                  maxWidth: 490,
+                  textAlign: "start",
+                  fontSize: "1.02rem",
+                },
+              },
+            }}
+          />
           <Butttons>
             <Button variant="contained" disableElevation>
               Get it on Chrome
@@ -43,9 +52,7 @@ export default function Home() {
           </Butttons>
         </FirstHalf>
         <SecondHalf>
-          <Image
-            src="./images/illustration-hero.svg"
-          />
+          <Image src="./images/illustration-hero.svg" />
         </SecondHalf>
       </Container>
       <div className="background"></div>
