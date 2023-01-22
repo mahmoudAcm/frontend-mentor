@@ -72,7 +72,6 @@ export const Butttons = styled(Box)(({ theme }) => ({
     "&:nth-of-type(2)": {
       backgroundColor: "#f7f7f5",
       color: "#575860",
-      borderColor: "white",
     },
     [theme.breakpoints.down("sm")]: {
       fontSize: "0.603rem",
