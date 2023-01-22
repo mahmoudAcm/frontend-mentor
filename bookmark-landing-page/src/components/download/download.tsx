@@ -2,16 +2,16 @@
 import { Section, Browsers } from "./styles";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import SectionHeader from "../section-header";
+import TitleAndSubtitle from "../titleAndSubtitle";
 import Browser from "./browser";
 
 export default function Download() {
   return (
     <Section>
       <Container>
-        <SectionHeader
+        <TitleAndSubtitle
           title="Download the extension"
-          subtite="We've got more browsers in the pipeline. Please
+          subtitle="We've got more browsers in the pipeline. Please
         do let us know if you've got a favourite you'd like us to prioritize."
         />
         <Browsers>

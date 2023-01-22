@@ -1,7 +1,7 @@
 //components
 import { StyledFaq, QuestionAndAnswer, StyledButton } from "./styles";
 import Container from "@mui/material/Container";
-import SectionHeader from "../section-header";
+import TitleAndSubtitle from "../titleAndSubtitle";
 import Item from "./item";
 
 const faqs = [
@@ -27,9 +27,9 @@ export default function Faq() {
   return (
     <StyledFaq>
       <Container>
-        <SectionHeader
+        <TitleAndSubtitle
           title="Frequently Asked Questions"
-          subtite="Here are some of our FAQs. If you have any other questions you'd like answered please feel free to email us."
+          subtitle="Here are some of our FAQs. If you have any other questions you'd like answered please feel free to email us."
         />
         <QuestionAndAnswer>
           {faqs.map((faq, idx) => (
