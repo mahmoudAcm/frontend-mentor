@@ -57,15 +57,19 @@ export const AntTabs = styled(Tabs)(({ theme }) => ({
   },
 }));
 
-export const StyledTab = styled(Tab)(({ theme, color }) => ({
+export const StyledTab = styled(Tab)(({ theme }) => ({
   width: 240,
   textTransform: "capitalize",
   fontWeight: 400,
   paddingTop: 28,
   paddingBottom: 28,
   letterSpacing: 0.7,
+  transition: "0.2s color",
   "&.Mui-selected": {
     color: "#2d2d37",
+  },
+  "&:hover": {
+    color: theme.palette.secondary.light,
   },
   "&::after": {
     transition: "3s background-color",

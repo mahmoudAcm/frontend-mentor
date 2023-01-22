@@ -74,4 +74,10 @@ export const StyledButton = styled(Button)(({ theme }) => ({
   fontSize: "0.78rem",
   padding: theme.spacing(2, 1),
   lineHeight: 1.1,
+  border: "2px solid transparent",
+  "&:hover": {
+    backgroundColor: "white",
+    color: theme.palette.primary.main,
+    borderColor: theme.palette.primary.main,
+  },
 }));
