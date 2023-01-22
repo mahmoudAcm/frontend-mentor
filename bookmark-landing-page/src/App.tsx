@@ -4,6 +4,7 @@ import { CssBaseline } from "@mui/material";
 //components
 import Header from "./components/header";
 import Home from "./components/home";
+import Features from "./components/features";
 import Download from "./components/download";
 import Contact from "./components/contact";
 import Faq from "./components/faq";
@@ -16,6 +17,7 @@ export default function App() {
       <CssBaseline />
       <Header />
       <Home />
+      <Features />
       <Download />
       <Faq />
       <Contact />

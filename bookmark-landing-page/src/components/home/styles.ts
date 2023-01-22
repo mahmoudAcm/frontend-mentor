@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 export const Section = styled("section")(({ theme }) => ({
   width: "100%",
   lineHeight: 1.4,
-  minHeight: "100vh",
+  minHeight: "calc(100vh - 137.55px)",
   position: "relative",
   "& .background": {
     position: "absolute",
@@ -21,6 +21,9 @@ export const Section = styled("section")(({ theme }) => ({
       height: 180,
       borderBottomLeftRadius: 105,
     },
+  },
+  [theme.breakpoints.down("lg")]: {
+    minHeight: "calc(100vh - 105px)",
   },
 }));
 
