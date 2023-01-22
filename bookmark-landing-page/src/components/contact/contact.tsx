@@ -1,6 +1,14 @@
 //components
-import { StyledContact, Title, Content, Input, StyledButton } from "./styles";
+import {
+  StyledContact,
+  Title,
+  Content,
+  InputWrapper,
+  Input,
+  StyledButton,
+} from "./styles";
 import Container from "@mui/material/Container";
+import { Typography } from "@mui/material";
 
 export default function Contact() {
   return (
@@ -17,7 +25,10 @@ export default function Contact() {
           </Content>
         </div>
         <form className="row">
-          <Input placeholder="Enter your email address" type="email" />
+          <InputWrapper className="inputWrapper">
+            <Input placeholder="Enter your email address" type="email" />
+            <Typography variant="caption" color="white">Whoops, make sure it's an email</Typography>
+          </InputWrapper>
           <StyledButton variant="contained" color="secondary" disableElevation>
             Contact Us
           </StyledButton>

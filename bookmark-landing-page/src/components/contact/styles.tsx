@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, InputHTMLAttributes } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -19,6 +19,14 @@ export const StyledContact = styled("section")(({ theme }) => ({
     gap: 19,
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
+    },
+  },
+  "& form:invalid": {
+    "& .inputWrapper": {
+      backgroundColor: theme.palette.secondary.main,
+      "& .MuiTypography-root": {
+        display: "flex",
+      },
     },
   },
 }));
@@ -47,10 +55,26 @@ export const Content = styled(Typography)(({ theme }) => ({
   },
 }));
 
+export const InputWrapper = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  borderRadius: 3,
+  padding: 3,
+  position: "relative",
+  "& .MuiTypography-root": {
+    display: "none",
+    fontSize: "0.6rem",
+    fontStyle: "italic",
+    fontWeight: 500,
+    marginLeft: 10,
+    marginTop: 3,
+  },
+}));
+
 export const Input = styled(function ({
   children,
   ...props
-}: HTMLAttributes<HTMLInputElement>) {
+}: InputHTMLAttributes<HTMLInputElement>) {
   return (
     <Box {...props} component="input">
       {children}
@@ -59,7 +83,7 @@ export const Input = styled(function ({
 })(({ theme }) => ({
   width: 300,
   outline: "none",
-  padding: "15px 18px",
+  padding: "12px 15px",
   borderRadius: 4,
   border: "none",
   fontFamily: "inherit",
@@ -76,10 +100,13 @@ export const Input = styled(function ({
 export const StyledButton = styled(Button)(({ theme }) => ({
   textTransform: "none",
   fontSize: "0.8rem",
-  paddingLeft: 25,
-  paddingRight: 25,
-  [theme.breakpoints.down("sm")]: {
-    paddingTop: 10,
-    paddingBottom: 10,
+  padding: "8px 23px 7px",
+  height: "fit-content",
+  marginTop: 2,
+  border: "2px solid transparent",
+  "&:hover": {
+    backgroundColor: "white",
+    color: theme.palette.secondary.light,
+    borderColor: theme.palette.secondary.light,
   },
 }));
