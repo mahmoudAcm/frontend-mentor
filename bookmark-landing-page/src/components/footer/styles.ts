@@ -58,6 +58,10 @@ export const List = styled("ul")(({ theme }) => ({
     color: "#dee3f2",
     fontWeight: 500,
     cursor: "pointer",
+    transition: "0.3s color",
+    "&:hover": {
+      color: theme.palette.secondary.light,
+    },
   },
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
@@ -67,10 +71,19 @@ export const List = styled("ul")(({ theme }) => ({
   },
 }));
 
-export const Links = styled(Box)(() => ({
+export const Links = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: 40,
-  "& img": {
+  alignItems: "center",
+  "& svg": {
     cursor: "pointer",
+    "& path": {
+      transition: "0.2s fill",
+    },
+    "&:hover": {
+      "& path": {
+        fill: theme.palette.secondary.light,
+      },
+    },
   },
 }));

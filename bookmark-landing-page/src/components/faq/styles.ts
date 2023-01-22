@@ -29,10 +29,22 @@ export const StyledAccordion = styled(Accordion)(({ theme }) => ({
   },
   "& .MuiAccordionSummary-content": {
     margin: "19px 0px",
+    transition: "0.2s color",
+    "&:hover": {
+      color: theme.palette.secondary.light,
+    },
+  },
+  "& .Mui-expanded": {
+    "& svg": {
+      fill: theme.palette.secondary.light,
+    },
   },
   "& svg": {
     width: 20,
     fill: theme.palette.primary.main,
+  },
+  "& .MuiAccordionDetails-root": {
+    color: "#65656d",
   },
   [theme.breakpoints.down("sm")]: {
     width: 305,

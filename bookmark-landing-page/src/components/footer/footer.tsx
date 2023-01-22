@@ -4,6 +4,8 @@ import { StyledFooter, Container, Nav, List, Links } from "./styles";
 
 //icons
 import LogoIcon from "../../icons/Logo";
+import FacebookIcon from "../../icons/Facebook";
+import TwitterIcon from "../../icons/Twitter";
 
 export default function Footer() {
   return (
@@ -18,8 +20,10 @@ export default function Footer() {
           </List>
         </Nav>
         <Links>
-          <img src="./images/icon-facebook.svg" alt="bookmark facebook link" />
-          <img src="./images/icon-twitter.svg" alt="bookmark twitter link" />
+          <FacebookIcon />
+          <TwitterIcon />
+          {/* <img src="./images/icon-facebook.svg" alt="bookmark facebook link" />
+          <img src="./images/icon-twitter.svg" alt="bookmark twitter link" /> */}
         </Links>
       </Container>
     </StyledFooter>
