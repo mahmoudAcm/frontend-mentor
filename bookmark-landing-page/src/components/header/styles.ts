@@ -25,11 +25,12 @@ export const Nav = styled("nav")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   "& button:not(.menu)": {
-    padding: "10px 33px",
+    padding: "8px 31px",
     letterSpacing: "1px",
-    marginLeft: 50,
+    marginLeft: 48,
     marginRight: -6,
     color: "#ffe6e1",
+    border: "2px solid " + theme.palette.secondary.main,
     "&, &:hover": {
       boxShadow: "0px 3px 4px -1px #ccc",
     },
@@ -39,6 +40,11 @@ export const Nav = styled("nav")(({ theme }) => ({
     },
     [theme.breakpoints.down("md")]: {
       display: "none",
+    },
+    "&:hover": {
+      backgroundColor: "white",
+      color: theme.palette.secondary.light,
+      borderColor: theme.palette.secondary.light,
     },
   },
 }));
@@ -66,6 +72,10 @@ export const List = styled("ul")(({ theme }) => ({
     color: "#757784",
     fontWeight: 500,
     cursor: "pointer",
+    transition: "0.3s color",
+    "&:hover": {
+      color: theme.palette.secondary.light,
+    },
   },
   "&.desktop": {
     [theme.breakpoints.down("md")]: {

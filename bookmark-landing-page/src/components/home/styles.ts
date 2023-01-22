@@ -65,15 +65,28 @@ export const Butttons = styled(Box)(({ theme }) => ({
     paddingTop: theme.spacing(1.4),
     paddingBottom: theme.spacing(1.2),
     marginTop: 5,
+    border: "2px solid transparent",
     "&, &:hover": {
       boxShadow: "0px 3px 4px -1px #ccc",
     },
     "&:nth-of-type(2)": {
       backgroundColor: "#f7f7f5",
       color: "#575860",
+      borderColor: "white",
     },
     [theme.breakpoints.down("sm")]: {
       fontSize: "0.603rem",
+    },
+    "&:hover": {
+      "&:nth-of-type(1)": {
+        borderColor: theme.palette.primary.main,
+        backgroundColor: "white",
+        color: theme.palette.primary.main,
+      },
+      "&:nth-of-type(2)": {
+        color: "#5f5f6c",
+        borderColor: "#5f5f6c",
+      },
     },
   },
 }));
