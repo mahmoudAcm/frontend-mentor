@@ -1,4 +1,4 @@
-import { HTMLAttributes, InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -19,14 +19,6 @@ export const StyledContact = styled("section")(({ theme }) => ({
     gap: 19,
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
-    },
-  },
-  "& form:invalid": {
-    "& .inputWrapper": {
-      backgroundColor: theme.palette.secondary.main,
-      "& .MuiTypography-root": {
-        display: "flex",
-      },
     },
   },
 }));
@@ -55,6 +47,23 @@ export const Content = styled(Typography)(({ theme }) => ({
   },
 }));
 
+export const Form = styled("form")(({ theme }) => ({
+  "&:invalid": {
+    "& .inputWrapper": {
+      backgroundColor: theme.palette.secondary.main,
+      "& input": {
+        paddingRight: 45,
+      },
+      "& .MuiTypography-root": {
+        display: "flex",
+      },
+      "& svg": {
+        display: "flex",
+      },
+    },
+  },
+}));
+
 export const InputWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -68,6 +77,12 @@ export const InputWrapper = styled(Box)(({ theme }) => ({
     fontWeight: 500,
     marginLeft: 10,
     marginTop: 3,
+  },
+  "& svg": {
+    position: "absolute",
+    display: "none",
+    right: 17,
+    top: 14,
   },
 }));
 
