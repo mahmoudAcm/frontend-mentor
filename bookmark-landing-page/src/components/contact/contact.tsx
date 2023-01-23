@@ -16,7 +16,7 @@ import ErrorIcon from "../../icons/Error";
 
 export default function Contact() {
   return (
-    <StyledContact>
+    <StyledContact id="Contact">
       <Container>
         <div className="row">
           <Title color="white" className="title">

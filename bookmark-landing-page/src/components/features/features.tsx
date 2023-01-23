@@ -41,7 +41,7 @@ export default function Features() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <Section>
+    <Section id="Features">
       <Container>
         <TitleAndSubtitle
           title="Features"

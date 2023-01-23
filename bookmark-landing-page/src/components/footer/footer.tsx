@@ -1,5 +1,5 @@
 //components
-import { Typography } from "@mui/material";
+import { Typography, Link } from "@mui/material";
 import { StyledFooter, Container, Nav, List, Links } from "./styles";
 
 //icons
@@ -14,9 +14,15 @@ export default function Footer() {
         <LogoIcon color="white" />
         <Nav>
           <List>
-            <Typography component="li">Features</Typography>
-            <Typography component="li">Pricing</Typography>
-            <Typography component="li">Contact</Typography>
+            <Typography component="li">
+              <Link href="#Features">Features</Link>
+            </Typography>
+            <Typography component="li">
+              <Link href="#Pricing">Pricing</Link>
+            </Typography>
+            <Typography component="li">
+              <Link href="#Contact">Contact</Link>
+            </Typography>
           </List>
         </Nav>
         <Links>
