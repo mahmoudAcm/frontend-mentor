@@ -60,10 +60,7 @@ export const Butttons = styled(Box)(({ theme }) => ({
   "& button": {
     textTransform: "none",
     fontSize: ".8rem",
-    paddingLeft: theme.spacing(3.1),
-    paddingRight: theme.spacing(3.1),
-    paddingTop: theme.spacing(1.4),
-    paddingBottom: theme.spacing(1.2),
+    padding: "9.2px 22.8px 7.6px",
     marginTop: 5,
     border: "2px solid transparent",
     "&, &:hover": {

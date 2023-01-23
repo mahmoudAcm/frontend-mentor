@@ -72,7 +72,7 @@ export const CardFooter = styled(Box)(() => ({
 export const StyledButton = styled(Button)(({ theme }) => ({
   textTransform: "none !important",
   fontSize: "0.78rem",
-  padding: theme.spacing(2, 1),
+  padding: "14px 6px",
   lineHeight: 1.1,
   border: "2px solid transparent",
   "&:hover": {
