@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 //components
 import {
   Section,
@@ -16,6 +18,7 @@ import { useTheme } from "@mui/material/styles";
 
 export default function Home() {
   const theme = useTheme();
+  const [isImageLoading, setImageLoading] = useState(true);
   return (
     <Section>
       <Container>
@@ -52,10 +55,15 @@ export default function Home() {
           </Butttons>
         </FirstHalf>
         <SecondHalf>
-          <Image src="./images/illustration-hero.svg" />
+          <Image
+            src="./images/illustration-hero.svg"
+            onLoad={() => {
+              setImageLoading(false);
+            }}
+          />
         </SecondHalf>
       </Container>
-      <div className="background"></div>
+      {!isImageLoading ? <div className="background"></div> : <></>}
     </Section>
   );
 }
