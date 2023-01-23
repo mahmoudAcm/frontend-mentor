@@ -12,22 +12,32 @@ export const Section = styled("section")(({ theme }) => ({
   [theme.breakpoints.down("lg")]: {
     paddingTop: 74,
   },
-  // "& .background": {
-  //   position: "absolute",
-  //   width: 650,
-  //   height: 350,
-  //   left: 0,
-  //   top: 425,
-  //   zIndex: -1,
-  //   borderBottomRightRadius: 200,
-  //   backgroundColor: theme.palette.primary.main,
-  //   [theme.breakpoints.down("sm")]: {
-  //     width: 315,
-  //     top: 458,
-  //     height: 200,
-  //     borderBottomRightRadius: 105,
-  //   },
-  // },
+  "& .background": {
+    position: "absolute",
+    width: "max(43%, 510px)",
+    height: 350,
+    left: 0,
+    opacity: 0,
+    top: 425,
+    zIndex: -1,
+    borderBottomRightRadius: 200,
+    borderTopRightRadius: "100%",
+    backgroundColor: theme.palette.primary.main,
+    "&.show": {
+      opacity: 1,
+    },
+    [theme.breakpoints.down("lg")]: {
+      width: "max(70%, 300px)",
+      top: "auto",
+      bottom: 275,
+      borderBottomRightRadius: 105,
+    },
+    [theme.breakpoints.down("sm")]: {
+      height: 200,
+      top: 603,
+      bottom: "auto",
+    },
+  },
 }));
 
 export const FeaturesTabs = styled(Box)(() => ({
@@ -92,21 +102,17 @@ export const StyledTab = styled(Tab)(({ theme }) => ({
   },
 }));
 
-export const Panels = styled(Box)(() => ({
+export const Panels = styled(Box)(({ theme }) => ({
   display: "flex",
   width: "fit-content",
 }));
 
 export const StyledPanel = styled(Box)(({ theme }) => ({
+  minHeight: 450,
   rowGap: 36,
   columnGap: 125,
   marginTop: 70,
   display: "flex",
-  opacity: 0,
-  transition: "0.3s opacity 0.3s",
-  "&.show": {
-    opacity: 1,
-  },
   [theme.breakpoints.down("lg")]: {
     flexDirection: "column",
   },
@@ -115,16 +121,25 @@ export const StyledPanel = styled(Box)(({ theme }) => ({
 export const LeftSide = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  alignItems: "center",
   width: "50%",
-  "& img": {
-    marginLeft: 1,
+  "& .image-wrapper": {
+    width: 537,
+    minHeight: 200,
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "flex-end",
   },
   [theme.breakpoints.down("lg")]: {
     width: "100%",
+    "& .image-wrapper": {
+      width: 311,
+      justifyContent: "center",
+    },
   },
   [theme.breakpoints.down("sm")]: {
     "& img": {
-      width: 311,
+      width: "min(100%, 311px)",
     },
   },
 }));

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 //components
 import { Section, FeaturesTabs, AntTabs, StyledTab, Panels } from "./styles";
@@ -39,6 +39,13 @@ const tabs = [
 
 export default function Features() {
   const [activeTab, setActiveTab] = useState(0);
+  const [isImageLoading, setImageLoading] = useState(
+    new Array(tabs.length).fill(true)
+  );
+
+  const isImageTabLoading = useMemo(() => {
+    return !isImageLoading[activeTab];
+  }, [isImageLoading, activeTab]);
 
   return (
     <Section id="Features">
@@ -66,12 +73,24 @@ export default function Features() {
           </AntTabs>
           <Panels>
             {tabs.map((tab, idx) => (
-              <Panel {...tab} tabNumber={idx} activeTab={activeTab} key={idx} />
+              <Panel
+                {...tab}
+                tabNumber={idx}
+                activeTab={activeTab}
+                key={idx}
+                onLoad={() => {
+                  setImageLoading((prev) => {
+                    const newValue = [...prev];
+                    newValue[idx] = false;
+                    return newValue;
+                  });
+                }}
+              />
             ))}
           </Panels>
         </FeaturesTabs>
       </Container>
-      <div className="background"></div>
+      <div className={"background " + (isImageTabLoading ? "show" : "")}></div>
     </Section>
   );
 }
