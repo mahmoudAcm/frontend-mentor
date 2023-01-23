@@ -34,4 +34,11 @@ const solutions = [
     sourceCodeLink:
       "https://github.com/mahmoudAcm/frontend-mentor/tree/master/static-job-listings",
   },
+  {
+    src: "https://mahmoudacm.github.io/frontend-mentor/bookmark-landing-page/design/screenshot.png",
+    livePreviewLink:
+      "https://mahmoudacm.github.io/frontend-mentor/bookmark-landing-page/dist",
+    sourceCodeLink:
+      "https://github.com/mahmoudAcm/frontend-mentor/tree/master/bookmark-landing-page",
+  },
 ];
