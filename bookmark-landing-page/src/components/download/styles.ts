@@ -70,7 +70,7 @@ export const CardFooter = styled(Box)(() => ({
 }));
 
 export const StyledButton = styled(Button)(({ theme }) => ({
-  textTransform: "none !important",
+  textTransform: "none",
   fontSize: "0.78rem",
   padding: "14px 6px",
   lineHeight: 1.1,
