@@ -21,12 +21,19 @@ export const useTheme = () => {
 
 const getDesignTokens = (mode: PaletteMode) => ({
   palette: {
+    mode,
     primary: {
       main: mode == "light" ? "#ffffff" : "#2b3743",
     },
     secondary: {
       main: mode == "light" ? "#fafafa" : "#202d36",
     },
+    background: {
+      default: mode == "light" ? "#fafafa" : "#202d36",
+    },
+  },
+  typography: {
+    fontFamily: "'Nunito Sans', sans-serif",
   },
 });
 
