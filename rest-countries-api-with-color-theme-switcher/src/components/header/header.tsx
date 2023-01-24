@@ -20,6 +20,7 @@ export default function Header() {
           onClick={() => {
             theme.toggleColorMode();
           }}
+          disableRipple
         >
           Dark Mode
         </ToggleButton>
