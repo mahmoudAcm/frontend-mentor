@@ -30,6 +30,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
     },
     background: {
       default: mode == "light" ? "#fafafa" : "#202d36",
+      paper: mode == "light" ? "#ffffff" : "#2b3743",
     },
   },
   typography: {

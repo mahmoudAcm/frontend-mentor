@@ -1,14 +1,19 @@
 //utils
 import { CssBaseline } from "@mui/material";
 
+//layouts
+import MainLayout from "./components/layouts/main";
+
 //components
-import Header from "./components/header";
+import Home from "./components/home";
 
 export default function App() {
   return (
     <>
       <CssBaseline />
-      <Header />
+      <MainLayout>
+        <Home />
+      </MainLayout>
     </>
   );
 }
