@@ -12,8 +12,11 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.6",
+    "intersection-observer": "^0.12.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.4.1",
+    "react-query": "^3.39.3"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",

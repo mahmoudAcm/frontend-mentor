@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
+import "intersection-observer";
+import { useInView } from "react-intersection-observer";
 
 //components
 import {
@@ -9,7 +11,7 @@ import {
   MenuItem,
   Counteries,
 } from "./styles";
-import { Container, Input, InputAdornment, Typography } from "@mui/material";
+import { Container, Input, InputAdornment, Box } from "@mui/material";
 import Country from "./country";
 
 //icons
@@ -18,7 +20,25 @@ import DropDownIcon from "../../icons/DropDown";
 
 const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
 
+//hooks
+import useCountries, { fakeData } from "./useCountries";
+
 export default function Home() {
+  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useCountries();
+  const { ref, inView } = useInView({
+    threshold: 0,
+    rootMargin: "60px",
+  });
+
+  const loading = isLoading || isFetchingNextPage || (hasNextPage && inView);
+  //fetch more pages
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage]);
+
   return (
     <Section>
       <Container>
@@ -63,10 +83,30 @@ export default function Home() {
           </RegionSelect>
         </FilterForm>
         <Counteries>
-          {new Array(10).fill(0).map((_, idx) => (
-            <Country key={idx} />
-          ))}
+          {data?.pages.map((page) =>
+            page.result.map((country, idx) => (
+              <Country key={idx} {...country} />
+            ))
+          )}
+
+          {/* if loading new data then display a skeleton until the data is available */}
+          {loading ? (
+            fakeData.map((fake, idx) => (
+              <Country key={"fake" + idx} {...fake} />
+            ))
+          ) : (
+            <></>
+          )}
         </Counteries>
+
+        {/* for detecting when we reach the end of the page it is used as a target for the intersection observer */}
+        <Box
+          ref={ref}
+          sx={{
+            height: 1,
+            width: "100%",
+          }}
+        />
       </Container>
     </Section>
   );

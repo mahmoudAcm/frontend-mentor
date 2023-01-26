@@ -1,5 +1,5 @@
 //components
-import { Typography } from "@mui/material";
+import { Typography, Skeleton } from "@mui/material";
 import {
   StyledCountry,
   CountryContent,
@@ -7,24 +7,50 @@ import {
   CountryDetails,
 } from "./styles";
 
-export default function Country() {
+//types
+import { Country as CountryType } from "types";
+
+interface CountryProps extends CountryType {
+  isLoading?: boolean;
+}
+
+export default function Country(props: CountryProps) {
   return (
     <StyledCountry>
-      <CountryImage />
+      {props.isLoading ? (
+        <Skeleton height={160} variant="rectangular"/>
+      ) : (
+        <CountryImage sx={{ backgroundImage: `url('${props.flags.svg}')` }} />
+      )}
       <CountryContent>
-        <Typography fontSize="1.26rem" fontWeight={800} variant="h3">
-          United States of America
-        </Typography>
+        {props.isLoading ? (
+          <Skeleton width={120} />
+        ) : (
+          <Typography fontSize="1.26rem" fontWeight={800} variant="h3">
+            {props.name.common}
+          </Typography>
+        )}
         <CountryDetails>
-          <Typography>
-            Population: <span>323,947,000</span>
-          </Typography>
-          <Typography>
-            Region: <span>Americas</span>
-          </Typography>
-          <Typography>
-            Capital: <span>Washington, D.C.</span>
-          </Typography>
+          {props.isLoading ? (
+            <>
+              <Skeleton width={200} />
+              <Skeleton width={200} />
+              <Skeleton width={200} />
+            </>
+          ) : (
+            <>
+              <Typography>
+                Population: <span>{props.population}</span>
+              </Typography>
+              <Typography>
+                Region: <span>{props.region}</span>
+              </Typography>
+              <Typography>
+                Capital
+                <span> {props.capital ? props.capital.join(", ") : ""}</span>
+              </Typography>
+            </>
+          )}
         </CountryDetails>
       </CountryContent>
     </StyledCountry>

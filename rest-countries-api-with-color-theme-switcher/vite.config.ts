@@ -6,6 +6,7 @@ import * as path from "path";
 export default defineConfig({
   resolve: {
     alias: {
+      types: path.join(__dirname, "./src/types.ts"),
       theme: path.join(__dirname, "./src/theme.tsx"),
     },
   },

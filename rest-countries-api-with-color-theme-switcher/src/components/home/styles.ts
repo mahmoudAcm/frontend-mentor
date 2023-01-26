@@ -117,7 +117,6 @@ export const CountryImage = styled(Box)(() => ({
   height: 160,
   backgroundImage: "url('./us.svg')",
   backgroundSize: "cover",
-  backgroundPosition: "-15px -1px",
   backgroundRepeat: "no-repeat",
 }));
 
