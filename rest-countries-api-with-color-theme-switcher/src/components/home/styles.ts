@@ -18,9 +18,13 @@ export const Section = styled(Box)(({ theme }) => ({
 }));
 
 // filter styles
-export const FilterForm = styled("form")(() => ({
+export const FilterForm = styled("form")(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    rowGap: 40,
+  },
 }));
 
 export const Search = styled(FormControl)(({ theme }) => ({
@@ -35,6 +39,9 @@ export const Search = styled(FormControl)(({ theme }) => ({
   "& svg": {
     width: 17,
     fill: theme.palette.mode == "light" ? "gray" : "white",
+    [theme.breakpoints.down("md")]: {
+      width: 14,
+    },
   },
   "& input": {
     padding: 18,
@@ -44,6 +51,12 @@ export const Search = styled(FormControl)(({ theme }) => ({
     },
     color: theme.palette.mode == "dark" ? "#fff" : "gray",
     fontWeight: 600,
+    [theme.breakpoints.down("md")]: {
+      padding: "13px 14px 14px 18px",
+      "&::placeholder": {
+        fontSize: "0.85rem",
+      },
+    },
   },
   boxShadow:
     theme.palette.mode == "light"
@@ -78,6 +91,17 @@ export const RegionSelect = styled(Select)(({ theme }) => ({
     theme.palette.mode == "light"
       ? "0px 3px 3px -2px rgb(255 255 255 / 20%), 0px 3px 4px 0px rgb(255 255 255 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%)"
       : "none",
+  [theme.breakpoints.down("md")]: {
+    "& .MuiSelect-select": {
+      fontSize: "0.8rem",
+      paddingTop: 13,
+      paddingBottom: 13,
+    },
+    "& svg": {
+      width: 10,
+      right: 20,
+    },
+  },
 }));
 
 export const MenuItem = styled(DefaultMenuItem)(({ theme }) => ({

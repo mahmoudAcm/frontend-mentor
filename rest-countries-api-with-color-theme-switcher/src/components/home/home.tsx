@@ -1,24 +1,12 @@
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import "intersection-observer";
 import { useInView } from "react-intersection-observer";
 
 //components
-import {
-  Section,
-  FilterForm,
-  Search,
-  RegionSelect,
-  MenuItem,
-  Counteries,
-} from "./styles";
-import { Container, Input, InputAdornment, Box } from "@mui/material";
+import { Section, Counteries } from "./styles";
+import { Container, Box } from "@mui/material";
+import Filters from "./filters";
 import Country from "./country";
-
-//icons
-import SearchIcon from "../../icons/Search";
-import DropDownIcon from "../../icons/DropDown";
-
-const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
 
 //hooks
 import useCountries, { fakeData } from "./useCountries";
@@ -42,46 +30,7 @@ export default function Home() {
   return (
     <Section>
       <Container>
-        <FilterForm>
-          <Search>
-            <Input
-              placeholder="Search for a country..."
-              startAdornment={
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              }
-            />
-          </Search>
-          <RegionSelect
-            displayEmpty
-            renderValue={(selected) => {
-              if (!selected) {
-                return <>Filter by Region</>;
-              }
-              return (<>{selected}</>) as ReactNode;
-            }}
-            inputProps={{ "aria-label": "Without label" }}
-            MenuProps={{
-              sx: {
-                "& .MuiPaper-root": {
-                  backgroundColor: (theme) => theme.palette.primary.main,
-                  backgroundImage: "none",
-                  marginTop: "4px",
-                  paddingTop: "5px",
-                  paddingBottom: "5px",
-                },
-              },
-            }}
-            IconComponent={DropDownIcon}
-          >
-            {regions.map((region, idx) => (
-              <MenuItem value={region} key={idx}>
-                {region}
-              </MenuItem>
-            ))}
-          </RegionSelect>
-        </FilterForm>
+        <Filters />
         <Counteries>
           {data?.pages.map((page) =>
             page.result.map((country, idx) => (

@@ -46,7 +46,7 @@ export default function Country(props: CountryProps) {
                 Region: <span>{props.region}</span>
               </Typography>
               <Typography>
-                Capital
+                Capital:
                 <span> {props.capital ? props.capital.join(", ") : ""}</span>
               </Typography>
             </>
