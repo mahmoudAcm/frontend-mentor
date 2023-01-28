@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 //components
 import { Typography, Skeleton } from "@mui/material";
 import {
@@ -15,10 +17,18 @@ interface CountryProps extends CountryType {
 }
 
 export default function Country(props: CountryProps) {
+  const navigate = useNavigate();
+
   return (
-    <StyledCountry>
+    <StyledCountry
+      onClick={() => {
+        if (!props.isLoading) {
+          navigate("/countries/" + props.name.common);
+        }
+      }}
+    >
       {props.isLoading ? (
-        <Skeleton height={160} variant="rectangular"/>
+        <Skeleton height={160} variant="rectangular" />
       ) : (
         <CountryImage sx={{ backgroundImage: `url('${props.flags.svg}')` }} />
       )}

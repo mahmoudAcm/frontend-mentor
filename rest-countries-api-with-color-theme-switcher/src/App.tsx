@@ -1,19 +1,16 @@
+import { RouterProvider } from "react-router-dom";
+
 //utils
 import { CssBaseline } from "@mui/material";
 
-//layouts
-import MainLayout from "./components/layouts/main";
-
-//components
-import Home from "./components/home";
+//routers
+import router from "./routes";
 
 export default function App() {
   return (
     <>
       <CssBaseline />
-      <MainLayout>
-        <Home />
-      </MainLayout>
+      <RouterProvider router={router} />
     </>
   );
 }

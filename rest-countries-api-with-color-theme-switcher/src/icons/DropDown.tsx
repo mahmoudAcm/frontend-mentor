@@ -1,5 +1,4 @@
 import { SvgIconProps } from "@mui/material";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 export default function DropDown(props: SvgIconProps) {
   return (
