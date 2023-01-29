@@ -25,7 +25,7 @@ export default function Country(props: CountryProps) {
         <Skeleton height={160} variant="rectangular" />
       ) : (
         <CountryFlag
-          sx={{ backgroundImage: `url('${props.flags.svg}')` }}
+          // sx={{ backgroundImage: `url('${props.flags.svg}')` }}
           onClick={() => {
             navigate("/countries/" + props.name.common);
           }}

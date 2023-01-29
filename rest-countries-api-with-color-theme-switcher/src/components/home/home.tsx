@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "intersection-observer";
 import { useInView } from "react-intersection-observer";
 
 //components
 import { Section, Counteries } from "./styles";
-import { Container, Box } from "@mui/material";
+import { Container, Box, Snackbar, Typography } from "@mui/material";
 import Filters from "./filters";
 import Country from "./country";
 
@@ -12,14 +12,34 @@ import Country from "./country";
 import useCountries, { fakeData } from "./useCountries";
 
 export default function Home() {
-  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
-    useCountries();
+  const {
+    data,
+    isLoading,
+    isFetchingNextPage,
+    isFetched,
+    hasNextPage,
+    fetchNextPage,
+  } = useCountries(["name"]);
+
   const { ref, inView } = useInView({
     threshold: 0,
     rootMargin: "60px",
   });
 
   const loading = isLoading || isFetchingNextPage || (hasNextPage && inView);
+  const currentOpenStateOfSanckbar = !loading && isFetched;
+  const [open, setOpen] = useState(currentOpenStateOfSanckbar);
+
+  //for showing the snakebar
+  useEffect(() => {
+    if (currentOpenStateOfSanckbar) {
+      setOpen(true);
+    }
+  }, [currentOpenStateOfSanckbar]);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   //fetch more pages
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -32,6 +52,19 @@ export default function Home() {
       <Container>
         <Filters />
         <Counteries>
+          {/* a feedback to the user to inform him with a new loaded data */}
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={open}
+            message={
+              <Typography variant="subtitle1">
+                Scroll down new data are available!
+              </Typography>
+            }
+            autoHideDuration={3000}
+            onClose={handleClose}
+          />
+
           {data?.pages.map((page) =>
             page.result.map((country, idx) => (
               <Country key={idx} {...country} />

@@ -4,7 +4,7 @@ import { QueryFunctionContext, useInfiniteQuery } from "react-query";
 //types
 import { Country } from "types";
 
-async function getCountries(context: QueryFunctionContext<"countries">) {
+async function getCountries(context: QueryFunctionContext) {
   let page = context.pageParam ?? 1;
 
   const res = await fetch(
@@ -20,9 +20,9 @@ async function getCountries(context: QueryFunctionContext<"countries">) {
   };
 }
 
-export default function useCountries() {
+export default function useCountries(queryKey: string[]) {
   const [enabled, setEnabled] = useState(true);
-  return useInfiniteQuery("countries", getCountries, {
+  return useInfiniteQuery(queryKey, getCountries, {
     getNextPageParam: (data) => {
       return data.info?.next;
     },
