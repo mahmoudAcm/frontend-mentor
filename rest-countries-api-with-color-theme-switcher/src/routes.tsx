@@ -5,13 +5,14 @@ import { createHashRouter, Outlet } from "react-router-dom";
 import MainLayout from "./components/layouts/main";
 const Home = lazy(() => import("./components/home"));
 const Detail = lazy(() => import("./components/detail"));
+import Loader from "./components/loader";
 
 const router = createHashRouter([
   {
     path: "/",
     element: (
       <MainLayout>
-        <Suspense>
+        <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
       </MainLayout>

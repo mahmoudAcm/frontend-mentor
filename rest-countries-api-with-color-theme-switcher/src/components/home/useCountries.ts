@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { QueryFunctionContext, useInfiniteQuery } from "react-query";
 
 //types
@@ -7,7 +8,7 @@ async function getCountries(context: QueryFunctionContext<"countries">) {
   let page = context.pageParam ?? 1;
 
   const res = await fetch(
-    "https://frontend-mentor-apis.onrender.com/api/rest-countries-api-with-color-theme-switcher/countries?page=" +
+    "https://frontend-mentor-apis.vercel.app/api/rest-countries-api-with-color-theme-switcher/countries?page=" +
       page
   );
   const result = await res.json();
@@ -20,11 +21,18 @@ async function getCountries(context: QueryFunctionContext<"countries">) {
 }
 
 export default function useCountries() {
+  const [enabled, setEnabled] = useState(true);
   return useInfiniteQuery("countries", getCountries, {
     getNextPageParam: (data) => {
       return data.info?.next;
     },
     keepPreviousData: true,
+    enabled,
+    retry: 3,
+    cacheTime: 10000,
+    onSuccess: () => {
+      setEnabled(false);
+    },
   });
 }
 

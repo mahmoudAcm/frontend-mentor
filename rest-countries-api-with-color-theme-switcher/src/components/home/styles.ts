@@ -136,12 +136,14 @@ export const StyledCountry = styled(Box)(({ theme }) => ({
   overflow: "hidden",
 }));
 
-export const CountryImage = styled(Box)(() => ({
+export const CountryFlag = styled(Box)(() => ({
   width: "100%",
   height: 160,
   backgroundImage: "url('./us.svg')",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
+  backgroundPosition: "center",
+  cursor: "pointer",
 }));
 
 export const CountryContent = styled(Box)(() => ({

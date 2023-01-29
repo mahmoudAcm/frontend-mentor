@@ -5,7 +5,7 @@ import { Typography, Skeleton } from "@mui/material";
 import {
   StyledCountry,
   CountryContent,
-  CountryImage,
+  CountryFlag,
   CountryDetails,
 } from "./styles";
 
@@ -20,17 +20,16 @@ export default function Country(props: CountryProps) {
   const navigate = useNavigate();
 
   return (
-    <StyledCountry
-      onClick={() => {
-        if (!props.isLoading) {
-          navigate("/countries/" + props.name.common);
-        }
-      }}
-    >
+    <StyledCountry>
       {props.isLoading ? (
         <Skeleton height={160} variant="rectangular" />
       ) : (
-        <CountryImage sx={{ backgroundImage: `url('${props.flags.svg}')` }} />
+        <CountryFlag
+          sx={{ backgroundImage: `url('${props.flags.svg}')` }}
+          onClick={() => {
+            navigate("/countries/" + props.name.common);
+          }}
+        />
       )}
       <CountryContent>
         {props.isLoading ? (
