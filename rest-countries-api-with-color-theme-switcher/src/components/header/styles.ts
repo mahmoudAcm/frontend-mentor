@@ -1,7 +1,7 @@
 import DefaultAppBar from "@mui/material/AppBar";
 import DefaultToolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
+import { styled, alpha } from "@mui/material/styles";
 
 export const AppBar = styled(DefaultAppBar)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -39,6 +39,7 @@ export const ToggleButton = styled(Button)(({ theme }) => ({
   textTransform: "none",
   color: theme.palette.mode == "light" ? "black" : "white",
   marginRight: -5,
+  transition: "0.2s background-color !important",
   "& svg": {
     marginTop: 2,
     width: 20,
@@ -49,5 +50,8 @@ export const ToggleButton = styled(Button)(({ theme }) => ({
     [theme.breakpoints.down("md")]: {
       width: 19,
     },
+  },
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.primary.dark, 0.3),
   },
 }));

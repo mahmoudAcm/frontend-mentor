@@ -22,7 +22,7 @@ export default function Header() {
           }}
           disableRipple
         >
-          Dark Mode
+          {theme.palette.mode === "light" ? "Dark Mode" : "Light Mode"}
         </ToggleButton>
       </Toolbar>
     </AppBar>
