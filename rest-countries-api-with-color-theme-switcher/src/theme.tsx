@@ -1,4 +1,12 @@
-import { createContext, useState, useMemo, useContext } from "react";
+import {
+  createContext,
+  useState,
+  useMemo,
+  useContext,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import {
   PaletteMode,
   createTheme,
@@ -38,14 +46,31 @@ const getDesignTokens = (mode: PaletteMode) => ({
   },
 });
 
+const useGetModeFromBrowserStorage = (
+  setMode: Dispatch<SetStateAction<PaletteMode | null>>
+) => {
+  useEffect(() => {
+    const mode = localStorage.getItem("mode") ?? "light";
+    setMode(mode as PaletteMode);
+  }, []);
+};
+
+const useSaveModeToBrowserStorage = (mode: PaletteMode | null) => {
+  useEffect(() => {
+    if (mode) {
+      localStorage.setItem("mode", mode);
+    }
+  }, [mode]);
+};
+
 export default function ThemeProvider({ children }: { children: JSX.Element }) {
-  const [mode, setMode] = useState<PaletteMode>("light");
+  const [mode, setMode] = useState<PaletteMode | null>(null);
 
   const colorMode = useMemo(
     () => ({
       // The dark mode switch would invoke this method
       toggleColorMode: () => {
-        setMode((prevMode: PaletteMode) =>
+        setMode((prevMode: PaletteMode | null) =>
           prevMode === "light" ? "dark" : "light"
         );
       },
@@ -53,7 +78,15 @@ export default function ThemeProvider({ children }: { children: JSX.Element }) {
     []
   );
 
-  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+  useGetModeFromBrowserStorage(setMode);
+  useSaveModeToBrowserStorage(mode);
+
+  const theme = useMemo(
+    () => createTheme(getDesignTokens(mode ?? "light")),
+    [mode]
+  );
+
+  if (!mode) return <></>;
 
   return (
     <Context.Provider value={{ toggleColorMode: colorMode.toggleColorMode }}>
