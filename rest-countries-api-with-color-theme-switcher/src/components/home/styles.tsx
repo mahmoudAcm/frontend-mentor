@@ -3,7 +3,9 @@ import Select from "@mui/material/Select";
 import Snackbar from "@mui/material/Snackbar";
 import DefaultMenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import Container from "@mui/material/Container";
 import { styled } from "@mui/material/styles";
+import { BoxProps } from "@mui/system";
 
 export const Section = styled(Box)(({ theme }) => ({
   "& .MuiContainer-root": {
@@ -170,5 +172,39 @@ export const CountryDetails = styled(Box)(({ theme }) => ({
       color: theme.palette.mode == "light" ? "#3a3a3a" : "#ccc",
       fontWeight: 300,
     },
+  },
+}));
+//end of cards styles
+
+export const ErrorWrapper = styled(function Wrapper({
+  children,
+  ...props
+}: BoxProps) {
+  return (
+    <Section {...props}>
+      <Container>
+        <Box className="error">{children}</Box>
+      </Container>
+    </Section>
+  );
+})(() => ({
+  "& .error": {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    rowGap: 15,
+    marginTop: "25vh",
+  },
+  "& .MuiTypography-root": {
+    fontSize: "clamp(0.92rem, 2vw, 1.5rem)",
+    userSelect: "none",
+  },
+  "& button": {
+    textTransform: "capitalize",
+    paddingLeft: 30,
+    paddingRight: 30,
+    fontWeight: 600,
+    transition: "0s background-color !important",
   },
 }));

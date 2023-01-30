@@ -3,23 +3,42 @@ import "intersection-observer";
 import { useInView } from "react-intersection-observer";
 
 //components
-import { Section, Counteries, StyledSnackbar } from "./styles";
-import { Container, Box, Typography } from "@mui/material";
+import { Section, Counteries, StyledSnackbar, ErrorWrapper } from "./styles";
+import { Container, Box, Typography, Button } from "@mui/material";
 import Filters from "./filters";
 import Country from "./country";
 
 //hooks
 import useCountries, { fakeData } from "./useCountries";
 
+function usePreventScrolling(hideScrollWhen: () => boolean) {
+  useEffect(() => {
+    if (hideScrollWhen()) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [hideScrollWhen]);
+}
+
 export default function Home() {
+  const [tryAgain, setTryAgain] = useState(false);
   const {
     data,
     isLoading,
     isFetchingNextPage,
     isFetched,
     hasNextPage,
+    error,
     fetchNextPage,
-  } = useCountries(["name"]);
+  } = useCountries(["name", String(tryAgain)]);
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -48,6 +67,26 @@ export default function Home() {
     }
   }, [inView, hasNextPage]);
 
+  usePreventScrolling(() => Boolean(error));
+
+  if (error) {
+    return (
+      <ErrorWrapper>
+        <Typography variant="h5" fontWeight={600}>
+          A communication error has occurred with the API
+        </Typography>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setTryAgain((prev) => !prev);
+          }}
+        >
+          Retry
+        </Button>
+      </ErrorWrapper>
+    );
+  }
+
   return (
     <Section>
       <Container>
@@ -56,7 +95,7 @@ export default function Home() {
           {/* a feedback to the user to inform him with a new loaded data */}
           <StyledSnackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            open={open}
+            open={open && Boolean(data?.pages?.length)}
             message={
               <Typography fontWeight={600} align="center">
                 Scroll down new data are available!

@@ -12,6 +12,11 @@ async function getCountries(context: QueryFunctionContext) {
       page
   );
   const result = await res.json();
+
+  if (!res.ok) {
+    throw result;
+  }
+
   return result as {
     info: {
       next: number;
@@ -28,8 +33,9 @@ export default function useCountries(queryKey: string[]) {
     },
     keepPreviousData: true,
     enabled,
-    retry: 3,
+    retry: false,
     cacheTime: 10000,
+    refetchOnWindowFocus: false,
     onSuccess: () => {
       setEnabled(false);
     },
