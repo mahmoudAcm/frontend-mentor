@@ -1,5 +1,6 @@
 import Box from "@mui/material/Box";
 import Select from "@mui/material/Select";
+import Snackbar from "@mui/material/Snackbar";
 import DefaultMenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import { styled } from "@mui/material/styles";
@@ -108,6 +109,14 @@ export const MenuItem = styled(DefaultMenuItem)(({ theme }) => ({
   padding: "4px 24px",
   color: theme.palette.mode == "light" ? "black" : "white",
   fontWeight: 600,
+}));
+
+export const StyledSnackbar = styled(Snackbar)(() => ({
+  width: 270,
+  margin: "auto",
+  "& .MuiSnackbarContent-message": {
+    width: "100%",
+  },
 }));
 
 //cards styles

@@ -3,8 +3,8 @@ import "intersection-observer";
 import { useInView } from "react-intersection-observer";
 
 //components
-import { Section, Counteries } from "./styles";
-import { Container, Box, Snackbar, Typography } from "@mui/material";
+import { Section, Counteries, StyledSnackbar } from "./styles";
+import { Container, Box, Typography } from "@mui/material";
 import Filters from "./filters";
 import Country from "./country";
 
@@ -36,6 +36,7 @@ export default function Home() {
       setOpen(true);
     }
   }, [currentOpenStateOfSanckbar]);
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -53,11 +54,11 @@ export default function Home() {
         <Filters />
         <Counteries>
           {/* a feedback to the user to inform him with a new loaded data */}
-          <Snackbar
+          <StyledSnackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             open={open}
             message={
-              <Typography variant="subtitle1">
+              <Typography fontWeight={600} align="center">
                 Scroll down new data are available!
               </Typography>
             }
