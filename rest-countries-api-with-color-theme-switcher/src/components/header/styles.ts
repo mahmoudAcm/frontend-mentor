@@ -25,16 +25,16 @@ export const Toolbar = styled(DefaultToolbar)(({ theme }) => ({
   },
   [theme.breakpoints.down("md")]: {
     "& .MuiTypography-root": {
-      fontSize: "1rem",
+      fontSize: 14,
     },
     "& button": {
-      fontSize: "0.832rem",
+      fontSize: 11.648,
     },
   },
 }));
 
 export const ToggleButton = styled(Button)(({ theme }) => ({
-  fontSize: "1.12rem",
+  fontSize: 15.68,
   fontWeight: 600,
   textTransform: "none",
   color: theme.palette.mode == "light" ? "black" : "white",

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 //components
@@ -23,6 +24,10 @@ import useCountry from "./useCountry";
 export default function Detail() {
   const navigate = useNavigate();
   // const { data, isFetching } = useCountry();
+
+  useEffect(() => {
+    document.documentElement.style.setProperty("--font-size", "16px");
+  }, []);
 
   const goBack = () => {
     navigate("/countries");
@@ -50,7 +55,7 @@ export default function Detail() {
           <RightSide>
             <Typography
               variant="h4"
-              fontSize="2.2rem"
+              fontSize="1.9rem"
               fontWeight={800}
               className="country--name"
             >

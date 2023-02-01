@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <AppBar>
       <Toolbar>
-        <Typography fontSize="1.7rem" fontWeight={800}>
+        <Typography fontSize={23.8} fontWeight={800}>
           Where in the world?
         </Typography>
         <ToggleButton

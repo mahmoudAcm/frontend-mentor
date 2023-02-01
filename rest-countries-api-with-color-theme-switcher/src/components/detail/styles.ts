@@ -25,7 +25,7 @@ export const Section = styled(Box)(({ theme }) => ({
 
 export const BackButton = styled(Button)(({ theme }) => ({
   textTransform: "none",
-  fontSize: "1.1rem",
+  fontSize: "0.9625rem",
   fontWeight: 600,
   padding: "7px 39px",
   "& svg": {
@@ -33,7 +33,7 @@ export const BackButton = styled(Button)(({ theme }) => ({
     fill: theme.palette.mode == "light" ? "black" : "white",
   },
   [theme.breakpoints.down("md")]: {
-    fontSize: "1rem",
+    fontSize: "0.875rem",
     lineHeight: 1,
     padding: "8px 28px",
     "& svg": {
@@ -105,7 +105,7 @@ export const RightSide = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down("md")]: {
     "& .country--name": {
-      fontSize: "1.5rem",
+      fontSize: "1.3125rem",
     },
   },
 }));
@@ -131,18 +131,20 @@ export const Infos = styled(Box)(({ theme }) => ({
 }));
 
 export const Info = styled(Typography)(({ theme }) => ({
-  fontWeight: 800,
+  fontWeight: 600,
   flex: 0.44,
-  fontSize: "1.1rem",
+  fontSize: "0.9625rem",
+  letterSpacing: 0.3,
   "& span": {
-    fontWeight: 600,
+    fontWeight: 300,
     color: theme.palette.mode == "light" ? "#6e757b" : "#ccc",
+    letterSpacing: 0.1,
   },
   [theme.breakpoints.down("lg")]: {
     flex: 1,
   },
   [theme.breakpoints.down("md")]: {
-    fontSize: "1rem",
+    fontSize: "0.875rem",
     fontWeight: 600,
   },
   [theme.breakpoints.down("sm")]: {
@@ -157,7 +159,7 @@ export const Borders = styled(Info)(({ theme }) => ({
   flexWrap: "wrap",
   alignItems: "center",
   gap: 15,
-  fontSize: "1.1rem !important",
+  fontSize: "0.9625rem !important",
   marginTop: "43px",
   "& .borders": {
     display: "flex",
@@ -171,8 +173,8 @@ export const Borders = styled(Info)(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
     backgroundColor: theme.palette.primary.main,
-    padding: "8px 12px",
-    fontSize: "0.988rem",
+    padding: "8px 13px",
+    fontSize: "0.8645rem",
     lineHeight: 1,
     boxShadow: theme.shadows[2],
     cursor: "pointer",
@@ -181,7 +183,7 @@ export const Borders = styled(Info)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     marginTop: "10px",
     "& .badge": {
-      fontSize: "0.8rem",
+      fontSize: "0.7rem",
     },
   },
 }));

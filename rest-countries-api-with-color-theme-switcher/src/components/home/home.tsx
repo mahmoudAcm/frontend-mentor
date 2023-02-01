@@ -39,6 +39,10 @@ export default function Home() {
 
   const [open, setOpen] = useState(currentOpenStateOfSanckbar);
 
+  useEffect(() => {
+    document.documentElement.style.setProperty("--font-size", "14px");
+  }, []);
+
   //for showing the snakebar
   useEffect(() => {
     if (currentOpenStateOfSanckbar) {
