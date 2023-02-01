@@ -24,6 +24,8 @@ import ArrowLeftIcon from "../../icons/ArrowLeft";
 //hooks
 import useCountry from "./useCountry";
 
+const isDev = import.meta.env.DEV;
+
 export default function Detail() {
   const navigate = useNavigate();
   const { data, isFetching } = useCountry();
@@ -50,9 +52,10 @@ export default function Detail() {
           <LeftSide>
             {isFetching ? (
               <FlagSkeleton variant="rectangular" />
-            ) : (
-              // <Flag sx={{ backgroundImage: `url('${data?.flags.svg}')` }} />
+            ) : isDev ? (
               <Flag sx={{ backgroundImage: `url('us.svg')` }} />
+            ) : (
+              <Flag sx={{ backgroundImage: `url('${data?.flags.svg}')` }} />
             )}
           </LeftSide>
           {isFetching ? (

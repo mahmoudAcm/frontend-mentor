@@ -16,6 +16,8 @@ interface CountryProps extends CountryType {
   isLoading?: boolean;
 }
 
+const isDev = import.meta.env.DEV;
+
 export default function Country(props: CountryProps) {
   const navigate = useNavigate();
 
@@ -25,7 +27,9 @@ export default function Country(props: CountryProps) {
         <Skeleton height={160} variant="rectangular" />
       ) : (
         <CountryFlag
-          // sx={{ backgroundImage: `url('${props.flags.svg}')` }}
+          sx={{
+            backgroundImage: isDev ? undefined : `url('${props.flags.svg}')`,
+          }}
           onClick={() => {
             navigate("/countries/" + props.name.common);
           }}
