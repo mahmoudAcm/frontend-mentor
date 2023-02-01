@@ -8,6 +8,8 @@ export default defineConfig({
     alias: {
       types: path.join(__dirname, "./src/types.ts"),
       theme: path.join(__dirname, "./src/theme.tsx"),
+      styles: path.join(__dirname, "./src/styles.tsx"),
+      "@common": path.join(__dirname, "./src/common"),
     },
   },
   plugins: [react()],

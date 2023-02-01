@@ -18,7 +18,9 @@
     "baseUrl": "./src",
     "paths": {
       "types": ["./types.ts"],
-      "theme": ["./theme.tsx"]
+      "theme": ["./theme.tsx"],
+      "styles": ["./styles.tsx"],
+      "@common/*": ["./common/*"]
     }
   },
   "include": ["src"],

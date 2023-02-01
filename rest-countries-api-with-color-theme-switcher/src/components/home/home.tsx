@@ -5,15 +5,16 @@ import {
   Section,
   Counteries,
   StyledSnackbar,
-  ErrorWrapper,
   EndOfPageSection,
 } from "./styles";
 import { Container, Typography, Button } from "@mui/material";
 import Filters from "./filters";
 import Country from "./country";
+import { ErrorWrapper } from "styles";
 
 //hooks
-import { useCountries, useFetchNextPage, usePreventScrolling } from "./hooks";
+import { useCountries, useFetchNextPage } from "./hooks";
+import usePreventScrolling from "@common/hooks/usePreventScrolling";
 
 //data
 import { fakeData } from "./hooks";

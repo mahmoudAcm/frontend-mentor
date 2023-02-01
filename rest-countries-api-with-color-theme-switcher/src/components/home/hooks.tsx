@@ -92,22 +92,6 @@ const fakeData = new Array(15).fill({
   },
 });
 
-export function usePreventScrolling(hideScrollWhen: () => boolean) {
-  useEffect(() => {
-    if (hideScrollWhen()) {
-      window.scrollTo({
-        top: 0,
-      });
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-    }
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-    };
-  }, [hideScrollWhen]);
-}
-
 export function useFetchNextPage<Q extends Function>(
   hasNextPage: boolean | undefined,
   fetchFn: Q

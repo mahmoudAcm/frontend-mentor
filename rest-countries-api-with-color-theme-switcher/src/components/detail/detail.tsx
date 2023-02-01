@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 //components
@@ -16,19 +16,22 @@ import {
   FlagSkeleton,
   RightSideLoadingScreen,
 } from "./styles";
-import { Container, Typography, CircularProgress } from "@mui/material";
+import { Container, Typography, CircularProgress, Button } from "@mui/material";
+import { ErrorWrapper } from "styles";
 
 //icons
 import ArrowLeftIcon from "../../icons/ArrowLeft";
 
 //hooks
 import useCountry from "./useCountry";
+import usePreventScrolling from "@common/hooks/usePreventScrolling";
 
 const isDev = import.meta.env.DEV;
 
 export default function Detail() {
+  const [tryAgain, setTryAgain] = useState(false);
   const navigate = useNavigate();
-  const { data, isFetching } = useCountry();
+  const { data, isFetching, error } = useCountry(tryAgain);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--font-size", "16px");
@@ -37,6 +40,26 @@ export default function Detail() {
   const goBack = () => {
     navigate("/countries");
   };
+
+  usePreventScrolling(() => Boolean(error));
+
+  if (error) {
+    return (
+      <ErrorWrapper>
+        <Typography variant="h5" fontWeight={600}>
+          A communication error has occurred with the API
+        </Typography>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setTryAgain((prev) => !prev);
+          }}
+        >
+          Retry
+        </Button>
+      </ErrorWrapper>
+    );
+  }
 
   return (
     <Section>

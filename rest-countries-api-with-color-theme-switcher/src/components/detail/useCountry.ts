@@ -16,10 +16,10 @@ type QueryResult = Omit<
   currencies: string;
 };
 
-export default function useCountry() {
+export default function useCountry(tryAgain: boolean) {
   const { name } = useParams();
   return useQuery(
-    [name],
+    [name, tryAgain],
     async ({ queryKey }) => {
       const [name] = queryKey;
       if (!name) return {} as QueryResult;
@@ -54,7 +54,7 @@ export default function useCountry() {
       return result as QueryResult;
     },
     {
-      retry: 5,
+      retry: false,
       refetchOnWindowFocus: false,
     }
   );
