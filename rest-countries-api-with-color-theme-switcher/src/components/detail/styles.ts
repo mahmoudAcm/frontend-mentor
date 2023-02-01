@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Skeleton from "@mui/material/Skeleton";
 import { styled, alpha } from "@mui/material/styles";
 
 export const Section = styled(Box)(({ theme }) => ({
@@ -46,7 +47,7 @@ export const Details = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   marginTop: 77.77,
-  columnGap: 144,
+  // columnGap: 144,
   marginBottom: 60,
   [theme.breakpoints.down("lg")]: {
     flexDirection: "column",
@@ -58,9 +59,9 @@ export const Details = styled(Box)(({ theme }) => ({
 }));
 
 export const LeftSide = styled(Box)(({ theme }) => ({
-  maxWidth: "50%",
+  width: "50%",
   [theme.breakpoints.down("lg")]: {
-    maxWidth: "100%",
+    width: "100%",
     margin: "auto",
   },
 }));
@@ -94,8 +95,30 @@ export const Flag = styled(Box)(({ theme }) => ({
   },
 }));
 
+export const FlagSkeleton = styled(Skeleton)(({ theme }) => ({
+  width: 560,
+  height: 400,
+  [theme.breakpoints.down("sm")]: {
+    margin: "auto",
+    maxWidth: "100%",
+    minHeight: 190,
+    maxHeight: 230,
+  },
+}));
+
+export const RightSideLoadingScreen = styled(Box)(({ theme }) => ({
+  width: "100%",
+  height: "54vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  "& .MuiCircularProgress-root": {
+    color: theme.palette.mode === "light" ? "black" : "white",
+  },
+}));
+
 export const RightSide = styled(Box)(({ theme }) => ({
-  width: "50%",
+  width: "45%",
   display: "flex",
   flexDirection: "column",
   marginTop: 43,
@@ -110,6 +133,13 @@ export const RightSide = styled(Box)(({ theme }) => ({
   },
 }));
 
+export const InfosContainer = styled(Box)(() => ({
+  display: "flex",
+  justifyContent: "space-between",
+  flexWrap: "wrap",
+  rowGap: 35,
+}));
+
 export const Infos = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -117,22 +147,14 @@ export const Infos = styled(Box)(({ theme }) => ({
   "& .row": {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
   },
-  "&.sm": {
-    display: "none",
-  },
-  [theme.breakpoints.down("sm")]: {
-    "&.sm": {
-      display: "flex",
-      marginTop: 10,
-    },
+  [theme.breakpoints.between("sm", "lg")]: {
+    width: "50%",
   },
 }));
 
 export const Info = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
-  flex: 0.44,
   fontSize: "0.9625rem",
   letterSpacing: 0.3,
   "& span": {
@@ -146,11 +168,6 @@ export const Info = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     fontSize: "0.875rem",
     fontWeight: 600,
-  },
-  [theme.breakpoints.down("sm")]: {
-    "&.left": {
-      display: "none",
-    },
   },
 }));
 

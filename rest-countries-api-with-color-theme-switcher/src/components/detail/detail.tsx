@@ -9,11 +9,14 @@ import {
   Flag,
   LeftSide,
   RightSide,
+  InfosContainer,
   Infos,
   Info,
   Borders,
+  FlagSkeleton,
+  RightSideLoadingScreen,
 } from "./styles";
-import { Container, Skeleton, Typography } from "@mui/material";
+import { Container, Typography, CircularProgress } from "@mui/material";
 
 //icons
 import ArrowLeftIcon from "../../icons/ArrowLeft";
@@ -23,7 +26,7 @@ import useCountry from "./useCountry";
 
 export default function Detail() {
   const navigate = useNavigate();
-  // const { data, isFetching } = useCountry();
+  const { data, isFetching } = useCountry();
 
   useEffect(() => {
     document.documentElement.style.setProperty("--font-size", "16px");
@@ -45,78 +48,123 @@ export default function Detail() {
         </BackButton>
         <Details>
           <LeftSide>
-            {false ? (
-              <Skeleton width={560} height={400} variant="rectangular" />
+            {isFetching ? (
+              <FlagSkeleton variant="rectangular" />
             ) : (
               // <Flag sx={{ backgroundImage: `url('${data?.flags.svg}')` }} />
               <Flag sx={{ backgroundImage: `url('us.svg')` }} />
             )}
           </LeftSide>
-          <RightSide>
-            <Typography
-              variant="h4"
-              fontSize="1.9rem"
-              fontWeight={800}
-              className="country--name"
-            >
-              Belgium
-            </Typography>
-            <Infos>
-              <div className="row">
-                <Info>
-                  Native Name: <span>Belgie</span>
-                </Info>
-                <Info className="left">
-                  Top Level Domain: <span>be</span>
-                </Info>
-              </div>
-              <div className="row">
-                <Info>
-                  Population: <span>11,319,511</span>
-                </Info>
-                <Info className="left">
-                  Currencies: <span>Euro</span>
-                </Info>
-              </div>
-              <div className="row">
-                <Info>
-                  Region: <span>Europe</span>
-                </Info>
-                <Info className="left">
-                  Languages: <span>Dutch, French, German</span>
-                </Info>
-              </div>
-              <div className="row">
-                <Info>
-                  Sub Region: <span>Western Europe</span>
-                </Info>
-              </div>
-              <div className="row">
-                <Info>
-                  Capital: <span>Brussles</span>
-                </Info>
-              </div>
-            </Infos>
-            <Infos className="sm">
-              <Info>
-                Top Level Domain: <span>be</span>
-              </Info>
-              <Info>
-                Currencies: <span>Euro</span>
-              </Info>
-              <Info>
-                Languages: <span>Dutch, French, German</span>
-              </Info>
-            </Infos>
-            <Borders>
-              Border Countries:
-              <span className="borders">
-                <span className="badge">France</span>
-                <span className="badge">Germany</span>
-                <span className="badge">Netherlands</span>
-              </span>
-            </Borders>
-          </RightSide>
+          {isFetching ? (
+            <RightSideLoadingScreen>
+              <CircularProgress disableShrink />
+            </RightSideLoadingScreen>
+          ) : (
+            <RightSide>
+              <>
+                <Typography
+                  variant="h4"
+                  fontSize="1.9rem"
+                  fontWeight={800}
+                  className="country--name"
+                >
+                  {data?.name}
+                </Typography>
+                <InfosContainer>
+                  <Infos>
+                    <div className="row">
+                      {data?.nativeName ? (
+                        <Info>
+                          Native Name: <span>{data?.nativeName}</span>
+                        </Info>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div className="row">
+                      {data?.population ? (
+                        <Info>
+                          Population: <span>{data?.population}</span>
+                        </Info>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div className="row">
+                      {data?.region ? (
+                        <Info>
+                          Region: <span>{data?.region}</span>
+                        </Info>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div className="row">
+                      {data?.subregion ? (
+                        <Info>
+                          Sub Region: <span>{data?.subregion}</span>
+                        </Info>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div className="row">
+                      {data?.capital ? (
+                        <Info>
+                          Capital: <span>{data?.capital}</span>
+                        </Info>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                  </Infos>
+                  <Infos>
+                    <div className="row">
+                      {data?.tld ? (
+                        <Info>
+                          Top Level Domain: <span>{data?.tld}</span>
+                        </Info>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div className="row">
+                      {data?.currencies ? (
+                        <Info>
+                          Currencies: <span>{data?.currencies}</span>
+                        </Info>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <div className="row">
+                      {data?.languages ? (
+                        <Info>
+                          Languages: <span>{data?.languages}</span>
+                        </Info>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                  </Infos>
+                </InfosContainer>
+                {data?.borders?.length ? (
+                  <Borders>
+                    Border Countries:
+                    <span className="borders">
+                      {(data?.borders ?? []).map((border, idx) => (
+                        <span className="badge" key={idx}>
+                          {border}
+                        </span>
+                      ))}
+                    </span>
+                  </Borders>
+                ) : (
+                  <></>
+                )}
+              </>
+            </RightSide>
+          )}
         </Details>
       </Container>
     </Section>
