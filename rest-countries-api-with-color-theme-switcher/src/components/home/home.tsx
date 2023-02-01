@@ -1,34 +1,26 @@
 import { useEffect, useState } from "react";
-import "intersection-observer";
-import { useInView } from "react-intersection-observer";
 
 //components
-import { Section, Counteries, StyledSnackbar, ErrorWrapper } from "./styles";
-import { Container, Box, Typography, Button } from "@mui/material";
+import {
+  Section,
+  Counteries,
+  StyledSnackbar,
+  ErrorWrapper,
+  EndOfPageSection,
+} from "./styles";
+import { Container, Typography, Button } from "@mui/material";
 import Filters from "./filters";
 import Country from "./country";
 
 //hooks
-import useCountries, { fakeData } from "./useCountries";
+import { useCountries, useFetchNextPage, usePreventScrolling } from "./hooks";
 
-function usePreventScrolling(hideScrollWhen: () => boolean) {
-  useEffect(() => {
-    if (hideScrollWhen()) {
-      window.scrollTo({
-        top: 0,
-      });
-      document.body.classList.add("overflow-hidden");
-    } else {
-      document.body.classList.remove("overflow-hidden");
-    }
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-    };
-  }, [hideScrollWhen]);
-}
+//data
+import { fakeData } from "./hooks";
 
 export default function Home() {
   const [tryAgain, setTryAgain] = useState(false);
+  const [filters, setFilters] = useState({ name: "", region: "" });
   const {
     data,
     isLoading,
@@ -37,15 +29,14 @@ export default function Home() {
     hasNextPage,
     error,
     fetchNextPage,
-  } = useCountries(["name", String(tryAgain)]);
+  } = useCountries(filters, tryAgain);
 
-  const { ref, inView } = useInView({
-    threshold: 0,
-    rootMargin: "60px",
-  });
+  const { ref, inView } = useFetchNextPage(hasNextPage, fetchNextPage);
 
   const loading = isLoading || isFetchingNextPage || (hasNextPage && inView);
+  const isDataAvailable = Boolean(data?.pages[0].result.length);
   const currentOpenStateOfSanckbar = !loading && isFetched;
+
   const [open, setOpen] = useState(currentOpenStateOfSanckbar);
 
   //for showing the snakebar
@@ -58,13 +49,6 @@ export default function Home() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  //fetch more pages
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage]);
 
   usePreventScrolling(() => Boolean(error));
 
@@ -89,12 +73,17 @@ export default function Home() {
   return (
     <Section>
       <Container>
-        <Filters />
+        <Filters
+          onFilter={(value) => {
+            setFilters(value);
+          }}
+          error={!isDataAvailable && !loading}
+        />
         <Counteries>
           {/* a feedback to the user to inform him with a new loaded data */}
           <StyledSnackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            open={open && Boolean(data?.pages?.length)}
+            open={open && isDataAvailable}
             message={
               <Typography fontWeight={600} align="center">
                 Scroll down new data are available!
@@ -104,7 +93,7 @@ export default function Home() {
             onClose={handleClose}
           />
 
-          {data?.pages.map((page) =>
+          {(data?.pages ?? []).map((page) =>
             page.result.map((country, idx) => (
               <Country key={idx} {...country} />
             ))
@@ -112,22 +101,17 @@ export default function Home() {
 
           {/* if loading new data then display a skeleton until the data is available */}
           {loading ? (
-            fakeData.map((fake, idx) => (
-              <Country key={"fake" + idx} {...fake} />
-            ))
+            <>
+              {fakeData.map((_, idx) => (
+                <Country key={"fake" + idx} {...fakeData[0]} />
+              ))}
+            </>
           ) : (
             <></>
           )}
         </Counteries>
 
-        {/* for detecting when we reach the end of the page it is used as a target for the intersection observer */}
-        <Box
-          ref={ref}
-          sx={{
-            height: 1,
-            width: "100%",
-          }}
-        />
+        {isDataAvailable ? <EndOfPageSection ref={ref} /> : <></>}
       </Container>
     </Section>
   );

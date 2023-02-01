@@ -21,6 +21,14 @@ export const Section = styled(Box)(({ theme }) => ({
 }));
 
 // filter styles
+export const FilterContainer = styled(Box)(({ theme }) => ({
+  "& .error": {
+    marginTop: theme.spacing(5),
+    fontSize: "clamp(0.92rem, 2vw, 1.5rem)",
+    userSelect: "none",
+  },
+}));
+
 export const FilterForm = styled("form")(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
@@ -124,14 +132,14 @@ export const StyledSnackbar = styled(Snackbar)(() => ({
 //cards styles
 export const Counteries = styled(Box)(({ theme }) => ({
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, 264px)",
+  gridTemplateColumns: "repeat(auto-fill, 264px)",
   justifyContent: "space-between",
   rowGap: 72,
+  columnGap: 30,
   marginTop: 48,
   marginBottom: 48,
   [theme.breakpoints.down("md")]: {
     justifyContent: "space-around",
-    rowGap: 72,
   },
 }));
 
@@ -207,4 +215,9 @@ export const ErrorWrapper = styled(function Wrapper({
     fontWeight: 600,
     transition: "0s background-color !important",
   },
+}));
+
+export const EndOfPageSection = styled(Box)(() => ({
+  height: 1,
+  width: "100%",
 }));

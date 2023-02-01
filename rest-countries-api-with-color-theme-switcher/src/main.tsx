@@ -5,6 +5,9 @@ import App from "./App";
 import "./index.css";
 import ThemeProvider from "./theme";
 
+//polyfills
+import "abort-controller/polyfill";
+
 // Create a client
 const queryClient = new QueryClient();
 
