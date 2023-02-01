@@ -33,23 +33,23 @@ export default function useCountry() {
         throw result;
       }
 
-      if (result?.tld.length) {
+      if (result?.tld?.length) {
         result.tld = result.tld[0];
       }
 
-      result.languages = Object.values(result.languages ?? {}).join(", ");
+      result.languages = Object.values(result?.languages ?? {}).join(", ");
 
-      if (result?.capital.length) {
+      if (result?.capital?.length) {
         result.capital = result.capital.join(", ");
       }
 
-      result.currencies = Object.keys(result.currencies ?? {}).join(", ");
+      result.currencies = Object.keys(result?.currencies ?? {}).join(", ");
 
-      const nativeNameKeys = Object.keys(result.name.nativeName);
+      const nativeNameKeys = Object.keys(result?.name?.nativeName);
       if (nativeNameKeys) {
-        result.nativeName = result.name.nativeName[nativeNameKeys[0]].official;
+        result.nativeName = result.name.nativeName[nativeNameKeys[0]]?.official;
       }
-      result.name = result.name.common;
+      result.name = result?.name?.common;
 
       return result as QueryResult;
     },
