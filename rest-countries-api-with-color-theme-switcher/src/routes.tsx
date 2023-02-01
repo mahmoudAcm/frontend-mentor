@@ -3,9 +3,11 @@ import { createHashRouter, Outlet } from "react-router-dom";
 
 //components
 import MainLayout from "./components/layouts/main";
-const Home = lazy(() => import("./components/home"));
-const Detail = lazy(() => import("./components/detail"));
 import Loader from "./components/loader";
+
+//pages
+const HomePage = lazy(() => import("./pages/home"));
+const DetailPage = lazy(() => import("./pages/detail"));
 
 const router = createHashRouter([
   {
@@ -20,11 +22,11 @@ const router = createHashRouter([
     children: [
       {
         path: "countries",
-        element: <Home />,
+        element: <HomePage />,
       },
       {
         path: "countries/:name",
-        element: <Detail />,
+        element: <DetailPage />,
       },
     ],
   },

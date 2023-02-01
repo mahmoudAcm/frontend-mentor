@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { useTheme } from "@mui/material/styles";
 
 //components
@@ -8,6 +8,9 @@ import { FilterContainer, FilterForm, RegionSelect, Search } from "./styles";
 //icons
 import SearchIcon from "../../icons/Search";
 import DropDownIcon from "../../icons/DropDown";
+
+//hooks
+import useLocalStorage from "@common/hooks/useLocalStorage";
 
 const regions = ["All", "Africa", "America", "Asia", "Europe", "Oceania"];
 
@@ -19,15 +22,13 @@ export type FilterState = {
 interface FiltersProps {
   onFilter: (value: FilterState) => void;
   error?: boolean;
+  initialState: FilterState;
 }
 
 export default function Filters(props: FiltersProps) {
   const theme = useTheme();
   const filteringTimes = useRef(0);
-  const [filters, setFilters] = useState({
-    name: "",
-    region: "",
-  });
+  const [filters, setFilters] = useLocalStorage(props.initialState, "filters");
 
   //firing onFilter function when filters changes
   useEffect(() => {

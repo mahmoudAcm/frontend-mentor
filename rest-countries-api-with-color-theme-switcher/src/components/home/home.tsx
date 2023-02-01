@@ -8,7 +8,7 @@ import {
   EndOfPageSection,
 } from "./styles";
 import { Container, Typography, Button } from "@mui/material";
-import Filters from "./filters";
+import Filters, { FilterState } from "./filters";
 import Country from "./country";
 import { ErrorWrapper } from "styles";
 
@@ -19,9 +19,13 @@ import usePreventScrolling from "@common/hooks/usePreventScrolling";
 //data
 import { fakeData } from "./hooks";
 
-export default function Home() {
+interface HomeProps {
+  filters: FilterState;
+}
+
+export default function Home(props: HomeProps) {
   const [tryAgain, setTryAgain] = useState(false);
-  const [filters, setFilters] = useState({ name: "", region: "" });
+  const [filters, setFilters] = useState(props.filters);
   const {
     data,
     isLoading,
@@ -79,6 +83,7 @@ export default function Home() {
     <Section>
       <Container>
         <Filters
+          initialState={props.filters}
           onFilter={(value) => {
             setFilters(value);
           }}
