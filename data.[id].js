@@ -41,4 +41,11 @@ const solutions = [
     sourceCodeLink:
       "https://github.com/mahmoudAcm/frontend-mentor/tree/master/bookmark-landing-page",
   },
+  {
+    src: "https://mahmoudacm.github.io/frontend-mentor/rest-countries-api-with-color-theme-switcher/design/screenshot.png",
+    livePreviewLink:
+      "https://mahmoudacm.github.io/frontend-mentor/rest-countries-api-with-color-theme-switcher/dist/#/countries",
+    sourceCodeLink:
+      "https://github.com/mahmoudAcm/frontend-mentor/tree/master/rest-countries-api-with-color-theme-switcher",
+  },
 ];

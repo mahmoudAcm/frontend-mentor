@@ -5,22 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Frontend Mentor Solutions</title>
-    <link rel="stylesheet" href="./output.1674509146168.css" />
-    <script src="./data.1674509146168.js" defer></script>
-    <script src="./app.1674509146168.js" defer></script>
+    <link rel="stylesheet" href="./output.1675811372486.css" />
+    <link rel="stylesheet" href="./components.1675811372486.css" />
+    <script src="./links.1675811372486.js" defer></script>
+    <script src="./data.1675811372486.js" defer></script>
+    <script src="./app.1675811372486.js" defer></script>
   </head>
   <body>
-    <h1 class="text-center lg:text-3xl text-lg py-3 font-mono w-fit mx-auto">
-      <a
-        href="https://github.com/mahmoudAcm/frontend-mentor"
-        target="_blank"
-        class="w-fit"
-        >Frontend Mentor Solutions
-      </a>
-    </h1>
     <div
-      class="p-2 min-h-screen grid lg:grid-cols-[repeat(auto-fit,_minmax(500px,1fr))] grid-rows-[auto] gap-3"
-      id="root"
-    ></div>
+      class="grid lg:grid-cols-[repeat(3,calc(100%/3-10px))] md:grid-cols-[repeat(2,calc(100%/2-10px))] grid-cols-[repeat(1,100%)] gap-[10px] min-h-screen p-[10px] mb-16"
+    >
+      <div class="flex flex-col gap-[10px]" id="colOne"></div>
+      <div class="flex flex-col gap-[10px]" id="colTwo"></div>
+      <div class="flex flex-col gap-[10px]" id="colThree"></div>
+    </div>
+    <div class="fixed bottom-4 flex left-[50%] translate-x-[-50%]">
+      <div
+        id="links"
+        class="w-fit gap-1 p-2 peer rounded-[33px] bg-gray-200 shadow-md flex items-center hover:mb-2"
+      ></div>
+    </div>
   </body>
 </html>
