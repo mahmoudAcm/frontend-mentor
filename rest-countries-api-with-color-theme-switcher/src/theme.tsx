@@ -13,6 +13,7 @@ import {
   useTheme as mainUseTheme,
   ThemeProvider as MainThemeProvider,
 } from "@mui/material";
+import useLocalStorage from "@common/hooks/useLocalStorage";
 
 const Context = createContext({
   toggleColorMode: () => {},
@@ -50,21 +51,13 @@ const useGetModeFromBrowserStorage = (
   setMode: Dispatch<SetStateAction<PaletteMode | null>>
 ) => {
   useEffect(() => {
-    const mode = localStorage.getItem("mode") ?? "light";
+    const mode = JSON.parse(localStorage.getItem("mode")!) ?? "light";
     setMode(mode as PaletteMode);
   }, []);
 };
 
-const useSaveModeToBrowserStorage = (mode: PaletteMode | null) => {
-  useEffect(() => {
-    if (mode) {
-      localStorage.setItem("mode", mode);
-    }
-  }, [mode]);
-};
-
 export default function ThemeProvider({ children }: { children: JSX.Element }) {
-  const [mode, setMode] = useState<PaletteMode | null>(null);
+  const [mode, setMode] = useLocalStorage<PaletteMode | null>(null, "mode");
 
   const colorMode = useMemo(
     () => ({
@@ -79,7 +72,6 @@ export default function ThemeProvider({ children }: { children: JSX.Element }) {
   );
 
   useGetModeFromBrowserStorage(setMode);
-  useSaveModeToBrowserStorage(mode);
 
   const theme = useMemo(
     () => createTheme(getDesignTokens(mode ?? "light")),

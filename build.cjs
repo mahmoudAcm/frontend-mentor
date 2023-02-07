@@ -2,17 +2,6 @@ const path = require("path");
 const fs = require("fs");
 
 const dist_dir = path.join(__dirname, "gallery");
-const templatePath = path.join(__dirname, "index.html");
-const indexPath = path.join(dist_dir, "index.html");
-
-//src
-const appJs_path = path.join(__dirname, "app.[id].js");
-const dataJs_path = path.join(__dirname, "data.[id].js");
-const outputCss_path = path.join(__dirname, "output.[id].css");
-const templateContent = fs.readFileSync(templatePath).toString();
-const appContent = fs.readFileSync(appJs_path).toString();
-const dataContent = fs.readFileSync(dataJs_path).toString();
-const outputContent = fs.readFileSync(outputCss_path).toString();
 
 fs.rmdirSync(dist_dir, {
   recursive: true,
@@ -21,12 +10,23 @@ fs.rmdirSync(dist_dir, {
 fs.mkdirSync(dist_dir);
 
 const newId = Date.now();
-//dest
-const appJs_dist_path = path.join(dist_dir, `app.${newId}.js`);
-const dataJs_dist_path = path.join(dist_dir, `data.${newId}.js`);
-const outputCss_dist_path = path.join(dist_dir, `output.${newId}.css`);
+const files_to_transform = [
+  "app.[id].js",
+  "components.[id].css",
+  "data.[id].js",
+  "output.[id].css",
+  "links.[id].js",
+];
 
-fs.writeFileSync(indexPath, templateContent.replace(/\[id\]/g, newId));
-fs.writeFileSync(appJs_dist_path, appContent);
-fs.writeFileSync(dataJs_dist_path, dataContent);
-fs.writeFileSync(outputCss_dist_path, outputContent);
+const indexFileContent = fs
+  .readFileSync(path.join(__dirname, "index.html"))
+  .toString();
+fs.writeFileSync(
+  path.join(dist_dir, "index.html"),
+  indexFileContent.replace(/\[id\]/g, newId)
+);
+
+for (const file of files_to_transform) {
+  const content = fs.readFileSync(path.join(__dirname, file)).toString();
+  fs.writeFileSync(path.join(dist_dir, file.replace("[id]", newId)), content);
+}

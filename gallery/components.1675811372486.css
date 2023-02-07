@@ -1,0 +1,28 @@
+.circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.circle svg {
+  width: 16px;
+}
+
+#links {
+  transition: 0.3s transform, margin-bottom;
+  -webkit-transition: 0.3s transform, margin-bottom;
+  -o-transition: 0.3s transform, margin-bottom;
+  -moz-transition: 0.3s transform, margin-bottom;
+}
+
+#links:hover {
+  transform: scale(1.3);
+  -webkit-transform: scale(1.3);
+  -o-transform: scale(1.3);
+  -moz-transform: scale(1.3);
+}
