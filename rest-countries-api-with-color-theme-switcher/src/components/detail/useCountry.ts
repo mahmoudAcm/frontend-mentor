@@ -28,8 +28,8 @@ export default function useCountry(tryAgain: boolean) {
         "https://frontend-mentor-apis.onrender.com/api/rest-countries-api-with-color-theme-switcher/countries/" +
           name,
         {
-          timeout: 1000,
           signal,
+          timeout: 4000,
         }
       );
 
@@ -56,7 +56,7 @@ export default function useCountry(tryAgain: boolean) {
       return result as QueryResult;
     },
     {
-      retry: 2,
+      retry: false,
       refetchOnWindowFocus: false,
     }
   );
