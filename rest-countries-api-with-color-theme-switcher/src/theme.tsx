@@ -51,13 +51,13 @@ const useGetModeFromBrowserStorage = (
   setMode: Dispatch<SetStateAction<PaletteMode | null>>
 ) => {
   useEffect(() => {
-    const mode = JSON.parse(localStorage.getItem("mode")!) ?? "light";
+    const mode = JSON.parse(localStorage.getItem("mode-v2")!) ?? "light";
     setMode(mode as PaletteMode);
   }, []);
 };
 
 export default function ThemeProvider({ children }: { children: JSX.Element }) {
-  const [mode, setMode] = useLocalStorage<PaletteMode | null>(null, "mode");
+  const [mode, setMode] = useLocalStorage<PaletteMode | null>(null, "mode-v2");
 
   const colorMode = useMemo(
     () => ({
