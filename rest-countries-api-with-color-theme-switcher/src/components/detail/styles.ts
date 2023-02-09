@@ -66,43 +66,47 @@ export const LeftSide = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const Flag = styled(Box)(({ theme }) => ({
+export const FlagContainer = styled(Box)(({ theme }) => ({
+  position: "relative",
   width: 560,
   height: 400,
-  backgroundPosition: "top left",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  position: "relative",
-  "&::before": {
-    width: "calc(100% + 43px)",
-    height: "calc(100% + 40px)",
-    content: '""',
-    position: "absolute",
-    top: -20,
-    left: -22.5,
-    backgroundColor: alpha(theme.palette.primary.dark, 0.287),
-    borderRadius: 10,
-    zIndex: -1,
-  },
   [theme.breakpoints.down("sm")]: {
-    margin: "auto",
     maxWidth: "100%",
     minHeight: 190,
     maxHeight: 230,
-    "&::before": {
-      display: "none",
-    },
+  },
+}));
+
+export const Flag = styled("img")(({ theme }) => ({
+  width: 575,
+  height: "fit-content",
+  objectFit: "cover",
+  objectPosition: "center",
+  position: "relative",
+  border: 15,
+  borderStyle: "solid",
+  transtion: "0.3s opacity",
+  borderColor: alpha(theme.palette.primary.dark, 0.287),
+  [theme.breakpoints.down("sm")]: {
+    margin: "auto",
+    maxWidth: "100%",
+    border: "none",
   },
 }));
 
 export const FlagSkeleton = styled(Skeleton)(({ theme }) => ({
   width: 560,
   height: 400,
+  position: "absolute",
+  zIndex: 0,
   [theme.breakpoints.down("sm")]: {
     margin: "auto",
     maxWidth: "100%",
     minHeight: 190,
     maxHeight: 230,
+  },
+  "&.fade": {
+    display: "none",
   },
 }));
 

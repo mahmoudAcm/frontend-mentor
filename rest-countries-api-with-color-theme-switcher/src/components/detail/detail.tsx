@@ -13,6 +13,7 @@ import {
   Infos,
   Info,
   Borders,
+  FlagContainer,
   FlagSkeleton,
   RightSideLoadingScreen,
 } from "./styles";
@@ -32,10 +33,17 @@ export default function Detail() {
   const [tryAgain, setTryAgain] = useState(false);
   const navigate = useNavigate();
   const { data, isFetching, error } = useCountry(tryAgain);
+  const [isImgageLoading, setImageLoading] = useState(true);
+
+  const isFlagLoading = isFetching || isImgageLoading;
 
   useEffect(() => {
     document.documentElement.style.setProperty("--font-size", "16px");
   }, []);
+
+  const onImageLoaded = () => {
+    setImageLoading(false);
+  };
 
   const goBack = () => {
     navigate("/countries");
@@ -73,13 +81,27 @@ export default function Detail() {
         </BackButton>
         <Details>
           <LeftSide>
-            {isFetching ? (
-              <FlagSkeleton variant="rectangular" />
-            ) : isDev ? (
-              <Flag sx={{ backgroundImage: `url('us.svg')` }} />
-            ) : (
-              <Flag sx={{ backgroundImage: `url('${data?.flags.svg}')` }} />
-            )}
+            <FlagContainer>
+              <FlagSkeleton
+                variant="rectangular"
+                className={isFlagLoading ? undefined : "fade"}
+              />
+              {isDev ? (
+                <Flag
+                  src="us.svg"
+                  sx={{ opacity: isFlagLoading ? 0 : 1 }}
+                  alt={data?.name + " Flag"}
+                  onLoad={onImageLoaded}
+                />
+              ) : (
+                <Flag
+                  src={data?.flags.svg}
+                  sx={{ opacity: isFlagLoading ? 0 : 1 }}
+                  alt={data?.name + " Flag"}
+                  onLoad={onImageLoaded}
+                />
+              )}
+            </FlagContainer>
           </LeftSide>
           {isFetching ? (
             <RightSideLoadingScreen>
