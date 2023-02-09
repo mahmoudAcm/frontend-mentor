@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
+import axios from "axios";
 
 //types
 import { Country } from "../../types";
@@ -20,18 +21,19 @@ export default function useCountry(tryAgain: boolean) {
   const { name } = useParams();
   return useQuery(
     [name, tryAgain],
-    async ({ queryKey }) => {
+    async ({ queryKey, signal }) => {
       const [name] = queryKey;
       if (!name) return {} as QueryResult;
-      const res = await fetch(
+      const res = await axios.get(
         "https://frontend-mentor-apis.onrender.com/api/rest-countries-api-with-color-theme-switcher/countries/" +
-          name
+          name,
+        {
+          timeout: 1000,
+          signal,
+        }
       );
 
-      const result = await res.json();
-      if (!res.ok) {
-        throw result;
-      }
+      const result = res.data;
 
       if (result?.tld?.length) {
         result.tld = result.tld[0];
@@ -54,7 +56,7 @@ export default function useCountry(tryAgain: boolean) {
       return result as QueryResult;
     },
     {
-      retry: false,
+      retry: 2,
       refetchOnWindowFocus: false,
     }
   );
