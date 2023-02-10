@@ -1,15 +1,13 @@
-import ThankYouIcon from "./icons/ThankYou";
-import ArcadeIcon from "./icons/Arcade";
-import ProIcon from "./icons/Pro";
-import CheckMarkIcon from "./icons/CheckMark";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createCustomeTheme } from "./theme";
+import Stepper from "./components/Stepper";
 
 export default function App() {
+  const theme = createCustomeTheme({ theme: "LIGHT" });
   return (
-    <>
-      <ThankYouIcon fontSize="large" />
-      <ArcadeIcon fontSize="large" />
-      <ProIcon fontSize="large" />
-      <CheckMarkIcon fontSize="large" />
-    </>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Stepper />
+    </ThemeProvider>
   );
 }
