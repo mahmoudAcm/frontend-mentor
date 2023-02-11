@@ -1,9 +1,23 @@
-import { Box, styled } from "@mui/material";
+import { Box, BoxProps, styled } from "@mui/material";
+import NextAndPrev from "./NextAndPrev";
 
-const SteppterContentLayout = styled(Box)(() => ({
+const SteppterContentLayoutRoot = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: 38,
+  "& .container": {
+    display: "flex",
+    flexDirection: "column",
+    gap: 38,
+    flex: 1
+  },
 }));
 
-export default SteppterContentLayout;
+export default function SteppterContentLayout(props: BoxProps) {
+  const { children, ...rest } = props;
+  return (
+    <SteppterContentLayoutRoot {...rest}>
+      <div className="container">{children}</div>
+      <NextAndPrev />
+    </SteppterContentLayoutRoot>
+  );
+}

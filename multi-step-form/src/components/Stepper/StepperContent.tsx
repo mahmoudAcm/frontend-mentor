@@ -6,7 +6,7 @@ const StepperContentRoot = styled(Box)(() => ({
   display: "flex",
   justifyContent: "center",
   paddingTop: 41,
-  paddingBottom: 46,
+  paddingBottom: 16,
   paddingLeft: 10,
 }));
 
