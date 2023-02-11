@@ -14,6 +14,10 @@ const themesOptions: Record<string, ThemeOptions> = {
       background: {
         default: "#eef5ff",
       },
+      text: {
+        primary: "#002456",
+        secondary: "#acadb2",
+      },
     },
     shadows: lightShadows,
     shape: {

@@ -1,13 +1,16 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createCustomeTheme } from "./theme";
-import Stepper from "./components/Stepper";
+import StepperLayout from "./components/Stepper/StepperLayout";
+import PersonalInfo from "./components/PersonalInfo";
 
 export default function App() {
   const theme = createCustomeTheme({ theme: "LIGHT" });
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Stepper />
+      <StepperLayout>
+        <PersonalInfo />
+      </StepperLayout>
     </ThemeProvider>
   );
 }
