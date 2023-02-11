@@ -5,9 +5,9 @@ const StepperContentRoot = styled(Box)(() => ({
   flex: 1,
   display: "flex",
   justifyContent: "center",
-  paddingTop: 41,
+  paddingTop: 38.3,
   paddingBottom: 16,
-  paddingLeft: 10,
+  paddingLeft: 15.4,
 }));
 
 export default function StepperContent(props: { children?: ReactNode }) {

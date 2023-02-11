@@ -7,7 +7,7 @@ const SteppterContentLayoutRoot = styled(Box)(() => ({
   "& .container": {
     display: "flex",
     flexDirection: "column",
-    gap: 38,
+    gap: 35,
     flex: 1
   },
 }));

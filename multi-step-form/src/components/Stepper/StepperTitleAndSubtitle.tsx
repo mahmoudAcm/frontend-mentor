@@ -3,7 +3,7 @@ import { Box, styled, Typography } from "@mui/material";
 const StepperTitleAndSubtitleRoot = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
-  gap: 7,
+  gap: 9,
 }));
 
 interface StepperTitleAndSubtitleProps {

@@ -10,6 +10,10 @@ const NextAndPrevRoot = styled(Box)(({ theme }) => ({
   "& .goBack": {
     color: colors.grey[500],
     padding: 0,
+  },
+  "& .goNext": {
+    padding: "11px 26px",
+    fontSize: "0.96rem"
   }
 }));
 
@@ -17,7 +21,7 @@ export default function NextAndPrev() {
   return (
     <NextAndPrevRoot>
       <Button className="goBack" size="large">Go Back</Button>
-      <Button variant="contained" size="large">Next Step</Button>
+      <Button variant="contained" className="goNext">Next Step</Button>
     </NextAndPrevRoot>
   );
 }

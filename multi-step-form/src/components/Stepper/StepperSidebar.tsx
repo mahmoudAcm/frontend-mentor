@@ -10,7 +10,7 @@ const StepperSidbarRoot = styled(Box)(() => ({
   padding: "37px 31px",
   display: "flex",
   flexDirection: "column",
-  gap: 34,
+  gap: 28.5,
 }));
 
 const Step = styled(function Step(props: BoxProps) {
@@ -26,7 +26,7 @@ const Step = styled(function Step(props: BoxProps) {
           variant="body2"
           color="white"
           fontWeight={(theme) => theme.typography.fontWeightBold}
-          sx={{ letterSpacing: "0.5px", lineHeight: 1.2 }}
+          sx={{ letterSpacing: "0.8px", lineHeight: 1.2 }}
         >
           {props.children}
         </Typography>

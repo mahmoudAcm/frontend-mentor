@@ -42,6 +42,7 @@ const Input = styled(function (props: InputProps) {
 })(({ theme }) => ({
   gap: 6,
   "& input": {
+    width: 418,
     border: "1px solid #ccc",
     borderRadius: theme.shape.borderRadius / 2,
     "& ::placeholder": {
@@ -51,7 +52,7 @@ const Input = styled(function (props: InputProps) {
     "&:hover, &:focus": {
       borderColor: "#5d56a0",
     },
-    padding: "11.8px 15px",
+    padding: "12px 15px",
     fontWeight: theme.typography.fontWeightMedium,
   },
 }));
