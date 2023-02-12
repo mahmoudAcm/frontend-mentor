@@ -11,6 +11,9 @@ const themesOptions: Record<string, ThemeOptions> = {
       primary: {
         main: "#002456",
       },
+      secondary: {
+        main: "#473dff",
+      },
       background: {
         default: "#eef5ff",
       },

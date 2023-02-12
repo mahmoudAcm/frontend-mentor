@@ -21,7 +21,7 @@ export default function Comp() {
     <>
       <Box
         component="img"
-        src="../design/desktop-design-step-2-monthly.jpg"
+        src="../design/desktop-design-step-3-yearly.jpg"
         sx={{
           position: "fixed",
           top: state.y,

@@ -4,6 +4,7 @@ import StepperLayout from "./components/Stepper/StepperLayout";
 import PersonalInfo from "./components/PersonalInfo";
 import SelectPlan from "./components/SelectPlan";
 import Comp from "./comp";
+import PickAddOns from "./components/PickAddOns";
 
 export default function App() {
   const theme = createCustomeTheme({ theme: "LIGHT" });
@@ -11,7 +12,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <StepperLayout>
-        <SelectPlan />
+        <PickAddOns />
       </StepperLayout>
       {/* <Comp /> */}
     </ThemeProvider>

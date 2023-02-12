@@ -63,7 +63,7 @@ export default function StepperSidbar() {
   return (
     <StepperSidbarRoot>
       {STEPS.map((step, idx) => (
-        <Step id={idx + 1 + ""} className={idx == 1 ? "active" : undefined}>
+        <Step id={idx + 1 + ""} className={idx == 2 ? "active" : undefined}>
           {step}
         </Step>
       ))}
