@@ -2,6 +2,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createCustomeTheme } from "./theme";
 import StepperLayout from "./components/Stepper/StepperLayout";
 import PersonalInfo from "./components/PersonalInfo";
+import SelectPlan from "./components/SelectPlan";
 import Comp from "./comp";
 
 export default function App() {
@@ -10,7 +11,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <StepperLayout>
-        <PersonalInfo />
+        <SelectPlan />
       </StepperLayout>
       {/* <Comp /> */}
     </ThemeProvider>
