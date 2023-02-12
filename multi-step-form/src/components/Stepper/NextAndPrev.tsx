@@ -5,7 +5,7 @@ const NextAndPrevRoot = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
   "& button": {
     borderRadius: theme.shape.borderRadius / 2,
-    textTransform: "capitalize"
+    textTransform: "capitalize",
   },
   "& .goBack": {
     color: colors.grey[500],
@@ -13,15 +13,24 @@ const NextAndPrevRoot = styled(Box)(({ theme }) => ({
   },
   "& .goNext": {
     padding: "11px 26px",
-    fontSize: "0.96rem"
-  }
+    fontSize: "0.96rem",
+  },
+  "& .confirm": {
+    padding: "11px 32px",
+    fontSize: "0.96rem",
+  },
 }));
 
 export default function NextAndPrev() {
   return (
     <NextAndPrevRoot>
-      <Button className="goBack" size="large">Go Back</Button>
-      <Button variant="contained" className="goNext">Next Step</Button>
+      <Button className="goBack" size="large">
+        Go Back
+      </Button>
+      {/* <Button variant="contained" className="goNext">Next Step</Button> */}
+      <Button variant="contained" color="secondary" className="confirm">
+        Confirm
+      </Button>
     </NextAndPrevRoot>
   );
 }

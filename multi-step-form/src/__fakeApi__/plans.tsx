@@ -12,7 +12,7 @@ const plans = [
       offer: "2 months free",
     },
     monthly: {
-      price: "$90/mo",
+      price: "$9/mo",
     },
   },
   {
