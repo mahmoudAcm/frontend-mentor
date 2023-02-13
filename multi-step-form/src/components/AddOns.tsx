@@ -6,6 +6,8 @@ const AddOnsRoot = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   gap: 13,
+  paddingTop: 5,
+  paddingBottom: 5,
   paddingLeft: 10,
   paddingRight: 23,
   borderRadius: theme.shape.borderRadius / 2,
@@ -18,14 +20,47 @@ const AddOnsRoot = styled(Box)(({ theme }) => ({
   "&.active, &:hover": {
     borderColor: theme.palette.secondary.light,
   },
+  "& .price": {
+    fontSize: "0.9rem",
+    color: theme.palette.secondary.light,
+    marginTop: 1,
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    paddingLeft: 5,
+    paddingRight: 15,
+    gap: 5,
+    minHeight: 63,
+    "& .price": {
+      fontSize: "0.78rem",
+      marginTop: 4,
+    },
+  },
 }));
 
-const TitleAndSubtitle = styled(Box)(() => ({
+const TitleAndSubtitle = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   flex: 1,
   "& .MuiTypography-root": {
     letterSpacing: 0.15,
+  },
+  "& .title": {
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+  [theme.breakpoints.down("sm")]: {
+    "& .title": {
+      fontSize: "0.86rem",
+    },
+    "& .subtitle": {
+      fontSize: "0.74rem",
+    },
+  },
+  [theme.breakpoints.down(325)]: {
+    gap: 5,
+    "& .title": {
+      lineHeight: 1.1,
+    },
   },
 }));
 
@@ -47,19 +82,12 @@ export default function AddOns(props: AddOnsProps) {
         checked={rest.className?.includes("active") ?? false}
       />
       <TitleAndSubtitle>
-        <Typography fontWeight={(theme) => theme.typography.fontWeightMedium}>
-          {title}
-        </Typography>
-        <Typography color="textSecondary" variant="body2">
+        <Typography className="title">{title}</Typography>
+        <Typography className="subtitle" color="textSecondary" variant="body2">
           {subtitle}
         </Typography>
       </TitleAndSubtitle>
-      <Typography
-        fontSize="0.9rem"
-        sx={{ color: (theme) => theme.palette.secondary.light, marginTop: 1 }}
-      >
-        {price}
-      </Typography>
+      <Typography className="price">{price}</Typography>
     </AddOnsRoot>
   );
 }

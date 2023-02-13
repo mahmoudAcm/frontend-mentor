@@ -2,7 +2,7 @@ import { Box, styled } from "@mui/material";
 
 const MobileHeaderRoot = styled(Box)(({ theme }) => ({
   display: "none",
-  width: "100vw",
+  // width: "100",
   height: 172,
   backgroundImage: "url('./assets/images/bg-sidebar-mobile.svg')",
   backgroundSize: "cover",
@@ -37,7 +37,7 @@ export default function MobileHeader() {
       {new Array(4).fill(0).map((_, idx) => (
         <div
           key={idx}
-          className={["circle", idx === 1 ? "active" : ""]
+          className={["circle", idx === 2 ? "active" : ""]
             .filter(Boolean)
             .join(" ")}
         >

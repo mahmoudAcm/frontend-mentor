@@ -4,10 +4,13 @@ import addonslist from "../__fakeApi__/addons";
 import AddOns from "./AddOns";
 import { StepperTitleAndSubtitle, SteppterContentLayout } from "./Stepper";
 
-const AddOnsWrapper = styled(Box)(() => ({
+const AddOnsWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: 16,
+  [theme.breakpoints.down("sm")]: {
+    gap: 12,
+  },
 }));
 
 export default function PickAddOns() {

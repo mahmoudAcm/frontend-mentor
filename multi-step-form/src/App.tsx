@@ -32,6 +32,7 @@ export default function App() {
               alignItems: "flex-start",
               justifyContent: "flex-start",
               "& #root": {
+                width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 minHeight: width[currentStep],
@@ -43,7 +44,7 @@ export default function App() {
       <MobileHeader />
       <Container sx={{ flex: 1 }}>
         <StepperLayout>
-          <SelectPlan />
+          <PickAddOns />
         </StepperLayout>
       </Container>
       <NextAndPrev className="mobile" />
