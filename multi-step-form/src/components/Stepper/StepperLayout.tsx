@@ -12,6 +12,7 @@ const StepperLayoutRoot = styled(Paper)(({ theme }) => ({
     width: "100%",
     height: "fit-content",
     marginTop: -73,
+    marginBottom: 20,
   },
 }));
 

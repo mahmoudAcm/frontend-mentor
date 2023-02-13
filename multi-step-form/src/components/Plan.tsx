@@ -23,12 +23,40 @@ const PlanRoot = styled(Box)(({ theme }) => ({
   "&:hover": {
     borderColor: "#5d56a0",
   },
+  [theme.breakpoints.down("sm")]: {
+    alginItems: "center",
+    width: "100%",
+    flexDirection: "row",
+    gap: 14,
+    minHeight: 68,
+    padding: 15,
+    "& .icon": {
+      height: 40,
+    },
+  },
 }));
 
-const Details = styled(Box)(() => ({
+const Details = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: 2,
+  "& .price": {
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+  "& .offer": {
+    fontSize: "0.73rem",
+  },
+  [theme.breakpoints.down("sm")]: {
+    gap: 0,
+    "& .price": {
+      fontSize: "0.88rem",
+      lineHeight: 1.5,
+    },
+    "& .offer": {
+      fontSize: "0.76rem",
+      lineHeight: 1.9,
+    },
+  },
 }));
 
 interface PlanProps extends BoxProps {
@@ -47,14 +75,14 @@ export default function Plan(props: PlanProps) {
         <Typography fontWeight={(theme) => theme.typography.fontWeightMedium}>
           {type}
         </Typography>
-        <Typography
-          variant="caption"
-          color="#acadb2"
-          fontWeight={(theme) => theme.typography.fontWeightMedium}
-        >
+        <Typography variant="caption" color="#acadb2" className="price">
           {price}
         </Typography>
-        {props.offer ? <Typography fontSize="0.73rem">{props.offer}</Typography> : <></>}
+        {props.offer ? (
+          <Typography className="offer">{props.offer}</Typography>
+        ) : (
+          <></>
+        )}
       </Details>
     </PlanRoot>
   );

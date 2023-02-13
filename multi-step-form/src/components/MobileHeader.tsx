@@ -37,7 +37,7 @@ export default function MobileHeader() {
       {new Array(4).fill(0).map((_, idx) => (
         <div
           key={idx}
-          className={["circle", idx === 0 ? "active" : ""]
+          className={["circle", idx === 1 ? "active" : ""]
             .filter(Boolean)
             .join(" ")}
         >

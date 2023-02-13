@@ -14,6 +14,12 @@ import Summary from "./components/Summary";
 import MobileHeader from "./components/MobileHeader";
 import NextAndPrev from "./components/Stepper/NextAndPrev";
 
+const currentStep = 1;
+const width = {
+  0: 667,
+  1: 695,
+};
+
 export default function App() {
   const theme = createCustomeTheme({ theme: "LIGHT" });
   return (
@@ -28,7 +34,7 @@ export default function App() {
               "& #root": {
                 display: "flex",
                 flexDirection: "column",
-                minHeight: 667,
+                minHeight: width[currentStep],
               },
             },
           },
@@ -37,7 +43,7 @@ export default function App() {
       <MobileHeader />
       <Container sx={{ flex: 1 }}>
         <StepperLayout>
-          <PersonalInfo />
+          <SelectPlan />
         </StepperLayout>
       </Container>
       <NextAndPrev className="mobile" />

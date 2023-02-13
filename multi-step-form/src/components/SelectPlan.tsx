@@ -4,10 +4,14 @@ import { StepperTitleAndSubtitle, SteppterContentLayout } from "./Stepper";
 import Plan from "./Plan";
 import plans from "../__fakeApi__/plans";
 
-const PlanWrapper = styled(Box)(() => ({
+const PlanWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: 21,
   marginTop: 2,
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+    gap: 11,
+  },
 }));
 
 const Switcher = styled(Box)(({ theme }) => ({
@@ -21,6 +25,11 @@ const Switcher = styled(Box)(({ theme }) => ({
   "& .MuiTypography-root": {
     fontSize: "0.85rem",
     fontWeight: theme.typography.fontWeightMedium,
+  },
+  [theme.breakpoints.down("sm")]: {
+    gap: 25,
+    marginTop: 4,
+    marginBottom: 3
   },
 }));
 
