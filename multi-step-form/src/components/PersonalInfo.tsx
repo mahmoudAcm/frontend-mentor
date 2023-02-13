@@ -54,13 +54,30 @@ const Input = styled(function (props: InputProps) {
     },
     padding: "12px 15px",
     fontWeight: theme.typography.fontWeightMedium,
+    [theme.breakpoints.down("lg")]: {
+      width: "100%"
+    }
   },
+  [theme.breakpoints.down("md")]: {
+    gap: 3,
+    "& input": {
+      fontSize: "0.95rem",
+      padding: "8px 15px",
+      borderRadius: 4
+    },
+   "& label": {
+    fontSize: "0.76rem"
+   } 
+  }
 }));
 
-export const InputWrapper = styled(Box)(() => ({
+export const InputWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: 21,
+  [theme.breakpoints.down("md")]: {
+    gap: 13
+  }
 }));
 
 export default function PersonalInfo() {

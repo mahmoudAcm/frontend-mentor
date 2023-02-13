@@ -7,7 +7,9 @@ const initialState = { y: 0, x: 0, opacity: 0.9 };
 
 export default function Comp() {
   const [state, setState] = useState(
-    () => JSON.parse(localStorage.getItem("di")!) as typeof initialState ?? initialState
+    () =>
+      (JSON.parse(localStorage.getItem("di")!) as typeof initialState) ??
+      initialState
   );
 
   const handleChange = (name: string) => (evt: any) => {
@@ -21,13 +23,13 @@ export default function Comp() {
     <>
       <Box
         component="img"
-        src="../design/desktop-design-step-4-yearly.jpg"
+        src="../design/mobile-design-step-1.jpg"
         sx={{
           position: "fixed",
           top: state.y,
           left: state.x,
           opacity: state.opacity,
-          mixBlendMode: "difference"
+          mixBlendMode: "difference",
         }}
       ></Box>
       <Box

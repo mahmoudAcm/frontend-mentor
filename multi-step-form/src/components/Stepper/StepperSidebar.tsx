@@ -1,9 +1,9 @@
 import { Box, BoxProps, styled, Typography } from "@mui/material";
 
-const StepperSidbarRoot = styled(Box)(() => ({
+const StepperSidbarRoot = styled(Box)(({ theme }) => ({
   width: 274,
   height: 568,
-  backgroundImage: "url('/assets/images/bg-sidebar-desktop.svg')",
+  backgroundImage: "url('./assets/images/bg-sidebar-desktop.svg')",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   textTransform: "uppercase",
@@ -11,6 +11,9 @@ const StepperSidbarRoot = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
   gap: 28.5,
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
 }));
 
 const Step = styled(function Step(props: BoxProps) {

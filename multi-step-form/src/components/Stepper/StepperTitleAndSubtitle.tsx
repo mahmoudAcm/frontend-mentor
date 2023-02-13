@@ -1,9 +1,25 @@
 import { Box, styled, Typography } from "@mui/material";
 
-const StepperTitleAndSubtitleRoot = styled(Box)(() => ({
+const StepperTitleAndSubtitleRoot = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: 9,
+  "& .title": {
+    fontWeight: theme.typography.fontWeightBold,
+    fontSize: "2rem",
+  },
+  "& .subtitle": {
+    fontWeight: theme.typography.fontWeightMedium,
+    fontSize: "0.98rem",
+  },
+  [theme.breakpoints.down("md")]: {
+    "& .title": {
+      fontSize: "1.5rem",
+    },
+    "& .subtitle": {
+      fontSize: "1rem",
+    },
+  },
 }));
 
 interface StepperTitleAndSubtitleProps {
@@ -16,18 +32,10 @@ export default function StepperTitleAndSubtitle(
 ) {
   return (
     <StepperTitleAndSubtitleRoot>
-      <Typography
-        variant="h4"
-        fontWeight={(theme) => theme.typography.fontWeightBold}
-        fontSize="2rem"
-      >
+      <Typography variant="h4" className="title">
         {props.title}
       </Typography>
-      <Typography
-        color="textSecondary"
-        fontWeight={(theme) => theme.typography.fontWeightMedium}
-        fontSize="0.98rem"
-      >
+      <Typography color="textSecondary" className="subtitle">
         {props.subtitle}
       </Typography>
     </StepperTitleAndSubtitleRoot>
