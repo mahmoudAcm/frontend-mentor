@@ -20,7 +20,7 @@ export default function SteppterContentLayout(props: BoxProps) {
   return (
     <SteppterContentLayoutRoot {...rest}>
       <div className="container">{children}</div>
-      <NextAndPrev className="desktop" />
+      {/* <NextAndPrev className="desktop" /> */}
     </SteppterContentLayoutRoot>
   );
 }

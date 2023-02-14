@@ -13,6 +13,7 @@ import PickAddOns from "./components/PickAddOns";
 import Summary from "./components/Summary";
 import MobileHeader from "./components/MobileHeader";
 import NextAndPrev from "./components/Stepper/NextAndPrev";
+import ThankYou from "./components/ThankYou";
 
 const currentStep = 1;
 const width = {
@@ -44,10 +45,10 @@ export default function App() {
       <MobileHeader />
       <Container sx={{ flex: 1 }}>
         <StepperLayout>
-          <Summary />
+          <ThankYou />
         </StepperLayout>
       </Container>
-      <NextAndPrev className="mobile" />
+      {/* <NextAndPrev className="mobile" /> */}
       {/* <Comp /> */}
     </ThemeProvider>
   );
