@@ -44,7 +44,7 @@ export default function App() {
       <MobileHeader />
       <Container sx={{ flex: 1 }}>
         <StepperLayout>
-          <PickAddOns />
+          <Summary />
         </StepperLayout>
       </Container>
       <NextAndPrev className="mobile" />

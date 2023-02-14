@@ -37,6 +37,9 @@ const NextAndPrevRoot = styled(Box)(({ theme }) => ({
       "& .goNext": {
         padding: "8px 16px",
       },
+      "& .confirm": {
+        padding: "8px 22px",
+      },
     },
   },
 }));
@@ -46,16 +49,16 @@ interface NextAndPrevProps extends BoxProps {}
 export default function NextAndPrev(props: NextAndPrevProps) {
   return (
     <NextAndPrevRoot {...props}>
-      <Button className="goBack" size="large">
+      {/* <Button className="goBack" size="large">
         Go Back
       </Button>
-      <Box sx={{ flex: 1 }}></Box>
       <Button variant="contained" className="goNext">
         Next Step
-      </Button>
-      {/* <Button variant="contained" color="secondary" className="confirm">
-        Confirm
       </Button> */}
+      <Box sx={{ flex: 1 }}></Box>
+      <Button variant="contained" color="secondary" className="confirm">
+        Confirm
+      </Button>
     </NextAndPrevRoot>
   );
 }
