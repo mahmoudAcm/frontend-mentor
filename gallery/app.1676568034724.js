@@ -67,7 +67,6 @@ function render() {
   for (let i = 0; i < 3; i++) {
     cols[i].innerHTML = "";
   }
-
   while (size < solutions.length) {
     const { src, livePreviewLink, sourceCodeLink } = solutions[size];
     cols[step].innerHTML += solution(src, livePreviewLink, sourceCodeLink);

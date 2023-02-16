@@ -48,4 +48,11 @@ const solutions = [
     sourceCodeLink:
       "https://github.com/mahmoudAcm/frontend-mentor/tree/master/rest-countries-api-with-color-theme-switcher",
   },
+  {
+    src: "https://mahmoudacm.github.io/frontend-mentor/multi-step-form/design/screenshot.png",
+    livePreviewLink:
+      "https://mahmoudacm.github.io/frontend-mentor/multi-step-form/dist",
+    sourceCodeLink:
+      "https://github.com/mahmoudAcm/frontend-mentor/tree/master/multi-step-form",
+  },
 ];
