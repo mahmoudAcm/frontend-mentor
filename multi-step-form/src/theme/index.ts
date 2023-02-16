@@ -27,7 +27,7 @@ const themesOptions: Record<string, ThemeOptions> = {
       borderRadius: 16,
     },
     typography: {
-      fontFamily: "Ubuntu",
+      fontFamily: "'Ubuntu', sans-serif",
       htmlFontSize: 16,
       fontWeightRegular: 400,
       fontWeightMedium: 500,
