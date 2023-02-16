@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { Box, styled, Switch, Typography } from "@mui/material";
 import { StepperTitleAndSubtitle, SteppterContentLayout } from "./Stepper";
 import Plan from "./Plan";
-import plans from "../__fakeApi__/plans";
+import plansData from "../__fakeApi__/plans";
+import useForm from "../hooks/useForm";
 
 const PlanWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -29,7 +30,7 @@ const Switcher = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     gap: 25,
     marginTop: 4,
-    marginBottom: 3
+    marginBottom: 3,
   },
 }));
 
@@ -73,12 +74,21 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function SelectPlan() {
-  const [yearly, setYearly] = useState(false);
-  const [activePlan, setActivePlan] = useState(0);
+  const { updateSelectedPlan, changePlan, plans } = useForm();
 
-  const choosePlan = (idx: number) => () => {
-    setActivePlan(idx);
+  const selectPlan = (id: number) => () => {
+    const plan = plansData[id];
+    console.log(parseInt(plan[plans.plan].price));
+    updateSelectedPlan({
+      id: "" + id,
+      type: plan.type,
+      price: parseInt(plan[plans.plan].price),
+    });
   };
+
+  useEffect(() => {
+    selectPlan(plans.details.id)();
+  }, [plans.plan]);
 
   return (
     <SteppterContentLayout>
@@ -87,27 +97,36 @@ export default function SelectPlan() {
         subtitle="You have the option of monthly or yearly billing."
       />
       <PlanWrapper>
-        {plans.map((plan, idx) => (
+        {plansData.map((plan, idx) => (
           <Plan
-            className={idx === activePlan ? "active" : ""}
+            className={idx == plans.details.id ? "active" : ""}
             key={idx}
             type={plan.type as "ANY"}
             icon={plan.icon}
-            price={plan[yearly ? "yearly" : "monthly"].price}
-            offer={yearly ? plan.yearly.offer : undefined}
-            onClick={choosePlan(idx)}
+            price={
+              "$" +
+              plan[plans.plan].price +
+              "/" +
+              (plans.plan === "yearly" ? "yr" : "mo")
+            }
+            offer={plans.plan === "yearly" ? plan.yearly.offer : undefined}
+            onClick={selectPlan(idx)}
           />
         ))}
       </PlanWrapper>
       <Switcher>
-        <Typography color={yearly ? "gray" : ""}>Monthly</Typography>
+        <Typography color={plans.plan === "yearly" ? "gray" : ""}>
+          Monthly
+        </Typography>
         <AntSwitch
-          checked={yearly}
+          checked={plans.plan === "yearly"}
           onChange={(_, checked) => {
-            setYearly(checked);
+            changePlan(checked ? "yearly" : "monthly");
           }}
         />
-        <Typography color={!yearly ? "gray" : ""}>Yearly</Typography>
+        <Typography color={!(plans.plan === "yearly") ? "gray" : ""}>
+          Yearly
+        </Typography>
       </Switcher>
     </SteppterContentLayout>
   );

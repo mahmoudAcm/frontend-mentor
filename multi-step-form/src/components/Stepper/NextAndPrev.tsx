@@ -1,4 +1,5 @@
 import { Box, Button, styled, colors, BoxProps } from "@mui/material";
+import useForm from "../../hooks/useForm";
 
 const NextAndPrevRoot = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -47,18 +48,61 @@ const NextAndPrevRoot = styled(Box)(({ theme }) => ({
 interface NextAndPrevProps extends BoxProps {}
 
 export default function NextAndPrev(props: NextAndPrevProps) {
+  const {
+    numOfSteps,
+    currentStep,
+    confirmed,
+    goNext,
+    goBack,
+    confirm,
+    isValidating,
+    setIsValidating,
+  } = useForm();
+  if (confirmed) return <></>;
   return (
     <NextAndPrevRoot {...props}>
-      {/* <Button className="goBack" size="large">
-        Go Back
-      </Button>
-      <Button variant="contained" className="goNext">
-        Next Step
-      </Button> */}
-      <Box sx={{ flex: 1 }}></Box>
-      <Button variant="contained" color="secondary" className="confirm">
-        Confirm
-      </Button>
+      {currentStep > 1 && currentStep < numOfSteps ? (
+        <Button className="goBack" size="large" onClick={goBack}>
+          Go Back
+        </Button>
+      ) : (
+        <></>
+      )}
+      {currentStep < numOfSteps ? (
+        <>
+          <Box sx={{ flex: 1 }}></Box>
+          <Button
+            variant="contained"
+            className="goNext"
+            disabled={isValidating}
+            onClick={() => {
+              if (currentStep === 1) {
+                setIsValidating(true);
+              }
+              goNext();
+            }}
+          >
+            Next Step
+          </Button>
+        </>
+      ) : (
+        <></>
+      )}
+      {currentStep === numOfSteps ? (
+        <>
+          <Box sx={{ flex: 1 }}></Box>
+          <Button
+            variant="contained"
+            color="secondary"
+            className="confirm"
+            onClick={confirm}
+          >
+            Confirm
+          </Button>
+        </>
+      ) : (
+        <></>
+      )}
     </NextAndPrevRoot>
   );
 }

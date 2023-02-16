@@ -1,6 +1,7 @@
 import { Box, styled, alpha, Typography, Link } from "@mui/material";
 import { StepperTitleAndSubtitle, SteppterContentLayout } from "./Stepper";
 import summary from "../__fakeApi__/summary";
+import useForm from "../hooks/useForm";
 
 const Details = styled(Box)(({ theme }) => ({
   width: 449,
@@ -77,12 +78,19 @@ const Total = styled(AddOns)(({ theme }) => ({
     marginTop: -2,
     padding: "0 17px",
     "& .total": {
-      fontSize: "1.02rem"
-    }
+      fontSize: "1.02rem",
+    },
   },
 }));
 
 export default function Summary() {
+  const { goChangePlan, plans, addOns } = useForm();
+  const unit = plans.plan === "yearly" ? "/yr" : "/mo";
+
+  const total =
+    plans.details.price +
+    addOns.pickedAddOns?.reduce((total, { price }) => total + price, 0);
+
   return (
     <SteppterContentLayout>
       <StepperTitleAndSubtitle
@@ -93,23 +101,26 @@ export default function Summary() {
         <TypeAndPrice>
           <LeftSide>
             <Typography className="type">
-              {summary.plan.type} ({summary.isYearly ? "Yearly" : "Monthly"})
+              {plans.details.type} (
+              {plans.plan === "yearly" ? "Yearly" : "Monthly"})
             </Typography>
-            <Link href="#">Change</Link>
+            <Link href="#" onClick={goChangePlan}>
+              Change
+            </Link>
           </LeftSide>
           <Typography className="price">
-            {summary.plan[summary.isYearly ? "yearly" : "monthly"].price}
+            {"$" + plans.details.price + unit}
           </Typography>
         </TypeAndPrice>
-        {summary.addons.length ? (
+        {addOns.pickedAddOns.length ? (
           <AddOnsWrapper>
-            {summary.addons.map((addons) => (
+            {addOns.pickedAddOns.map((addons) => (
               <AddOns>
                 <Typography variant="body2" color="#a4a5aa">
-                  {addons.title}
+                  {addons.name}
                 </Typography>
                 <Typography variant="body2">
-                  {addons[summary.isYearly ? "yearly" : "monthly"].price}
+                  {"+$" + addons.price + unit}
                 </Typography>
               </AddOns>
             ))}
@@ -120,10 +131,10 @@ export default function Summary() {
       </Details>
       <Total>
         <Typography variant="body2" color="#a4a5aa">
-          Total (per {summary.isYearly ? "year" : "month"})
+          Total (per {plans.plan === "yearly" ? "year" : "month"})
         </Typography>
         <Typography variant="h6" color="secondary" className="total">
-          {summary[summary.isYearly ? "yearly" : "monthly"].total}
+          {"+$" + total + unit}
         </Typography>
       </Total>
     </SteppterContentLayout>

@@ -1,4 +1,5 @@
 import { Box, BoxProps, styled, Typography } from "@mui/material";
+import useForm from "../../hooks/useForm";
 
 const StepperSidbarRoot = styled(Box)(({ theme }) => ({
   width: 274,
@@ -63,10 +64,15 @@ const Step = styled(function Step(props: BoxProps) {
 const STEPS = ["your info", "select plan", "add-ons", "summary"];
 
 export default function StepperSidbar() {
+  const { currentStep } = useForm();
   return (
     <StepperSidbarRoot>
       {STEPS.map((step, idx) => (
-        <Step id={idx + 1 + ""} className={idx == 3 ? "active" : undefined}>
+        <Step
+          id={idx + 1 + ""}
+          key={idx}
+          className={idx == currentStep - 1 ? "active" : undefined}
+        >
           {step}
         </Step>
       ))}

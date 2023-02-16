@@ -1,6 +1,6 @@
 import { SteppterContentLayout } from "./Stepper";
 import ThankYouIcon from "../icons/ThankYou";
-import { Box, styled, Typography } from "@mui/material";
+import { Box, Link, styled, Typography } from "@mui/material";
 
 const ThankYouRoot = styled(SteppterContentLayout)(({ theme }) => ({
   "& .container": {
@@ -57,7 +57,21 @@ export default function ThankYou() {
         <Typography color="gray" align="center">
           Thanks for confirming your subscription! We hope you have fun using
           our platform. If you ever need support, please feel free to email us
-          at support@loremgaming.com.
+          at{" "}
+          <Link
+            href="mail:support@loremgaming.com"
+            target="_blank"
+            sx={{
+              color: "currentColor",
+              textDecoration: "none",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            support@loremgaming.com
+          </Link>
+          .
         </Typography>
       </Content>
     </ThankYouRoot>

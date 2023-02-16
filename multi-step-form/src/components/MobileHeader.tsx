@@ -1,4 +1,5 @@
 import { Box, styled } from "@mui/material";
+import useForm from "../hooks/useForm";
 
 const MobileHeaderRoot = styled(Box)(({ theme }) => ({
   display: "none",
@@ -32,12 +33,13 @@ const MobileHeaderRoot = styled(Box)(({ theme }) => ({
 }));
 
 export default function MobileHeader() {
+  const { currentStep } = useForm();
   return (
     <MobileHeaderRoot>
       {new Array(4).fill(0).map((_, idx) => (
         <div
           key={idx}
-          className={["circle", idx === 3 ? "active" : ""]
+          className={["circle", idx === currentStep - 1 ? "active" : ""]
             .filter(Boolean)
             .join(" ")}
         >

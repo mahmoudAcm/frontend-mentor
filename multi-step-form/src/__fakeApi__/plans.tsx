@@ -8,33 +8,33 @@ const plans = [
     type: "Arcade",
     icon: <ArcadeIcon sx={iconBox} />,
     yearly: {
-      price: "$90/yr",
+      price: "90",
       offer: "2 months free",
     },
     monthly: {
-      price: "$9/mo",
+      price: "9",
     },
   },
   {
     type: "Advanced",
     icon: <AdvancedIcon sx={iconBox} />,
     yearly: {
-      price: "$120/yr",
+      price: "120",
       offer: "2 months free",
     },
     monthly: {
-      price: "$12/mo",
+      price: "12",
     },
   },
   {
     type: "Pro",
     icon: <ProIcon sx={iconBox} />,
     yearly: {
-      price: "$150/yr",
+      price: "150",
       offer: "2 months free",
     },
     monthly: {
-      price: "$15/mo",
+      price: "15",
     },
   },
 ];

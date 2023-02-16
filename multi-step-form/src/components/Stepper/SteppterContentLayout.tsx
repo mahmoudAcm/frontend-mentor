@@ -10,8 +10,8 @@ const SteppterContentLayoutRoot = styled(Box)(({ theme }) => ({
     gap: 35,
     flex: 1,
     [theme.breakpoints.down("md")]: {
-      gap: 21
-    }
+      gap: 21,
+    },
   },
 }));
 
@@ -20,7 +20,7 @@ export default function SteppterContentLayout(props: BoxProps) {
   return (
     <SteppterContentLayoutRoot {...rest}>
       <div className="container">{children}</div>
-      {/* <NextAndPrev className="desktop" /> */}
+      <NextAndPrev className="desktop" />
     </SteppterContentLayoutRoot>
   );
 }

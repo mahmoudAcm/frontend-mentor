@@ -2,27 +2,34 @@ import {
   Container,
   CssBaseline,
   GlobalStyles,
-  ThemeProvider,
+  ThemeProvider
 } from "@mui/material";
-import { createCustomeTheme } from "./theme";
-import StepperLayout from "./components/Stepper/StepperLayout";
-import PersonalInfo from "./components/PersonalInfo";
-import SelectPlan from "./components/SelectPlan";
-import Comp from "./comp";
-import PickAddOns from "./components/PickAddOns";
-import Summary from "./components/Summary";
+import { lazy, Suspense } from "react";
+import LoadingScreen from "./components/LoadingScreen";
 import MobileHeader from "./components/MobileHeader";
 import NextAndPrev from "./components/Stepper/NextAndPrev";
+import StepperLayout from "./components/Stepper/StepperLayout";
 import ThankYou from "./components/ThankYou";
+import useForm from "./hooks/useForm";
+import { createCustomeTheme } from "./theme";
 
-const currentStep = 1;
-const width = {
-  0: 667,
-  1: 695,
+//lazy loaded components
+const PersonalInfo = lazy(() => import("./components/PersonalInfo"));
+const SelectPlan = lazy(() => import("./components/SelectPlan"));
+const PickAddOns = lazy(() => import("./components/PickAddOns"));
+const Summary = lazy(() => import("./components/Summary"));
+
+export const STEPS: Record<number, { height: number; component: JSX.Element }> = {
+  1: { height: 667, component: <PersonalInfo /> },
+  2: { height: 695, component: <SelectPlan /> },
+  3: { height: 695, component: <PickAddOns /> },
+  4: { height: 695, component: <Summary /> },
 };
 
 export default function App() {
   const theme = createCustomeTheme({ theme: "LIGHT" });
+  const { currentStep, confirmed } = useForm();
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -36,7 +43,7 @@ export default function App() {
                 width: "100%",
                 display: "flex",
                 flexDirection: "column",
-                minHeight: width[currentStep],
+                minHeight: STEPS[currentStep].height,
               },
             },
           },
@@ -45,11 +52,16 @@ export default function App() {
       <MobileHeader />
       <Container sx={{ flex: 1 }}>
         <StepperLayout>
-          <ThankYou />
+          {confirmed ? (
+            <ThankYou />
+          ) : (
+            <Suspense fallback={<LoadingScreen />}>
+              {STEPS[currentStep].component}
+            </Suspense>
+          )}
         </StepperLayout>
       </Container>
-      {/* <NextAndPrev className="mobile" /> */}
-      {/* <Comp /> */}
+      <NextAndPrev className="mobile" />
     </ThemeProvider>
   );
 }

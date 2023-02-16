@@ -1,5 +1,6 @@
 import { Box, BoxProps, styled } from "@mui/material";
-import { useState } from "react";
+import { useEffect } from "react";
+import useForm from "../hooks/useForm";
 import addonslist from "../__fakeApi__/addons";
 import AddOns from "./AddOns";
 import { StepperTitleAndSubtitle, SteppterContentLayout } from "./Stepper";
@@ -14,17 +15,32 @@ const AddOnsWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export default function PickAddOns() {
-  const [checkdListIds, setCheckedListIds] = useState<number[]>([]);
+  const { addOns, plans, updatePickedAddOns } = useForm();
 
   const toggleAddons =
     (idx: number): BoxProps["onClick"] =>
     (evt) => {
       evt.stopPropagation();
-      setCheckedListIds((prev) => {
-        if (prev.includes(idx)) return prev.filter((item) => item !== idx);
-        return prev.concat(idx);
+      updatePickedAddOns((prev) => {
+        if (prev.map(({ id }) => Number(id)).includes(idx))
+          return prev.filter((item) => item.id !== "" + idx);
+        const addOns = addonslist[idx];
+        return prev.concat({
+          id: "" + idx,
+          name: addOns.title,
+          price: parseInt(addOns[plans.plan].price),
+        });
       });
     };
+
+  useEffect(() => {
+    updatePickedAddOns((prev) =>
+      prev.map((addOns) => ({
+        ...addOns,
+        price: parseInt(addonslist[Number(addOns.id)][plans.plan].price),
+      }))
+    );
+  }, [plans.plan]);
 
   return (
     <SteppterContentLayout>
@@ -33,14 +49,22 @@ export default function PickAddOns() {
         subtitle="Add-ons help enhance your gaming experience."
       />
       <AddOnsWrapper>
-        {addonslist.map((addons, idx) => (
+        {addonslist.map((addonsItem, idx) => (
           <AddOns
             key={idx}
-            title={addons.title}
-            subtitle={addons.subtitle}
-            price={addons.monthly.price}
+            title={addonsItem.title}
+            subtitle={addonsItem.subtitle}
+            price={
+              "+$" +
+              addonsItem[plans.plan].price +
+              (plans.plan === "yearly" ? "/yr" : "/mo")
+            }
             onClick={toggleAddons(idx)}
-            className={checkdListIds.includes(idx) ? "active" : ""}
+            className={
+              addOns.pickedAddOns.map(({ id }) => Number(id)).includes(idx)
+                ? "active"
+                : ""
+            }
           />
         ))}
       </AddOnsWrapper>
