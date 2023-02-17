@@ -59,7 +59,7 @@ export default function ThankYou() {
           our platform. If you ever need support, please feel free to email us
           at{" "}
           <Link
-            href="mail:support@loremgaming.com"
+            href="mailto:support@loremgaming.com"
             target="_blank"
             sx={{
               color: "currentColor",
