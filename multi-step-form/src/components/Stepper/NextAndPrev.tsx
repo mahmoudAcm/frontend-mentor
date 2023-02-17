@@ -29,9 +29,13 @@ const NextAndPrevRoot = styled(Box)(({ theme }) => ({
       display: "none",
     },
     "&.mobile": {
+      width: "100%",
+      position: "fixed",
+      bottom: 0,
       display: "flex",
       padding: "15px 16px",
       backgroundColor: "white",
+      boxShadow: theme.shadows[20],
       "& button": {
         fontSize: "0.88rem",
       },

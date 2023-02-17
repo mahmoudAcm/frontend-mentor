@@ -5,13 +5,14 @@ import {
   ThemeProvider
 } from "@mui/material";
 import { lazy, Suspense } from "react";
-import LoadingScreen from "./components/LoadingScreen";
+import StepperContentLoaderScreen from "./components/StepperContentLoaderScreen";
 import MobileHeader from "./components/MobileHeader";
 import NextAndPrev from "./components/Stepper/NextAndPrev";
 import StepperLayout from "./components/Stepper/StepperLayout";
 import ThankYou from "./components/ThankYou";
 import useForm from "./hooks/useForm";
 import { createCustomeTheme } from "./theme";
+import LoadingScreen from "./components/LoadingScreen";
 
 //lazy loaded components
 const PersonalInfo = lazy(() => import("./components/PersonalInfo"));
@@ -49,13 +50,14 @@ export default function App() {
           },
         }}
       />
+      <LoadingScreen />
       <MobileHeader />
       <Container sx={{ flex: 1 }}>
         <StepperLayout>
           {confirmed ? (
             <ThankYou />
           ) : (
-            <Suspense fallback={<LoadingScreen />}>
+            <Suspense fallback={<StepperContentLoaderScreen />}>
               {STEPS[currentStep].component}
             </Suspense>
           )}
