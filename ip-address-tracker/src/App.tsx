@@ -10,20 +10,37 @@ import Comp from "./comp";
 import MainLayout from "./components/MainLayout";
 import ArrowIcon from "./icons/Arrow";
 
+const MD = 1097;
+
+const Title = styled(Typography)(({ theme }) => ({
+  paddingTop: 31,
+  [theme.breakpoints.down("sm")]: {
+    paddingTop: 27,
+    fontSize: "1.6rem",
+  },
+}));
+
 const FormControl = styled("form")(({ theme }) => ({
   display: "flex",
   borderRadius: theme.shape.borderRadius * 4,
   overflow: "hidden",
   height: 58,
+  [theme.breakpoints.down("sm")]: {
+    width: "96%",
+    marginTop: 2,
+  },
 }));
 
-const Input = styled(InputBase)(() => ({
+const Input = styled(InputBase)(({ theme }) => ({
   width: 497,
   fontSize: "1.125rem",
   padding: "28px 25px",
   background: "white",
   "&:hover": {
     color: "#2b2b2b",
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
   },
 }));
 
@@ -40,6 +57,9 @@ const InputAddorment = styled(Box)(({ theme }) => ({
   "&:hover": {
     background: "#3f3f3f",
   },
+  [theme.breakpoints.down("sm")]: {
+    width: 75,
+  },
 }));
 
 const Panel = styled(Paper)(({ theme }) => ({
@@ -49,9 +69,21 @@ const Panel = styled(Paper)(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "repeat(4, 1fr)",
   gap: 65,
+  justifyContent: "center",
   borderRadius: theme.shape.borderRadius * 4,
   padding: "32px 32px",
   position: "relative",
+  [theme.breakpoints.down("lg")]: {
+    gridTemplateColumns: "auto",
+    width: "80%",
+    marginTop: -2,
+    paddingTop: 23,
+    paddingBottom: 23,
+    gap: 19,
+  },
+  [theme.breakpoints.down("md")]: {
+    width: "95.4%",
+  },
 }));
 
 const Info = styled(Box)(({ theme }) => ({
@@ -85,6 +117,20 @@ const Info = styled(Box)(({ theme }) => ({
   "&:nth-of-type(1)::after": {
     display: "none",
   },
+  [theme.breakpoints.down("lg")]: {
+    alignItems: "center",
+    gap: 5,
+    "& .title": {
+      fontSize: "0.75rem",
+    },
+    "& .text": {
+      width: "auto",
+      fontSize: "1.24rem",
+    },
+    "&::after": {
+      display: "none",
+    },
+  },
 }));
 
 export default function App() {
@@ -94,17 +140,19 @@ export default function App() {
       <MainLayout
         top={
           <>
-            <Typography
+            <Title
               fontWeight={(theme) => theme.typography.fontWeightMedium}
               variant="h1"
               color="white"
               fontSize="1.97rem"
-              sx={{ paddingTop: "31px" }}
             >
               IP Address Tracker
-            </Typography>
+            </Title>
             <FormControl>
-              <Input placeholder="Search for any IP address or domain" />
+              <Input
+                placeholder="Search for any IP address or domain"
+                value="192.212.174.101"
+              />
               <InputAddorment>
                 <ArrowIcon />
               </InputAddorment>
@@ -138,7 +186,7 @@ export default function App() {
           </>
         }
       />
-      {/* <Comp /> */}
+      <Comp />
     </>
   );
 }
