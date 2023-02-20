@@ -8,9 +8,8 @@ import {
 } from "@mui/material";
 import Comp from "./comp";
 import MainLayout from "./components/MainLayout";
+import MapLocation from "./components/MapLocation";
 import ArrowIcon from "./icons/Arrow";
-
-const MD = 1097;
 
 const Title = styled(Typography)(({ theme }) => ({
   paddingTop: 31,
@@ -73,7 +72,8 @@ const Panel = styled(Paper)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius * 4,
   padding: "32px 32px",
   position: "relative",
-  [theme.breakpoints.down("lg")]: {
+  zIndex: 10,
+  [theme.breakpoints.down("lg")]: { 
     gridTemplateColumns: "auto",
     width: "80%",
     marginTop: -2,
@@ -185,8 +185,9 @@ export default function App() {
             </Panel>
           </>
         }
+        bottom={<MapLocation />}
       />
-      <Comp />
+      {/* <Comp /> */}
     </>
   );
 }

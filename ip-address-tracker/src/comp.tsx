@@ -23,7 +23,7 @@ export default function Comp() {
     <>
       <Box
         component="img"
-        src="../design/mobile-design.jpg"
+        src="../design/desktop-design.jpg"
         sx={{
           position: "fixed",
           top: state.y,
