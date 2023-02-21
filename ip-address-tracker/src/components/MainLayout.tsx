@@ -7,14 +7,16 @@ interface MainLayoutProps {
 
 const Top = styled(Box)(({ theme }) => ({
   height: 280,
-  background: "url('./images/pattern-bg.png')",
+  backgroundImage: "url(./images/pattern-bg-v2.png)",
   backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
   [theme.breakpoints.down("sm")]: {
     height: 300,
+    backgroundPosition: "53% top",
   },
 }));
 
-const TopContainer = styled(Container)(({ theme }) => ({
+const TopContainer = styled(Container)(() => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",

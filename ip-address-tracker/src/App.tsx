@@ -151,7 +151,7 @@ export default function App() {
             <FormControl>
               <Input
                 placeholder="Search for any IP address or domain"
-                value="192.212.174.101"
+                // value="192.212.174.101"
               />
               <InputAddorment>
                 <ArrowIcon />
