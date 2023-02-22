@@ -55,4 +55,11 @@ const solutions = [
     sourceCodeLink:
       "https://github.com/mahmoudAcm/frontend-mentor/tree/master/multi-step-form",
   },
+  {
+    src: "https://mahmoudacm.github.io/frontend-mentor/ip-address-tracker/design/screenshot.png",
+    livePreviewLink:
+      "https://mahmoudacm.github.io/frontend-mentor/ip-address-tracker/dist",
+    sourceCodeLink:
+      "https://github.com/mahmoudAcm/frontend-mentor/tree/master/ip-address-tracker",
+  },
 ];
