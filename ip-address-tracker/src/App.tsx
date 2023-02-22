@@ -1,4 +1,11 @@
-import { CssBaseline, styled, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  CssBaseline,
+  Stack,
+  styled,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import IPDomainForm from "./components/IPDomainForm";
 import IPDomainPanel from "./components/IPDomainPanel";
@@ -18,7 +25,12 @@ const Title = styled(Typography)(({ theme }) => ({
 
 export default function App() {
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
   const [result, setResult] = useState(resultData);
+
+  const handleClose = (id: number) => () => {
+    setErrors((errors) => errors.filter((_, idx) => idx !== id));
+  };
 
   return (
     <>
@@ -49,9 +61,10 @@ export default function App() {
                     });
                   }
                 } catch (e) {
+                  errors.push("Their is no search result.");
                 } finally {
                   setLoading(false);
-                  console.log(value, errors);
+                  setErrors(errors);
                 }
               }}
             />
@@ -66,6 +79,27 @@ export default function App() {
         }
       />
       {/* <Comp /> */}
+      <Stack
+        direction="column"
+        sx={{
+          position: "fixed",
+          right: 10,
+          bottom: 10,
+          zIndex: (theme) => theme.zIndex.snackbar,
+        }}
+        spacing={1}
+      >
+        {errors.map((error, idx) => (
+          <Alert
+            severity="error"
+            key={error}
+            onClose={handleClose(idx)}
+            sx={{ minWidth: 300 }}
+          >
+            {error}
+          </Alert>
+        ))}
+      </Stack>
     </>
   );
 }
