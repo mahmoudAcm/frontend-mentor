@@ -1,4 +1,4 @@
-import { Box, Container, styled } from "@mui/material";
+import { Box, Container, styled, useMediaQuery, useTheme } from "@mui/material";
 
 interface MainLayoutProps {
   top?: JSX.Element;
@@ -24,12 +24,25 @@ const TopContainer = styled(Container)(() => ({
 }));
 
 export default function MainLayout(props: MainLayoutProps) {
+  const theme = useTheme();
+  const md = useMediaQuery(() => theme.breakpoints.down("lg"));
+
   return (
     <>
       <Top>
         <TopContainer>{props.top}</TopContainer>
       </Top>
-      <Box>{props.bottom}</Box>
+      <Box
+        sx={{
+          "& .leaflet-container": {
+            zIndex: 0,
+            height: "100%",
+          },
+          height: md ? "max(100vh, 600px)" : "max(415px, calc(100vh - 280px))",
+        }}
+      >
+        {props.bottom}
+      </Box>
     </>
   );
 }
