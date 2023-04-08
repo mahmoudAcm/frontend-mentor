@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { Typography } from '@mui/material';
 
 export default function Home() {
   return (
@@ -12,31 +11,7 @@ export default function Home() {
 
         <title>Frontend Mentor | Space tourism website</title>
       </Head>
-      <main style={{ position: 'relative', minHeight: '100vh', width: '100%' }}>
-        <Typography variant='h1'>EARTH</Typography>
-        <Typography variant='h2'>VENUS</Typography>
-        <Typography variant='h3'>JUPITER & SATURN</Typography>
-        <Typography variant='h4'>URANUS, NEPTUNE, & PLUTO</Typography>
-        <Typography variant='h5'>SO, YOU WANT TO TRAVEL TO SPACE</Typography>
-        <Typography variant='subheading1' component='p'>
-          384,400 km
-        </Typography>
-        <Typography variant='subheading2' component='p'>
-          AVG. DISTANCE
-        </Typography>
-        <Typography variant='nav'>EUROPA</Typography>
-
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec
-          urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet
-          viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse
-          potenti.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet
-          nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin
-          laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo.
-          Suspendisse potenti.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit.
-          Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi.
-        </Typography>
-      </main>
+      <main style={{ minHeight: '100vh', width: '100%' }}></main>
     </>
   );
 }

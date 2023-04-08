@@ -1,8 +1,9 @@
 import '@/src/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import theme from '../../theme';
+import theme from '../theme';
 import { useEffect, useState } from 'react';
+import Header from '@/src/components/Header';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,14 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {loading ? <></> : <Component {...pageProps} />}
+      {loading ? (
+        <></>
+      ) : (
+        <>
+          <Header />
+          <Component {...pageProps} />
+        </>
+      )}
     </ThemeProvider>
   );
 }

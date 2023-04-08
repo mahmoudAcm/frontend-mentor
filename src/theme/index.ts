@@ -1,6 +1,6 @@
 import { createTheme, ThemeOptions } from '@mui/material';
-import { THEMES } from '../contants';
-import { Bellefair, Barlow_Condensed, Barlow } from '@next/font/google';
+import { THEMES } from '../../contants';
+import { Barlow, Barlow_Condensed, Bellefair } from '@next/font/google';
 import { merge } from 'lodash';
 import './typography.d.ts';
 
@@ -12,7 +12,7 @@ const bellefairFont = Bellefair({
 
 const barlowCondensedFont = Barlow_Condensed({
   display: 'swap',
-  weight: '400',
+  weight: ['400', '700'],
   subsets: ['latin', 'latin-ext', 'vietnamese']
 });
 
