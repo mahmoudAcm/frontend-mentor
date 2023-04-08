@@ -32,6 +32,26 @@ const HeaderRoot = styled(Box)(({ theme }) => ({
   }
 }));
 
+const Divider = styled(Box)(({ theme }) => ({
+  flex: 1,
+  height: 1,
+  background: '#979797',
+  marginLeft: '64px',
+  position: 'relative',
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    width: 30,
+    height: 1,
+    background: '#979797',
+    right: -30,
+    zIndex: 1
+  },
+  [theme.breakpoints.down('lg')]: {
+    display: 'none'
+  }
+}));
+
 const Nav = styled('nav')(({ theme }) => ({
   width: '830px',
   minHeight: '96px',
@@ -52,7 +72,6 @@ const Nav = styled('nav')(({ theme }) => ({
     }
   }
 }));
-
 const List = styled('ul')(({ theme }) => ({
   margin: 0,
   padding: 0,
@@ -158,6 +177,7 @@ export default function Header() {
     <HeaderRoot>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src='/shared/logo.svg' alt='logo' width='48' height='48' />
+      <Divider />
       {<Nav>{list}</Nav>}
       <Drawer
         open={open}
