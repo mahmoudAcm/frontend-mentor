@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from '../theme';
 import { useEffect, useState } from 'react';
-import Header from '@/src/components/Header';
+import Layout from '@/src/components/Layout';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(true);
@@ -19,8 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <></>
       ) : (
         <>
-          <Header />
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </>
       )}
     </ThemeProvider>
