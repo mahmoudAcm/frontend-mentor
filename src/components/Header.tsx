@@ -1,4 +1,4 @@
-import { Box, Drawer, styled, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { alpha, Box, Drawer, styled, Typography, useMediaQuery, useTheme } from '@mui/material';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,6 +11,7 @@ const HeaderRoot = styled(Box)(({ theme }) => ({
   left: 0,
   right: 0,
   display: 'flex',
+  zIndex: theme.zIndex.appBar,
   alignItems: 'center',
   justifyContent: 'space-between',
   paddingLeft: '55px',
@@ -35,7 +36,7 @@ const HeaderRoot = styled(Box)(({ theme }) => ({
 const Divider = styled(Box)(({ theme }) => ({
   flex: 1,
   height: 1,
-  background: '#979797',
+  background: alpha('#FFF', 0.1),
   marginLeft: '64px',
   position: 'relative',
   '&::after': {
@@ -43,9 +44,9 @@ const Divider = styled(Box)(({ theme }) => ({
     position: 'absolute',
     width: 30,
     height: 1,
-    background: '#979797',
-    right: -30,
-    zIndex: 1
+    background: alpha('#FFF', 0.1),
+    zIndex: 1,
+    right: -30
   },
   [theme.breakpoints.down('lg')]: {
     display: 'none'
