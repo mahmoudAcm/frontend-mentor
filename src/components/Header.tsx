@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-const HeaderRoot = styled(Box)(({ theme }) => ({
+const HeaderRoot = styled('header')(({ theme }) => ({
   width: '100%',
   position: 'fixed',
   top: '40px',
@@ -20,7 +20,8 @@ const HeaderRoot = styled(Box)(({ theme }) => ({
     cursor: 'pointer'
   },
   [theme.breakpoints.down('lg')]: {
-    top: 0
+    top: 0,
+    paddingLeft: '39px'
   },
   [theme.breakpoints.down('sm')]: {
     padding: '24px',
