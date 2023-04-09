@@ -1,19 +1,45 @@
 import Header from '@/src/components/Header';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import Head from 'next/head';
-import { styled, useTheme } from '@mui/material';
+import { Box, styled, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 const Main = styled('main')(() => ({
   minHeight: '100vh',
   backgroundSize: 'cover'
 }));
 
+const scrollStyles = (unit = 4) => ({
+  '& .ps__thumb-y': {
+    width: unit + 'px'
+  },
+  '& .ps__thumb-x': {
+    height: unit + 'px'
+  }
+});
+
 export default function Layout({ children }: { children: ReactNode }) {
   const theme = useTheme();
   const router = useRouter();
+  const psRef = useRef<PerfectScrollbar | null>(null);
 
   const page = router.asPath === '/' ? 'home' : router.asPath.replace('/', '');
+
+  useEffect(() => {
+    const handleResize = () => {
+      const ps = psRef.current;
+      if (ps) {
+        ps.updateScroll();
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -25,19 +51,34 @@ export default function Layout({ children }: { children: ReactNode }) {
         <title>Space tourism website | {page}</title>
       </Head>
       <Header />
-      <Main
+      <Box
+        component={PerfectScrollbar}
         sx={{
-          backgroundImage: `url(/${page}/background-${page}-desktop.jpg)`,
-          [theme.breakpoints.down('lg')]: {
-            backgroundImage: `url(/${page}/background-${page}-tablet.jpg)`
-          },
-          [theme.breakpoints.down('sm')]: {
-            backgroundImage: `url(/${page}/background-${page}-mobile.jpg)`
+          height: '100vh',
+          '& .ps--clicking': scrollStyles(6),
+          ...scrollStyles(),
+          '& .ps__rail-y, & .ps__rail-x': {
+            '&:hover': scrollStyles(6),
+            background: 'transparent !important',
+            zIndex: theme => theme.zIndex.appBar * 2
           }
         }}
+        ref={psRef}
       >
-        {children}
-      </Main>
+        <Main
+          sx={{
+            backgroundImage: `url(/${page}/background-${page}-desktop.jpg)`,
+            [theme.breakpoints.down('lg')]: {
+              backgroundImage: `url(/${page}/background-${page}-tablet.jpg)`
+            },
+            [theme.breakpoints.down('sm')]: {
+              backgroundImage: `url(/${page}/background-${page}-mobile.jpg)`
+            }
+          }}
+        >
+          {children}
+        </Main>
+      </Box>
     </>
   );
 }
