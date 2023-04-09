@@ -71,6 +71,17 @@ const baseTheme: ThemeOptions = {
       fontSize: '1.125rem',
       lineHeight: 1.777777777777778
     }
+  },
+  components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          [theme.breakpoints.up('lg')]: {
+            maxWidth: 'calc(100% - (165px - 24px) * 2)'
+          }
+        })
+      }
+    }
   }
 };
 
@@ -86,6 +97,9 @@ const themes: Record<string, ThemeOptions> = {
       },
       background: {
         default: '#0B0D17'
+      },
+      text: {
+        secondary: '#D0D6F9'
       }
     }
   }
