@@ -1,46 +1,18 @@
 import { Box, styled, Typography } from '@mui/material';
 import Image from 'next/image';
+import SecondaryLayout from '@/src/components/SecondaryLayout';
 
-export const DestinationRoot = styled(Box)(({ theme }) => ({
-  minHeight: '100vh',
-  paddingTop: '202px',
+export const DestinationRoot = styled(SecondaryLayout)(({ theme }) => ({
   paddingBottom: '118px',
   gap: '64px',
-  '& .number': {
-    fontWeight: 700,
-    marginRight: '28px',
-    color: 'white',
-    opacity: 0.25
-  },
-  '& .title': {
-    lineHeight: 1.2
-  },
   [theme.breakpoints.down('lg')]: {
-    paddingTop: '136px',
     paddingBottom: '62px',
-    gap: '60px',
-    '& .number': {
-      marginRight: '19px'
-    },
-    '& .title': {
-      marginLeft: '14.5px',
-      fontSize: '1.25rem',
-      letterSpacing: '3.38px'
-    }
+    gap: '60px'
   },
   [theme.breakpoints.down('sm')]: {
-    paddingTop: '88px',
     paddingBottom: '58px',
     gap: '32px',
-    '& .title': {
-      ...theme.typography.nav,
-      marginLeft: 0
-    },
-    marginLeft: 0,
-    textAlign: 'center',
-    '& .number': {
-      marginRight: '18px'
-    }
+    textAlign: 'center'
   }
 }));
 
@@ -70,10 +42,12 @@ export const PlantImage = styled(Image)(({ theme }) => ({
 }));
 
 export const Tabs = styled(Box)(() => ({
-  display: 'flex',
-  gap: '36.5px',
-  width: 'fit-content',
-  height: 'fit-content'
+  "&, & [role='tablist']": {
+    display: 'flex',
+    gap: '36.5px',
+    width: 'fit-content',
+    height: 'fit-content'
+  }
 }));
 
 export const Tab = styled(Box)(({ theme }) => ({
