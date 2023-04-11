@@ -29,7 +29,7 @@ const Title = styled(Typography)(({ theme }) => ({
 
 export function SecondaryLayoutMainTitle({ num, children }: { num: string; children: ReactNode }) {
   return (
-    <Title variant='h5'>
+    <Title variant='h5' className='main-title'>
       <span className='number'>{num}</span>
       <span>{children}</span>
     </Title>

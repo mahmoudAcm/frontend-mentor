@@ -25,19 +25,26 @@ export default function Layout({ children }: { children: ReactNode }) {
   const theme = useTheme();
   const router = useRouter();
   const psRef = useRef<PerfectScrollbar | null>(null);
+  const divRef = useRef(null);
 
   const page = router.asPath === '/' ? 'home' : router.asPath.replace('/', '');
 
   useEffect(() => {
-    const handleResize = () => {
+    const observer = new ResizeObserver(entries => {
       const ps = psRef.current;
       if (ps) {
         ps.updateScroll();
       }
-    };
-    window.addEventListener('resize', handleResize);
+    });
+
+    if (divRef.current) {
+      observer.observe(divRef.current);
+    }
+
     return () => {
-      window.removeEventListener('resize', handleResize);
+      if (divRef.current) {
+        observer.unobserve(divRef.current);
+      }
     };
   }, []);
 
@@ -66,6 +73,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         ref={psRef}
       >
         <Main
+          ref={divRef}
           sx={{
             backgroundImage: `url(/${page}/background-${page}-desktop.jpg)`,
             [theme.breakpoints.down('lg')]: {
