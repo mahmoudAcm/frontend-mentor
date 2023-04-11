@@ -64,6 +64,9 @@ export default function Layout({ children }: { children: ReactNode }) {
           }
         }}
         ref={psRef}
+        options={{
+          suppressScrollX: true
+        }}
       >
         <Main
           sx={{
