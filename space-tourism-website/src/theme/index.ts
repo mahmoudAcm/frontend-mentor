@@ -76,7 +76,7 @@ const baseTheme: ThemeOptions = {
     MuiContainer: {
       styleOverrides: {
         root: ({ theme }) => ({
-          [theme.breakpoints.up('lg')]: {
+          [theme.breakpoints.between('lg', 'xl')]: {
             maxWidth: 'calc(100% - (165px - 24px) * 2)'
           }
         })
