@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { Box, styled, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import { ResizeObserver } from '@juggle/resize-observer';
 
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
@@ -30,20 +31,22 @@ export default function Layout({ children }: { children: ReactNode }) {
   const page = router.asPath === '/' ? 'home' : router.asPath.replace('/', '');
 
   useEffect(() => {
-    const observer = new ResizeObserver(entries => {
+    const div = divRef.current;
+
+    const observer = new ResizeObserver(() => {
       const ps = psRef.current;
       if (ps) {
         ps.updateScroll();
       }
     });
 
-    if (divRef.current) {
-      observer.observe(divRef.current);
+    if (div) {
+      observer.observe(div);
     }
 
     return () => {
-      if (divRef.current) {
-        observer.unobserve(divRef.current);
+      if (div) {
+        observer.unobserve(div);
       }
     };
   }, []);
