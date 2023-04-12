@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { Box, styled, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import { ResizeObserver } from '@juggle/resize-observer';
 
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
@@ -25,19 +26,28 @@ export default function Layout({ children }: { children: ReactNode }) {
   const theme = useTheme();
   const router = useRouter();
   const psRef = useRef<PerfectScrollbar | null>(null);
+  const divRef = useRef(null);
 
   const page = router.asPath === '/' ? 'home' : router.asPath.replace('/', '');
 
   useEffect(() => {
-    const handleResize = () => {
+    const div = divRef.current;
+
+    const observer = new ResizeObserver(() => {
       const ps = psRef.current;
       if (ps) {
         ps.updateScroll();
       }
-    };
-    window.addEventListener('resize', handleResize);
+    });
+
+    if (div) {
+      observer.observe(div);
+    }
+
     return () => {
-      window.removeEventListener('resize', handleResize);
+      if (div) {
+        observer.unobserve(div);
+      }
     };
   }, []);
 
@@ -69,6 +79,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         }}
       >
         <Main
+          ref={divRef}
           sx={{
             backgroundImage: `url(/${page}/background-${page}-desktop.jpg)`,
             [theme.breakpoints.down('lg')]: {
