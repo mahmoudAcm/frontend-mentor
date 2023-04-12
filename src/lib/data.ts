@@ -10,6 +10,7 @@ export const getDestinations = () => {
 
 export const getCrew = () => {
   return data.crew;
+};
 
 export const getTechnologies = () => {
   return data.technology;
