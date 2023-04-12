@@ -54,6 +54,7 @@ export const ControlButton = styled(Box)(({ theme }) => ({
   cursor: 'pointer',
   ...theme.typography.h4,
   letterSpacing: '2px',
+  userSelect: "none",
   "&[aria-current='true']": {
     background: 'white',
     color: theme.palette.background.default
