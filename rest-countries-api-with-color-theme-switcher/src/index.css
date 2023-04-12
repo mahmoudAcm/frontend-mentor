@@ -1,0 +1,13 @@
+html {
+  font-size: var(--font-size);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}

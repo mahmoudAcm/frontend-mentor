@@ -1,0 +1,11 @@
+html {
+  font-size: 15px;
+  background: hsl(180, 52%, 96%);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "League Spartan", sans-serif !important;
+}
