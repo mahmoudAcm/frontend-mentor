@@ -9,7 +9,8 @@ const LoadingRoot = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   zIndex: theme.zIndex.appBar * 10,
-  background: `radial-gradient(circle at 50% 50%, ${theme.palette.primary.light}, ${theme.palette.primary.main})`
+  // background: `linear-gradient(circle at 50% 50%, ${theme.palette.primary.main}, ${theme.palette.primary.light})`
+  background: `linear-gradient(${theme.palette.primary.light}, ${theme.palette.primary.main})`
 }));
 
 const InnerCircle = styled(DefaultInnerCircle)(() => ({
@@ -30,12 +31,14 @@ const InnerCircle = styled(DefaultInnerCircle)(() => ({
 
 function LoadingButton() {
   return (
-    <ButtonRoot>
-      <Typography variant='h4' letterSpacing='2px'>
-        LOADING...
-      </Typography>
-      <InnerCircle className='innerCircle' />
-    </ButtonRoot>
+    <Fade in={true} timeout={500} style={{ transitionDelay: '1000ms' }}>
+      <ButtonRoot>
+        <Typography variant='h4' letterSpacing='2px'>
+          LOADING...
+        </Typography>
+        <InnerCircle className='innerCircle' />
+      </ButtonRoot>
+    </Fade>
   );
 }
 
@@ -47,7 +50,7 @@ export default function LoadingScreen({
   onTransitionEnd: () => void;
 }) {
   return (
-    <Fade in={loading} appear={false} onTransitionEnd={onTransitionEnd} timeout={500}>
+    <Fade in={loading} appear={false} onTransitionEnd={onTransitionEnd} timeout={1000}>
       <LoadingRoot>
         <LoadingButton />
       </LoadingRoot>

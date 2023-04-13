@@ -1,7 +1,7 @@
 import Header from '@/src/components/Header';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
-import { Box, Fade, styled, useTheme } from '@mui/material';
+import { Box, Collapse, styled, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { ResizeObserver } from '@juggle/resize-observer';
@@ -83,7 +83,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           suppressScrollX: true
         }}
       >
-        <Fade in={showContent} timeout={1000} appear={false}>
+        <Collapse in={showContent} timeout={1000} appear={false}>
           <Main
             ref={divRef}
             sx={{
@@ -98,7 +98,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           >
             {children}
           </Main>
-        </Fade>
+        </Collapse>
       </Box>
       <LoadingScreen
         onTransitionEnd={() => {
