@@ -1,12 +1,13 @@
 import Header from '@/src/components/Header';
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
-import { Box, styled, useTheme } from '@mui/material';
+import { Box, Fade, styled, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { ResizeObserver } from '@juggle/resize-observer';
 
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import LoadingScreen from '@/src/components/LoadingScreen';
 
 const Main = styled('main')(() => ({
   minHeight: '100vh',
@@ -27,10 +28,13 @@ export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const psRef = useRef<PerfectScrollbar | null>(null);
   const divRef = useRef(null);
+  const [loading, setLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
   const page = router.asPath === '/' ? 'home' : router.asPath.replace('/', '');
 
   useEffect(() => {
+    setLoading(false);
     const div = divRef.current;
 
     const observer = new ResizeObserver(() => {
@@ -58,9 +62,10 @@ export default function Layout({ children }: { children: ReactNode }) {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
 
-        <title>Space tourism website | {page}</title>
+        <title>Space tourism website | {loading || !showContent ? 'loading...' : page}</title>
       </Head>
       <Header />
+
       <Box
         component={PerfectScrollbar}
         sx={{
@@ -78,21 +83,29 @@ export default function Layout({ children }: { children: ReactNode }) {
           suppressScrollX: true
         }}
       >
-        <Main
-          ref={divRef}
-          sx={{
-            backgroundImage: `url(/${page}/background-${page}-desktop.jpg)`,
-            [theme.breakpoints.down('lg')]: {
-              backgroundImage: `url(/${page}/background-${page}-tablet.jpg)`
-            },
-            [theme.breakpoints.down('sm')]: {
-              backgroundImage: `url(/${page}/background-${page}-mobile.jpg)`
-            }
-          }}
-        >
-          {children}
-        </Main>
+        <Fade in={showContent} timeout={1000} appear={false}>
+          <Main
+            ref={divRef}
+            sx={{
+              backgroundImage: `url(/${page}/background-${page}-desktop.jpg)`,
+              [theme.breakpoints.down('lg')]: {
+                backgroundImage: `url(/${page}/background-${page}-tablet.jpg)`
+              },
+              [theme.breakpoints.down('sm')]: {
+                backgroundImage: `url(/${page}/background-${page}-mobile.jpg)`
+              }
+            }}
+          >
+            {children}
+          </Main>
+        </Fade>
       </Box>
+      <LoadingScreen
+        onTransitionEnd={() => {
+          setShowContent(true);
+        }}
+        loading={loading}
+      />
     </>
   );
 }
