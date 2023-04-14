@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="Update ./idea/Project_Default.xml">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/app.[id].js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681274802025</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="adding alert message to the home page">
+      <created>1681507215675</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681507215675</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,6 +144,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merged the 'nextJs' branch into the 'master' branch." />
     <MESSAGE value="Update ./idea/Project_Default.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update ./idea/Project_Default.xml" />
+    <MESSAGE value="adding alert message to the home page" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding alert message to the home page" />
   </component>
 </project>

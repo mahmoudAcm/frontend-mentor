@@ -77,3 +77,5 @@ function render() {
 }
 
 render();
+
+alert("Welcome to my gallery! Please note that this gallery is still in development and is not the main design of my website. I am constantly working on improving and refining this section to provide you with the best experience possible. Thank you for your patience and understanding as I work to create a better user experience for you.")
