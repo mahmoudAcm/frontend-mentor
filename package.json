@@ -27,5 +27,6 @@
   "homepage": "https://github.com/mahmoudAcm/frontend-mentor#readme",
   "devDependencies": {
     "tailwindcss": "^3.2.4"
-  }
+  },
+  "dependencies": {}
 }

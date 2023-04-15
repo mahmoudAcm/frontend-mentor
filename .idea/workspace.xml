@@ -4,13 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="Update ./idea/Project_Default.xml">
-      <change beforePath="$PROJECT_DIR$/app.[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/app.[id].js" afterDir="false" />
+    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="adding alert message to the home page">
+      <change afterPath="$PROJECT_DIR$/gallery/src/Footer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gallery/src/data/links.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gallery/src/data/projects.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gallery/src/footer.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.[id].js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components.[id].css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data.[id].js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/app.1681507577735.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/components.1681507577735.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/data.1681507577735.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/links.1681507577735.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/output.1681507577735.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/input.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/links.[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/links.[id].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.[id].css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package.json" />
+        <option value="TypeScript JSX File" />
+        <option value="CSS File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Merge.Settings">
     <option name="BRANCH" value="origin/nextJs" />
@@ -51,15 +79,23 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/frontend/frontend-mentor/gallery&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\frontend\\frontend-mentor\\space-tourism-website\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\frontend\\frontend-mentor\\space-tourism-website\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\frontend\frontend-mentor\gallery" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="Merged the 'nextJs' branch into the 'master' branch.">
@@ -83,6 +119,8 @@
       <workItem from="1681274015628" duration="103000" />
       <workItem from="1681274147599" duration="45000" />
       <workItem from="1681274201370" duration="1608000" />
+      <workItem from="1681519909372" duration="7113000" />
+      <workItem from="1681566864725" duration="13333000" />
     </task>
     <task id="LOCAL-00002" summary="Merged the 'nextJs' branch into the 'master' branch.">
       <created>1681272326905</created>
