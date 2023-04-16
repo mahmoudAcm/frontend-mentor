@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="I have finished the project components, designed the app layout, and incorporated accessibility features.">
-      <change afterPath="$PROJECT_DIR$/gallery/src/Project.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gallery/src/project.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/src/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/src/data/projects.json" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/data/projects.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gallery/build.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +19,7 @@
         <option value="package.json" />
         <option value="TypeScript JSX File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
