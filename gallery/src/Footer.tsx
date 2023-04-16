@@ -7,7 +7,8 @@ export default function Footer() {
   return (
     <footer
       className={clsx({
-        'fixed opacity-0 left-[50%] flex gap-x-2 translate-x-[-50%] rounded-[99999px] bg-white/70 drop-shadow-xl': true,
+        'fixed opacity-0 left-[50%] z-50 flex gap-x-2 translate-x-[-50%] rounded-[99999px] bg-white/70 drop-shadow-xl':
+          true,
         'min-h-[30px] backdrop-blur-[100px] p-2 transition-all ease-in-out hover:gap-3 hover:px-3 backdrop-saturate-[400%] backdrop-brightness-100 border-[#f8f8f8]':
           true
       })}
@@ -33,7 +34,7 @@ export default function Footer() {
               [footerClasses.circle]: true
             })}
             dangerouslySetInnerHTML={{
-              __html: `<a href="${link.link}" target="_blank" class="p-[13px]" aria-description="my ${link.title} link">${link.svg}</a>`
+              __html: `<a href="${link.link}" target="_blank" class="p-[13px]" aria-label="my ${link.title} link">${link.svg}</a>`
             }}
           ></div>
         </div>

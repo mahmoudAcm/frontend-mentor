@@ -4,27 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="adding alert message to the home page">
-      <change afterPath="$PROJECT_DIR$/gallery/src/Footer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gallery/src/data/links.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gallery/src/data/projects.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gallery/src/footer.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="I have finished the project components, designed the app layout, and incorporated accessibility features.">
+      <change afterPath="$PROJECT_DIR$/gallery/src/Project.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gallery/src/project.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.[id].js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components.[id].css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.[id].js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/app.1681507577735.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/components.1681507577735.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/data.1681507577735.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/links.1681507577735.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/output.1681507577735.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/input.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/links.[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/links.[id].js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.[id].css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/src/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/src/data/projects.json" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/data/projects.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +108,8 @@
       <workItem from="1681274147599" duration="45000" />
       <workItem from="1681274201370" duration="1608000" />
       <workItem from="1681519909372" duration="7113000" />
-      <workItem from="1681566864725" duration="13333000" />
+      <workItem from="1681566864725" duration="17791000" />
+      <workItem from="1681606221023" duration="6251000" />
     </task>
     <task id="LOCAL-00002" summary="Merged the 'nextJs' branch into the 'master' branch.">
       <created>1681272326905</created>
@@ -150,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681507215675</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Refactored the homepage of the frontend challenges and finished creating the footer component.">
+      <created>1681594465481</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1681594465481</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,6 +179,9 @@
     <MESSAGE value="Merged the 'nextJs' branch into the 'master' branch." />
     <MESSAGE value="Update ./idea/Project_Default.xml" />
     <MESSAGE value="adding alert message to the home page" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding alert message to the home page" />
+    <MESSAGE value="Refactored the homepage of the frontend challenges and finished creating the footer component" />
+    <MESSAGE value="Refactored the homepage of the frontend challenges and finished creating the footer component." />
+    <MESSAGE value="I have finished the project components, designed the app layout, and incorporated accessibility features." />
+    <option name="LAST_COMMIT_MESSAGE" value="I have finished the project components, designed the app layout, and incorporated accessibility features." />
   </component>
 </project>
