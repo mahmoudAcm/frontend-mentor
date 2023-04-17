@@ -22,7 +22,7 @@ const baseTheme: ThemeOptions = {
             }
           }
           return {
-            background: !ownerState.variant ? '#E5E4E0' : '',
+            backgroundColor: !ownerState.variant || ownerState.variant == 'text' ? '#E5E4E0' : '',
             boxShadow: `0 2.75px 0 ${shadowColor} !important`,
             borderRadius: '8px',
             '&:hover': {
@@ -90,5 +90,5 @@ export default function createCustomTheme(config: { theme?: keyof typeof THEMES 
     theme = themes[THEMES.LIGHT];
   }
 
-  return createTheme(baseTheme, theme);
+  return createTheme({}, baseTheme, theme);
 }
