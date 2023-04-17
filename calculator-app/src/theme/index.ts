@@ -31,6 +31,16 @@ const baseTheme: ThemeOptions = {
           };
         }
       }
+    },
+    MuiContainer: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          [theme.breakpoints.down('sm')]: {
+            paddingLeft: '24px',
+            paddingRight: '24px'
+          }
+        })
+      }
     }
   }
 };
@@ -61,6 +71,7 @@ const themes: Record<string, ThemeOptions> = {
       MuiCssBaseline: {
         styleOverrides: {
           ':root': {
+            '--bg-screen': 'hsl(0, 0%, 93%)',
             '--btn-default-shadow': 'hsl(35, 11%, 61%)'
           }
         }
