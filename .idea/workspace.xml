@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="I have finished the project components, designed the app layout, and incorporated accessibility features.">
-      <change afterPath="$PROJECT_DIR$/gallery/public/favicon-32x32.png" afterDir="false" />
+    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="building challenges home page.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/src/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/src/footer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/footer.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,24 +55,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/frontend/frontend-mentor/gallery/public",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "D:\\frontend\\frontend-mentor\\space-tourism-website\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "D:\\frontend\\frontend-mentor\\space-tourism-website\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/frontend/frontend-mentor/gallery/public&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\frontend\\frontend-mentor\\space-tourism-website\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\frontend\\frontend-mentor\\space-tourism-website\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\frontend\frontend-mentor\gallery\public" />
@@ -109,6 +105,7 @@
       <workItem from="1681519909372" duration="7113000" />
       <workItem from="1681566864725" duration="17791000" />
       <workItem from="1681606221023" duration="6251000" />
+      <workItem from="1681695316114" duration="86000" />
     </task>
     <task id="LOCAL-00002" summary="Merged the 'nextJs' branch into the 'master' branch.">
       <created>1681272326905</created>
@@ -145,7 +142,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681594465481</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="changing page title and adding favicon.">
+      <created>1681619272814</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681619272814</updated>
+    </task>
+    <task id="LOCAL-00008" summary="building challenges home page.">
+      <created>1681619316975</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1681619316975</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,6 +192,8 @@
     <MESSAGE value="Refactored the homepage of the frontend challenges and finished creating the footer component" />
     <MESSAGE value="Refactored the homepage of the frontend challenges and finished creating the footer component." />
     <MESSAGE value="I have finished the project components, designed the app layout, and incorporated accessibility features." />
-    <option name="LAST_COMMIT_MESSAGE" value="I have finished the project components, designed the app layout, and incorporated accessibility features." />
+    <MESSAGE value="changing page title and adding favicon." />
+    <MESSAGE value="building challenges home page." />
+    <option name="LAST_COMMIT_MESSAGE" value="building challenges home page." />
   </component>
 </project>
