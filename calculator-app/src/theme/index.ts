@@ -23,7 +23,7 @@ const baseTheme: ThemeOptions = {
           }
           return {
             backgroundColor: !ownerState.variant || ownerState.variant == 'text' ? '#E5E4E0' : '',
-            boxShadow: `0 2.75px 0 ${shadowColor} !important`,
+            boxShadow: `0 4px 0 ${shadowColor} !important`,
             borderRadius: '8px',
             '&:hover': {
               background: hoverColor

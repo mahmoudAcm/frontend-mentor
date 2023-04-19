@@ -38,8 +38,10 @@ function formatResult(result: string) {
 
 export default function Screen() {
   return (
-    <ScreenRoot>
-      <Result variant='h1'>{formatResult('399981')}</Result>
+    <ScreenRoot role='textbox' aria-label='calculator screen'>
+      <Result variant='h1' aria-live='polite' aria-atomic='true'>
+        {formatResult('399981')}
+      </Result>
     </ScreenRoot>
   );
 }

@@ -1,10 +1,18 @@
 import { Box, Container, CssBaseline, styled } from '@mui/material';
 import ThemeProvider from './contexts/Theme';
 import Screen from './components/Screen';
-import Comp from './comp';
+import Keypad from './components/Keypad';
 
 const AppRoot = styled(Box)(() => ({
-  minHeight: '100vh'
+  minHeight: '100vh',
+  '& .layout': {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '25px',
+    alignItems: 'center',
+    paddingTop: '93px',
+    paddingBottom: '96px'
+  }
 }));
 
 export default function App() {
@@ -13,17 +21,10 @@ export default function App() {
       <CssBaseline />
       <AppRoot>
         <Container>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '25px',
-              alignItems: 'center',
-              paddingTop: '93px'
-            }}
-          >
+          <Box className='layout' role='application' aria-roledescription='simple calaculator'>
             <Screen />
-            <Comp />
+            <Keypad />
+            {/*<Comp />*/}
           </Box>
         </Container>
       </AppRoot>
