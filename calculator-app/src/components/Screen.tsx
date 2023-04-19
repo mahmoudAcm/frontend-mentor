@@ -2,7 +2,7 @@ import { Box, styled, Typography } from '@mui/material';
 
 const ScreenRoot = styled(Box)(({ theme }) => ({
   width: '538px',
-  height: '120px',
+  height: '127px',
   background: 'var(--bg-screen)',
   borderRadius: '8px',
   display: 'flex',
@@ -16,16 +16,18 @@ const ScreenRoot = styled(Box)(({ theme }) => ({
 }));
 
 const Result = styled(Typography)(({ theme }) => ({
-  fontSize: '2.9375rem',
+  fontSize: '3.507rem',
   lineHeight: 1,
+  fontFamily: theme.typography.fontFamily,
   fontWeight: theme.typography.fontWeightBold,
-  padding: '24px 31px',
+  padding: '22px 31px',
   '&::selection': {
     background: theme.palette.background.paper,
     color: theme.palette.getContrastText(theme.palette.background.paper)
   },
   [theme.breakpoints.down('sm')]: {
-    fontSize: '2.125rem'
+    fontSize: '2.5rem',
+    padding: '22px 25px'
   }
 }));
 
