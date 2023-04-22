@@ -25,6 +25,9 @@ const baseTheme: ThemeOptions = {
             backgroundColor: !ownerState.variant || ownerState.variant == 'text' ? '#E5E4E0' : '',
             boxShadow: `0 4px 0 ${shadowColor} !important`,
             borderRadius: '8px',
+            '&:active': {
+              boxShadow: `0 1.5px 0 ${shadowColor} !important`
+            },
             '&:hover': {
               background: hoverColor
             }
