@@ -3,16 +3,23 @@ import ThemeProvider from './contexts/Theme';
 import Screen from './components/Screen';
 import Keypad from './components/Keypad';
 import { useState } from 'react';
+import Header from './components/Header';
 
-const AppRoot = styled(Box)(() => ({
+const AppRoot = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
+
   '& .layout': {
+    width: '538px',
     display: 'flex',
     flexDirection: 'column',
     gap: '25px',
     alignItems: 'center',
-    paddingTop: '93px',
-    paddingBottom: '96px'
+    paddingTop: '88px',
+    paddingBottom: '96px',
+    margin: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    }
   }
 }));
 
@@ -26,6 +33,7 @@ export default function App() {
       <AppRoot>
         <Container>
           <Box className='layout' role='application' aria-roledescription='simple calaculator'>
+            <Header />
             <Screen result={result} expression={expression} />
             <Keypad
               expression={expression}

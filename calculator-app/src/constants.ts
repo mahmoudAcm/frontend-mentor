@@ -1,5 +1,5 @@
 export const THEMES = {
-  LIGHT: 'LIGHT',
-  DARK1: 'DARK1',
-  DARK2: 'DARK2'
+  THEME1: 'THEME1',
+  THEME2: 'THEME2',
+  THEME3: 'THEME3'
 };

@@ -2,9 +2,10 @@ import { Box, Button, styled } from '@mui/material';
 import { Dispatch, MouseEventHandler, SetStateAction, useRef } from 'react';
 import Stack from '../libs/stack';
 import BigNumber from 'bignumber.js';
+import useTheme from '../hooks/useTheme';
 
 const KeypadRoot = styled(Box)(({ theme }) => ({
-  width: '538px',
+  width: '100%',
   borderRadius: '8px',
   background: theme.palette.background.paper,
   display: 'grid',
@@ -14,7 +15,6 @@ const KeypadRoot = styled(Box)(({ theme }) => ({
   columnGap: '11px',
   padding: '31px 28px',
   [theme.breakpoints.down('sm')]: {
-    width: '100%',
     gridTemplateColumns: 'repeat(4, minmax(61px, 1fr))',
     padding: '22px 24px',
     rowGap: '17px'
@@ -132,6 +132,7 @@ interface KeypadProps {
 }
 
 export default function Keypad(props: KeypadProps) {
+  const { theme } = useTheme();
   const { expression, setExpression } = props;
   const isEqualsFired = useRef(false);
 
@@ -260,7 +261,7 @@ export default function Keypad(props: KeypadProps) {
         variant='contained'
         data-type='action'
         aria-label='equals'
-        sx={{ gridColumnStart: 'span 2' }}
+        sx={{ gridColumnStart: 'span 2', color: theme === 'THEME3' ? '#072C32 !important' : '' }}
         onClick={() => {
           const result = evaluateExpression(expression);
           setExpression(new BigNumber(result).toString());

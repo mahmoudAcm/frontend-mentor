@@ -1,8 +1,9 @@
 import { Box, styled, Typography } from '@mui/material';
 import Stack from '../libs/stack';
+import useTheme from '../hooks/useTheme';
 
 const ScreenRoot = styled(Box)(({ theme }) => ({
-  width: '538px',
+  width: '100%',
   height: '127px',
   background: 'var(--bg-screen)',
   borderRadius: '8px',
@@ -14,7 +15,6 @@ const ScreenRoot = styled(Box)(({ theme }) => ({
   gap: '5px',
   textAlign: 'end',
   [theme.breakpoints.down('sm')]: {
-    width: '100%',
     height: '89px',
     padding: '22px 25px'
   }
@@ -23,7 +23,6 @@ const ScreenRoot = styled(Box)(({ theme }) => ({
 const Expression = styled(Box)(() => ({
   fontSize: '1rem',
   lineHeight: 1.2,
-  opacity: '0.5',
   userSelect: 'none',
   fontWeight: 500,
   wordBreak: 'break-all'
@@ -74,9 +73,11 @@ interface ScreenProps {
 }
 
 export default function Screen(props: ScreenProps) {
+  const { theme } = useTheme();
   const result = format(removeTrailingZeros(props.expression));
+
   return (
-    <ScreenRoot role='textbox' aria-label='calculator screen'>
+    <ScreenRoot role='textbox' aria-label='calculator screen' sx={{ color: theme === 'THEME1' ? 'white' : '' }}>
       {result ? (
         <Expression role='math' aria-label={'the expression is ' + result}>
           {result}
