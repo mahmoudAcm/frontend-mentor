@@ -25,7 +25,8 @@ const Expression = styled(Box)(() => ({
   lineHeight: 1.2,
   userSelect: 'none',
   fontWeight: 500,
-  wordBreak: 'break-all'
+  wordBreak: 'break-all',
+  opacity: 0.6
 }));
 
 const Result = styled(Typography)(({ theme }) => ({
