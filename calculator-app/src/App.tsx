@@ -14,7 +14,7 @@ const AppRoot = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
     gap: '25px',
     alignItems: 'center',
-    paddingTop: '88px',
+    paddingTop: '111px',
     paddingBottom: '96px',
     margin: 'auto',
     [theme.breakpoints.down('sm')]: {
