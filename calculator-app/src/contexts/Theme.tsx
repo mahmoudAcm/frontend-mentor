@@ -4,12 +4,12 @@ import createCustomTheme from '../theme';
 import { THEMES } from '../constants';
 
 export const ThemeContext = createContext({
-  theme: THEMES.THEME2,
+  theme: THEMES.THEME1,
   setTheme: ((theme: string) => theme) as Dispatch<string>
 });
 
 export default function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, toggleTheme] = useState(THEMES.THEME2);
+  const [theme, toggleTheme] = useState(THEMES.THEME1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
