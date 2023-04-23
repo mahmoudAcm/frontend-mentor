@@ -16,38 +16,40 @@ const Switch = styled(Box)(({ theme }) => ({
   borderRadius: 99999,
   position: 'relative',
   isolation: 'isolate',
-  // overflow: 'hidden',
   display: 'flex',
   alignItems: 'center',
   '--circle-width': '16px',
   '&:active': {
     '--circle-width': '20px'
   },
-  '&::after': {
-    content: '" "',
+  '& .btn': {
     width: 'var(--circle-width)',
     height: '16px',
     borderRadius: '50%',
     background: theme.palette.primary.main,
     position: 'absolute',
     cursor: 'pointer',
-    transition: theme.transitions.create(['left', 'width'], {
+    transition: theme.transitions.create(['left', 'width', 'background'], {
       duration: theme.transitions.duration.shorter,
       easing: theme.transitions.easing.easeInOut
-    })
+    }),
+    zIndex: 1,
+    '&:hover': {
+      background: theme.palette.primary.light
+    }
   },
   [`&[aria-label="${THEMES.THEME1}"]`]: {
-    '&::after': {
+    '& .btn': {
       left: '6px'
     }
   },
   [`&[aria-label="${THEMES.THEME2}"]`]: {
-    '&::after': {
+    '& .btn': {
       left: 'calc((100% - var(--circle-width)) / 2)'
     }
   },
   [`&[aria-label="${THEMES.THEME3}"]`]: {
-    '&::after': {
+    '& .btn': {
       left: 'calc(100% - (var(--circle-width) + 6px))'
     }
   }
@@ -83,6 +85,7 @@ export default function ThemeSwitcher(props: ThemeSwitcher) {
     <ThemeSwitcherRoot>
       <span id='calculator-theme-switcher'>{props.label}</span>
       <Switch role='radiogroup' aria-labelledby='calculator-theme-switcher' aria-label={theme}>
+        <span className='btn' role='button' aria-label='switch button'></span>
         {Object.values(THEMES).map((_theme, idx) => (
           <Label
             role='radio'
