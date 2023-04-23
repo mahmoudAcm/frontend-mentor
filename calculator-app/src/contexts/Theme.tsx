@@ -20,7 +20,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     setLoading(false);
   }, []);
 
-  if (loading) return;
+  if (loading) return <></>;
 
   return (
     <DefaultThemeProvider theme={createCustomTheme({ theme })}>
