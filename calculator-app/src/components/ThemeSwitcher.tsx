@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { createRef, KeyboardEvent, ReactNode, RefObject, useEffect, useRef, useState } from 'react';
 import { Box, styled } from '@mui/material';
 import { THEMES } from '../constants';
 import useTheme from '../hooks/useTheme';
@@ -80,11 +80,40 @@ interface ThemeSwitcher {
 
 export default function ThemeSwitcher(props: ThemeSwitcher) {
   const { theme, setTheme } = useTheme();
+  const tabFocus = useRef(0);
+  const [labels] = useState<RefObject<HTMLLabelElement>[]>([createRef(), createRef(), createRef()]);
+
+  function handleKeyDown(evt: KeyboardEvent<HTMLDivElement>) {
+    if (evt.key == 'ArrowRight' || evt.key === 'ArrowLeft') {
+      labels[tabFocus.current].current?.setAttribute('tabindex', '-1');
+      if (evt.key === 'ArrowRight') {
+        tabFocus.current += 1;
+        tabFocus.current %= 3;
+      } else {
+        tabFocus.current -= 1;
+        if (tabFocus.current === -1) tabFocus.current = 2;
+      }
+    }
+    labels[tabFocus.current].current?.setAttribute('tabindex', '0');
+    labels[tabFocus.current].current?.focus();
+  }
+
+  //update the current active tabindex
+  useEffect(() => {
+    labels.forEach((label, idx) => {
+      if (label.current?.ariaChecked === 'true') tabFocus.current = idx;
+    });
+  });
 
   return (
     <ThemeSwitcherRoot>
       <span id='calculator-theme-switcher'>{props.label}</span>
-      <Switch role='radiogroup' aria-labelledby='calculator-theme-switcher' aria-label={theme}>
+      <Switch
+        role='radiogroup'
+        aria-labelledby='calculator-theme-switcher'
+        aria-label={theme}
+        onKeyDown={handleKeyDown}
+      >
         <span className='btn' role='button' aria-label='switch button'></span>
         {Object.values(THEMES).map((_theme, idx) => (
           <Label
@@ -92,9 +121,17 @@ export default function ThemeSwitcher(props: ThemeSwitcher) {
             aria-checked={_theme === theme}
             htmlFor={_theme}
             key={idx}
+            ref={labels[idx]}
             sx={{
               '&::after': {
                 content: `'${idx + 1}'`
+              }
+            }}
+            tabIndex={_theme === theme ? 0 : -1}
+            aria-label={`toggle ${_theme} theme`}
+            onKeyDown={event => {
+              if (event.key === 'Enter') {
+                setTheme(_theme);
               }
             }}
           >
@@ -107,7 +144,7 @@ export default function ThemeSwitcher(props: ThemeSwitcher) {
               onChange={event => {
                 setTheme(event.target.value);
               }}
-              aria-label={`toggle ${_theme} theme`}
+              aria-hidden='true'
             />
           </Label>
         ))}

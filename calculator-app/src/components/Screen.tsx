@@ -78,15 +78,20 @@ export default function Screen(props: ScreenProps) {
   const result = format(removeTrailingZeros(props.expression));
 
   return (
-    <ScreenRoot role='textbox' aria-label='calculator screen' sx={{ color: theme === 'THEME1' ? 'white' : '' }}>
+    <ScreenRoot
+      role='textbox'
+      aria-label='calculator screen'
+      sx={{ color: theme === 'THEME1' ? 'white' : '' }}
+      tabIndex={0}
+    >
       {result ? (
-        <Expression role='math' aria-label={'the expression is ' + result}>
+        <Expression role='math' aria-label={'the expression is ' + result} tabIndex={0}>
           {result}
         </Expression>
       ) : (
         <></>
       )}
-      <Result variant='h1' aria-live='polite' aria-atomic='true'>
+      <Result variant='h1' aria-live='polite' aria-atomic='true' tabIndex={0} aria-label={'result is ' + props.result}>
         {props.result}
       </Result>
     </ScreenRoot>
