@@ -1,6 +1,7 @@
 import { Box, styled, Typography } from '@mui/material';
 import Stack from '../libs/stack';
 import useTheme from '../hooks/useTheme';
+import { isOperator } from '../libs/expression';
 
 const ScreenRoot = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -14,8 +15,11 @@ const ScreenRoot = styled(Box)(({ theme }) => ({
   padding: '22px 31px',
   gap: '5px',
   textAlign: 'end',
+  wordWrap: 'break-word',
+  wordBreak: 'break-all',
   [theme.breakpoints.down('sm')]: {
-    height: '89px',
+    height: 'auto',
+    minHeight: '89px',
     padding: '22px 25px'
   }
 }));
@@ -25,7 +29,6 @@ const Expression = styled(Box)(() => ({
   lineHeight: 1.2,
   userSelect: 'none',
   fontWeight: 500,
-  wordBreak: 'break-all',
   opacity: 0.6
 }));
 
@@ -34,7 +37,6 @@ const Result = styled(Typography)(({ theme }) => ({
   lineHeight: 1,
   fontFamily: theme.typography.fontFamily,
   fontWeight: theme.typography.fontWeightBold,
-
   '&::selection': {
     background: theme.palette.background.paper,
     color: theme.palette.getContrastText(theme.palette.background.paper)
@@ -51,16 +53,19 @@ function format(expression: string) {
 function removeTrailingZeros(expression: string) {
   const stack = new Stack<string>();
   for (let i = 0; i < expression.length; i++) {
-    if (!/[+\-\/*]/g.test(expression[i])) {
+    if (!isOperator(expression[i])) {
       let num = '';
-      while (i < expression.length && !/[+\-\/*]/g.test(expression[i])) {
+      while (i < expression.length && !isOperator(expression[i])) {
         num += expression[i];
         i++;
       }
       i--;
-      if (num === '0') {
-        stack.push('0');
-      } else stack.push(...num.replace(/^0*/, '').replace(/^\./, '0.').split(''));
+      stack.push(
+        ...num
+          .replace(/^0+/g, '0') //`00000` will be `0`
+          .replace(/^0[1-9]/g, match => match[1]) // `03` will be `3`
+          .split('')
+      );
     } else {
       stack.push(expression[i]);
     }

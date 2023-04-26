@@ -28,6 +28,10 @@ const baseTheme: ThemeOptions = {
             '&:active': {
               boxShadow: `0 1.5px 0 ${shadowColor} !important`
             },
+            '&.active': {
+              boxShadow: `0 1.5px 0 ${shadowColor} !important`,
+              background: hoverColor
+            },
             '&:hover': {
               background: hoverColor
             }
