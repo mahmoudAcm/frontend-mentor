@@ -1,4 +1,4 @@
-import { Box, Container, CssBaseline, styled } from '@mui/material';
+import { Box, Container, CssBaseline, Fade, styled } from '@mui/material';
 import ThemeProvider from './contexts/Theme';
 import { lazy, Suspense, useState } from 'react';
 import Header from './components/Header';
@@ -32,24 +32,26 @@ export default function App() {
   return (
     <ThemeProvider>
       <CssBaseline />
-      <AppRoot>
-        <Container>
-          <Box className='layout' role='application' aria-roledescription='simple calaculator'>
-            <Header />
-            <Suspense fallback={<LoadingScreen />}>
-              <Screen result={result} expression={expression} />
-              <Keypad
-                expression={expression}
-                setExpression={setExpression}
-                onEquals={result => {
-                  setResult(result);
-                }}
-              />
-            </Suspense>
-            {/*<Comp />*/}
-          </Box>
-        </Container>
-      </AppRoot>
+      <Suspense fallback={<LoadingScreen />}>
+        <Fade in={true}>
+          <AppRoot>
+            <Container>
+              <Box className='layout' role='application' aria-roledescription='simple calaculator'>
+                <Header />
+                <Screen result={result} expression={expression} />
+                <Keypad
+                  expression={expression}
+                  setExpression={setExpression}
+                  onEquals={result => {
+                    setResult(result);
+                  }}
+                />
+                {/*<Comp />*/}
+              </Box>
+            </Container>
+          </AppRoot>
+        </Fade>
+      </Suspense>
     </ThemeProvider>
   );
 }
