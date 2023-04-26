@@ -34,10 +34,10 @@ export const useKeyboardEvent = (
         if (key.value === evt.key || (evt.key === 'Enter' && key.value === '=')) {
           key.classList.add('active');
           if (isValidExpression(key.value)) handleKey(key.value);
-          key.addEventListener('transitionend', () => {
-            key.classList.remove('active');
-          });
         }
+        key.addEventListener('transitionend', () => {
+          key.classList.remove('active');
+        });
       });
     };
 
