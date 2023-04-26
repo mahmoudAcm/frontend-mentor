@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="building challenges home page.">
+      <change afterPath="$PROJECT_DIR$/calculator-app/design/screencapture-mahmoudacm-github-io-frontend-mentor-calculator-app-dist-2023-04-26-17_01_00.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,6 +80,7 @@
       <recent name="D:\frontend\frontend-mentor\gallery" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\frontend\frontend-mentor\calculator-app\design" />
       <recent name="D:\frontend\frontend-mentor\gallery\public" />
       <recent name="D:\frontend\frontend-mentor\gallery\public\assets" />
     </key>
