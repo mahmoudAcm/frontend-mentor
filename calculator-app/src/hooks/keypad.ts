@@ -35,9 +35,13 @@ export const useKeyboardEvent = (
           key.classList.add('active');
           if (isValidExpression(key.value)) handleKey(key.value);
         }
-        key.addEventListener('transitionend', () => {
-          key.classList.remove('active');
-        });
+        key.addEventListener(
+          'transitionend',
+          () => {
+            key.classList.remove('active');
+          },
+          { once: true }
+        );
       });
     };
 
