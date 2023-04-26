@@ -1,9 +1,11 @@
 import { Box, Container, CssBaseline, styled } from '@mui/material';
 import ThemeProvider from './contexts/Theme';
 import Screen from './components/Screen';
-import Keypad from './components/Keypad';
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import Header from './components/Header';
+import LoadingScreen from './components/LoadingScreen';
+
+const Keypad = lazy(() => import('./components/Keypad'));
 
 const AppRoot = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
@@ -35,13 +37,15 @@ export default function App() {
           <Box className='layout' role='application' aria-roledescription='simple calaculator'>
             <Header />
             <Screen result={result} expression={expression} />
-            <Keypad
-              expression={expression}
-              setExpression={setExpression}
-              onEquals={result => {
-                setResult(result);
-              }}
-            />
+            <Suspense fallback={<LoadingScreen />}>
+              <Keypad
+                expression={expression}
+                setExpression={setExpression}
+                onEquals={result => {
+                  setResult(result);
+                }}
+              />
+            </Suspense>
             {/*<Comp />*/}
           </Box>
         </Container>
