@@ -8,6 +8,10 @@ const Edit = createCustomSvgIcon(
   'EditIIcon',
   {
     viewBox: '0 0 14 14',
+    style: {
+      width: '14px',
+      height: '14px'
+    },
     xmlns: 'http://www.w3.org/2000/svg'
   }
 );

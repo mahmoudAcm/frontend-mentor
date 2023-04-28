@@ -8,6 +8,10 @@ const Plus = createCustomSvgIcon(
   'PlusIcon',
   {
     viewBox: '0 0 11 11',
+    style: {
+      width: '11px',
+      height: '11px'
+    },
     xmlns: 'http://www.w3.org/2000/svg'
   }
 );

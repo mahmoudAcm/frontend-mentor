@@ -8,6 +8,10 @@ const Minus = createCustomSvgIcon(
   'Minus',
   {
     viewBox: '0 0 11 3',
+    style: {
+      width: '11px',
+      height: '3px'
+    },
     xmlns: 'http://www.w3.org/2000/svg'
   }
 );

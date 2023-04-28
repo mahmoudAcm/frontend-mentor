@@ -6,7 +6,14 @@ const Delete = createCustomSvgIcon(
     fill='#ED6368'
   />,
   'DeleteIcon',
-  { viewBox: '0 0 12 14', xmlns: 'http://www.w3.org/2000/svg' }
+  {
+    viewBox: '0 0 12 14',
+    style: {
+      width: '12px',
+      height: '14px'
+    },
+    xmlns: 'http://www.w3.org/2000/svg'
+  }
 );
 
 export default Delete;
