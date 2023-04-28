@@ -18,7 +18,7 @@ export default createTheme({
       light: '#FFB8BB'
     },
     background: {
-      default: '#F5F6FA'
+      default: 'var(--vary-light-gray)'
     },
     text: {
       primary: '#334253',
@@ -43,6 +43,16 @@ export default createTheme({
     body1: {
       lineHeight: 0.6666666667,
       fontWeight: 500
+    }
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        '&:root': {
+          '--light-gray': '#E9EBF0',
+          '--vary-light-gray': '#F5F6FA'
+        }
+      }
     }
   }
 });
