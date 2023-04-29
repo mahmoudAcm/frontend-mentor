@@ -3,7 +3,7 @@ import PlusIcon from '@/src/icons/Plus';
 import MinusIcon from '@/src/icons/Minus';
 
 const VoteButtonRoot = styled(Box)(({ theme }) => ({
-  width: '40px',
+  minWidth: '40px',
   height: '100px',
   background: 'var(--vary-light-gray)',
   borderRadius: '10px',
@@ -15,9 +15,9 @@ const VoteButtonRoot = styled(Box)(({ theme }) => ({
   '& svg': {
     cursor: 'pointer'
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     flexDirection: 'row',
-    width: '100px',
+    minWidth: '100px',
     height: '40px',
     padding: '10px 4px 11px 7.58px'
   }
@@ -26,13 +26,13 @@ const VoteButtonRoot = styled(Box)(({ theme }) => ({
 export default function VoteButton() {
   return (
     <VoteButtonRoot role='button' aria-label='vote button'>
-      <IconButton>
+      <IconButton aria-label='upvote'>
         <PlusIcon />
       </IconButton>
       <Typography sx={{ lineHeight: 1.1875 }} color='primary'>
         12
       </Typography>
-      <IconButton sx={{ height: '27px' }}>
+      <IconButton sx={{ height: '27px' }} aria-label='downvote'>
         <MinusIcon />
       </IconButton>
     </VoteButtonRoot>
