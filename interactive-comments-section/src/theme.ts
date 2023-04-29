@@ -55,6 +55,9 @@ export default createTheme({
       }
     },
     MuiButton: {
+      defaultProps: {
+        disableElevation: true
+      },
       styleOverrides: {
         root: {
           fontSize: '1rem',

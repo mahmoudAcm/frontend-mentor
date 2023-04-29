@@ -6,6 +6,7 @@ import type { AppProps as DefaultAppProps } from 'next/app';
 import createEmotionCache from '../libs/createEmotionCache';
 import { FunctionComponent } from 'react';
 import theme from '@/src/theme';
+import Direction from '@/src/components/Directions';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -19,8 +20,10 @@ const App: FunctionComponent<AppProps> = props => {
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
+        <Direction direction='ltr'>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </Direction>
       </ThemeProvider>
     </CacheProvider>
   );
