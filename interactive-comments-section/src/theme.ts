@@ -41,7 +41,7 @@ export default createTheme({
       fontWeight: 500
     },
     body1: {
-      lineHeight: 0.6666666667,
+      lineHeight: 1.5,
       fontWeight: 500
     }
   },
@@ -53,6 +53,23 @@ export default createTheme({
           '--vary-light-gray': '#F5F6FA'
         }
       }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontSize: '1rem',
+          lineHeight: 1.5
+        }
+      }
+    }
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 768,
+      lg: 1200,
+      xl: 1536
     }
   }
 });
