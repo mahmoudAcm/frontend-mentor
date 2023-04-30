@@ -62,7 +62,12 @@ export default createTheme({
         root: {
           fontSize: '1rem',
           lineHeight: 1.5
-        }
+        },
+        contained: ({ theme, ownerState }) => ({
+          '&:hover': {
+            background: theme.palette[ownerState.color === 'primary' ? 'primary' : 'secondary'].light
+          }
+        })
       }
     }
   },

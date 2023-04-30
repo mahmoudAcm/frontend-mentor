@@ -9,9 +9,11 @@ import Replies from '@/src/components/Comment/Replies';
 
 const Layout = styled(Box)(({ theme }) => ({
   display: 'grid',
+  maxWidth: '730px',
   gap: '20px',
   justifyContent: 'center',
   margin: '64px auto',
+  gridTemplateColumns: '1fr',
   [theme.breakpoints.down('md')]: {
     margin: '32px auto'
   }

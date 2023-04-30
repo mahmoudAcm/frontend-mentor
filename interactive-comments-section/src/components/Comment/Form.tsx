@@ -23,7 +23,7 @@ const FormRoot = styled(Paper)(({ theme }) => ({
   }
 }));
 
-const Input = styled(InputBase)(({ theme }) => ({
+export const Input = styled(InputBase)(({ theme }) => ({
   flex: 1,
   ...theme.typography.body1,
   fontWeight: '400',
@@ -37,7 +37,7 @@ const Input = styled(InputBase)(({ theme }) => ({
     opacity: '1 !important',
     fontWeight: '400'
   },
-  '&.Mui-focused': {
+  '&.Mui-focused,&:hover': {
     outline: `1px solid ${theme.palette.primary.main}`
   },
   [theme.breakpoints.down('md')]: {

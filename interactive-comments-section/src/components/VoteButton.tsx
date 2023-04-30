@@ -23,18 +23,24 @@ const VoteButtonRoot = styled(Box)(({ theme }) => ({
   }
 }));
 
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  '&:hover path': {
+    fill: theme.palette.primary.main
+  }
+}));
+
 export default function VoteButton({ votes }: { votes: number }) {
   return (
     <VoteButtonRoot role='button' aria-label='vote button'>
-      <IconButton aria-label='upvote'>
+      <StyledIconButton aria-label='upvote'>
         <PlusIcon />
-      </IconButton>
+      </StyledIconButton>
       <Typography sx={{ lineHeight: 1.1875 }} color='primary' aria-label={`votes: ${votes}`}>
         {votes ?? 0}
       </Typography>
-      <IconButton sx={{ height: '27px' }} aria-label='downvote'>
+      <StyledIconButton sx={{ height: '27px' }} aria-label='downvote'>
         <MinusIcon />
-      </IconButton>
+      </StyledIconButton>
     </VoteButtonRoot>
   );
 }
