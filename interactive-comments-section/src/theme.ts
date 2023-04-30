@@ -64,8 +64,56 @@ export default createTheme({
           lineHeight: 1.5
         },
         contained: ({ theme, ownerState }) => ({
+          '--btn-bg-hover': theme.palette[ownerState.color === 'primary' ? 'primary' : 'secondary'].light,
           '&:hover': {
-            background: theme.palette[ownerState.color === 'primary' ? 'primary' : 'secondary'].light
+            background: 'var(--btn-bg-hover)'
+          }
+        })
+      }
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          boxShadow: 'none',
+          marginLeft: '16px',
+          marginRight: '16px'
+        }
+      }
+    },
+    MuiDialogTitle: {
+      defaultProps: {
+        component: 'h1',
+        variant: 'h1'
+      },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          padding: '32px',
+          paddingBottom: '20px',
+          [theme.breakpoints.down('sm')]: {
+            fontSize: '1.25rem',
+            padding: '24px 28px 16px 27px'
+          }
+        })
+      }
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          padding: '0 32px 20px',
+          wordBreak: 'break-word',
+          overflowWrap: 'break-word',
+          [theme.breakpoints.down('sm')]: {
+            padding: '0 27px 8px 28px'
+          }
+        })
+      }
+    },
+    MuiDialogActions: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          padding: '0px 32px 32px',
+          [theme.breakpoints.down('sm')]: {
+            padding: '8px 28px 24px 27px'
           }
         })
       }

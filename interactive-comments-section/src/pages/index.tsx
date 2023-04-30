@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import CommentOrReplay from '@/src/components/Comment';
-import { Box, Container, styled } from '@mui/material';
+import { Box, Container, Portal, styled } from '@mui/material';
 import Form from '@/src/components/Comment/Form';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import type { Comment as CommentType } from '../types';
 import Replies from '@/src/components/Comment/Replies';
+import DeleteDialog from '@/src/components/Comment/DeleteDialog';
 
 const Layout = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -52,6 +53,7 @@ export default function Home() {
           <Form type='comment' />
         </Layout>
       </Container>
+      <DeleteDialog />
     </>
   );
 }
