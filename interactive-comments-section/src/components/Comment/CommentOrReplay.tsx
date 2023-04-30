@@ -2,8 +2,9 @@ import { Avatar, Box, Chip, Paper, styled, Typography } from '@mui/material';
 import VoteButton from '@/src/components/VoteButton';
 import Actions from '@/src/components/Comment/Actions';
 import Content from '@/src/components/Comment/Content';
+import moment from 'moment';
 
-const CommentRoot = styled(Paper)(({ theme }) => ({
+const CommentOrReplayRoot = styled(Paper)(({ theme }) => ({
   padding: '24px',
   maxWidth: '730px',
   display: 'flex',
@@ -23,7 +24,7 @@ const CommentRoot = styled(Paper)(({ theme }) => ({
   }
 }));
 
-const CommentHeader = styled(Box)(() => ({
+const CommentOrReplayHeader = styled(Box)(() => ({
   width: '100%',
   display: 'flex',
   gap: '16px',
@@ -47,38 +48,50 @@ const StyledChip = styled(Chip)(() => ({
   }
 }));
 
-export default function Comment() {
-  const owner = false;
+interface CommentOrReplayProps {
+  type: 'comment' | 'reply';
+  content: string;
+  createdAt: number;
+  username: string;
+  votes: number;
+  avatar: {
+    png: string;
+    webp: string;
+  };
+}
+
+export default function CommentOrReplay(props: CommentOrReplayProps) {
+  const owner = props.username === 'juliusomo';
   return (
-    <CommentRoot elevation={0}>
+    <CommentOrReplayRoot elevation={0}>
       <Box sx={{ display: 'flex' }}>
-        <VoteButton />
+        <VoteButton votes={props.votes} />
         <Box className='comment-mobile-actions' sx={{ marginLeft: 'auto' }}>
-          <Actions owner={owner} />
+          <Actions owner={owner} type={props.type} />
         </Box>
       </Box>
       <Box sx={{ width: '100%' }}>
-        <CommentHeader aria-label='comment header'>
+        <CommentOrReplayHeader aria-label={`${props.type} header`}>
           <Avatar
-            src='/images/avatars/image-amyrobson.png'
+            src={props.avatar.png}
             sx={{ width: '32px', height: '32px' }}
-            alt='amyrobson profile picture'
+            alt={`${props.username} profile picture`}
           />
           <Box className='name-and-title'>
-            <Typography variant='h2' aria-label='comment owner: amyrobson'>
-              amyrobson
-              <StyledChip label='you' color='primary' />
+            <Typography variant='h2' aria-label={`${props.type} owner: ${props.username}`}>
+              {props.username}
+              {owner ? <StyledChip label='you' color='primary' /> : <></>}
             </Typography>
             <Typography fontWeight='400' color='textSecondary'>
-              1 month ago
+              {moment(props.createdAt).fromNow()}
             </Typography>
           </Box>
           <Box className='comment-desktop-action' sx={{ marginLeft: 'auto', marginTop: '-2px' }}>
-            <Actions owner={owner} />
+            <Actions owner={owner} type={props.type} />
           </Box>
-        </CommentHeader>
-        <Content />
+        </CommentOrReplayHeader>
+        <Content type={props.type}>{props.content}</Content>
       </Box>
-    </CommentRoot>
+    </CommentOrReplayRoot>
   );
 }

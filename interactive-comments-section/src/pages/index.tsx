@@ -1,9 +1,31 @@
 import Head from 'next/head';
-import Comment from '@/src/components/Comment';
-import { Container } from '@mui/material';
+import CommentOrReplay from '@/src/components/Comment';
+import { Box, Container, styled } from '@mui/material';
 import Form from '@/src/components/Comment/Form';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import type { Comment as CommentType } from '../types';
+import Replies from '@/src/components/Comment/Replies';
+
+const Layout = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gap: '20px',
+  justifyContent: 'center',
+  margin: '64px auto',
+  [theme.breakpoints.down('md')]: {
+    margin: '32px auto'
+  }
+}));
 
 export default function Home() {
+  const [comments, setComments] = useState<CommentType[]>([]);
+
+  useEffect(() => {
+    axios.get<CommentType[]>('/api/comments').then(resp => {
+      setComments(resp.data);
+    });
+  }, []);
+
   return (
     <>
       <Head>
@@ -11,10 +33,22 @@ export default function Home() {
         <link rel='shortcut icon' href='/favicon-32x32.png' />
       </Head>
       <Container>
-        <div style={{ display: 'flex', gap: '16px', flexDirection: 'column' }}>
-          <Comment />
+        <Layout>
+          {comments.map((comment, idx) => (
+            <Box key={idx}>
+              <CommentOrReplay
+                type='comment'
+                content={comment.content}
+                createdAt={comment.createdAt}
+                username={comment.user.username}
+                avatar={comment.user.image}
+                votes={comment.score}
+              />
+              <Replies parentComment={comment.id} />
+            </Box>
+          ))}
           <Form type='comment' />
-        </div>
+        </Layout>
       </Container>
     </>
   );
