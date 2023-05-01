@@ -66,7 +66,7 @@ export interface CommentOrReplayProps {
 const CommentOrReplyForm = ({ type }: { type: 'comment' | 'reply' }) => {
   const { openForm } = useCommentOrReplyContext();
   if (!openForm) return <></>;
-  return <Form type={type} sx={{ marginTop: type === 'comment' ? '8px' : '-16px' }} />;
+  return <Form type='reply' sx={{ marginTop: type === 'comment' ? '8px' : '-16px' }} />;
 };
 
 export default function CommentOrReplay(props: CommentOrReplayProps) {
