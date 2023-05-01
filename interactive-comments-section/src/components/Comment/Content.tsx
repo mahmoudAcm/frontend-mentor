@@ -1,7 +1,9 @@
-import { Box, styled, Typography } from '@mui/material';
+import { Box, Button, styled, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import Linkify from 'linkify-react';
 import 'linkify-plugin-mention';
+import { Input } from './Form';
+import useCommentOrReplyContext from '@/src/hooks/useCommentOrReplyContext';
 
 const ContentRoot = styled(Box)(({ theme }) => ({
   maxWidth: '618px',
@@ -23,25 +25,45 @@ function Mention({ children }: { children: ReactNode }) {
   );
 }
 
-interface ContentProps {
-  children: string;
-  type: 'comment' | 'reply';
-}
+interface ContentProps {}
 
-export default function Content({ type, children }: ContentProps) {
+export default function Content(props: ContentProps) {
+  const { content, editing, owner, type, setContent } = useCommentOrReplyContext();
+
   return (
     <ContentRoot aria-label={`${type} content`}>
-      <Linkify
-        options={{
-          render: {
-            mention: ir => {
-              return <Mention>{ir.content}</Mention>;
+      {editing && owner ? (
+        <>
+          <Input
+            fullWidth
+            multiline
+            value={content}
+            placeholder={`Edit the ${type}...`}
+            inputProps={{
+              onChange: evt => setContent(evt.currentTarget.value)
+            }}
+            minRows={3}
+            maxRows={10}
+          />
+          <Box sx={{ display: 'flex' }}>
+            <Button variant='contained' sx={{ marginLeft: 'auto', marginTop: '16px', padding: '12px 21px 12px 20px' }}>
+              Update
+            </Button>
+          </Box>
+        </>
+      ) : (
+        <Linkify
+          options={{
+            render: {
+              mention: ir => {
+                return <Mention>{ir.content}</Mention>;
+              }
             }
-          }
-        }}
-      >
-        {children}
-      </Linkify>
+          }}
+        >
+          {content}
+        </Linkify>
+      )}
     </ContentRoot>
   );
 }

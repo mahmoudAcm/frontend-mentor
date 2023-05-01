@@ -1,8 +1,9 @@
 import CommentOrReplay from '@/src/components/Comment/CommentOrReplay';
 import { Box, Divider, styled } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { Reply } from '@/src/types';
-import axios from 'axios';
+import { useEffect } from 'react';
+import { useAppDispatch } from '@/src/store';
+import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
+import useCommentsOrRepliesSelector from '@/src/hooks/useCommentsOrRepliesSelector';
 
 const RepliesRoot = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -23,14 +24,15 @@ const StyledDivider = styled(Divider)(({ theme }) => ({
   }
 }));
 
-export default function Replies({ parentComment }: { parentComment: string }) {
-  const [replies, setReplies] = useState<Reply[]>([]);
+export default function Replies({ parentCommentOrReplyId }: { parentCommentOrReplyId: string }) {
+  const { repliesOf } = useCommentsOrRepliesSelector();
+  const dispatch = useAppDispatch();
+
+  const replies = repliesOf[parentCommentOrReplyId] ?? [];
 
   useEffect(() => {
-    axios.get<Reply[]>(`/api/comments/${parentComment}/replies`).then(resp => {
-      setReplies(resp.data);
-    });
-  }, [parentComment]);
+    dispatch(commentsOrRepliesActions.getReplies(1, parentCommentOrReplyId)).then();
+  }, [dispatch, parentCommentOrReplyId]);
 
   if (!replies.length) return <></>;
 
@@ -42,7 +44,7 @@ export default function Replies({ parentComment }: { parentComment: string }) {
         role='region'
         aria-label='replies section'
       >
-        {replies.map((reply, idx) => (
+        {replies.map(reply => (
           <CommentOrReplay
             type='reply'
             content={reply.content}
@@ -50,7 +52,7 @@ export default function Replies({ parentComment }: { parentComment: string }) {
             username={reply.user.username}
             votes={reply.score}
             avatar={reply.user.image}
-            key={idx}
+            key={reply.id}
           />
         ))}
       </Box>

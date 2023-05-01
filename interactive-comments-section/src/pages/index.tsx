@@ -1,12 +1,13 @@
 import Head from 'next/head';
 import CommentOrReplay from '@/src/components/Comment';
-import { Box, Container, Portal, styled } from '@mui/material';
+import { Box, Container, styled } from '@mui/material';
 import Form from '@/src/components/Comment/Form';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import type { Comment as CommentType } from '../types';
+import { useEffect } from 'react';
 import Replies from '@/src/components/Comment/Replies';
 import DeleteDialog from '@/src/components/Comment/DeleteDialog';
+import { useAppDispatch } from '@/src/store';
+import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
+import useCommentsOrRepliesSelector from '@/src/hooks/useCommentsOrRepliesSelector';
 
 const Layout = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -21,13 +22,12 @@ const Layout = styled(Box)(({ theme }) => ({
 }));
 
 export default function Home() {
-  const [comments, setComments] = useState<CommentType[]>([]);
+  const { comments } = useCommentsOrRepliesSelector();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    axios.get<CommentType[]>('/api/comments').then(resp => {
-      setComments(resp.data);
-    });
-  }, []);
+    dispatch(commentsOrRepliesActions.getComments(1)).then();
+  }, [dispatch]);
 
   return (
     <>
@@ -37,8 +37,8 @@ export default function Home() {
       </Head>
       <Container>
         <Layout>
-          {comments.map((comment, idx) => (
-            <Box key={idx}>
+          {comments.map(comment => (
+            <Box key={comment.id}>
               <CommentOrReplay
                 type='comment'
                 content={comment.content}
@@ -47,7 +47,7 @@ export default function Home() {
                 avatar={comment.user.image}
                 votes={comment.score}
               />
-              <Replies parentComment={comment.id} />
+              <Replies parentCommentOrReplyId={comment.id} />
             </Box>
           ))}
           <Form type='comment' />

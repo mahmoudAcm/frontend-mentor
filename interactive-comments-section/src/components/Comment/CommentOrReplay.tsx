@@ -3,6 +3,9 @@ import VoteButton from '@/src/components/VoteButton';
 import Actions from '@/src/components/Comment/Actions';
 import Content from '@/src/components/Comment/Content';
 import moment from 'moment';
+import Form from '@/src/components/Comment/Form';
+import { CommentOrReplayProvider } from '@/src/contexts/CommentOrReplayContext';
+import useCommentOrReplyContext from '@/src/hooks/useCommentOrReplyContext';
 
 const CommentOrReplayRoot = styled(Paper)(({ theme }) => ({
   padding: '24px',
@@ -48,7 +51,7 @@ const StyledChip = styled(Chip)(() => ({
   }
 }));
 
-interface CommentOrReplayProps {
+export interface CommentOrReplayProps {
   type: 'comment' | 'reply';
   content: string;
   createdAt: number;
@@ -60,38 +63,50 @@ interface CommentOrReplayProps {
   };
 }
 
+const CommentOrReplyForm = ({ type }: { type: 'comment' | 'reply' }) => {
+  const { openForm } = useCommentOrReplyContext();
+  if (!openForm) return <></>;
+  return <Form type={type} sx={{ marginTop: type === 'comment' ? '8px' : '-16px' }} />;
+};
+
 export default function CommentOrReplay(props: CommentOrReplayProps) {
   const owner = props.username === 'juliusomo';
+
   return (
-    <CommentOrReplayRoot elevation={0}>
-      <Box sx={{ display: 'flex' }}>
-        <VoteButton votes={props.votes} />
-        <Box className='comment-mobile-actions' sx={{ marginLeft: 'auto' }}>
-          <Actions owner={owner} type={props.type} />
-        </Box>
-      </Box>
-      <Box sx={{ width: '100%' }}>
-        <CommentOrReplayHeader aria-label={`${props.type} header`}>
-          <Avatar
-            src={props.avatar.png}
-            sx={{ width: '32px', height: '32px' }}
-            alt={`${props.username} profile picture`}
-          />
-          <Box className='name-and-title'>
-            <Typography variant='h2' aria-label={`${props.type} owner: ${props.username}`}>
-              {props.username}
-              {owner ? <StyledChip label='you' color='primary' /> : <></>}
-            </Typography>
-            <Typography fontWeight='400' color='textSecondary'>
-              {moment(props.createdAt).fromNow()}
-            </Typography>
+    <CommentOrReplayProvider value={{ ...props, owner }}>
+      <>
+        <CommentOrReplayRoot elevation={0}>
+          <Box sx={{ display: 'flex' }}>
+            <VoteButton />
+            <Box className='comment-mobile-actions' sx={{ marginLeft: 'auto' }}>
+              <Actions />
+            </Box>
           </Box>
-          <Box className='comment-desktop-action' sx={{ marginLeft: 'auto', marginTop: '-2px' }}>
-            <Actions owner={owner} type={props.type} />
+          <Box sx={{ width: '100%' }}>
+            <CommentOrReplayHeader aria-label={`${props.type} header`}>
+              <Avatar
+                src={props.avatar.png}
+                sx={{ width: '32px', height: '32px' }}
+                alt={`${props.username} profile picture`}
+              />
+              <Box className='name-and-title'>
+                <Typography variant='h2' aria-label={`${props.type} owner: ${props.username}`}>
+                  {props.username}
+                  {owner ? <StyledChip label='you' color='primary' /> : <></>}
+                </Typography>
+                <Typography fontWeight='400' color='textSecondary'>
+                  {moment(props.createdAt).fromNow()}
+                </Typography>
+              </Box>
+              <Box className='comment-desktop-action' sx={{ marginLeft: 'auto', marginTop: '-2px' }}>
+                <Actions />
+              </Box>
+            </CommentOrReplayHeader>
+            <Content>{props.content}</Content>
           </Box>
-        </CommentOrReplayHeader>
-        <Content type={props.type}>{props.content}</Content>
-      </Box>
-    </CommentOrReplayRoot>
+        </CommentOrReplayRoot>
+        <CommentOrReplyForm type={props.type} />
+      </>
+    </CommentOrReplayProvider>
   );
 }

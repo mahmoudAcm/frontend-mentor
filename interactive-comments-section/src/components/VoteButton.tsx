@@ -1,6 +1,7 @@
 import { Box, IconButton, styled, Typography } from '@mui/material';
 import PlusIcon from '@/src/icons/Plus';
 import MinusIcon from '@/src/icons/Minus';
+import useCommentOrReplyContext from '@/src/hooks/useCommentOrReplyContext';
 
 const VoteButtonRoot = styled(Box)(({ theme }) => ({
   minWidth: '40px',
@@ -29,7 +30,9 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   }
 }));
 
-export default function VoteButton({ votes }: { votes: number }) {
+export default function VoteButton() {
+  const { votes } = useCommentOrReplyContext();
+
   return (
     <VoteButtonRoot role='button' aria-label='vote button'>
       <StyledIconButton aria-label='upvote'>

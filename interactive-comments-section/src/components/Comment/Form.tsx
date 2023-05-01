@@ -1,5 +1,4 @@
-import { Avatar, Button, InputBase, Paper, styled } from '@mui/material';
-import { useRef } from 'react';
+import { Avatar, Button, InputBase, Paper, PaperProps, styled } from '@mui/material';
 
 const FormRoot = styled(Paper)(({ theme }) => ({
   maxWidth: '730px',
@@ -47,21 +46,24 @@ export const Input = styled(InputBase)(({ theme }) => ({
 }));
 
 const mapTypeToButton = {
-  replay: 'replay',
+  reply: 'reply',
   comment: 'send'
 };
 
-export default function Form({ type }: { type: 'replay' | 'comment' }) {
-  const inputRef = useRef<HTMLTextAreaElement | null>();
+interface FormProps {
+  type: 'reply' | 'comment';
+  sx?: PaperProps['sx'];
+}
+
+export default function Form({ type, sx }: FormProps) {
   return (
-    <FormRoot elevation={0} role='form' aria-label={`${type} form`}>
+    <FormRoot elevation={0} role='form' aria-label={`${type} form`} sx={sx}>
       <Avatar src='/images/avatars/image-juliusomo.png' alt='juliusomo profile picture' sx={{ marginRight: 'auto' }} />
       <Input
         multiline
         placeholder={`Add a ${type}...`}
         aria-label={`Add a ${type}...`}
         rows={3}
-        inputRef={inputRef}
         inputProps={{
           tabIndex: 0
         }}
