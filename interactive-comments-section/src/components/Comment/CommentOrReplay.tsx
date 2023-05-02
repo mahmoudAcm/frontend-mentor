@@ -76,9 +76,16 @@ export default function CommentOrReplay(props: CommentOrReplayProps) {
     <CommentOrReplayProvider value={{ ...props, owner }}>
       <>
         <CommentOrReplayRoot elevation={0}>
-          <Box sx={{ display: 'flex' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              gap: '15px'
+            }}
+          >
             <VoteButton />
-            <Box className='comment-mobile-actions' sx={{ marginLeft: 'auto' }}>
+            <Box className='comment-mobile-actions'>
               <Actions />
             </Box>
           </Box>
@@ -102,7 +109,7 @@ export default function CommentOrReplay(props: CommentOrReplayProps) {
                 <Actions />
               </Box>
             </CommentOrReplayHeader>
-            <Content>{props.content}</Content>
+            <Content />
           </Box>
         </CommentOrReplayRoot>
         <CommentOrReplyForm type={props.type} />
