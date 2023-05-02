@@ -1,4 +1,4 @@
-import { Box, Button, styled, Typography } from '@mui/material';
+import { Box, Button, Link, styled, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import Linkify from 'linkify-react';
 import 'linkify-plugin-mention';
@@ -9,12 +9,30 @@ const ContentRoot = styled(Box)(({ theme }) => ({
   maxWidth: '618px',
   marginTop: '15px',
   wordBreak: 'break-word',
+  overflowWrap: 'break-word',
+  whiteSpace: 'pre-wrap',
   ...theme.typography.body1,
   color: theme.palette.text.secondary,
   fontWeight: '400',
+  position: 'relative',
+  '&::selection, & *::selection': {
+    background: theme.palette.background.default,
+    color: theme.palette.getContrastText(theme.palette.background.default)
+  },
   [theme.breakpoints.down('md')]: {
     width: '100%'
   }
+}));
+
+const ReadMoreRoot = styled(Box)(() => ({
+  position: 'absolute',
+  padding: '18px 0 8px',
+  right: 0,
+  bottom: -5,
+  left: 0,
+  background: 'linear-gradient(0deg, white, white, #ffffff9c)',
+  textAlign: 'center',
+  boxShadow: '0px -6px 5px 13px #ffffff7d'
 }));
 
 function Mention({ children }: { children: ReactNode }) {
@@ -25,14 +43,21 @@ function Mention({ children }: { children: ReactNode }) {
   );
 }
 
-interface ContentProps {}
+export default function Content() {
+  const { content, editing, owner, type, setContent, readMore, setReadMore } = useCommentOrReplyContext();
 
-export default function Content(props: ContentProps) {
-  const { content, editing, owner, type, setContent } = useCommentOrReplyContext();
+  const isEditing = editing && owner;
 
   return (
-    <ContentRoot aria-label={`${type} content`}>
-      {editing && owner ? (
+    <ContentRoot
+      aria-label={`${type} content`}
+      sx={{
+        maxHeight: readMore && !isEditing ? '145px' : undefined,
+        overflow: readMore && !isEditing ? 'hidden' : undefined,
+        userSelect: readMore && !isEditing ? 'none' : undefined
+      }}
+    >
+      {isEditing ? (
         <>
           <Input
             fullWidth
@@ -52,17 +77,32 @@ export default function Content(props: ContentProps) {
           </Box>
         </>
       ) : (
-        <Linkify
-          options={{
-            render: {
-              mention: ir => {
-                return <Mention>{ir.content}</Mention>;
+        <>
+          <Linkify
+            options={{
+              render: {
+                mention: ir => {
+                  return <Mention>{ir.content}</Mention>;
+                }
               }
-            }
-          }}
-        >
-          {content}
-        </Linkify>
+            }}
+          >
+            {content}
+          </Linkify>
+          <ReadMoreRoot sx={{ display: !readMore ? 'none' : 'flex' }}>
+            <Link
+              sx={{ textTransform: 'capitalize', marginRight: 'auto' }}
+              href='#'
+              onClick={evt => {
+                evt.preventDefault();
+                setReadMore(false);
+              }}
+              aria-label='read more'
+            >
+              read more
+            </Link>
+          </ReadMoreRoot>
+        </>
       )}
     </ContentRoot>
   );

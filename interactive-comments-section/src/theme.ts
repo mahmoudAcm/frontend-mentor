@@ -18,7 +18,7 @@ export default createTheme({
       light: '#FFB8BB'
     },
     background: {
-      default: 'var(--vary-light-gray)'
+      default: '#F5F6FA'
     },
     text: {
       primary: '#334253',
