@@ -1,43 +1,50 @@
 import CommentOrReplay from '@/src/components/Comment/CommentOrReplay';
-import { Box, Divider, styled } from '@mui/material';
-import { useEffect } from 'react';
-import { useAppDispatch } from '@/src/store';
-import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
+import { Box, Button, Divider, styled, useMediaQuery, useTheme } from '@mui/material';
 import useCommentsOrRepliesSelector from '@/src/hooks/useCommentsOrRepliesSelector';
+import { useRouter } from 'next/router';
 
-const RepliesRoot = styled(Box)(({ theme }) => ({
+const RepliesRoot = styled(Box)(() => ({
   display: 'flex',
-  gap: '43px',
-  maxWidth: '730px',
-  [theme.breakpoints.down('md')]: {
-    gap: '16px'
-  }
+  gap: '16px',
+  maxWidth: '730px'
 }));
 
-const StyledDivider = styled(Divider)(({ theme }) => ({
-  marginLeft: '43px',
+const StyledDivider = styled(Divider)(() => ({
   borderColor: 'var(--light-gray)',
   marginBottom: '10px',
-  borderRightWidth: '2px',
-  [theme.breakpoints.down('md')]: {
-    marginLeft: 0
-  }
+  borderRightWidth: '2px'
 }));
 
-export default function Replies({ parentCommentOrReplyId }: { parentCommentOrReplyId: string }) {
+const useShowMoreLevels = (lvl: number) => {
+  const theme = useTheme();
+  const mobile = useMediaQuery(() => theme.breakpoints.down(500));
+  if (mobile && lvl <= 1) return true;
+  return !mobile && lvl <= 4;
+};
+
+export default function Replies({ parentCommentOrReplyId, lvl }: { parentCommentOrReplyId: string; lvl: number }) {
   const { repliesOf } = useCommentsOrRepliesSelector();
-  const dispatch = useAppDispatch();
+  const showMore = useShowMoreLevels(lvl);
+  const router = useRouter();
 
   const replies = repliesOf[parentCommentOrReplyId] ?? [];
 
-  useEffect(() => {
-    dispatch(commentsOrRepliesActions.getReplies(1, parentCommentOrReplyId)).then();
-  }, [dispatch, parentCommentOrReplyId]);
+  if (!showMore)
+    return (
+      <Button
+        variant='outlined'
+        onClick={() => {
+          router.push('/repliesOf/' + parentCommentOrReplyId + '?back=' + router.asPath.split('?')[0]).then();
+        }}
+      >
+        show more
+      </Button>
+    );
 
   if (!replies.length) return <></>;
 
   return (
-    <RepliesRoot sx={{ marginTop: '20px' }}>
+    <RepliesRoot sx={{ marginTop: lvl === 1 ? '20px' : 0 }}>
       <StyledDivider orientation='vertical' flexItem />
       <Box
         sx={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '24px' }}
@@ -45,15 +52,17 @@ export default function Replies({ parentCommentOrReplyId }: { parentCommentOrRep
         aria-label='replies section'
       >
         {replies.map(reply => (
-          <CommentOrReplay
-            type='reply'
-            content={reply.content}
-            createdAt={reply.createdAt}
-            username={reply.user.username}
-            votes={reply.score}
-            avatar={reply.user.image}
-            key={reply.id}
-          />
+          <Box key={reply.id} sx={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '24px' }}>
+            <CommentOrReplay
+              type='reply'
+              content={reply.content}
+              createdAt={reply.createdAt}
+              username={reply.user.username}
+              votes={reply.score}
+              avatar={reply.user.image}
+            />
+            {reply.hasReplies ? <Replies parentCommentOrReplyId={reply.id} lvl={lvl + 1} /> : <></>}
+          </Box>
         ))}
       </Box>
     </RepliesRoot>

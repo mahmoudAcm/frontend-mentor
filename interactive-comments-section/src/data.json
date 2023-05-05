@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "3",
+      "id": "10",
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ante justo, pulvinar rhoncus auctor at, fringilla vitae nunc. Donec a ex quis odio tempus aliquet in sit amet massa. Nulla consequat urna non ipsum vestibulum, egestas tincidunt massa vehicula. Sed cursus enim ut commodo mattis. Vestibulum at ultrices urna. Donec est sapien, feugiat nec cursus volutpat, pharetra at velit. Duis mollis mauris lorem, a eleifend sapien volutpat nec. Ut interdum a justo vitae mollis. Fusce vel lectus ultrices, tempus risus vel, tempus odio. Etiam quis ligula eget nisi facilisis elementum ut vel ex. Nullam imperdiet nibh ipsum, quis viverra lorem venenatis ac. Nullam et neque ut risus efficitur imperdiet. Phasellus bibendum ligula suscipit odio fermentum, a facilisis massa bibendum.\n\nAenean tincidunt imperdiet leo, vel malesuada quam pellentesque vel. Nunc eu venenatis eros. Mauris rutrum porta nisi vel placerat. Maecenas condimentum orci quam, vel tincidunt risus semper vel. Maecenas porttitor auctor lacus non pulvinar. Maecenas luctus dolor sed odio ultricies blandit. Proin cursus tellus lectus, vitae ultricies nulla tincidunt id. Morbi interdum ac arcu et placerat. Etiam in justo a orci imperdiet congue. Vivamus massa nunc, sollicitudin sed erat id, auctor tincidunt nisi. Nulla facilisi.\n\nIn quis fringilla risus. Vestibulum non pretium purus. Aenean et aliquet odio, eget consequat nibh. Morbi mollis purus nec risus euismod pharetra. Proin auctor purus magna, non molestie mi porttitor vel. Suspendisse gravida risus vel nisi euismod hendrerit. Nulla dapibus volutpat condimentum. Nam a bibendum nibh, sit amet sagittis magna.",
       "createdAt": 1681689600000,
       "score": 5,
@@ -47,7 +47,7 @@
       }
     }
   ],
-  "replies": {
+  "repliesOf": {
     "2": [
       {
         "id": "3",
@@ -73,6 +73,109 @@
             "webp": "/images/avatars/image-juliusomo.webp"
           },
           "username": "juliusomo"
+        }
+      }
+    ],
+    "3": [
+      {
+        "id": "11",
+        "content": "1",
+        "createdAt": 1672437600000,
+        "score": 4,
+        "user": {
+          "image": {
+            "png": "/images/avatars/image-ramsesmiron.png",
+            "webp": "/images/avatars/image-ramsesmiron.webp"
+          },
+          "username": "ramsesmiron"
+        }
+      }
+    ],
+    "11": [
+      {
+        "id": "12",
+        "content": "2",
+        "createdAt": 1672437600000,
+        "score": 4,
+        "user": {
+          "image": {
+            "png": "/images/avatars/image-ramsesmiron.png",
+            "webp": "/images/avatars/image-ramsesmiron.webp"
+          },
+          "username": "ramsesmiron"
+        }
+      }
+    ],
+    "12": [
+      {
+        "id": "13",
+        "content": "3",
+        "createdAt": 1672437600000,
+        "score": 4,
+        "user": {
+          "image": {
+            "png": "/images/avatars/image-ramsesmiron.png",
+            "webp": "/images/avatars/image-ramsesmiron.webp"
+          },
+          "username": "ramsesmiron"
+        }
+      }
+    ],
+    "13": [
+      {
+        "id": "14",
+        "content": "4",
+        "createdAt": 1672437600000,
+        "score": 4,
+        "user": {
+          "image": {
+            "png": "/images/avatars/image-ramsesmiron.png",
+            "webp": "/images/avatars/image-ramsesmiron.webp"
+          },
+          "username": "ramsesmiron"
+        }
+      },
+      {
+        "id": "15",
+        "content": "5",
+        "createdAt": 1672437600000,
+        "score": 4,
+        "user": {
+          "image": {
+            "png": "/images/avatars/image-ramsesmiron.png",
+            "webp": "/images/avatars/image-ramsesmiron.webp"
+          },
+          "username": "ramsesmiron"
+        }
+      }
+    ],
+    "15": [
+      {
+        "id": "16",
+        "content": "6",
+        "createdAt": 1672437600000,
+        "score": 4,
+        "user": {
+          "image": {
+            "png": "/images/avatars/image-ramsesmiron.png",
+            "webp": "/images/avatars/image-ramsesmiron.webp"
+          },
+          "username": "ramsesmiron"
+        }
+      }
+    ],
+    "16": [
+      {
+        "id": "17",
+        "content": "7",
+        "createdAt": 1672437600000,
+        "score": 4,
+        "user": {
+          "image": {
+            "png": "/images/avatars/image-ramsesmiron.png",
+            "webp": "/images/avatars/image-ramsesmiron.webp"
+          },
+          "username": "ramsesmiron"
         }
       }
     ]

@@ -5,7 +5,7 @@ import { dialogsReducer } from '@/src/slices/dialogs';
 
 const store = configureStore({
   reducer: {
-    'comments/replies': commentsOrRepliesReducer,
+    commentsOrReplies: commentsOrRepliesReducer,
     dialogs: dialogsReducer
   }
 });

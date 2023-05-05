@@ -51,8 +51,10 @@ const StyledChip = styled(Chip)(() => ({
   }
 }));
 
+type Type = 'comment' | 'reply' | 'repliesParent';
+
 export interface CommentOrReplayProps {
-  type: 'comment' | 'reply';
+  type: Type;
   content: string;
   createdAt: number;
   username: string;
@@ -63,10 +65,10 @@ export interface CommentOrReplayProps {
   };
 }
 
-const CommentOrReplyForm = ({ type }: { type: 'comment' | 'reply' }) => {
+const CommentOrReplyForm = ({ type }: { type: Type }) => {
   const { openForm } = useCommentOrReplyContext();
   if (!openForm) return <></>;
-  return <Form type='reply' sx={{ marginTop: type === 'comment' ? '8px' : '-16px' }} />;
+  return <Form type='reply' sx={{ marginTop: ['comment', 'repliesParent'].includes(type) ? '8px' : '-16px' }} />;
 };
 
 export default function CommentOrReplay(props: CommentOrReplayProps) {

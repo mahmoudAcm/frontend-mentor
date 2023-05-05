@@ -1,45 +1,54 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Comment as CommentType, Comment, Reply } from '@/src/types';
+import { CommentOrReply, RepliesOf, Reply } from '@/src/types';
 import { AppDispatch } from '@/src/store';
 import axios from 'axios';
 
-type commentOrReplyState = Comment & Reply;
-
 type State = {
-  comments: commentOrReplyState[];
-  repliesOf: Record<string, commentOrReplyState[]>;
+  comments: CommentOrReply[];
+  repliesOf: RepliesOf;
+  parents: Record<string, Reply>;
 };
 
 const slice = createSlice({
-  name: 'comments/replies',
+  name: 'commentsOrReplies',
   initialState: {
     comments: [],
-    repliesOf: {}
+    repliesOf: {},
+    parents: {}
   } as State,
   reducers: {
-    setComments(state, action: PayloadAction<commentOrReplyState[]>) {
-      state.comments = action.payload;
+    setComments(state, action: PayloadAction<{ comments: CommentOrReply[]; repliesOf: RepliesOf }>) {
+      state.comments = action.payload.comments;
+      state.repliesOf = action.payload.repliesOf;
     },
-    setReplies(state, action: PayloadAction<{ replies: commentOrReplyState[]; parentCommentOrReplyId: string }>) {
-      state.repliesOf[action.payload.parentCommentOrReplyId] = action.payload.replies;
+    addRepliesOf(state, action: PayloadAction<{ repliesOf: RepliesOf; repliesParent: Reply }>) {
+      Object.assign(state.repliesOf, action.payload.repliesOf);
+      Object.assign(state.parents, { [action.payload.repliesParent.id]: action.payload.repliesParent });
     }
   }
 });
 
 export const commentsOrRepliesReducer = slice.reducer;
 
-function getComments(page: number) {
+function getComments() {
   return async (dispatch: AppDispatch) => {
-    const response = await axios.get<CommentType[]>('/api/comments');
-    dispatch(slice.actions.setComments(response.data));
+    const response = await axios.get<{
+      comments: CommentOrReply[];
+      repliesOf: RepliesOf;
+    }>('/api/comments');
+
+    dispatch(slice.actions.setComments({ comments: response.data.comments, repliesOf: response.data.repliesOf }));
   };
 }
 
-function getReplies(page: number, parentCommentOrReplyId: string) {
+function getRepliesOf(parentCommentOrReplyId: string) {
   return async (dispatch: AppDispatch) => {
-    const response = await axios.get<Reply[]>(`/api/comments/${parentCommentOrReplyId}/replies`);
-    dispatch(slice.actions.setReplies({ replies: response.data, parentCommentOrReplyId }));
+    const response = await axios.get<{
+      repliesOf: RepliesOf;
+      repliesParent: Reply;
+    }>('/api/repliesOf/' + parentCommentOrReplyId);
+    dispatch(slice.actions.addRepliesOf(response.data));
   };
 }
 
-export const commentsOrRepliesActions = { ...slice.actions, getComments, getReplies };
+export const commentsOrRepliesActions = { ...slice.actions, getComments, getRepliesOf };

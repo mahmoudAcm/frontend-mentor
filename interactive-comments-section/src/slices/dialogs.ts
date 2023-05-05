@@ -1,17 +1,17 @@
-import { createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DIALOGS } from '@/src/constants';
 
 type Details = Record<string, any>;
 type State = Record<string, { open: boolean; details: Details }>;
 
-const slice = createSlice<State, SliceCaseReducers<State>>({
+const slice = createSlice({
   name: 'dialogs',
   initialState: {
     [DIALOGS['DELETE_COMMENTS/DELETE_REPLIES']]: {
       open: false,
       details: {}
     }
-  },
+  } as State,
   reducers: {
     openDialog(state, action: PayloadAction<string | { dialogId: string; details: Details }>) {
       let payload = action.payload;

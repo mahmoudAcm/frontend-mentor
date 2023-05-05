@@ -10,19 +10,19 @@ const rubikFont = Rubik({
 export default createTheme({
   palette: {
     primary: {
-      main: '#5357B6',
-      light: '#C5C6EF'
+      main: 'hsl(244, 44%, 48%)',
+      light: 'hsl(243, 29%, 86%)'
     },
     secondary: {
-      main: '#ED6368',
-      light: '#FFB8BB'
+      main: 'hsl(357, 76%, 59%)',
+      light: 'hsl(357, 100%, 80%)'
     },
     background: {
-      default: '#F5F6FA'
+      default: 'hsl(240, 17%, 98%)'
     },
     text: {
-      primary: '#334253',
-      secondary: '#67727E'
+      primary: 'hsl(206, 19%, 32%)',
+      secondary: 'hsl(204, 12%, 49%)'
     }
   },
   shape: {
@@ -49,8 +49,8 @@ export default createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         '&:root': {
-          '--light-gray': '#E9EBF0',
-          '--vary-light-gray': '#F5F6FA'
+          '--light-gray': 'hsl(212, 10%, 94%)',
+          '--vary-light-gray': 'hsl(240, 17%, 98%)'
         }
       }
     },
