@@ -4,7 +4,6 @@ import { Box } from '@mui/material';
 import Form from '@/src/components/Comment/Form';
 import { useEffect } from 'react';
 import Replies from '@/src/components/Comment/Replies';
-import DeleteDialog from '@/src/components/Comment/DeleteDialog';
 import { useAppDispatch } from '@/src/store';
 import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
 import useCommentsOrRepliesSelector from '@/src/hooks/useCommentsOrRepliesSelector';
@@ -40,7 +39,6 @@ export default function Home() {
         ))}
         <Form type='comment' />
       </Layout>
-      <DeleteDialog />
     </>
   );
 }
