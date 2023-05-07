@@ -10,6 +10,10 @@ const slice = createSlice({
     [DIALOGS['DELETE_COMMENTS/DELETE_REPLIES']]: {
       open: false,
       details: {}
+    },
+    [DIALOGS['ADD_COMMENT']]: {
+      open: false,
+      details: {}
     }
   } as State,
   reducers: {

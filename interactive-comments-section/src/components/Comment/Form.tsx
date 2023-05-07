@@ -50,18 +50,18 @@ const mapTypeToButton = {
   comment: 'send'
 };
 
-interface FormProps {
+interface FormProps extends PaperProps {
   type: 'reply' | 'comment';
-  sx?: PaperProps['sx'];
+  placeholder?: string;
 }
 
-export default function Form({ type, sx }: FormProps) {
+export default function Form({ type, placeholder, sx }: FormProps) {
   return (
     <FormRoot elevation={0} role='form' aria-label={`${type} form`} sx={sx}>
       <Avatar src='/images/avatars/image-juliusomo.png' alt='juliusomo profile picture' sx={{ marginRight: 'auto' }} />
       <Input
         multiline
-        placeholder={`Add a ${type}...`}
+        placeholder={placeholder ?? `Add a ${type}...`}
         aria-label={`Add a ${type}...`}
         rows={3}
         inputProps={{

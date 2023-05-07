@@ -1,5 +1,4 @@
 import { Box } from '@mui/material';
-import Layout from '@/src/components/Layout';
 import { useRouter } from 'next/router';
 import Replies from '@/src/components/Comment/Replies';
 import { useEffect } from 'react';
@@ -23,7 +22,7 @@ export default function RepliesOf() {
   if (!parentReplyId || !repliesParent) return <></>;
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>Replies of {repliesParent.user.username}</title>
       </Head>
@@ -38,6 +37,6 @@ export default function RepliesOf() {
         />
         <Replies parentCommentOrReplyId={parentReplyId} lvl={1} />
       </Box>
-    </Layout>
+    </>
   );
 }
