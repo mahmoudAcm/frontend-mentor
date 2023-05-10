@@ -24,7 +24,7 @@ export default function RepliesOf() {
   return (
     <>
       <Head>
-        <title>Replies of {repliesParent.user.username}</title>
+        <title>Frontend Mentor | Replies of {repliesParent.user.username}</title>
       </Head>
       <Box key={parentReplyId}>
         <CommentOrReplay

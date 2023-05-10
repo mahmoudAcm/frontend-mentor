@@ -22,7 +22,7 @@ export default createTheme({
     },
     text: {
       primary: 'hsl(206, 19%, 32%)',
-      secondary: 'hsl(204, 12%, 49%)'
+      secondary: 'hsl(211, 10%, 45%)'
     }
   },
   shape: {
@@ -49,8 +49,9 @@ export default createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         '&:root': {
-          '--light-gray': 'hsl(212, 10%, 94%)',
-          '--vary-light-gray': 'hsl(240, 17%, 98%)'
+          '--light-gray': 'hsl(224, 19%, 93%)',
+          '--vary-light-gray': 'hsl(228, 33%, 97%)',
+          '--shadow': 'rgba(0, 0, 0, 0.08) 0px 3px 14px'
         }
       }
     },

@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 import Badge from '@mui/material/Badge';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
-import SwitchAccountOutlinedIcon from '@mui/icons-material/SwitchAccountOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import * as React from 'react';
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { BadgeContentSpan } from '@/src/components/Header/Header';
+import { useRouter } from 'next/router';
 
 const StyledMenuItem = styled(MenuItem)(() => ({
   '& .MuiTypography-root': {
@@ -25,20 +25,15 @@ const StyledMenuItem = styled(MenuItem)(() => ({
 }));
 
 export default function UserDropDown() {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<HTMLSpanElement | null>(null);
   const open = Boolean(anchorEl);
 
   return (
     <>
-      <Badge
+      <span
         role='button'
-        overlap='circular'
-        sx={{ ml: 2, cursor: 'pointer' }}
-        badgeContent={<BadgeContentSpan />}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right'
-        }}
+        style={{ marginLeft: 2, cursor: 'pointer' }}
         onClick={evt => {
           setAnchorEl(evt.currentTarget);
         }}
@@ -47,15 +42,16 @@ export default function UserDropDown() {
         aria-expanded={open ? 'true' : undefined}
       >
         <Avatar src='/images/avatars/image-juliusomo.png' alt='your profile picture' />
-      </Badge>
+      </span>
 
       <Menu
         id='account-menu'
         open={open}
         PaperProps={{
           sx: {
-            width: '250px',
-            mt: 1.5
+            width: '260px',
+            mt: 1.5,
+            boxShadow: 'var(--shadow)'
           }
         }}
         elevation={2}
@@ -71,6 +67,7 @@ export default function UserDropDown() {
         }}
         onClose={() => setAnchorEl(null)}
       >
+        <span></span>
         <MenuItem>
           <ListItemAvatar>
             <Badge
@@ -91,7 +88,7 @@ export default function UserDropDown() {
               whiteSpace: 'pre-wrap'
             }}
           >
-            <Typography variant='h2'> juliusomo </Typography>
+            <Typography variant='h2'>juliusomo</Typography>
             <Typography
               variant='subtitle2'
               sx={{
@@ -110,13 +107,12 @@ export default function UserDropDown() {
           />
         </MenuItem>
         <Divider />
-        <StyledMenuItem aria-label='Switch to demo users'>
-          <ListItemIcon>
-            <SwitchAccountOutlinedIcon fontSize='small' />
-          </ListItemIcon>
-          <ListItemText> Switch to demo users </ListItemText>
-        </StyledMenuItem>
-        <StyledMenuItem aria-label='Logout'>
+        <StyledMenuItem
+          aria-label='Logout'
+          onClick={async () => {
+            await router.replace('/demo');
+          }}
+        >
           <ListItemIcon>
             <LogoutOutlinedIcon fontSize='small' />
           </ListItemIcon>

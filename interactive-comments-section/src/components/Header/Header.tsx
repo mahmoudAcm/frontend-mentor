@@ -1,9 +1,7 @@
-import * as React from 'react';
-import { ReactNode } from 'react';
 import { alpha, styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { Button, Tooltip } from '@mui/material';
+import { Button } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRouter } from 'next/router';
 import UserDropDown from '@/src/components/Header/UserDropDown';
@@ -20,17 +18,9 @@ function BackButton() {
   const router = useRouter();
   const back = (router.query.back as string) ?? '';
 
-  const getTooltip = (button: ReactNode) => {
-    if (!back)
-      return (
-        <Tooltip title="you can't go back" arrow>
-          <span style={{ marginRight: 'auto' }}>{button}</span>
-        </Tooltip>
-      );
-    return button;
-  };
+  if (!back) return <></>;
 
-  return getTooltip(
+  return (
     <Button
       startIcon={<ArrowBackIcon />}
       sx={{
@@ -47,12 +37,12 @@ function BackButton() {
     >
       Back
     </Button>
-  ) as JSX.Element;
+  );
 }
 
 export default function Header() {
   return (
-    <AppBar>
+    <AppBar position='sticky' elevation={4}>
       <Toolbar sx={{ justifyContent: 'flex-end' }}>
         <BackButton />
         <UserDropDown />
