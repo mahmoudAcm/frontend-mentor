@@ -1,7 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getRepliesOf } from '@/src/pages/api/controllers/replies';
+import { vote } from '@/src/pages/api/controllers/comments';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  return getRepliesOf(req, res);
+  if (req.method === 'PATCH') {
+    return vote(req, res);
+  } else {
+    res.status(501).json({ message: 'Method is not implemented' });
+  }
 }
