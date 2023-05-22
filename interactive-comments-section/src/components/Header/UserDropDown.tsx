@@ -9,14 +9,12 @@ import {
   MenuItem,
   Typography
 } from '@mui/material';
-import Badge from '@mui/material/Badge';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import * as React from 'react';
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import { BadgeContentSpan } from '@/src/components/Header/Header';
-import { useRouter } from 'next/router';
+import useAuthContext from '@/src/hooks/useAuthContext';
 
 const StyledMenuItem = styled(MenuItem)(() => ({
   '& .MuiTypography-root': {
@@ -25,9 +23,9 @@ const StyledMenuItem = styled(MenuItem)(() => ({
 }));
 
 export default function UserDropDown() {
-  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<HTMLSpanElement | null>(null);
   const open = Boolean(anchorEl);
+  const { user, logout } = useAuthContext();
 
   return (
     <>
@@ -41,7 +39,7 @@ export default function UserDropDown() {
         aria-haspopup='true'
         aria-expanded={open ? 'true' : undefined}
       >
-        <Avatar src='/images/avatars/image-juliusomo.png' alt='your profile picture' />
+        <Avatar src={user.image} alt='your profile picture' sx={{ width: '37px', height: '37px' }} />
       </span>
 
       <Menu
@@ -49,7 +47,7 @@ export default function UserDropDown() {
         open={open}
         PaperProps={{
           sx: {
-            width: '260px',
+            minWidth: '260px',
             mt: 1.5,
             boxShadow: 'var(--shadow)'
           }
@@ -70,25 +68,17 @@ export default function UserDropDown() {
         <span></span>
         <MenuItem>
           <ListItemAvatar>
-            <Badge
-              overlap='circular'
-              badgeContent={<BadgeContentSpan />}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right'
-              }}
-            >
-              <Avatar src='/images/avatars/image-juliusomo.png' alt='your profile picture' />
-            </Badge>
+            <Avatar src={user.image} alt='your profile picture' />
           </ListItemAvatar>
           <Box
             sx={{
               wordBreak: 'break-word',
               overflowWrap: 'break-word',
-              whiteSpace: 'pre-wrap'
+              whiteSpace: 'pre-wrap',
+              pr: '5px'
             }}
           >
-            <Typography variant='h2'>juliusomo</Typography>
+            <Typography variant='h2'>{user.username}</Typography>
             <Typography
               variant='subtitle2'
               sx={{
@@ -96,7 +86,7 @@ export default function UserDropDown() {
               }}
               color='textSecondary'
             >
-              juliusomo @info.com
+              {user.email}
             </Typography>
           </Box>
           <UnfoldMoreIcon
@@ -110,7 +100,7 @@ export default function UserDropDown() {
         <StyledMenuItem
           aria-label='Logout'
           onClick={async () => {
-            await router.replace('/demo');
+            await logout();
           }}
         >
           <ListItemIcon>

@@ -1,7 +1,7 @@
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { CommentOrReplayProps } from '@/src/components/Comment/CommentOrReplay';
 
-type State = CommentOrReplayProps & { owner: boolean };
+type State = CommentOrReplayProps & { owner: boolean; parentReplyId?: string; parentCommentId?: string };
 
 export const CommentOrReplayContext = createContext<
   | null
@@ -9,7 +9,9 @@ export const CommentOrReplayContext = createContext<
       editing: boolean;
       openForm: boolean;
       readMore: boolean;
-      setEditing: Dispatch<SetStateAction<boolean>>;
+      parentId?: string;
+      openEdit: () => void;
+      closeEdit: () => void;
       setContent: Dispatch<string>;
       setFormOpening: Dispatch<SetStateAction<boolean>>;
       setReadMore: Dispatch<SetStateAction<boolean>>;
@@ -29,12 +31,22 @@ export function CommentOrReplayProvider({ children, value }: { children: JSX.Ele
     setReadMore(shouldShowReadMoreButton(content));
   }, [content]);
 
+  const openEdit = () => {
+    setEditing(true);
+  };
+
+  const closeEdit = () => {
+    setEditing(false);
+  };
+
   return (
     <CommentOrReplayContext.Provider
       value={{
         ...value,
         editing,
-        setEditing,
+        openEdit,
+        parentId: [value.parentCommentId, value.parentReplyId].filter(Boolean).join(''),
+        closeEdit,
         content,
         setContent,
         openForm,

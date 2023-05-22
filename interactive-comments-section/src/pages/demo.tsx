@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import AuthLayout from '@/src/components/AuthLayout';
+import AuthLayout from '@/src/components/Auth/AuthLayout';
 import DemoUsers from '@/src/components/DemoUsers';
 import Head from 'next/head';
 
@@ -15,5 +15,7 @@ function Demo() {
 }
 
 Demo.getLayout = (page: ReactNode) => <AuthLayout>{page}</AuthLayout>;
+
+Demo.guestGuard = true;
 
 export default Demo;

@@ -6,6 +6,7 @@ import moment from 'moment';
 import Form from '@/src/components/Comment/Form';
 import { CommentOrReplayProvider } from '@/src/contexts/CommentOrReplayContext';
 import useCommentOrReplyContext from '@/src/hooks/useCommentOrReplyContext';
+import useAuthContext from '@/src/hooks/useAuthContext';
 
 const CommentOrReplayRoot = styled(Paper)(({ theme }) => ({
   padding: '24px',
@@ -54,25 +55,33 @@ const StyledChip = styled(Chip)(() => ({
 type Type = 'comment' | 'reply' | 'repliesParent';
 
 export interface CommentOrReplayProps {
+  id: string;
   type: Type;
   content: string;
   createdAt: number;
   username: string;
   votes: number;
-  avatar: {
-    png: string;
-    webp: string;
-  };
+  avatar: string;
+  parentCommentId?: string;
+  parentReplyId?: string;
 }
 
-const CommentOrReplyForm = ({ type }: { type: Type }) => {
+const CommentOrReplyForm = ({ type, replyingTo }: { type: Type; replyingTo: string }) => {
   const { openForm } = useCommentOrReplyContext();
   if (!openForm) return <></>;
-  return <Form type='reply' sx={{ marginTop: ['comment', 'repliesParent'].includes(type) ? '8px' : '-16px' }} />;
+  return (
+    <Form
+      type='reply'
+      parentType={type as 'reply' | 'comment'}
+      replyingTo={replyingTo}
+      sx={{ marginTop: ['comment', 'repliesParent'].includes(type) ? '8px' : '-16px' }}
+    />
+  );
 };
 
 export default function CommentOrReplay(props: CommentOrReplayProps) {
-  const owner = props.username === 'juliusomo';
+  const { user } = useAuthContext();
+  const owner = props.username === user.email.split('@')[0];
 
   return (
     <CommentOrReplayProvider value={{ ...props, owner }}>
@@ -94,7 +103,7 @@ export default function CommentOrReplay(props: CommentOrReplayProps) {
           <Box sx={{ width: '100%' }}>
             <CommentOrReplayHeader aria-label={`${props.type} header`}>
               <Avatar
-                src={props.avatar.png}
+                src={props.avatar}
                 sx={{ width: '32px', height: '32px' }}
                 alt={`${props.username} profile picture`}
               />
@@ -114,7 +123,7 @@ export default function CommentOrReplay(props: CommentOrReplayProps) {
             <Content />
           </Box>
         </CommentOrReplayRoot>
-        <CommentOrReplyForm type={props.type} />
+        <CommentOrReplyForm type={props.type} replyingTo={props.id} />
       </>
     </CommentOrReplayProvider>
   );

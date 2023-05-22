@@ -7,10 +7,8 @@ import { dialogsActions } from '@/src/slices/dialogs';
 import { DIALOGS } from '@/src/constants';
 import useCommentOrReplyContext from '@/src/hooks/useCommentOrReplyContext';
 
-interface ActionsProps {}
-
-export default function Actions(props: ActionsProps) {
-  const { type, owner, setEditing, setFormOpening } = useCommentOrReplyContext();
+export default function Actions() {
+  const { type, owner, openEdit, setFormOpening, id } = useCommentOrReplyContext();
   const dispatch = useAppDispatch();
 
   return (
@@ -36,6 +34,7 @@ export default function Actions(props: ActionsProps) {
                 dialogsActions.openDialog({
                   dialogId: DIALOGS['DELETE_COMMENTS/DELETE_REPLIES'],
                   details: {
+                    id,
                     type: type
                   }
                 })
@@ -44,13 +43,7 @@ export default function Actions(props: ActionsProps) {
           >
             Delete
           </Button>
-          <Button
-            startIcon={<EditIcon />}
-            aria-label={`edit the ${type}`}
-            onClick={() => {
-              setEditing(prev => !prev);
-            }}
-          >
+          <Button startIcon={<EditIcon />} aria-label={`edit the ${type}`} onClick={openEdit}>
             Edit
           </Button>
         </>

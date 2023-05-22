@@ -34,7 +34,7 @@ export default function Replies({ parentCommentOrReplyId, lvl }: { parentComment
       <Button
         variant='outlined'
         onClick={() => {
-          router.push('/repliesOf/' + parentCommentOrReplyId + '?back=' + router.asPath.split('?')[0]).then();
+          router.push('/repliesOf/' + parentCommentOrReplyId).then();
         }}
       >
         show more
@@ -54,12 +54,15 @@ export default function Replies({ parentCommentOrReplyId, lvl }: { parentComment
         {replies.map(reply => (
           <Box key={reply.id} sx={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '24px' }}>
             <CommentOrReplay
+              id={reply.id}
               type='reply'
               content={reply.content}
               createdAt={reply.createdAt}
               username={reply.user.username}
               votes={reply.score}
               avatar={reply.user.image}
+              parentCommentId={reply.parentCommentId}
+              parentReplyId={reply.parentReplyId}
             />
             {reply.hasReplies ? <Replies parentCommentOrReplyId={reply.id} lvl={lvl + 1} /> : <></>}
           </Box>

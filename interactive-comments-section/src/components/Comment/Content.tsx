@@ -1,9 +1,15 @@
-import { Box, Button, Link, styled, Typography } from '@mui/material';
+import { Box, Button, FormControl, FormHelperText, Link, styled, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import Linkify from 'linkify-react';
 import 'linkify-plugin-mention';
 import { Input } from './Form';
 import useCommentOrReplyContext from '@/src/hooks/useCommentOrReplyContext';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { AxiosError } from 'axios';
+import { useAppDispatch } from '@/src/store';
+import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
 
 const ContentRoot = styled(Box)(({ theme }) => ({
   maxWidth: '618px',
@@ -43,10 +49,47 @@ function Mention({ children }: { children: ReactNode }) {
   );
 }
 
-export default function Content() {
-  const { content, editing, owner, type, setContent, readMore, setReadMore } = useCommentOrReplyContext();
+const schema = yup.object().shape({
+  content: yup.string().required("It can't be blank")
+});
 
+export default function Content() {
+  const { id, content, parentId, editing, owner, closeEdit, type, setContent, readMore, setReadMore } =
+    useCommentOrReplyContext();
   const isEditing = editing && owner;
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    setError,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      content
+    },
+    mode: 'onChange'
+  });
+  const dispatch = useAppDispatch();
+
+  const onSubmit = async () => {
+    const content = getValues('content');
+    setContent(content);
+    try {
+      if (type === 'comment') {
+        await dispatch(commentsOrRepliesActions.editComment(id, content));
+      } else {
+        console.log(parentId);
+        await dispatch(commentsOrRepliesActions.editReply(parentId!, id, content));
+      }
+      closeEdit();
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AxiosError) {
+        setError('content', { message: error.response?.data.message });
+      }
+    }
+  };
 
   return (
     <ContentRoot
@@ -58,24 +101,21 @@ export default function Content() {
       }}
     >
       {isEditing ? (
-        <>
-          <Input
-            fullWidth
-            multiline
-            value={content}
-            placeholder={`Edit the ${type}...`}
-            inputProps={{
-              onChange: evt => setContent(evt.currentTarget.value)
-            }}
-            minRows={3}
-            maxRows={10}
-          />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormControl fullWidth error={Boolean(errors.content?.message)}>
+            <Input multiline placeholder={`Edit the ${type}...`} minRows={3} maxRows={10} {...register('content')} />
+            <FormHelperText>{errors.content?.message}</FormHelperText>
+          </FormControl>
           <Box sx={{ display: 'flex' }}>
-            <Button variant='contained' sx={{ marginLeft: 'auto', marginTop: '16px', padding: '12px 21px 12px 20px' }}>
+            <Button
+              variant='contained'
+              sx={{ marginLeft: 'auto', marginTop: '16px', padding: '12px 21px 12px 20px' }}
+              type='submit'
+            >
               Update
             </Button>
           </Box>
-        </>
+        </form>
       ) : (
         <>
           <Linkify

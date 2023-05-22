@@ -1,45 +1,50 @@
-import { Box, Button, styled, Typography } from '@mui/material';
-import Link from 'next/link';
+import { Box, styled, Typography } from '@mui/material';
 import Head from 'next/head';
-
-const BoxWrapper = styled(Box)(({ theme }) => ({
-  [theme.breakpoints.down('md')]: {
-    width: '90vw'
-  }
-}));
+import { useRouter } from 'next/router';
+import { SecondaryLayout, StyledButton, Title } from '@/src/components/SecondaryLayout';
 
 const Img = styled('img')(({ theme }) => ({
   height: 500,
+  marginTop: '74px',
   [theme.breakpoints.down('lg')]: {
-    height: 450,
-    marginTop: theme.spacing(10)
+    height: 450
   },
   [theme.breakpoints.down('md')]: {
-    height: 400
-  },
-  [theme.breakpoints.up('lg')]: {
-    marginTop: theme.spacing(20)
+    height: 400,
+    marginTop: '67px'
   }
 }));
 
 export default function Error404() {
+  const router = useRouter();
+
   return (
     <>
       <Head>
-        <title>Oops! 😖</title>
+        <title>Frontend Mentor | Oops! 😖</title>
       </Head>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-        <BoxWrapper>
-          <Typography variant='h4' sx={{ mb: 1.5 }}>
-            Page Not Found :(
-          </Typography>
-          <Typography sx={{ mb: 6, color: 'text.secondary' }}>
+        <SecondaryLayout>
+          <Title variant='h1'>Page Not Found :(</Title>
+          <Typography
+            sx={{
+              mb: '33px',
+              color: 'text.secondary',
+              fontWeight: 400,
+              fontSize: '1.0625rem'
+            }}
+          >
             Oops! 😖 The requested URL was not found on this server.
           </Typography>
-          <Button href='/' component={Link} variant='contained'>
-            Back to Home
-          </Button>
-        </BoxWrapper>
+          <StyledButton
+            onClick={async () => {
+              await router.push('/');
+            }}
+            variant='contained'
+          >
+            Back to home
+          </StyledButton>
+        </SecondaryLayout>
         <Img height='1000' alt='error-illustration' src='/images/404.png' />
       </Box>
     </>

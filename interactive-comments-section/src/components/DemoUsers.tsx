@@ -15,6 +15,8 @@ import { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import NextLink from 'next/link';
 import { LOCAL_STORAGE_KEYS } from '@/src/constants';
+import { useRouter } from 'next/router';
+import useAuthContext from '@/src/hooks/useAuthContext';
 
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
@@ -27,7 +29,9 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
 const demoUsers = ['juliusomo', 'amyrobson', 'maxblagun', 'ramsesmiron'];
 
 export default function DemoUsers() {
+  const router = useRouter();
   const [username, setUsername] = useState('');
+  const { signin } = useAuthContext();
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -37,6 +41,18 @@ export default function DemoUsers() {
     const demoUser = localStorage.getItem(LOCAL_STORAGE_KEYS.DEMO_USER);
     setUsername(demoUser ?? 'juliusomo');
   }, []);
+
+  const handleSignIn = (user: string) => () => {
+    setUsername(user);
+    localStorage.setItem(LOCAL_STORAGE_KEYS.DEMO_USER, user);
+    setTimeout(async () => {
+      try {
+        await signin({ email: user + '@gmail.com', password: user });
+      } catch (error) {
+        alert("You can't login in with demo users now try again later");
+      }
+    }, 500);
+  };
 
   return (
     <Card
@@ -62,7 +78,7 @@ export default function DemoUsers() {
         subheader={
           <>
             Switch the default demo user or{' '}
-            <Link sx={{ fontWeight: 500 }} href='/signin' component={NextLink}>
+            <Link sx={{ fontWeight: 500 }} href={'/signin?next=' + router.query.next} component={NextLink}>
               sign in with a live user
             </Link>
           </>
@@ -92,10 +108,7 @@ export default function DemoUsers() {
                 borderColor: username === user ? theme => theme.palette.primary.main : undefined
               }}
               aria-current={username === user ? 'true' : 'false'}
-              onClick={() => {
-                setUsername(user);
-                localStorage.setItem(LOCAL_STORAGE_KEYS.DEMO_USER, user);
-              }}
+              onClick={handleSignIn(user)}
             >
               <ListItemAvatar>
                 <Avatar src={`/images/avatars/image-${user}.png`} alt={`${user} profile picture`} />

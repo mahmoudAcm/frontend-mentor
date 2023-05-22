@@ -3,14 +3,41 @@ import useDialogsSelector from '@/src/hooks/useDialogsSelector';
 import { DIALOGS } from '@/src/constants';
 import { useAppDispatch } from '@/src/store';
 import { dialogsActions } from '@/src/slices/dialogs';
+import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
+import { useRouter } from 'next/router';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+
+const mapTypeToMessage: Record<string, string> = {
+  comment: 'comment',
+  reply: 'reply',
+  repliesParent: 'reply'
+};
 
 export default function DeleteDialog() {
+  const router = useRouter();
   const {
     [DIALOGS['DELETE_COMMENTS/DELETE_REPLIES']]: { open, details }
   } = useDialogsSelector();
   const dispatch = useAppDispatch();
 
   const handleClose = () => dispatch(dialogsActions.closeDialog(DIALOGS['DELETE_COMMENTS/DELETE_REPLIES']));
+
+  const handleDelete = async () => {
+    try {
+      if (details.type !== 'comment') {
+        await dispatch(commentsOrRepliesActions.removeReply(details.id, details.type));
+        if (details.id === router.query.id) {
+          await router.replace('/');
+        }
+      } else await dispatch(commentsOrRepliesActions.removeComment(details.id));
+      handleClose();
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.warn(error.response?.data.message);
+      }
+    }
+  };
 
   return (
     <Dialog
@@ -25,7 +52,8 @@ export default function DeleteDialog() {
     >
       <DialogTitle>Delete {details.type}</DialogTitle>
       <DialogContent sx={{ color: theme => theme.palette.text.secondary, fontWeight: '400' }}>
-        Are you sure you want to delete this {details.type}? This will remove the {details.type} and can’t be undone.
+        Are you sure you want to delete this {mapTypeToMessage[details.type]}? This will remove the{' '}
+        {mapTypeToMessage[details.type]} and can’t be undone.
       </DialogContent>
       <DialogActions
         sx={{
@@ -48,7 +76,7 @@ export default function DeleteDialog() {
         >
           NO, CANCEL
         </Button>
-        <Button variant='contained' color='secondary' fullWidth>
+        <Button variant='contained' color='secondary' fullWidth onClick={handleDelete}>
           YES, DELETE
         </Button>
       </DialogActions>
