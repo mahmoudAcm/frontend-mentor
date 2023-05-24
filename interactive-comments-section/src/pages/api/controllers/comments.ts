@@ -15,31 +15,56 @@ export async function getComments(req: NextApiRequest, res: NextApiResponse) {
   } as const;
 
   try {
-    await isAuthenticated(req, res);
+    const user = await isAuthenticated(req, res);
     const comments = await prisma.comment.findMany({
       include: {
         user: {
           select: userSelect
+        },
+        votes: {
+          where: {
+            userId: user.id
+          }
         },
         replies: {
           include: {
             user: {
               select: userSelect
             },
+            votes: {
+              where: {
+                userId: user.id
+              }
+            },
             replies: {
               include: {
                 user: {
                   select: userSelect
+                },
+                votes: {
+                  where: {
+                    userId: user.id
+                  }
                 },
                 replies: {
                   include: {
                     user: {
                       select: userSelect
                     },
+                    votes: {
+                      where: {
+                        userId: user.id
+                      }
+                    },
                     replies: {
                       include: {
                         user: {
                           select: userSelect
+                        },
+                        votes: {
+                          where: {
+                            userId: user.id
+                          }
                         },
                         replies: {
                           take: 1,
@@ -86,7 +111,8 @@ export async function createComment(req: NextApiRequest, res: NextApiResponse) {
             username: true,
             image: true
           }
-        }
+        },
+        votes: true
       }
     });
 
@@ -182,7 +208,8 @@ export async function vote(req: NextApiRequest, res: NextApiResponse) {
     const vote = await prisma.vote.create({
       data: {
         userId: user.id,
-        commentId: id
+        commentId: id,
+        amount
       },
       select: {
         id: true,

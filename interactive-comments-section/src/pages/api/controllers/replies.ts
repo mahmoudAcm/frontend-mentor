@@ -44,7 +44,8 @@ export async function createReply(req: NextApiRequest, res: NextApiResponse) {
             username: true,
             image: true
           }
-        }
+        },
+        votes: true
       }
     });
 
@@ -74,7 +75,7 @@ export async function getRepliesOf(req: NextApiRequest, res: NextApiResponse) {
   try {
     const parentReplyId = req.query.id as string;
 
-    await isAuthenticated(req, res);
+    const user = await isAuthenticated(req, res);
 
     const reply = await prisma.reply.findFirst({
       where: {
@@ -84,25 +85,50 @@ export async function getRepliesOf(req: NextApiRequest, res: NextApiResponse) {
         user: {
           select: userSelect
         },
+        votes: {
+          where: {
+            userId: user.id
+          }
+        },
         replies: {
           include: {
             user: {
               select: userSelect
+            },
+            votes: {
+              where: {
+                userId: user.id
+              }
             },
             replies: {
               include: {
                 user: {
                   select: userSelect
                 },
+                votes: {
+                  where: {
+                    userId: user.id
+                  }
+                },
                 replies: {
                   include: {
                     user: {
                       select: userSelect
                     },
+                    votes: {
+                      where: {
+                        userId: user.id
+                      }
+                    },
                     replies: {
                       include: {
                         user: {
                           select: userSelect
+                        },
+                        votes: {
+                          where: {
+                            userId: user.id
+                          }
                         },
                         replies: {
                           take: 1,
@@ -218,7 +244,8 @@ export async function vote(req: NextApiRequest, res: NextApiResponse) {
     const vote = await prisma.vote.create({
       data: {
         userId: user.id,
-        replyId: id
+        replyId: id,
+        amount
       },
       select: {
         id: true,

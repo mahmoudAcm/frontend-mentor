@@ -36,9 +36,10 @@ function Home() {
             createdAt={comment.createdAt}
             username={comment.user.username}
             avatar={comment.user.image}
-            votes={comment.score}
+            score={comment.score}
             parentCommentId={comment.parentCommentId}
             parentReplyId={comment.parentReplyId}
+            votes={comment.votes}
           />
           <Replies parentCommentOrReplyId={comment.id} lvl={1} />
         </Box>

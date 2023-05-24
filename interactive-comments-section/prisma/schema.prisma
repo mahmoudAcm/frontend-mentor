@@ -23,7 +23,7 @@ model User {
 model Comment {
   id        String   @id @default(cuid())
   userId    String
-  content   String
+  content   String   @db.LongText()
   score     Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -37,7 +37,7 @@ model Comment {
 
 model Reply {
   id              String   @id @default(cuid())
-  content         String
+  content         String   @db.LongText()
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   parentCommentId String?
@@ -58,6 +58,7 @@ model Reply {
 
 model Vote {
   id        String   @id @default(cuid())
+  amount    Int
   comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
   commentId String?
   reply     Reply?   @relation(fields: [replyId], references: [id], onDelete: Cascade)

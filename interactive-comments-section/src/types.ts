@@ -10,7 +10,11 @@ export type User = {
 
 export type Comment = Omit<Data['comments']['0'], 'user'> & {
   user: User;
+  votes: Votes;
 };
+
+export type Votes = [{ amount: -1 | 1 }];
+
 export type Reply = Comment & { parentCommentId: string; parentReplyId: string };
 
 export type CommentOrReply = Comment & Reply & { hasReplies: boolean };

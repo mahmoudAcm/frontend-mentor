@@ -1,7 +1,9 @@
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { CommentOrReplayProps } from '@/src/components/Comment/CommentOrReplay';
 
-type State = CommentOrReplayProps & { owner: boolean; parentReplyId?: string; parentCommentId?: string };
+type State = CommentOrReplayProps & {
+  owner: boolean;
+};
 
 export const CommentOrReplayContext = createContext<
   | null

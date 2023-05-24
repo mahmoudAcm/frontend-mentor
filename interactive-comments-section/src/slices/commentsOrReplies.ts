@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CommentOrReply, CommentsOrReplies, RepliesOf, Reply } from '@/src/types';
+import { CommentOrReply, CommentsOrReplies, RepliesOf, Reply, Votes } from '@/src/types';
 import { AppDispatch } from '@/src/store';
 import api from '@/src/axios';
 import mapNestedRepliesToRepliesOf from '@/src/libs/mapNestedRepliesToReplyOf';
@@ -17,6 +17,7 @@ type EditCommentOrReplyActionPayload = {
   data: {
     content?: string;
     score?: number;
+    votes?: Votes;
   };
 };
 
@@ -199,13 +200,19 @@ function vote(id: string, type: string, amount: -1 | 1, score: number, parentId?
         amount,
         id
       });
-      dispatch(slice.actions.updateComment({ id, data: { score: score + amount } }));
+      dispatch(slice.actions.updateComment({ id, data: { score: score + amount, votes: [{ amount }] } }));
     } else {
       await api.patch('/replies/vote?id=' + id, {
         amount,
         id
       });
-      dispatch(slice.actions.updateReply({ id, parentId: parentId!, data: { score: score + amount } }));
+      dispatch(
+        slice.actions.updateReply({
+          id,
+          parentId: parentId!,
+          data: { score: score + amount, votes: [{ amount }] }
+        })
+      );
     }
   };
 }

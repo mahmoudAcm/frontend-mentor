@@ -42,10 +42,11 @@ function RepliesOf() {
           content={repliesParent.content}
           createdAt={repliesParent.createdAt}
           username={repliesParent.user.username}
-          votes={repliesParent.score}
+          score={repliesParent.score}
           avatar={repliesParent.user.image}
           parentCommentId={repliesParent.parentCommentId}
           parentReplyId={repliesParent.parentReplyId}
+          votes={repliesParent.votes}
         />
         <Replies parentCommentOrReplyId={parentReplyId} lvl={1} />
       </Box>

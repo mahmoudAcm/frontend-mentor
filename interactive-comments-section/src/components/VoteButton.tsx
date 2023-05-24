@@ -29,18 +29,18 @@ const VoteButtonRoot = styled(Box)(({ theme }) => ({
 }));
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  '&:hover path': {
+  '&:hover path, &.voted path': {
     fill: theme.palette.primary.main
   }
 }));
 
 export default function VoteButton() {
-  const { votes, type, id, parentId } = useCommentOrReplyContext();
+  const { votes, score, type, id, parentId } = useCommentOrReplyContext();
   const dispatch = useAppDispatch();
 
   const vote = (amount: -1 | 1) => async () => {
     try {
-      await dispatch(commentsOrRepliesActions.vote(id, type, amount, votes, parentId!));
+      await dispatch(commentsOrRepliesActions.vote(id, type, amount, score, parentId!));
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.warn(error.response?.data.message);
@@ -50,13 +50,24 @@ export default function VoteButton() {
 
   return (
     <VoteButtonRoot role='button' aria-label='vote button'>
-      <StyledIconButton aria-label='upvote' onClick={vote(1)}>
+      <StyledIconButton
+        aria-label='upvote'
+        onClick={vote(1)}
+        className={votes.length && votes[0].amount == 1 ? 'voted' : undefined}
+      >
         <PlusIcon />
       </StyledIconButton>
-      <Typography sx={{ lineHeight: 1.1875 }} color='primary' aria-label={`votes: ${votes}`}>
-        {votes ?? 0}
+      <Typography sx={{ lineHeight: 1.1875 }} color='primary' aria-label={`votes: ${score}`}>
+        {score ?? 0}
       </Typography>
-      <StyledIconButton sx={{ height: '27px' }} aria-label='downvote' onClick={vote(-1)}>
+      <StyledIconButton
+        aria-label='downvote'
+        onClick={vote(-1)}
+        sx={{
+          height: '27px'
+        }}
+        className={votes.length && votes[0].amount == -1 ? 'voted' : undefined}
+      >
         <MinusIcon />
       </StyledIconButton>
     </VoteButtonRoot>
