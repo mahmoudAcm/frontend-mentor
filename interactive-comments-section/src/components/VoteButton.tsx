@@ -6,6 +6,8 @@ import { useAppDispatch } from '@/src/store';
 import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { SOCKET_EVENTS } from '@/src/constants';
+import useSocketContext from '@/src/hooks/useSocketContext';
 
 const VoteButtonRoot = styled(Box)(({ theme }) => ({
   minWidth: '40px',
@@ -37,10 +39,12 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 export default function VoteButton() {
   const { votes, score, type, id, parentId } = useCommentOrReplyContext();
   const dispatch = useAppDispatch();
+  const { emit } = useSocketContext();
 
   const vote = (amount: -1 | 1) => async () => {
     try {
-      await dispatch(commentsOrRepliesActions.vote(id, type, amount, score, parentId!));
+      const data = await dispatch(commentsOrRepliesActions.vote(id, type, amount, score, parentId!));
+      emit(SOCKET_EVENTS.VOTE, data);
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.warn(error.response?.data.message);

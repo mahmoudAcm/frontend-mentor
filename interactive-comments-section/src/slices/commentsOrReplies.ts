@@ -144,6 +144,7 @@ function addComment(content: string) {
   return async (dispatch: AppDispatch) => {
     const response = await api.post<CommentOrReply>('/comments', { content });
     dispatch(slice.actions.appendComment(response.data));
+    return response.data;
   };
 }
 
@@ -151,6 +152,7 @@ function addReply(reply: Partial<Reply>) {
   return async (dispatch: AppDispatch) => {
     const response = await api.post<CommentOrReply & { parentOfParentId: string }>('/replies', reply);
     dispatch(slice.actions.appendReply(response.data));
+    return response.data;
   };
 }
 
@@ -158,6 +160,7 @@ function removeComment(id: string) {
   return async (dispatch: AppDispatch) => {
     await api.delete('/comments?id=' + id);
     dispatch(slice.actions.deleteComment(id));
+    return id;
   };
 }
 
@@ -165,6 +168,7 @@ function removeReply(id: string, type: 'reply' | 'repliesParent') {
   return async (dispatch: AppDispatch) => {
     await api.delete('/replies?id=' + id);
     dispatch(slice.actions.deleteReply({ id, type }));
+    return { id, type };
   };
 }
 
@@ -181,6 +185,12 @@ function editComment(id: string, content: string) {
         }
       })
     );
+    return {
+      id,
+      data: {
+        content
+      }
+    };
   };
 }
 
@@ -190,6 +200,7 @@ function editReply(parentId: string, id: string, content: string) {
       content
     });
     dispatch(slice.actions.updateReply({ id, data: { content }, parentId }));
+    return { id, data: { content }, parentId };
   };
 }
 
@@ -201,6 +212,7 @@ function vote(id: string, type: string, amount: -1 | 1, score: number, parentId?
         id
       });
       dispatch(slice.actions.updateComment({ id, data: { score: score + amount, votes: [{ amount }] } }));
+      return { type, id, data: { score: score + amount, votes: [{ amount }] } };
     } else {
       await api.patch('/replies/vote?id=' + id, {
         amount,
@@ -213,6 +225,12 @@ function vote(id: string, type: string, amount: -1 | 1, score: number, parentId?
           data: { score: score + amount, votes: [{ amount }] }
         })
       );
+      return {
+        type,
+        id,
+        parentId: parentId!,
+        data: { score: score + amount, votes: [{ amount }] }
+      };
     }
   };
 }

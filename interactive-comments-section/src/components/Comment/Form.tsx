@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { AxiosError } from 'axios';
 import { useAppDispatch } from '@/src/store';
 import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
+import useSocketContext from '@/src/hooks/useSocketContext';
 
 const FormRoot = styled('form')(({ theme }) => ({
   maxWidth: '730px',
@@ -97,11 +98,13 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
     mode: 'onSubmit'
   });
   const dispatch = useAppDispatch();
+  const { emit } = useSocketContext();
 
   const onSubmit = async (data: { content: string }) => {
     try {
       if (type === 'comment') {
-        await dispatch(commentsOrRepliesActions.addComment(data.content));
+        const comment = await dispatch(commentsOrRepliesActions.addComment(data.content));
+        emit('comment', comment);
         reset();
         if (props.onSubmit) props.onSubmit();
         return;
@@ -119,7 +122,8 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
           parentIds.parentReplyId = replyingTo!;
         }
 
-        await dispatch(commentsOrRepliesActions.addReply({ ...data, ...parentIds }));
+        const reply = await dispatch(commentsOrRepliesActions.addReply({ ...data, ...parentIds }));
+        emit('reply', reply);
         reset();
         if (props.onSubmit) props.onSubmit();
       }

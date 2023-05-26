@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, FormHelperText, Link, styled, Typography } from '@mui/material';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import Linkify from 'linkify-react';
 import 'linkify-plugin-mention';
 import { Input } from './Form';
@@ -10,6 +10,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { AxiosError } from 'axios';
 import { useAppDispatch } from '@/src/store';
 import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
+import useSocketContext from '@/src/hooks/useSocketContext';
+import { SOCKET_EVENTS } from '@/src/constants';
 
 const ContentRoot = styled(Box)(({ theme }) => ({
   maxWidth: '618px',
@@ -62,6 +64,7 @@ export default function Content() {
     getValues,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors }
   } = useForm({
     resolver: yupResolver(schema),
@@ -71,16 +74,26 @@ export default function Content() {
     mode: 'onChange'
   });
   const dispatch = useAppDispatch();
+  const { emit } = useSocketContext();
+
+  //to update the content when the socket edit events occurs
+  useEffect(() => {
+    if (!isEditing) setValue('content', content);
+  }, [setValue, isEditing, content]);
 
   const onSubmit = async () => {
-    const content = getValues('content');
-    setContent(content);
+    const __content = getValues('content');
+    if (__content === content) {
+      return closeEdit();
+    }
+    setContent(__content);
     try {
       if (type === 'comment') {
-        await dispatch(commentsOrRepliesActions.editComment(id, content));
+        const data = await dispatch(commentsOrRepliesActions.editComment(id, __content));
+        emit(SOCKET_EVENTS.EDIT_COMMENT, data);
       } else {
-        console.log(parentId);
-        await dispatch(commentsOrRepliesActions.editReply(parentId!, id, content));
+        const data = await dispatch(commentsOrRepliesActions.editReply(parentId!, id, __content));
+        emit(SOCKET_EVENTS.EDIT_REPLY, data);
       }
       closeEdit();
     } catch (error) {
@@ -103,7 +116,7 @@ export default function Content() {
       {isEditing ? (
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl fullWidth error={Boolean(errors.content?.message)}>
-            <Input multiline placeholder={`Edit the ${type}...`} minRows={3} maxRows={10} {...register('content')} />
+            <Input multiline={isEditing} placeholder={`Edit the ${type}...`} rows={4} {...register('content')} />
             <FormHelperText>{errors.content?.message}</FormHelperText>
           </FormControl>
           <Box sx={{ display: 'flex' }}>

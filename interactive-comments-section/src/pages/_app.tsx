@@ -19,6 +19,7 @@ import AuthProvider from '@/src/contexts/AuthContext';
 import MainLoadingScreen from '@/src/components/MainLoadingScreen';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SocketProvider from '@/src/contexts/SocketContext';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -90,7 +91,7 @@ const App: FunctionComponent<AppProps> = props => {
             <MainLoadingScreen loading={loading} />
             <AuthProvider>
               <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                {getLayout(<Component {...pageProps} />)}
+                <SocketProvider>{getLayout(<Component {...pageProps} />)}</SocketProvider>
               </Guard>
             </AuthProvider>
           </Direction>

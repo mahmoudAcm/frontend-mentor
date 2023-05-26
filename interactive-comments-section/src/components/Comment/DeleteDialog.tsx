@@ -1,12 +1,13 @@
 import { alpha, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import useDialogsSelector from '@/src/hooks/useDialogsSelector';
-import { DIALOGS } from '@/src/constants';
+import { DIALOGS, SOCKET_EVENTS } from '@/src/constants';
 import { useAppDispatch } from '@/src/store';
 import { dialogsActions } from '@/src/slices/dialogs';
 import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
 import { useRouter } from 'next/router';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import useSocketContext from '@/src/hooks/useSocketContext';
 
 const mapTypeToMessage: Record<string, string> = {
   comment: 'comment',
@@ -20,17 +21,22 @@ export default function DeleteDialog() {
     [DIALOGS['DELETE_COMMENTS/DELETE_REPLIES']]: { open, details }
   } = useDialogsSelector();
   const dispatch = useAppDispatch();
+  const { emit } = useSocketContext();
 
   const handleClose = () => dispatch(dialogsActions.closeDialog(DIALOGS['DELETE_COMMENTS/DELETE_REPLIES']));
 
   const handleDelete = async () => {
     try {
       if (details.type !== 'comment') {
-        await dispatch(commentsOrRepliesActions.removeReply(details.id, details.type));
+        const data = await dispatch(commentsOrRepliesActions.removeReply(details.id, details.type));
+        emit(SOCKET_EVENTS.DEL_REPLY, data);
         if (details.id === router.query.id) {
           await router.replace('/');
         }
-      } else await dispatch(commentsOrRepliesActions.removeComment(details.id));
+      } else {
+        const data = await dispatch(commentsOrRepliesActions.removeComment(details.id));
+        emit(SOCKET_EVENTS.DEL_COMMENT, data);
+      }
       handleClose();
     } catch (error) {
       if (error instanceof AxiosError) {

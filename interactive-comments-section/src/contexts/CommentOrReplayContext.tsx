@@ -41,6 +41,11 @@ export function CommentOrReplayProvider({ children, value }: { children: JSX.Ele
     setEditing(false);
   };
 
+  //to update the content when the socket edit events occurs
+  useEffect(() => {
+    setContent(value.content);
+  }, [value.content]);
+
   return (
     <CommentOrReplayContext.Provider
       value={{
