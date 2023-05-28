@@ -1,5 +1,5 @@
-import { Box, Button, FormControl, FormHelperText, Link, styled, Typography } from '@mui/material';
-import { ReactNode, useEffect } from 'react';
+import { Box, FormControl, FormHelperText, Link, styled, Typography } from '@mui/material';
+import { ReactNode, useEffect, useState } from 'react';
 import Linkify from 'linkify-react';
 import 'linkify-plugin-mention';
 import { Input } from './Form';
@@ -12,6 +12,7 @@ import { useAppDispatch } from '@/src/store';
 import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
 import useSocketContext from '@/src/hooks/useSocketContext';
 import { SOCKET_EVENTS } from '@/src/constants';
+import { LoadingButton } from '@mui/lab';
 
 const ContentRoot = styled(Box)(({ theme }) => ({
   maxWidth: '618px',
@@ -75,6 +76,7 @@ export default function Content() {
   });
   const dispatch = useAppDispatch();
   const { emit } = useSocketContext();
+  const [isSubmitting, setSubmitting] = useState(false);
 
   //to update the content when the socket edit events occurs
   useEffect(() => {
@@ -82,6 +84,7 @@ export default function Content() {
   }, [setValue, isEditing, content]);
 
   const onSubmit = async () => {
+    setSubmitting(true);
     const __content = getValues('content');
     if (__content === content) {
       return closeEdit();
@@ -101,6 +104,8 @@ export default function Content() {
       if (error instanceof AxiosError) {
         setError('content', { message: error.response?.data.message });
       }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -120,13 +125,14 @@ export default function Content() {
             <FormHelperText>{errors.content?.message}</FormHelperText>
           </FormControl>
           <Box sx={{ display: 'flex' }}>
-            <Button
+            <LoadingButton
               variant='contained'
               sx={{ marginLeft: 'auto', marginTop: '16px', padding: '12px 21px 12px 20px' }}
               type='submit'
+              loading={isSubmitting}
             >
               Update
-            </Button>
+            </LoadingButton>
           </Box>
         </form>
       ) : (

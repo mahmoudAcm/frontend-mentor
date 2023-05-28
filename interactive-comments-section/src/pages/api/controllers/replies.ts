@@ -66,12 +66,21 @@ export async function createReply(req: NextApiRequest, res: NextApiResponse) {
         targetId: reply.id,
         targetOwnerId,
         userId: user.id,
-        content: reply.content,
         replyId: reply.id,
         action: 'reply',
         type
       },
       include: {
+        comment: {
+          select: {
+            content: true
+          }
+        },
+        reply: {
+          select: {
+            content: true
+          }
+        },
         user: {
           select: {
             username: true,
@@ -81,7 +90,14 @@ export async function createReply(req: NextApiRequest, res: NextApiResponse) {
       }
     });
 
-    res.status(201).json({ ...rest, parentOfParentId, notification });
+    res.status(201).json({
+      ...rest,
+      parentOfParentId,
+      notification: {
+        ...notification,
+        content: [notification.comment?.content, notification.reply?.content].filter(Boolean).join('')
+      }
+    });
   } catch (error: any) {
     logger.error(error);
     if (error instanceof PrismaClientKnownRequestError) {
@@ -307,12 +323,21 @@ export async function vote(req: NextApiRequest, res: NextApiResponse) {
         targetId: id,
         targetOwnerId: reply.userId,
         userId: user.id,
-        content: reply.content,
         replyId: id,
         action: 'vote',
         type: 'reply'
       },
       include: {
+        comment: {
+          select: {
+            content: true
+          }
+        },
+        reply: {
+          select: {
+            content: true
+          }
+        },
         user: {
           select: {
             username: true,
@@ -322,7 +347,13 @@ export async function vote(req: NextApiRequest, res: NextApiResponse) {
       }
     });
 
-    res.json({ message: `You ${amount === -1 ? 'down voted' : 'up voted'} the reply`, notification });
+    res.json({
+      message: `You ${amount === -1 ? 'down voted' : 'up voted'} the reply`,
+      notification: {
+        ...notification,
+        content: [notification.comment?.content, notification.reply?.content].filter(Boolean).join('')
+      }
+    });
   } catch (error: any) {
     logger.error(error);
     if (error instanceof HTTPNotAuthorizedError) return res.status(401).json(error.getError());

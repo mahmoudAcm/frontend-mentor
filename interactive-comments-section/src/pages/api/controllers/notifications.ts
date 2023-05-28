@@ -12,6 +12,16 @@ export async function getNotifications(req: NextApiRequest, res: NextApiResponse
         targetOwnerId: user.id
       },
       include: {
+        comment: {
+          select: {
+            content: true
+          }
+        },
+        reply: {
+          select: {
+            content: true
+          }
+        },
         user: {
           select: {
             username: true,
@@ -23,7 +33,13 @@ export async function getNotifications(req: NextApiRequest, res: NextApiResponse
         createdAt: 'desc'
       }
     });
-    res.json(notifications);
+
+    res.json(
+      notifications.map(notification => ({
+        ...notification,
+        content: [notification.comment?.content, notification.reply?.content].filter(Boolean).join('')
+      }))
+    );
   } catch (error: any) {
     logger.error(error);
     if (error instanceof HTTPNotAuthorizedError) return res.status(401).json(error.getError());

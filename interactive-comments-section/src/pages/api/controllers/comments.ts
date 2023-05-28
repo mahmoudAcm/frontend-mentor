@@ -245,12 +245,21 @@ export async function vote(req: NextApiRequest, res: NextApiResponse) {
         targetId: id,
         targetOwnerId: comment.userId,
         userId: user.id,
-        content: comment.content,
         commentId: id,
         action: 'vote',
         type: 'comment'
       },
       include: {
+        comment: {
+          select: {
+            content: true
+          }
+        },
+        reply: {
+          select: {
+            content: true
+          }
+        },
         user: {
           select: {
             username: true,
@@ -260,7 +269,13 @@ export async function vote(req: NextApiRequest, res: NextApiResponse) {
       }
     });
 
-    res.json({ message: `You ${amount === -1 ? 'down voted' : 'up voted'} the comment`, notification });
+    res.json({
+      message: `You ${amount === -1 ? 'down voted' : 'up voted'} the comment`,
+      notification: {
+        ...notification,
+        content: [notification.comment?.content, notification.reply?.content].filter(Boolean).join('')
+      }
+    });
   } catch (error: any) {
     logger.error(error);
     if (error instanceof HTTPNotAuthorizedError) return res.status(401).json(error.getError());

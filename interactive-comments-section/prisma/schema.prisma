@@ -78,7 +78,6 @@ model Vote {
 
 model Notification {
   id            String   @id @default(cuid())
-  content       String   @db.LongText
   action        Actions
   type          Types
   seen          Boolean  @default(false)
