@@ -106,7 +106,7 @@ const slice = createSlice({
         }
       >
     ) {
-      const replies = state.repliesOf[action.payload.parentId!];
+      const replies = state.repliesOf[action.payload.parentId!] ?? [];
       const replyIdx = replies.findIndex(reply => reply.id === action.payload.id);
       if (replyIdx !== -1) Object.assign(replies[replyIdx], action.payload.data);
     }
@@ -247,14 +247,14 @@ function vote(notify: NotifyFunc, id: string, type: string, amount: -1 | 1, scor
 }
 
 export const commentsOrRepliesActions = {
-  ...slice.actions,
-  getComments,
-  getRepliesOf,
-  addComment,
-  addReply,
-  removeComment,
-  removeReply,
-  editComment,
-  editReply,
-  vote
+    ...slice.actions,
+    getComments,
+    getRepliesOf,
+    addComment,
+    addReply,
+    removeComment,
+    removeReply,
+    editComment,
+    editReply,
+    vote
 };

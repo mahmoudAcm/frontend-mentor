@@ -1,4 +1,4 @@
-import { Avatar, Button, FormControl, FormHelperText, InputBase, PaperProps, styled } from '@mui/material';
+import { Avatar, FormControl, FormHelperText, InputBase, PaperProps, styled } from '@mui/material';
 import useAuthContext from '@/src/hooks/useAuthContext';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -7,6 +7,8 @@ import { AxiosError } from 'axios';
 import { useAppDispatch } from '@/src/store';
 import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
 import useSocketContext from '@/src/hooks/useSocketContext';
+import { useState } from 'react';
+import { LoadingButton } from '@mui/lab';
 
 const FormRoot = styled('form')(({ theme }) => ({
   maxWidth: '730px',
@@ -99,8 +101,10 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
   });
   const dispatch = useAppDispatch();
   const { emit, notify } = useSocketContext();
+  const [isSubmitting, setSubmitting] = useState(false);
 
   const onSubmit = async (data: { content: string }) => {
+    setSubmitting(true);
     try {
       if (type === 'comment') {
         const comment = await dispatch(commentsOrRepliesActions.addComment(data.content));
@@ -141,6 +145,8 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
           message: error.message
         });
       }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -160,14 +166,15 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
         />
         <FormHelperText>{errors.content?.message}</FormHelperText>
       </FormControl>
-      <Button
+      <LoadingButton
         variant='contained'
         sx={{ padding: '12px 30px 12px 31px' }}
         aria-label={mapTypeToButton[type]}
         type='submit'
+        loading={isSubmitting}
       >
         {mapTypeToButton[type]}
-      </Button>
+      </LoadingButton>
     </FormRoot>
   );
 }
