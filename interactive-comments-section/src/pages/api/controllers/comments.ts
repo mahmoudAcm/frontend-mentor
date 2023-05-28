@@ -229,14 +229,38 @@ export async function vote(req: NextApiRequest, res: NextApiResponse) {
       throw new Error("You can't vote for yourself");
     }
 
-    await prisma.comment.update({
+    const comment = await prisma.comment.update({
       where: { id },
+      select: {
+        content: true,
+        userId: true
+      },
       data: {
         score: vote.comment!.score + amount
       }
     });
 
-    res.json({ message: `You ${amount === -1 ? 'down voted' : 'up voted'} the comment` });
+    const notification = await prisma.notification.create({
+      data: {
+        targetId: id,
+        targetOwnerId: comment.userId,
+        userId: user.id,
+        content: comment.content,
+        commentId: id,
+        action: 'vote',
+        type: 'comment'
+      },
+      include: {
+        user: {
+          select: {
+            username: true,
+            image: true
+          }
+        }
+      }
+    });
+
+    res.json({ message: `You ${amount === -1 ? 'down voted' : 'up voted'} the comment`, notification });
   } catch (error: any) {
     logger.error(error);
     if (error instanceof HTTPNotAuthorizedError) return res.status(401).json(error.getError());

@@ -39,11 +39,11 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 export default function VoteButton() {
   const { votes, score, type, id, parentId } = useCommentOrReplyContext();
   const dispatch = useAppDispatch();
-  const { emit } = useSocketContext();
+  const { emit, notify } = useSocketContext();
 
   const vote = (amount: -1 | 1) => async () => {
     try {
-      const data = await dispatch(commentsOrRepliesActions.vote(id, type, amount, score, parentId!));
+      const data = await dispatch(commentsOrRepliesActions.vote(notify, id, type, amount, score, parentId!));
       emit(SOCKET_EVENTS.VOTE, data);
     } catch (error) {
       if (error instanceof AxiosError) {

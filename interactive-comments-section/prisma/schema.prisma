@@ -9,46 +9,49 @@ generator client {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   username      String
-  email         String    @unique
+  email         String         @unique
   password      String
   emailVerified DateTime?
   image         String?
   comments      Comment[]
   replies       Reply[]
   votes         Vote[]
+  notifications Notification[]
 }
 
 model Comment {
-  id        String   @id @default(cuid())
-  userId    String
-  content   String   @db.LongText()
-  score     Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  replies   Reply[]
-  votes     Vote[]
+  id            String         @id @default(cuid())
+  userId        String
+  content       String         @db.LongText()
+  score         Int            @default(0)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  replies       Reply[]
+  votes         Vote[]
+  notifications Notification[]
 
   @@unique([userId, id])
   @@index([id])
 }
 
 model Reply {
-  id              String   @id @default(cuid())
-  content         String   @db.LongText()
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id              String         @id @default(cuid())
+  content         String         @db.LongText()
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
   parentCommentId String?
   parentReplyId   String?
-  score           Int      @default(0)
-  parentComment   Comment? @relation(fields: [parentCommentId], references: [id], onDelete: Cascade)
-  parentReply     Reply?   @relation("NestedReply", fields: [parentReplyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replies         Reply[]  @relation("NestedReply")
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  score           Int            @default(0)
+  parentComment   Comment?       @relation(fields: [parentCommentId], references: [id], onDelete: Cascade)
+  parentReply     Reply?         @relation("NestedReply", fields: [parentReplyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies         Reply[]        @relation("NestedReply")
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId          String
   votes           Vote[]
+  notifications   Notification[]
 
   @@unique([userId, id])
   @@index([id])
@@ -71,4 +74,38 @@ model Vote {
   @@index([id])
   @@index([commentId])
   @@index([replyId])
+}
+
+model Notification {
+  id            String   @id @default(cuid())
+  content       String
+  action        Actions
+  type          Types
+  seen          Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  comment       Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  reply         Reply?   @relation(fields: [replyId], references: [id], onDelete: Cascade)
+  commentId     String?
+  replyId       String?
+  targetId      String
+  targetOwnerId String
+
+  @@index([id])
+  @@index([userId])
+  @@index([commentId])
+  @@index([replyId])
+}
+
+enum Actions {
+  reply
+  vote
+  mention
+}
+
+enum Types {
+  comment
+  reply
 }

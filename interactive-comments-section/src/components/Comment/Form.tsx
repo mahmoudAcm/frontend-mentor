@@ -98,7 +98,7 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
     mode: 'onSubmit'
   });
   const dispatch = useAppDispatch();
-  const { emit } = useSocketContext();
+  const { emit, notify } = useSocketContext();
 
   const onSubmit = async (data: { content: string }) => {
     try {
@@ -122,7 +122,7 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
           parentIds.parentReplyId = replyingTo!;
         }
 
-        const reply = await dispatch(commentsOrRepliesActions.addReply({ ...data, ...parentIds }));
+        const reply = await dispatch(commentsOrRepliesActions.addReply({ ...data, ...parentIds }, notify));
         emit('reply', reply);
         reset();
         if (props.onSubmit) props.onSubmit();

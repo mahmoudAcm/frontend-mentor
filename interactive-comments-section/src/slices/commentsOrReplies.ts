@@ -21,6 +21,8 @@ type EditCommentOrReplyActionPayload = {
   };
 };
 
+type NotifyFunc = (data: any) => void;
+
 const slice = createSlice({
   name: 'commentsOrReplies',
   initialState: {
@@ -53,7 +55,7 @@ const slice = createSlice({
       if (!replies) {
         state.repliesOf[parentId] = [reply];
         if (reply.parentOfParentId) {
-          const parentOfParentReplies = state.repliesOf[reply.parentOfParentId];
+          const parentOfParentReplies = state.repliesOf[reply.parentOfParentId] ?? [];
           let idx = 0;
           for (const __reply of parentOfParentReplies) {
             if (__reply.id === parentId) {
@@ -148,11 +150,18 @@ function addComment(content: string) {
   };
 }
 
-function addReply(reply: Partial<Reply>) {
+function addReply(reply: Partial<Reply>, notify: NotifyFunc) {
   return async (dispatch: AppDispatch) => {
-    const response = await api.post<CommentOrReply & { parentOfParentId: string }>('/replies', reply);
-    dispatch(slice.actions.appendReply(response.data));
-    return response.data;
+    const response = await api.post<
+      CommentOrReply & {
+        parentOfParentId: string;
+        notification: any;
+      }
+    >('/replies', reply);
+    const { notification, ...data } = response.data;
+    notify(notification);
+    dispatch(slice.actions.appendReply(data));
+    return data;
   };
 }
 
@@ -204,17 +213,18 @@ function editReply(parentId: string, id: string, content: string) {
   };
 }
 
-function vote(id: string, type: string, amount: -1 | 1, score: number, parentId?: string) {
+function vote(notify: NotifyFunc, id: string, type: string, amount: -1 | 1, score: number, parentId?: string) {
   return async (dispatch: AppDispatch) => {
     if (type === 'comment') {
-      await api.patch('/comments/vote?id=' + id, {
+      const response = await api.patch('/comments/vote?id=' + id, {
         amount,
         id
       });
       dispatch(slice.actions.updateComment({ id, data: { score: score + amount, votes: [{ amount }] } }));
+      notify(response.data.notification);
       return { type, id, data: { score: score + amount, votes: [{ amount }] } };
     } else {
-      await api.patch('/replies/vote?id=' + id, {
+      const response = await api.patch('/replies/vote?id=' + id, {
         amount,
         id
       });
@@ -225,6 +235,7 @@ function vote(id: string, type: string, amount: -1 | 1, score: number, parentId?
           data: { score: score + amount, votes: [{ amount }] }
         })
       );
+      notify(response.data.notification);
       return {
         type,
         id,

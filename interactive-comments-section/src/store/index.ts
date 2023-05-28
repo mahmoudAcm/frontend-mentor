@@ -2,11 +2,13 @@ import { Action, configureStore, ThunkDispatch } from '@reduxjs/toolkit';
 import { commentsOrRepliesReducer } from '@/src/slices/commentsOrReplies';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { dialogsReducer } from '@/src/slices/dialogs';
+import { notificationsReducer } from '@/src/slices/notifications';
 
 const store = configureStore({
   reducer: {
     commentsOrReplies: commentsOrRepliesReducer,
-    dialogs: dialogsReducer
+    dialogs: dialogsReducer,
+    notifications: notificationsReducer
   }
 });
 

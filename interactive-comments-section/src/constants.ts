@@ -12,11 +12,15 @@ export const CALLBACK_URL = 'http://localhost:3000';
 export const MAX_AGE = 30 * 24 * 60 * 60;
 
 export const SOCKET_EVENTS = {
+  JOIN: 'join',
+  LEAVE: 'leave',
   COMMENT: 'comment',
   REPLY: 'reply',
   DEL_COMMENT: 'del_comment',
   DEL_REPLY: 'del_reply',
   EDIT_COMMENT: 'edit_comment',
   EDIT_REPLY: 'edit_reply',
-  VOTE: 'vote'
+  VOTE: 'vote',
+  NOTIFICATION: 'notification',
+  MARK_NOTIFICATIONS_AS_READ: 'read_notification'
 };

@@ -12,11 +12,17 @@ export async function createReply(req: NextApiRequest, res: NextApiResponse) {
 
     const user = await isAuthenticated(req, res);
 
+    let targetOwnerId = '',
+      type: 'comment' | 'reply' = 'comment';
+
     //check if the parent is found
     if (req.body.parentReplyId) {
-      await prisma.reply.findFirstOrThrow({ where: { id: req.body.parentReplyId } });
+      const reply = await prisma.reply.findFirstOrThrow({ where: { id: req.body.parentReplyId } });
+      targetOwnerId = reply.userId;
+      type = 'reply';
     } else if (req.body.parentCommentId) {
-      await prisma.comment.findFirstOrThrow({ where: { id: req.body.parentCommentId } });
+      const comment = await prisma.comment.findFirstOrThrow({ where: { id: req.body.parentCommentId } });
+      targetOwnerId = comment.userId;
     }
 
     const reply = await prisma.reply.create({
@@ -55,7 +61,27 @@ export async function createReply(req: NextApiRequest, res: NextApiResponse) {
     if (parentReply?.parentReply) parentOfParentId = parentReply?.parentReply.id;
     if (parentReply?.parentComment) parentOfParentId = parentReply?.parentComment.id;
 
-    res.status(201).json({ ...rest, parentOfParentId });
+    const notification = await prisma.notification.create({
+      data: {
+        targetId: reply.id,
+        targetOwnerId,
+        userId: user.id,
+        content: reply.content,
+        replyId: reply.id,
+        action: 'reply',
+        type
+      },
+      include: {
+        user: {
+          select: {
+            username: true,
+            image: true
+          }
+        }
+      }
+    });
+
+    res.status(201).json({ ...rest, parentOfParentId, notification });
   } catch (error: any) {
     logger.error(error);
     if (error instanceof PrismaClientKnownRequestError) {
@@ -265,14 +291,38 @@ export async function vote(req: NextApiRequest, res: NextApiResponse) {
       throw new Error("You can't vote for yourself");
     }
 
-    await prisma.reply.update({
+    const reply = await prisma.reply.update({
       where: { id },
+      select: {
+        content: true,
+        userId: true
+      },
       data: {
         score: vote.reply!.score + amount
       }
     });
 
-    res.json({ message: `You ${amount === -1 ? 'down voted' : 'up voted'} the reply` });
+    const notification = await prisma.notification.create({
+      data: {
+        targetId: id,
+        targetOwnerId: reply.userId,
+        userId: user.id,
+        content: reply.content,
+        replyId: id,
+        action: 'vote',
+        type: 'reply'
+      },
+      include: {
+        user: {
+          select: {
+            username: true,
+            image: true
+          }
+        }
+      }
+    });
+
+    res.json({ message: `You ${amount === -1 ? 'down voted' : 'up voted'} the reply`, notification });
   } catch (error: any) {
     logger.error(error);
     if (error instanceof HTTPNotAuthorizedError) return res.status(401).json(error.getError());

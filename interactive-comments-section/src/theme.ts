@@ -1,10 +1,16 @@
 import { createTheme } from '@mui/material';
-import { Rubik } from 'next/font/google';
+import { Rubik, Plus_Jakarta_Sans } from 'next/font/google';
 
 const rubikFont = Rubik({
   weight: ['400', '500', '600', '700'],
   display: 'swap',
   subsets: ['latin', 'latin-ext', 'cyrillic-ext', 'cyrillic', 'hebrew']
+});
+
+const plusJakartaSansFont = Plus_Jakarta_Sans({
+  weight: ['500', '800'],
+  display: 'swap',
+  subsets: ['latin', 'latin-ext', 'cyrillic-ext']
 });
 
 export default createTheme({
@@ -51,7 +57,9 @@ export default createTheme({
         '&:root': {
           '--light-gray': 'hsl(224, 19%, 93%)',
           '--vary-light-gray': 'hsl(228, 33%, 97%)',
-          '--shadow': 'rgba(0, 0, 0, 0.08) 0px 3px 14px'
+          '--shadow': 'rgba(0, 0, 0, 0.08) 0px 3px 14px',
+          '--rubik-font': rubikFont.style.fontFamily,
+          '--plus-jakarta-font': plusJakartaSansFont.style.fontFamily
         }
       }
     },

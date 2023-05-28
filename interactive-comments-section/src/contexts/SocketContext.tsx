@@ -3,19 +3,32 @@ import io from 'socket.io-client';
 import { useAppDispatch } from '@/src/store';
 import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
 import { SOCKET_EVENTS } from '@/src/constants';
+import useAuthContext from '@/src/hooks/useAuthContext';
+import { notificationsActions } from '@/src/slices/notifications';
+import { AxiosError } from 'axios';
 
 type Socket = ReturnType<typeof io>;
 type State = {
   emit: (name: string, data: any) => void;
+  notify: (data: any) => void;
 };
 type CommentsOrRepliesActions = typeof commentsOrRepliesActions;
-type Payload<action extends keyof CommentsOrRepliesActions> = ReturnType<CommentsOrRepliesActions[action]>;
+type NotificationsActions = typeof notificationsActions;
+
+type CommentsOrRepliesPayload<action extends keyof CommentsOrRepliesActions> = ReturnType<
+  CommentsOrRepliesActions[action]
+>;
+type NotificationsPayload<action extends keyof NotificationsActions> = ReturnType<NotificationsActions[action]>;
 
 export const SocketContext = createContext<State | null>(null);
 
 export default function SocketProvider({ children }: { children: ReactNode }) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const dispatch = useAppDispatch();
+  const {
+    user: { email },
+    logout
+  } = useAuthContext();
 
   useEffect(() => {
     fetch('/api/socket').then(() => {
@@ -36,42 +49,42 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
   }
 
   const onComment = useCallback(
-    (data: Payload<'appendComment'>['payload']) => {
+    (data: CommentsOrRepliesPayload<'appendComment'>['payload']) => {
       dispatch(commentsOrRepliesActions.appendComment(data));
     },
     [dispatch]
   );
 
   const onReply = useCallback(
-    (data: Payload<'appendReply'>['payload']) => {
+    (data: CommentsOrRepliesPayload<'appendReply'>['payload']) => {
       dispatch(commentsOrRepliesActions.appendReply(data));
     },
     [dispatch]
   );
 
   const onDeleteComment = useCallback(
-    (data: Payload<'deleteComment'>['payload']) => {
+    (data: CommentsOrRepliesPayload<'deleteComment'>['payload']) => {
       dispatch(commentsOrRepliesActions.deleteComment(data));
     },
     [dispatch]
   );
 
   const onDeleteReply = useCallback(
-    (data: Payload<'deleteReply'>['payload']) => {
+    (data: CommentsOrRepliesPayload<'deleteReply'>['payload']) => {
       dispatch(commentsOrRepliesActions.deleteReply(data));
     },
     [dispatch]
   );
 
   const onEditComment = useCallback(
-    (data: Payload<'updateComment'>['payload']) => {
+    (data: CommentsOrRepliesPayload<'updateComment'>['payload']) => {
       dispatch(commentsOrRepliesActions.updateComment(data));
     },
     [dispatch]
   );
 
   const onEditReply = useCallback(
-    (data: Payload<'updateReply'>['payload']) => {
+    (data: CommentsOrRepliesPayload<'updateReply'>['payload']) => {
       dispatch(commentsOrRepliesActions.updateReply(data));
     },
     [dispatch]
@@ -79,19 +92,30 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
 
   const onVote = useCallback(
     (
-      data: Payload<'updateComment' | 'updateReply'>['payload'] & {
+      data: CommentsOrRepliesPayload<'updateComment' | 'updateReply'>['payload'] & {
         type: 'comment' | 'reply';
       }
     ) => {
       const { type, ...rest } = data;
       if (type === 'comment') {
-        dispatch(commentsOrRepliesActions.updateComment(rest as Payload<'updateComment'>['payload']));
+        dispatch(commentsOrRepliesActions.updateComment(rest as CommentsOrRepliesPayload<'updateComment'>['payload']));
       } else {
-        dispatch(commentsOrRepliesActions.updateReply(rest as Payload<'updateReply'>['payload']));
+        dispatch(commentsOrRepliesActions.updateReply(rest as CommentsOrRepliesPayload<'updateReply'>['payload']));
       }
     },
     [dispatch]
   );
+
+  const onNotification = useCallback(
+    (data: NotificationsPayload<'appendNotification'>['payload']) => {
+      dispatch(notificationsActions.appendNotification(data));
+    },
+    [dispatch]
+  );
+
+  const onMarkNotification = useCallback(() => {
+    dispatch(notificationsActions.markAllAsSeen());
+  }, [dispatch]);
 
   useEffect(() => {
     if (!socket) return;
@@ -104,6 +128,8 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
     socket.on(SOCKET_EVENTS.EDIT_COMMENT, onEditComment);
     socket.on(SOCKET_EVENTS.EDIT_REPLY, onEditReply);
     socket.on(SOCKET_EVENTS.VOTE, onVote);
+    socket.on(SOCKET_EVENTS.NOTIFICATION, onNotification);
+    socket.on(SOCKET_EVENTS.MARK_NOTIFICATIONS_AS_READ, onMarkNotification);
 
     return () => {
       if (!socket) return;
@@ -116,8 +142,21 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
       socket.off(SOCKET_EVENTS.EDIT_COMMENT, onEditComment);
       socket.off(SOCKET_EVENTS.EDIT_REPLY, onEditReply);
       socket.off(SOCKET_EVENTS.VOTE, onVote);
+      socket.off(SOCKET_EVENTS.NOTIFICATION, onNotification);
+      socket.off(SOCKET_EVENTS.MARK_NOTIFICATIONS_AS_READ, onMarkNotification);
     };
-  }, [onComment, onDeleteComment, onDeleteReply, onEditComment, onEditReply, onReply, onVote, socket]);
+  }, [
+    onComment,
+    onDeleteComment,
+    onDeleteReply,
+    onEditComment,
+    onEditReply,
+    onReply,
+    onVote,
+    onNotification,
+    onMarkNotification,
+    socket
+  ]);
 
   const emit = useCallback(
     (name: string, data: any) => {
@@ -128,5 +167,29 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
     [socket]
   );
 
-  return <SocketContext.Provider value={{ emit }}>{children}</SocketContext.Provider>;
+  const notify = useCallback(
+    (data: any) => {
+      if (socket) {
+        socket.emit(SOCKET_EVENTS.NOTIFICATION, data);
+      }
+    },
+    [socket]
+  );
+
+  useEffect(() => {
+    emit(SOCKET_EVENTS.JOIN, email);
+    return () => {
+      emit(SOCKET_EVENTS.LEAVE, email);
+    };
+  }, [email, emit]);
+
+  useEffect(() => {
+    dispatch(notificationsActions.getNotifications()).catch(error => {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 401) logout();
+      }
+    });
+  }, [dispatch, logout]);
+
+  return <SocketContext.Provider value={{ emit, notify }}>{children}</SocketContext.Provider>;
 }
