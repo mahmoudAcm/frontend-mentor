@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { isAuthenticated } from '@/src/pages/api/middleares/user';
+import { isAuthenticated } from '../middleares/user';
 import logger from '@/src/pages/api/logger';
 
 export async function getUserInfo(req: NextApiRequest, res: NextApiResponse) {

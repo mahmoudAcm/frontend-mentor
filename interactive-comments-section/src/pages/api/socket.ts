@@ -2,6 +2,7 @@ import { Server, Socket } from 'socket.io';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { SOCKET_EVENTS } from '@/src/constants';
 import prisma from '../../../prisma/client';
+import { Notification } from '@/src/types';
 
 export default function SocketHandler(req: NextApiRequest, res: NextApiResponse) {
   // Check if the socket server was already initialized
@@ -71,6 +72,18 @@ export default function SocketHandler(req: NextApiRequest, res: NextApiResponse)
 
     socket.on(SOCKET_EVENTS.MARK_NOTIFICATIONS_AS_READ, roomId => {
       socket.broadcast.to(roomId).emit(SOCKET_EVENTS.MARK_NOTIFICATIONS_AS_READ);
+    });
+
+    socket.on(SOCKET_EVENTS.NOTIFY_MENTIONED_USERS, async (notifications: Notification[]) => {
+      for (const notification of notifications) {
+        const user = await prisma.user.findFirstOrThrow({
+          where: { id: notification.targetOwnerId },
+          select: {
+            email: true
+          }
+        });
+        socket.to(user.email).emit(SOCKET_EVENTS.NOTIFICATION, notification);
+      }
     });
   };
 

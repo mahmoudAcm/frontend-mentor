@@ -1,5 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { signIn, signUp } from '../controllers/auth';
+import { signIn, signUp } from '../../../../server/controllers/auth';
 
 export const config = {
   api: {

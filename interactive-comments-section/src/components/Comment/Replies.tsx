@@ -64,6 +64,7 @@ export default function Replies({ parentCommentOrReplyId, lvl }: { parentComment
               parentCommentId={reply.parentCommentId}
               parentReplyId={reply.parentReplyId}
               votes={reply.votes}
+              mentions={reply.mentions}
             />
             {reply.hasReplies ? <Replies parentCommentOrReplyId={reply.id} lvl={lvl + 1} /> : <></>}
           </Box>

@@ -1,71 +1,66 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma, { commentSchema } from '../../../../prisma/client';
-import { isAuthenticated } from '@/src/pages/api/middleares/user';
+import prisma, { commentSchema } from '../../prisma/client';
+import { isAuthenticated } from '../middleares/user';
 import { ValidationError } from 'yup';
-import { deleteReplyAndChildren } from '@/src/pages/api/controllers/replies';
+import { deleteReplyAndChildren } from './replies';
 import logger from '@/src/pages/api/logger';
-import { HTTPNotAuthorizedError, HTTPNotFoundError } from '@/src/pages/api/libs/custom-errors';
+import { HTTPNotAuthorizedError, HTTPNotFoundError } from '../libs/custom-errors';
 import { Prisma } from '.prisma/client';
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
+import { createMentions, editMentions } from '../middleares/mentions';
+import { createNotifications } from '../middleares/notifications';
 
 export async function getComments(req: NextApiRequest, res: NextApiResponse) {
-  const userSelect = {
-    username: true,
-    image: true
-  } as const;
-
   try {
     const user = await isAuthenticated(req, res);
-    const comments = await prisma.comment.findMany({
-      include: {
-        user: {
-          select: userSelect
-        },
-        votes: {
-          where: {
-            userId: user.id
+
+    const includeUserAndVotes = {
+      user: {
+        select: {
+          username: true,
+          image: true
+        }
+      },
+      votes: {
+        where: {
+          userId: user.id
+        }
+      },
+      mentions: {
+        where: {
+          user: {
+            NOT: {
+              image: null
+            }
           }
         },
+        select: {
+          user: {
+            select: {
+              username: true,
+              image: true,
+              email: true
+            }
+          }
+        }
+      }
+    } as const;
+
+    const comments = await prisma.comment.findMany({
+      include: {
+        ...includeUserAndVotes,
         replies: {
           include: {
-            user: {
-              select: userSelect
-            },
-            votes: {
-              where: {
-                userId: user.id
-              }
-            },
+            ...includeUserAndVotes,
             replies: {
               include: {
-                user: {
-                  select: userSelect
-                },
-                votes: {
-                  where: {
-                    userId: user.id
-                  }
-                },
+                ...includeUserAndVotes,
                 replies: {
                   include: {
-                    user: {
-                      select: userSelect
-                    },
-                    votes: {
-                      where: {
-                        userId: user.id
-                      }
-                    },
+                    ...includeUserAndVotes,
                     replies: {
                       include: {
-                        user: {
-                          select: userSelect
-                        },
-                        votes: {
-                          where: {
-                            userId: user.id
-                          }
-                        },
+                        ...includeUserAndVotes,
                         replies: {
                           take: 1,
                           select: {
@@ -116,7 +111,17 @@ export async function createComment(req: NextApiRequest, res: NextApiResponse) {
       }
     });
 
-    res.status(201).json(comment);
+    const result = await createMentions(
+      req,
+      {
+        commentId: comment.id
+      },
+      {
+        userId: user.id
+      }
+    );
+
+    res.status(201).json({ ...comment, ...result });
   } catch (error: any) {
     logger.error(error);
     if (error instanceof ValidationError)
@@ -188,7 +193,17 @@ export async function editComment(req: NextApiRequest, res: NextApiResponse) {
 
     if (comment.userId !== user.id) throw new HTTPNotAuthorizedError('You are not authorized to update this comment');
 
-    res.json({ message: 'Your comment has been updated' });
+    const result = await editMentions(
+      req,
+      {
+        commentId: id
+      },
+      {
+        userId: user.id
+      }
+    );
+
+    res.json({ message: 'Your comment has been updated', ...result });
   } catch (error: any) {
     logger.error(error);
     if (error instanceof HTTPNotAuthorizedError) return res.status(401).json(error.getError());
@@ -240,33 +255,13 @@ export async function vote(req: NextApiRequest, res: NextApiResponse) {
       }
     });
 
-    const notification = await prisma.notification.create({
-      data: {
-        targetId: id,
-        targetOwnerId: comment.userId,
-        userId: user.id,
-        commentId: id,
-        action: 'vote',
-        type: 'comment'
-      },
-      include: {
-        comment: {
-          select: {
-            content: true
-          }
-        },
-        reply: {
-          select: {
-            content: true
-          }
-        },
-        user: {
-          select: {
-            username: true,
-            image: true
-          }
-        }
-      }
+    const notification = await createNotifications({
+      targetId: id,
+      targetOwnerId: comment.userId,
+      userId: user.id,
+      commentId: id,
+      action: 'vote',
+      type: 'comment'
     });
 
     res.json({

@@ -9,6 +9,7 @@ import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
 import useSocketContext from '@/src/hooks/useSocketContext';
 import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
+import Mentions from '@/src/components/Mentions';
 
 const FormRoot = styled('form')(({ theme }) => ({
   maxWidth: '730px',
@@ -100,14 +101,16 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
     mode: 'onSubmit'
   });
   const dispatch = useAppDispatch();
-  const { emit, notify } = useSocketContext();
+  const { emit, notify, notifyMentionedUsers } = useSocketContext();
   const [isSubmitting, setSubmitting] = useState(false);
+
+  const inputProps = register('content');
 
   const onSubmit = async (data: { content: string }) => {
     setSubmitting(true);
     try {
       if (type === 'comment') {
-        const comment = await dispatch(commentsOrRepliesActions.addComment(data.content));
+        const comment = await dispatch(commentsOrRepliesActions.addComment(data.content, notifyMentionedUsers));
         emit('comment', comment);
         reset();
         if (props.onSubmit) props.onSubmit();
@@ -126,7 +129,9 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
           parentIds.parentReplyId = replyingTo!;
         }
 
-        const reply = await dispatch(commentsOrRepliesActions.addReply({ ...data, ...parentIds }, notify));
+        const reply = await dispatch(
+          commentsOrRepliesActions.addReply({ ...data, ...parentIds }, notify, notifyMentionedUsers)
+        );
         emit('reply', reply);
         reset();
         if (props.onSubmit) props.onSubmit();
@@ -154,16 +159,29 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
     <FormRoot aria-label={`${type} form`} sx={sx} onSubmit={handleSubmit(onSubmit)}>
       <Avatar src={user.image} alt={`${user.username} profile picture`} sx={{ marginRight: 'auto' }} />
       <FormControl error={Boolean(errors.content?.message)}>
-        <Input
-          multiline
-          placeholder={placeholder ?? `Add a ${type}...`}
-          aria-label={`Add a ${type}...`}
-          rows={3}
-          inputProps={{
-            tabIndex: 0
-          }}
-          {...register('content')}
-        />
+        <Mentions inputHeight={100} style={{ display: 'flex' }}>
+          {({ inputRef, onChange, ...props }) => (
+            <Input
+              multiline
+              placeholder={placeholder ?? `Add a ${type}...`}
+              aria-label={`Add a ${type}...`}
+              rows={3}
+              inputProps={{
+                tabIndex: 0
+              }}
+              {...inputProps}
+              {...props}
+              inputRef={el => {
+                inputProps.ref(el);
+                inputRef.current = el;
+              }}
+              onChange={async evt => {
+                await inputProps.onChange({ target: evt.target });
+                onChange();
+              }}
+            />
+          )}
+        </Mentions>
         <FormHelperText>{errors.content?.message}</FormHelperText>
       </FormControl>
       <LoadingButton

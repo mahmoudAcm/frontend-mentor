@@ -1,10 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma, { replySchema } from '../../../../prisma/client';
-import { isAuthenticated } from '@/src/pages/api/middleares/user';
+import prisma, { replySchema } from '../../prisma/client';
+import { isAuthenticated } from '../middleares/user';
 import logger from '@/src/pages/api/logger';
 import { Prisma } from '.prisma/client';
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
-import { HTTPNotAuthorizedError, HTTPNotFoundError } from '@/src/pages/api/libs/custom-errors';
+import { HTTPNotAuthorizedError, HTTPNotFoundError } from '../libs/custom-errors';
+import { createMentions, editMentions } from '../middleares/mentions';
+import { createNotifications } from '../middleares/notifications';
 
 export async function createReply(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -61,38 +63,29 @@ export async function createReply(req: NextApiRequest, res: NextApiResponse) {
     if (parentReply?.parentReply) parentOfParentId = parentReply?.parentReply.id;
     if (parentReply?.parentComment) parentOfParentId = parentReply?.parentComment.id;
 
-    const notification = await prisma.notification.create({
-      data: {
-        targetId: reply.id,
-        targetOwnerId,
-        userId: user.id,
-        replyId: reply.id,
-        action: 'reply',
-        type
-      },
-      include: {
-        comment: {
-          select: {
-            content: true
-          }
-        },
-        reply: {
-          select: {
-            content: true
-          }
-        },
-        user: {
-          select: {
-            username: true,
-            image: true
-          }
-        }
-      }
+    const notification = await createNotifications({
+      targetId: reply.id,
+      targetOwnerId,
+      userId: user.id,
+      replyId: reply.id,
+      action: 'reply',
+      type
     });
+
+    const result = await createMentions(
+      req,
+      {
+        replyId: reply.id
+      },
+      {
+        userId: user.id
+      }
+    );
 
     res.status(201).json({
       ...rest,
       parentOfParentId,
+      ...result,
       notification: {
         ...notification,
         content: [notification.comment?.content, notification.reply?.content].filter(Boolean).join('')
@@ -109,69 +102,61 @@ export async function createReply(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export async function getRepliesOf(req: NextApiRequest, res: NextApiResponse) {
-  const userSelect = {
-    username: true,
-    image: true
-  } as const;
-
   try {
     const parentReplyId = req.query.id as string;
 
     const user = await isAuthenticated(req, res);
+
+    const includeUserAndVotes = {
+      user: {
+        select: {
+          username: true,
+          image: true
+        }
+      },
+      votes: {
+        where: {
+          userId: user.id
+        }
+      },
+      mentions: {
+        where: {
+          user: {
+            NOT: {
+              image: null
+            }
+          }
+        },
+        select: {
+          user: {
+            select: {
+              username: true,
+              image: true,
+              email: true
+            }
+          }
+        }
+      }
+    } as const;
 
     const reply = await prisma.reply.findFirst({
       where: {
         id: parentReplyId
       },
       include: {
-        user: {
-          select: userSelect
-        },
-        votes: {
-          where: {
-            userId: user.id
-          }
-        },
+        ...includeUserAndVotes,
         replies: {
           include: {
-            user: {
-              select: userSelect
-            },
-            votes: {
-              where: {
-                userId: user.id
-              }
-            },
+            ...includeUserAndVotes,
             replies: {
               include: {
-                user: {
-                  select: userSelect
-                },
-                votes: {
-                  where: {
-                    userId: user.id
-                  }
-                },
+                ...includeUserAndVotes,
                 replies: {
                   include: {
-                    user: {
-                      select: userSelect
-                    },
-                    votes: {
-                      where: {
-                        userId: user.id
-                      }
-                    },
+                    ...includeUserAndVotes,
                     replies: {
                       include: {
-                        user: {
-                          select: userSelect
-                        },
-                        votes: {
-                          where: {
-                            userId: user.id
-                          }
-                        },
+                        ...includeUserAndVotes,
                         replies: {
                           take: 1,
                           select: { id: true }
@@ -266,7 +251,17 @@ export async function editReply(req: NextApiRequest, res: NextApiResponse) {
 
     if (reply.userId !== user.id) throw new HTTPNotAuthorizedError('You are not authorized to update this reply');
 
-    res.json({ message: 'Your reply has been updated' });
+    const result = await editMentions(
+      req,
+      {
+        replyId: id
+      },
+      {
+        userId: user.id
+      }
+    );
+
+    res.json({ message: 'Your reply has been updated', ...result });
   } catch (error: any) {
     logger.error(error);
     if (error instanceof HTTPNotAuthorizedError) return res.status(401).json(error.getError());
@@ -318,33 +313,13 @@ export async function vote(req: NextApiRequest, res: NextApiResponse) {
       }
     });
 
-    const notification = await prisma.notification.create({
-      data: {
-        targetId: id,
-        targetOwnerId: reply.userId,
-        userId: user.id,
-        replyId: id,
-        action: 'vote',
-        type: 'reply'
-      },
-      include: {
-        comment: {
-          select: {
-            content: true
-          }
-        },
-        reply: {
-          select: {
-            content: true
-          }
-        },
-        user: {
-          select: {
-            username: true,
-            image: true
-          }
-        }
-      }
+    const notification = await createNotifications({
+      targetId: id,
+      targetOwnerId: reply.userId,
+      userId: user.id,
+      replyId: id,
+      action: 'vote',
+      type: 'reply'
     });
 
     res.json({

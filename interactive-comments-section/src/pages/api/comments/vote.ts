@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { vote } from '@/src/pages/api/controllers/comments';
+import { vote } from '../../../../server/controllers/comments';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'PATCH') {

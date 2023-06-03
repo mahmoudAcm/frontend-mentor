@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../../../../prisma/client';
-import { isAuthenticated } from '@/src/pages/api/middleares/user';
-import { HTTPNotAuthorizedError } from '@/src/pages/api/libs/custom-errors';
+import prisma from '../../prisma/client';
+import { isAuthenticated } from '../middleares/user';
+import { HTTPNotAuthorizedError } from '../libs/custom-errors';
 import logger from '@/src/pages/api/logger';
 
 export async function getNotifications(req: NextApiRequest, res: NextApiResponse) {

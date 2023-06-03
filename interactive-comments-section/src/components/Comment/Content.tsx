@@ -1,5 +1,6 @@
-import { Box, FormControl, FormHelperText, Link, styled, Typography } from '@mui/material';
-import { ReactNode, useEffect, useState } from 'react';
+import { Box, FormControl, FormHelperText, Link, styled } from '@mui/material';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Linkify from 'linkify-react';
 import 'linkify-plugin-mention';
 import { Input } from './Form';
@@ -13,6 +14,8 @@ import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
 import useSocketContext from '@/src/hooks/useSocketContext';
 import { SOCKET_EVENTS } from '@/src/constants';
 import { LoadingButton } from '@mui/lab';
+import Mentions from '@/src/components/Mentions';
+import Mention from '@/src/components/Comment/Mention';
 
 const ContentRoot = styled(Box)(({ theme }) => ({
   maxWidth: '618px',
@@ -44,13 +47,7 @@ const ReadMoreRoot = styled(Box)(() => ({
   boxShadow: '0px -6px 5px 13px #ffffff7d'
 }));
 
-function Mention({ children }: { children: ReactNode }) {
-  return (
-    <Typography component='span' color='primary' aria-label={`Mentioned user: ${children}`} sx={{ cursor: 'pointer' }}>
-      {children}
-    </Typography>
-  );
-}
+const regExp = /^@[a-z][a-z\d-_]{0,20}/gi;
 
 const schema = yup.object().shape({
   content: yup.string().required("It can't be blank")
@@ -72,11 +69,13 @@ export default function Content() {
     defaultValues: {
       content
     },
-    mode: 'onChange'
+    mode: 'onSubmit'
   });
   const dispatch = useAppDispatch();
-  const { emit } = useSocketContext();
+  const { emit, notifyMentionedUsers } = useSocketContext();
   const [isSubmitting, setSubmitting] = useState(false);
+
+  const inputProps = register('content');
 
   //to update the content when the socket edit events occurs
   useEffect(() => {
@@ -87,15 +86,16 @@ export default function Content() {
     setSubmitting(true);
     const __content = getValues('content');
     if (__content === content) {
+      setSubmitting(false);
       return closeEdit();
     }
     setContent(__content);
     try {
       if (type === 'comment') {
-        const data = await dispatch(commentsOrRepliesActions.editComment(id, __content));
+        const data = await dispatch(commentsOrRepliesActions.editComment(id, __content, notifyMentionedUsers));
         emit(SOCKET_EVENTS.EDIT_COMMENT, data);
       } else {
-        const data = await dispatch(commentsOrRepliesActions.editReply(parentId!, id, __content));
+        const data = await dispatch(commentsOrRepliesActions.editReply(parentId!, id, __content, notifyMentionedUsers));
         emit(SOCKET_EVENTS.EDIT_REPLY, data);
       }
       closeEdit();
@@ -121,7 +121,25 @@ export default function Content() {
       {isEditing ? (
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl fullWidth error={Boolean(errors.content?.message)}>
-            <Input multiline={isEditing} placeholder={`Edit the ${type}...`} rows={4} {...register('content')} />
+            <Mentions inputHeight={124.6} style={{ display: 'flex' }}>
+              {({ inputRef, onChange, ...props }) => (
+                <Input
+                  multiline={isEditing}
+                  placeholder={`Edit the ${type}...`}
+                  rows={4}
+                  {...inputProps}
+                  {...props}
+                  inputRef={el => {
+                    inputProps.ref(el);
+                    inputRef.current = el;
+                  }}
+                  onChange={async evt => {
+                    await inputProps.onChange({ target: evt.target });
+                    onChange();
+                  }}
+                />
+              )}
+            </Mentions>
             <FormHelperText>{errors.content?.message}</FormHelperText>
           </FormControl>
           <Box sx={{ display: 'flex' }}>
@@ -131,7 +149,7 @@ export default function Content() {
               type='submit'
               loading={isSubmitting}
             >
-              Update
+              <span>Update</span>
             </LoadingButton>
           </Box>
         </form>
@@ -141,7 +159,14 @@ export default function Content() {
             options={{
               render: {
                 mention: ir => {
-                  return <Mention>{ir.content}</Mention>;
+                  const tokens = ir.content.match(regExp)!;
+                  const content = tokens?.[0];
+                  return (
+                    <>
+                      <Mention>{content}</Mention>
+                      {ir.content.slice(content.length)}
+                    </>
+                  );
                 }
               }
             }}

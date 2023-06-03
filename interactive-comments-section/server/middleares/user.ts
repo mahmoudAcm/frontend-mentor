@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
-import prisma from '../../../../prisma/client';
-import { HTTPNotAuthorizedError } from '@/src/pages/api/libs/custom-errors';
+import prisma from '../../prisma/client';
+import { HTTPNotAuthorizedError } from '../libs/custom-errors';
 
 export const isAuthenticated = async (req: NextApiRequest, res: NextApiResponse) => {
   try {

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CommentOrReply, CommentsOrReplies, RepliesOf, Reply, Votes } from '@/src/types';
+import { CommentOrReply, CommentsOrReplies, Mentions, Notification, RepliesOf, Reply, Votes } from '@/src/types';
 import { AppDispatch } from '@/src/store';
 import api from '@/src/axios';
 import mapNestedRepliesToRepliesOf from '@/src/libs/mapNestedRepliesToReplyOf';
@@ -18,10 +18,12 @@ type EditCommentOrReplyActionPayload = {
     content?: string;
     score?: number;
     votes?: Votes;
+    mentions?: Mentions;
   };
 };
 
-type NotifyFunc = (data: any) => void;
+type NotifyFunc = (data: Notification) => void;
+type NotifyMentionedUsersFunc = (data: Notification[]) => void;
 
 const slice = createSlice({
   name: 'commentsOrReplies',
@@ -142,24 +144,28 @@ function getRepliesOf(parentCommentOrReplyId: string) {
   };
 }
 
-function addComment(content: string) {
+function addComment(content: string, notifyMentionUsers: NotifyMentionedUsersFunc) {
   return async (dispatch: AppDispatch) => {
-    const response = await api.post<CommentOrReply>('/comments', { content });
-    dispatch(slice.actions.appendComment(response.data));
-    return response.data;
+    const response = await api.post<CommentOrReply & { notifications: Notification[] }>('/comments', { content });
+    const { notifications, ...data } = response.data;
+    notifyMentionUsers(notifications);
+    dispatch(slice.actions.appendComment(data));
+    return data;
   };
 }
 
-function addReply(reply: Partial<Reply>, notify: NotifyFunc) {
+function addReply(reply: Partial<Reply>, notify: NotifyFunc, notifyMentionUsers: NotifyMentionedUsersFunc) {
   return async (dispatch: AppDispatch) => {
     const response = await api.post<
       CommentOrReply & {
         parentOfParentId: string;
-        notification: any;
+        notification: Notification;
+        notifications: Notification[];
       }
     >('/replies', reply);
-    const { notification, ...data } = response.data;
+    const { notification, notifications, ...data } = response.data;
     notify(notification);
+    notifyMentionUsers(notifications);
     dispatch(slice.actions.appendReply(data));
     return data;
   };
@@ -181,35 +187,45 @@ function removeReply(id: string, type: 'reply' | 'repliesParent') {
   };
 }
 
-function editComment(id: string, content: string) {
+function editComment(id: string, content: string, notifyMentionUsers: NotifyMentionedUsersFunc) {
   return async (dispatch: AppDispatch) => {
-    await api.put('/comments?id=' + id, {
+    const response = await api.put<{
+      notifications: Notification[];
+      mentions: Mentions;
+    }>('/comments?id=' + id, {
       content
     });
+    notifyMentionUsers(response.data.notifications);
     dispatch(
       slice.actions.updateComment({
         id,
         data: {
-          content
+          content,
+          mentions: response.data.mentions
         }
       })
     );
     return {
       id,
       data: {
-        content
+        content,
+        mentions: response.data.mentions
       }
     };
   };
 }
 
-function editReply(parentId: string, id: string, content: string) {
+function editReply(parentId: string, id: string, content: string, notifyMentionUsers: NotifyMentionedUsersFunc) {
   return async (dispatch: AppDispatch) => {
-    await api.put('/replies?id=' + id, {
+    const response = await api.put<{
+      notifications: Notification[];
+      mentions: Mentions;
+    }>('/replies?id=' + id, {
       content
     });
-    dispatch(slice.actions.updateReply({ id, data: { content }, parentId }));
-    return { id, data: { content }, parentId };
+    notifyMentionUsers(response.data.notifications);
+    dispatch(slice.actions.updateReply({ id, data: { content, mentions: response.data.mentions }, parentId }));
+    return { id, data: { content, mentions: response.data.mentions }, parentId };
   };
 }
 
@@ -247,14 +263,14 @@ function vote(notify: NotifyFunc, id: string, type: string, amount: -1 | 1, scor
 }
 
 export const commentsOrRepliesActions = {
-    ...slice.actions,
-    getComments,
-    getRepliesOf,
-    addComment,
-    addReply,
-    removeComment,
-    removeReply,
-    editComment,
-    editReply,
-    vote
+  ...slice.actions,
+  getComments,
+  getRepliesOf,
+  addComment,
+  addReply,
+  removeComment,
+  removeReply,
+  editComment,
+  editReply,
+  vote
 };

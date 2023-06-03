@@ -10,7 +10,7 @@ generator client {
 
 model User {
   id            String         @id @default(cuid())
-  username      String
+  username      String         @unique
   email         String         @unique
   password      String
   emailVerified DateTime?
@@ -19,6 +19,9 @@ model User {
   replies       Reply[]
   votes         Vote[]
   notifications Notification[]
+  mentions      Mention[]
+
+  @@index([username])
 }
 
 model Comment {
@@ -32,6 +35,7 @@ model Comment {
   replies       Reply[]
   votes         Vote[]
   notifications Notification[]
+  mentions      Mention[]
 
   @@unique([userId, id])
   @@index([id])
@@ -52,6 +56,7 @@ model Reply {
   userId          String
   votes           Vote[]
   notifications   Notification[]
+  mentions        Mention[]
 
   @@unique([userId, id])
   @@index([id])
@@ -107,4 +112,20 @@ enum Actions {
 enum Types {
   comment
   reply
+}
+
+model Mention {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [username], references: [username], onDelete: Cascade)
+  username  String
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  reply     Reply?   @relation(fields: [replyId], references: [id], onDelete: Cascade)
+  commentId String?
+  replyId   String?
+
+  @@index([username])
+  @@index([commentId])
+  @@index([replyId])
 }

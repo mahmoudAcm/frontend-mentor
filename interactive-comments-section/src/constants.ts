@@ -22,5 +22,6 @@ export const SOCKET_EVENTS = {
   EDIT_REPLY: 'edit_reply',
   VOTE: 'vote',
   NOTIFICATION: 'notification',
-  MARK_NOTIFICATIONS_AS_READ: 'read_notification'
+  MARK_NOTIFICATIONS_AS_READ: 'read_notification',
+  NOTIFY_MENTIONED_USERS: 'notify_mentioned_users'
 };

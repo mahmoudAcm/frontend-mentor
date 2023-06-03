@@ -7,7 +7,7 @@ import Form from '@/src/components/Comment/Form';
 import { CommentOrReplayProvider } from '@/src/contexts/CommentOrReplayContext';
 import useCommentOrReplyContext from '@/src/hooks/useCommentOrReplyContext';
 import useAuthContext from '@/src/hooks/useAuthContext';
-import { Votes } from '@/src/types';
+import { Mentions, Votes } from '@/src/types';
 
 const CommentOrReplayRoot = styled(Paper)(({ theme }) => ({
   padding: '24px',
@@ -66,6 +66,7 @@ export interface CommentOrReplayProps {
   avatar: string;
   parentCommentId?: string;
   parentReplyId?: string;
+  mentions: Mentions;
 }
 
 const CommentOrReplyForm = ({ type, replyingTo }: { type: Type; replyingTo: string }) => {

@@ -1,18 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '@/src/store';
 import api from '@/src/axios';
-
-type Notification = {
-  seen?: boolean;
-  type: 'comment' | 'reply';
-  action: 'reply' | 'vote' | 'mention';
-  content: string;
-  createdAt: number;
-  user: {
-    image: string;
-    username: string;
-  };
-};
+import { Notification } from '@/src/types';
 
 type State = {
   unreadCount: number;

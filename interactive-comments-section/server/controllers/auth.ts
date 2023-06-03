@@ -1,4 +1,4 @@
-import prisma, { userSchema } from '../../../../prisma/client';
+import prisma, { userSchema } from '../../prisma/client';
 import bcrypt from 'bcrypt';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Credentials } from '@/src/types';
@@ -9,7 +9,7 @@ import cloudinaryApi from 'cloudinary';
 import { Prisma } from '.prisma/client';
 import { ValidationError } from 'yup';
 import logger from '@/src/pages/api/logger';
-import { HTTPNotAuthorizedError } from '@/src/pages/api/libs/custom-errors';
+import { HTTPNotAuthorizedError } from '../libs/custom-errors';
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 
 const cloudinary = cloudinaryApi.v2;

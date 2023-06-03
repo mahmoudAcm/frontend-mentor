@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { createReply, deleteReply, editReply } from '@/src/pages/api/controllers/replies';
+import { createReply, deleteReply, editReply } from '../../../../server/controllers/replies';
 
 const mapMethodToController: Record<string, NextApiHandler> = {
   POST: createReply,

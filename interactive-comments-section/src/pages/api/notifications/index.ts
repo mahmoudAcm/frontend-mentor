@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { getNotifications, markAllAsSeen } from '@/src/pages/api/controllers/notifications';
+import { getNotifications, markAllAsSeen } from '../../../../server/controllers/notifications';
 
 const mapMethodToController: Record<string, NextApiHandler> = {
   GET: getNotifications,

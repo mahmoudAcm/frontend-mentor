@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { createComment, deleteComment, editComment, getComments } from '@/src/pages/api/controllers/comments';
+import { createComment, deleteComment, editComment, getComments } from '../../../../server/controllers/comments';
 
 const mapMethodToController: Record<string, NextApiHandler> = {
   GET: getComments,

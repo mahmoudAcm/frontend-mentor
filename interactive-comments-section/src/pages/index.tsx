@@ -40,6 +40,7 @@ function Home() {
             parentCommentId={comment.parentCommentId}
             parentReplyId={comment.parentReplyId}
             votes={comment.votes}
+            mentions={comment.mentions}
           />
           <Replies parentCommentOrReplyId={comment.id} lvl={1} />
         </Box>

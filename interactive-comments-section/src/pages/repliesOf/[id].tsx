@@ -47,6 +47,7 @@ function RepliesOf() {
           parentCommentId={repliesParent.parentCommentId}
           parentReplyId={repliesParent.parentReplyId}
           votes={repliesParent.votes}
+          mentions={repliesParent.mentions}
         />
         <Replies parentCommentOrReplyId={parentReplyId} lvl={1} />
       </Box>

@@ -6,11 +6,14 @@ import { SOCKET_EVENTS } from '@/src/constants';
 import useAuthContext from '@/src/hooks/useAuthContext';
 import { notificationsActions } from '@/src/slices/notifications';
 import { AxiosError } from 'axios';
+import { usersActions } from '@/src/slices/users';
+import { Notification } from '@/src/types';
 
 type Socket = ReturnType<typeof io>;
 type State = {
   emit: (name: string, data: any) => void;
-  notify: (data: any) => void;
+  notify: (data: Notification) => void;
+  notifyMentionedUsers: (data: Notification[]) => void;
 };
 type CommentsOrRepliesActions = typeof commentsOrRepliesActions;
 type NotificationsActions = typeof notificationsActions;
@@ -117,6 +120,13 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
     dispatch(notificationsActions.markAllAsSeen());
   }, [dispatch]);
 
+  const onNotifyMentionedUsers = useCallback(
+    (notifications: NotificationsPayload<'appendNotification'>['payload'][]) => {
+      for (const notification of notifications) dispatch(notificationsActions.appendNotification(notification));
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
     if (!socket) return;
     socket.on('connect', onConnect);
@@ -130,6 +140,7 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
     socket.on(SOCKET_EVENTS.VOTE, onVote);
     socket.on(SOCKET_EVENTS.NOTIFICATION, onNotification);
     socket.on(SOCKET_EVENTS.MARK_NOTIFICATIONS_AS_READ, onMarkNotification);
+    socket.on(SOCKET_EVENTS.NOTIFY_MENTIONED_USERS, onNotifyMentionedUsers);
 
     return () => {
       if (!socket) return;
@@ -144,6 +155,7 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
       socket.off(SOCKET_EVENTS.VOTE, onVote);
       socket.off(SOCKET_EVENTS.NOTIFICATION, onNotification);
       socket.off(SOCKET_EVENTS.MARK_NOTIFICATIONS_AS_READ, onMarkNotification);
+      socket.off(SOCKET_EVENTS.NOTIFY_MENTIONED_USERS, onNotifyMentionedUsers);
     };
   }, [
     onComment,
@@ -155,6 +167,7 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
     onVote,
     onNotification,
     onMarkNotification,
+    onNotifyMentionedUsers,
     socket
   ]);
 
@@ -168,9 +181,18 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
   );
 
   const notify = useCallback(
-    (data: any) => {
+    (data: Notification) => {
       if (socket) {
         socket.emit(SOCKET_EVENTS.NOTIFICATION, data);
+      }
+    },
+    [socket]
+  );
+
+  const notifyMentionedUsers = useCallback(
+    (data: Notification[]) => {
+      if (socket) {
+        socket.emit(SOCKET_EVENTS.NOTIFY_MENTIONED_USERS, data);
       }
     },
     [socket]
@@ -191,5 +213,13 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
     });
   }, [dispatch, logout]);
 
-  return <SocketContext.Provider value={{ emit, notify }}>{children}</SocketContext.Provider>;
+  useEffect(() => {
+    dispatch(usersActions.getFirst20Users()).catch(error => {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 401) logout();
+      }
+    });
+  }, [dispatch, logout]);
+
+  return <SocketContext.Provider value={{ emit, notify, notifyMentionedUsers }}>{children}</SocketContext.Provider>;
 }

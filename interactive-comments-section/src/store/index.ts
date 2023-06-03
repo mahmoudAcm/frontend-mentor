@@ -3,9 +3,11 @@ import { commentsOrRepliesReducer } from '@/src/slices/commentsOrReplies';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { dialogsReducer } from '@/src/slices/dialogs';
 import { notificationsReducer } from '@/src/slices/notifications';
+import { usersReducer } from '@/src/slices/users';
 
 const store = configureStore({
   reducer: {
+    users: usersReducer,
     commentsOrReplies: commentsOrRepliesReducer,
     dialogs: dialogsReducer,
     notifications: notificationsReducer
