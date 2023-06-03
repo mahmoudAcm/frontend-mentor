@@ -12,7 +12,13 @@ import api from '@/src/axios';
 import { AxiosError } from 'axios';
 
 const schema = yup.object().shape({
-  username: yup.string().required("Can't be blank"),
+  username: yup
+    .string()
+    .required("Can't be blank")
+    .matches(
+      /^[a-z][a-z\d-_]{7,20}$/gi,
+      'It should start with a letter and consist of 7 to 20 characters, which can be letters, digits, hyphens, or underscores'
+    ),
   email: yup.string().email('It is not a valid email').required("Can't be blank"),
   password: yup.string().required("Can't be blank"),
   image: yup
