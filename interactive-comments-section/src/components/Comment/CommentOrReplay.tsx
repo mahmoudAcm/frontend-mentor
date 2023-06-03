@@ -84,7 +84,7 @@ const CommentOrReplyForm = ({ type, replyingTo }: { type: Type; replyingTo: stri
 
 export default function CommentOrReplay(props: CommentOrReplayProps) {
   const { user } = useAuthContext();
-  const owner = props.username === user.email.split('@')[0];
+  const owner = props.username === user.username;
 
   return (
     <CommentOrReplayProvider value={{ ...props, owner }}>
