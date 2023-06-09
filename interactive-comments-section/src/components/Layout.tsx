@@ -20,7 +20,7 @@ const StyledContainer = styled(Container)(({ theme }) => ({
   }
 }));
 
-const LayoutRoot = styled(Box)(({ theme }) => ({
+export const LayoutRoot = styled(Box)(({ theme }) => ({
   display: 'grid',
   maxWidth: '730px',
   gap: '20px',

@@ -78,7 +78,7 @@ export default function DemoUsers() {
         subheader={
           <>
             Switch the default demo user or{' '}
-            <Link sx={{ fontWeight: 500 }} href={'/signin?next=' + router.query.next} component={NextLink}>
+            <Link sx={{ fontWeight: 500 }} href={'/signin?next=' + (router.query.next ?? '/app')} component={NextLink}>
               sign in with a live user
             </Link>
           </>

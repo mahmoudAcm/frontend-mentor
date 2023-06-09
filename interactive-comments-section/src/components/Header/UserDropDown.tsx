@@ -10,11 +10,13 @@ import {
   Typography
 } from '@mui/material';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import HomeWorkRoundedIcon from '@mui/icons-material/HomeWorkRounded';
 import * as React from 'react';
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import useAuthContext from '@/src/hooks/useAuthContext';
+import { useRouter } from 'next/router';
 
 const StyledMenuItem = styled(MenuItem)(() => ({
   '& .MuiTypography-root': {
@@ -26,6 +28,7 @@ export default function UserDropDown() {
   const [anchorEl, setAnchorEl] = useState<HTMLSpanElement | null>(null);
   const open = Boolean(anchorEl);
   const { user, logout } = useAuthContext();
+  const router = useRouter();
 
   return (
     <>
@@ -98,13 +101,25 @@ export default function UserDropDown() {
         </MenuItem>
         <Divider />
         <StyledMenuItem
+          aria-label='Go Home'
+          onClick={async () => {
+            await router.push('/app');
+            setAnchorEl(null);
+          }}
+        >
+          <ListItemIcon>
+            <HomeWorkRoundedIcon fontSize='small' />
+          </ListItemIcon>
+          <ListItemText> Home </ListItemText>
+        </StyledMenuItem>
+        <StyledMenuItem
           aria-label='Logout'
           onClick={async () => {
             await logout();
           }}
         >
           <ListItemIcon>
-            <LogoutOutlinedIcon fontSize='small' />
+            <LogoutRoundedIcon fontSize='small' />
           </ListItemIcon>
           <ListItemText> Logout </ListItemText>
         </StyledMenuItem>

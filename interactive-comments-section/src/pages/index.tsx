@@ -1,55 +1,43 @@
-import Head from 'next/head';
-import CommentOrReplay from '@/src/components/Comment';
+import { ReactNode } from 'react';
+import Home from '@/src/components/LandingPage/Home';
 import { Box } from '@mui/material';
-import Form from '@/src/components/Comment/Form';
-import { useEffect } from 'react';
-import Replies from '@/src/components/Comment/Replies';
-import { useAppDispatch } from '@/src/store';
-import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
-import useCommentsOrRepliesSelector from '@/src/hooks/useCommentsOrRepliesSelector';
-import Empty from '@/src/components/Empty';
-import LoadingScreen from '@/src/components/Comment/LoadingScreen';
+import Features from '@/src/components/LandingPage/Features';
+import Benefits from '@/src/components/LandingPage/Benefits';
+import Footer from '@/src/components/LandingPage/Footer';
+import Head from 'next/head';
 
-function Home() {
-  const { comments } = useCommentsOrRepliesSelector();
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (!comments.length) dispatch(commentsOrRepliesActions.getComments()).then();
-    // eslint-disable-next-line
-  }, [dispatch]);
-
-  if (!comments.length) return <Empty />;
-
+function LandingPage() {
   return (
     <>
       <Head>
-        <title>Frontend Mentor | Interactive comments section </title>
+        <title>Interactive comments section</title>
       </Head>
-      <LoadingScreen />
-      {comments.map(comment => (
-        <Box key={comment.id}>
-          <CommentOrReplay
-            id={comment.id}
-            type='comment'
-            content={comment.content}
-            createdAt={comment.createdAt}
-            username={comment.user.username}
-            avatar={comment.user.image}
-            score={comment.score}
-            parentCommentId={comment.parentCommentId}
-            parentReplyId={comment.parentReplyId}
-            votes={comment.votes}
-            mentions={comment.mentions}
-          />
-          <Replies parentCommentOrReplyId={comment.id} lvl={1} />
-        </Box>
-      ))}
-      <Form type='comment' />
+      <Home />
+      <Features />
+      <Benefits />
+      <Footer />
     </>
   );
 }
 
-Home.authGuard = true;
+LandingPage.getLayout = (page: ReactNode) => (
+  <Box
+    sx={{
+      minHeight: '800px',
+      position: 'relative',
+      background: '#111827',
+      isolation: 'isolate',
+      '& img': {
+        userSelect: 'none'
+      },
+      '& *::selection': {
+        background: 'hsla(234,88%,73%,0.72)',
+        color: 'white'
+      }
+    }}
+  >
+    {page}
+  </Box>
+);
 
-export default Home;
+export default LandingPage;

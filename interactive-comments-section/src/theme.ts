@@ -8,7 +8,7 @@ const rubikFont = Rubik({
 });
 
 const plusJakartaSansFont = Plus_Jakarta_Sans({
-  weight: ['500', '800'],
+  weight: ['500', '600', '700', '800'],
   display: 'swap',
   subsets: ['latin', 'latin-ext', 'cyrillic-ext']
 });

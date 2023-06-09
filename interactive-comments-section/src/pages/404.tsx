@@ -2,6 +2,8 @@ import { Box, styled, Typography } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { SecondaryLayout, StyledButton, Title } from '@/src/components/SecondaryLayout';
+import { ReactNode } from 'react';
+import { LayoutRoot } from '@/src/components/Layout';
 
 const Img = styled('img')(({ theme }) => ({
   height: 500,
@@ -15,7 +17,7 @@ const Img = styled('img')(({ theme }) => ({
   }
 }));
 
-export default function Error404() {
+function Error404() {
   const router = useRouter();
 
   return (
@@ -38,7 +40,7 @@ export default function Error404() {
           </Typography>
           <StyledButton
             onClick={async () => {
-              await router.push('/');
+              await router.push('/app');
             }}
             variant='contained'
           >
@@ -50,3 +52,7 @@ export default function Error404() {
     </>
   );
 }
+
+Error404.getLayout = (page: ReactNode) => <LayoutRoot>{page}</LayoutRoot>;
+
+export default Error404;
