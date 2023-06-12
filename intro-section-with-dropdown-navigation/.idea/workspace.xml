@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="00a19418-4772-46f3-a657-7428df319179" name="Changes" comment="fix(images): images was not loading and building the project.">
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230513184852_init_0/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230514082959_init_1/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230515195415_init_4/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230515195503_init_4/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230516120106_init_5/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230516141855_init_7/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230517092702_init_8/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230517092833_init_10/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230517094308_init_11/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230522142155_init_13/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230522172400_init_14/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230523124324_init_15/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230523174253_init_16/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230527195318_init_17/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230527202350_init_18/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230528102425_init_19/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230528192013_init_20/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230528194234_init_21/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230602195306_init_22/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230602195750_init_22/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230602201313_init_23/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230602213932_init_23/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/20230602214232_init_23/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/migrations/migration_lock.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/../interactive-comments-section/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/src/components/Comment/DeleteDialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../interactive-comments-section/src/components/Comment/DeleteDialog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/src/components/DemoUsers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../interactive-comments-section/src/components/DemoUsers.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/src/components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../interactive-comments-section/src/components/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/src/components/Notifications/Notification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../interactive-comments-section/src/components/Notifications/Notification.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/src/pages/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../interactive-comments-section/src/pages/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/src/pages/notifications.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../interactive-comments-section/src/pages/notifications.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../interactive-comments-section/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../interactive-comments-section/src/types.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2R14legnV77COtgKKNgHFWDzbBF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;interactive-comments-section&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/frontend/frontend-mentor/intro-section-with-dropdown-navigation/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\frontend\\frontend-mentor\\intro-section-with-dropdown-navigation\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\frontend\\frontend-mentor\\intro-section-with-dropdown-navigation\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.rcb.reactComponents" value="false" />
+        <entry key="com.haulmont.rcb.reactInspector" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\frontend\frontend-mentor\intro-section-with-dropdown-navigation\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\frontend\frontend-mentor\intro-section-with-dropdown-navigation\design" />
+      <recent name="D:\frontend\frontend-mentor\intro-section-with-dropdown-navigation\public" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="00a19418-4772-46f3-a657-7428df319179" name="Changes" comment="" />
+      <created>1686404408685</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1686404408685</updated>
+      <workItem from="1686404409768" duration="1113000" />
+      <workItem from="1686412766107" duration="9832000" />
+      <workItem from="1686481872534" duration="16945000" />
+      <workItem from="1686557779116" duration="10432000" />
+    </task>
+    <task id="LOCAL-00001" summary="[Refactor] Completed intro section with dropdown navigation challenge&#10;&#10;Updated the intro section of the web page, implemented a dropdown navigation menu, and ensured proper accessibility considerations for the dropdown menu">
+      <created>1686582650344</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1686582650344</updated>
+    </task>
+    <task id="LOCAL-00002" summary="deploying the project.">
+      <created>1686583145869</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1686583145869</updated>
+    </task>
+    <task id="LOCAL-00003" summary="building the project.">
+      <created>1686583235371</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1686583235371</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix(images): images was not loading and building the project.">
+      <created>1686583609823</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1686583609823</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[Refactor] Completed intro section with dropdown navigation challenge&#10;&#10;Updated the intro section of the web page, implemented a dropdown navigation menu, and ensured proper accessibility considerations for the dropdown menu" />
+    <MESSAGE value="deploying the project." />
+    <MESSAGE value="building the project." />
+    <MESSAGE value="fix(images): images was not loading and building the project." />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(images): images was not loading and building the project." />
+  </component>
+</project>
