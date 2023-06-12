@@ -1,0 +1,312 @@
+Index: interactive-comments-section/src/components/DemoUsers.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {\r\n  Avatar,\r\n  Card,\r\n  CardContent,\r\n  CardHeader,\r\n  Link,\r\n  List,\r\n  ListItemAvatar,\r\n  ListItemButton,\r\n  ListItemText\r\n} from '@mui/material';\r\nimport PeopleIcon from '@mui/icons-material/People';\r\nimport VerifiedIcon from '@mui/icons-material/Verified';\r\nimport { useEffect, useState } from 'react';\r\nimport { styled } from '@mui/material/styles';\r\nimport NextLink from 'next/link';\r\nimport { LOCAL_STORAGE_KEYS } from '@/src/constants';\r\nimport { useRouter } from 'next/router';\r\nimport useAuthContext from '@/src/hooks/useAuthContext';\r\n\r\nconst StyledListItemButton = styled(ListItemButton)(({ theme }) => ({\r\n  borderRadius: theme.shape.borderRadius,\r\n  border: `1px solid var(--light-gray)`,\r\n  paddingTop: '18px',\r\n  paddingBottom: '18px',\r\n  transition: theme.transitions.create(['color', 'border-color'])\r\n}));\r\n\r\nconst demoUsers = ['juliusomo', 'amyrobson', 'maxblagun', 'ramsesmiron'];\r\n\r\nexport default function DemoUsers() {\r\n  const router = useRouter();\r\n  const [username, setUsername] = useState('');\r\n  const { signin } = useAuthContext();\r\n\r\n  useEffect(() => {\r\n    if (typeof window === 'undefined') {\r\n      setUsername('juliusomo');\r\n    }\r\n\r\n    const demoUser = localStorage.getItem(LOCAL_STORAGE_KEYS.DEMO_USER);\r\n    setUsername(demoUser ?? 'juliusomo');\r\n  }, []);\r\n\r\n  const handleSignIn = (user: string) => () => {\r\n    setUsername(user);\r\n    localStorage.setItem(LOCAL_STORAGE_KEYS.DEMO_USER, user);\r\n    setTimeout(async () => {\r\n      try {\r\n        await signin({ email: user + '@gmail.com', password: user });\r\n      } catch (error) {\r\n        alert(\"You can't login in with demo users now try again later\");\r\n      }\r\n    }, 500);\r\n  };\r\n\r\n  return (\r\n    <Card\r\n      sx={{\r\n        width: 'min(100%, 700px)',\r\n        mx: 'auto',\r\n        boxShadow: 'var(--shadow)'\r\n      }}\r\n    >\r\n      <CardHeader\r\n        sx={{ px: '24px' }}\r\n        title={\r\n          <span style={{ display: 'flex', alignItems: 'center' }}>\r\n            Demo Users\r\n            <PeopleIcon\r\n              sx={{\r\n                ml: 1.5,\r\n                color: 'gray'\r\n              }}\r\n            />\r\n          </span>\r\n        }\r\n        subheader={\r\n          <>\r\n            Switch the default demo user or{' '}\r\n            <Link sx={{ fontWeight: 500 }} href={'/signin?next=' + (router.query.next ?? '/app')} component={NextLink}>\r\n              sign in with a live user\r\n            </Link>\r\n          </>\r\n        }\r\n        titleTypographyProps={{\r\n          variant: 'h1',\r\n          lineHeight: 1.5\r\n        }}\r\n        subheaderTypographyProps={{\r\n          fontWeight: 400,\r\n          mb: -1\r\n        }}\r\n      />\r\n      <CardContent sx={{ px: '24px' }}>\r\n        <List\r\n          sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}\r\n          component='div'\r\n          role='group'\r\n          aria-label='demo users list'\r\n        >\r\n          {demoUsers.map((user, idx) => (\r\n            <StyledListItemButton\r\n              aria-label={`switch to ${user} demo user`}\r\n              key={idx}\r\n              disableRipple={username === user}\r\n              sx={{\r\n                borderColor: username === user ? theme => theme.palette.primary.main : undefined\r\n              }}\r\n              aria-current={username === user ? 'true' : 'false'}\r\n              onClick={handleSignIn(user)}\r\n            >\r\n              <ListItemAvatar>\r\n                <Avatar src={`/images/avatars/image-${user}.png`} alt={`${user} profile picture`} />\r\n              </ListItemAvatar>\r\n              <ListItemText sx={{ color: username === user ? theme => theme.palette.primary.main : undefined }}>\r\n                {user}\r\n              </ListItemText>\r\n              {username === user ? <VerifiedIcon color='primary' fontSize='small' /> : <></>}\r\n            </StyledListItemButton>\r\n          ))}\r\n        </List>\r\n      </CardContent>\r\n    </Card>\r\n  );\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/interactive-comments-section/src/components/DemoUsers.tsx b/interactive-comments-section/src/components/DemoUsers.tsx
+--- a/interactive-comments-section/src/components/DemoUsers.tsx	(revision c135006b945493a9affd999f73addf2225c82431)
++++ b/interactive-comments-section/src/components/DemoUsers.tsx	(date 1686395950460)
+@@ -11,12 +11,13 @@
+ } from '@mui/material';
+ import PeopleIcon from '@mui/icons-material/People';
+ import VerifiedIcon from '@mui/icons-material/Verified';
+-import { useEffect, useState } from 'react';
++import { useEffect, useRef, useState } from 'react';
+ import { styled } from '@mui/material/styles';
+ import NextLink from 'next/link';
+ import { LOCAL_STORAGE_KEYS } from '@/src/constants';
+ import { useRouter } from 'next/router';
+ import useAuthContext from '@/src/hooks/useAuthContext';
++import { toast } from 'react-toastify';
+ 
+ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+   borderRadius: theme.shape.borderRadius,
+@@ -32,6 +33,7 @@
+   const router = useRouter();
+   const [username, setUsername] = useState('');
+   const { signin } = useAuthContext();
++  const signInTimeoutRef = useRef<any>(null);
+ 
+   useEffect(() => {
+     if (typeof window === 'undefined') {
+@@ -43,17 +45,31 @@
+   }, []);
+ 
+   const handleSignIn = (user: string) => () => {
++    const toastId = toast('signin...', {
++      isLoading: true
++    });
+     setUsername(user);
+     localStorage.setItem(LOCAL_STORAGE_KEYS.DEMO_USER, user);
+-    setTimeout(async () => {
++    signInTimeoutRef.current = setTimeout(async () => {
+       try {
+         await signin({ email: user + '@gmail.com', password: user });
+       } catch (error) {
+-        alert("You can't login in with demo users now try again later");
++        toast.update(toastId, {
++          type: 'info',
++          isLoading: false,
++          autoClose: 3000,
++          render: "You can't login in with demo users now try again later"
++        });
+       }
+     }, 500);
+   };
+ 
++  useEffect(() => {
++    return () => {
++      if (signInTimeoutRef.current !== null) clearTimeout(signInTimeoutRef.current);
++    };
++  }, []);
++
+   return (
+     <Card
+       sx={{
+Index: challenges/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\"/>\r\n    <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"./favicon-32x32.png\"/>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\r\n    <meta property=\"og:title\" content=\"Frontend Mentor | Solutions\"/>\r\n    <meta property=\"og:description\"\r\n          content=\"Check out my solution gallery for the Frontend Mentor challenges! Browse my solutions to different challenges and see how I approached each one.\"/>\r\n    <meta property=\"og:image\" content=\"https://mahmoudacm.github.io/frontend-mentor/challenges/preview.png\"/>\r\n    <meta property=\"og:url\" content=\"https://mahmoudacm.github.io/frontend-mentor/challenges/\"/>\r\n    <meta property=\"og:type\" content=\"website\"/>\r\n\r\n    <title>Frontend Mentor | Solutions</title>\r\n  <script type=\"module\" crossorigin src=\"./assets/index-aba35fb8.js\"></script>\r\n  <link rel=\"stylesheet\" href=\"./assets/index-9a0b9a2c.css\">\r\n</head>\r\n<body class=\"bg-gray-50\">\r\n<div id=\"root\"></div>\r\n\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/challenges/index.html b/challenges/index.html
+--- a/challenges/index.html	(revision c135006b945493a9affd999f73addf2225c82431)
++++ b/challenges/index.html	(date 1686585459642)
+@@ -12,7 +12,7 @@
+     <meta property="og:type" content="website"/>
+ 
+     <title>Frontend Mentor | Solutions</title>
+-  <script type="module" crossorigin src="./assets/index-aba35fb8.js"></script>
++  <script type="module" crossorigin src="./assets/index-f346989d.js"></script>
+   <link rel="stylesheet" href="./assets/index-9a0b9a2c.css">
+ </head>
+ <body class="bg-gray-50">
+Index: interactive-comments-section/src/components/Comment/DeleteDialog.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { alpha, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';\r\nimport useDialogsSelector from '@/src/hooks/useDialogsSelector';\r\nimport { DIALOGS, SOCKET_EVENTS } from '@/src/constants';\r\nimport { useAppDispatch } from '@/src/store';\r\nimport { dialogsActions } from '@/src/slices/dialogs';\r\nimport { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';\r\nimport { useRouter } from 'next/router';\r\nimport { AxiosError } from 'axios';\r\nimport { toast } from 'react-toastify';\r\nimport useSocketContext from '@/src/hooks/useSocketContext';\r\n\r\nconst mapTypeToMessage: Record<string, string> = {\r\n  comment: 'comment',\r\n  reply: 'reply',\r\n  repliesParent: 'reply'\r\n};\r\n\r\nexport default function DeleteDialog() {\r\n  const router = useRouter();\r\n  const {\r\n    [DIALOGS['DELETE_COMMENTS/DELETE_REPLIES']]: { open, details }\r\n  } = useDialogsSelector();\r\n  const dispatch = useAppDispatch();\r\n  const { emit } = useSocketContext();\r\n\r\n  const handleClose = () => dispatch(dialogsActions.closeDialog(DIALOGS['DELETE_COMMENTS/DELETE_REPLIES']));\r\n\r\n  const handleDelete = async () => {\r\n    try {\r\n      if (details.type !== 'comment') {\r\n        const data = await dispatch(commentsOrRepliesActions.removeReply(details.id, details.type));\r\n        emit(SOCKET_EVENTS.DEL_REPLY, data);\r\n        if (details.id === router.query.id) {\r\n          await router.replace('/');\r\n        }\r\n      } else {\r\n        const data = await dispatch(commentsOrRepliesActions.removeComment(details.id));\r\n        emit(SOCKET_EVENTS.DEL_COMMENT, data);\r\n      }\r\n      handleClose();\r\n    } catch (error) {\r\n      if (error instanceof AxiosError) {\r\n        toast.warn(error.response?.data.message);\r\n      }\r\n    }\r\n  };\r\n\r\n  return (\r\n    <Dialog\r\n      open={open}\r\n      maxWidth='xs'\r\n      PaperProps={{\r\n        sx: {\r\n          maxWidth: '400px'\r\n        }\r\n      }}\r\n      onClose={handleClose}\r\n    >\r\n      <DialogTitle>Delete {details.type}</DialogTitle>\r\n      <DialogContent sx={{ color: theme => theme.palette.text.secondary, fontWeight: '400' }}>\r\n        Are you sure you want to delete this {mapTypeToMessage[details.type]}? This will remove the{' '}\r\n        {mapTypeToMessage[details.type]} and can’t be undone.\r\n      </DialogContent>\r\n      <DialogActions\r\n        sx={{\r\n          justifyContent: 'space-between',\r\n          gap: '6px',\r\n          '& button': {\r\n            paddingTop: '12px',\r\n            paddingBottom: '12px'\r\n          }\r\n        }}\r\n      >\r\n        <Button\r\n          variant='contained'\r\n          sx={{\r\n            background: theme => theme.palette.text.secondary,\r\n            '--btn-bg-hover': theme => alpha(theme.palette.text.secondary, 0.7)\r\n          }}\r\n          fullWidth\r\n          onClick={handleClose}\r\n        >\r\n          NO, CANCEL\r\n        </Button>\r\n        <Button variant='contained' color='secondary' fullWidth onClick={handleDelete}>\r\n          YES, DELETE\r\n        </Button>\r\n      </DialogActions>\r\n    </Dialog>\r\n  );\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/interactive-comments-section/src/components/Comment/DeleteDialog.tsx b/interactive-comments-section/src/components/Comment/DeleteDialog.tsx
+--- a/interactive-comments-section/src/components/Comment/DeleteDialog.tsx	(revision c135006b945493a9affd999f73addf2225c82431)
++++ b/interactive-comments-section/src/components/Comment/DeleteDialog.tsx	(date 1686394619900)
+@@ -8,6 +8,8 @@
+ import { AxiosError } from 'axios';
+ import { toast } from 'react-toastify';
+ import useSocketContext from '@/src/hooks/useSocketContext';
++import { LoadingButton } from '@mui/lab';
++import { useEffect, useRef, useState } from 'react';
+ 
+ const mapTypeToMessage: Record<string, string> = {
+   comment: 'comment',
+@@ -22,11 +24,14 @@
+   } = useDialogsSelector();
+   const dispatch = useAppDispatch();
+   const { emit } = useSocketContext();
++  const [isSubmitting, setSubmitting] = useState(false);
++  const handleCloseTimeoutRef = useRef<any>(null);
+ 
+   const handleClose = () => dispatch(dialogsActions.closeDialog(DIALOGS['DELETE_COMMENTS/DELETE_REPLIES']));
+ 
+   const handleDelete = async () => {
+     try {
++      setSubmitting(true);
+       if (details.type !== 'comment') {
+         const data = await dispatch(commentsOrRepliesActions.removeReply(details.id, details.type));
+         emit(SOCKET_EVENTS.DEL_REPLY, data);
+@@ -37,17 +42,25 @@
+         const data = await dispatch(commentsOrRepliesActions.removeComment(details.id));
+         emit(SOCKET_EVENTS.DEL_COMMENT, data);
+       }
+-      handleClose();
++      handleCloseTimeoutRef.current = setTimeout(handleClose, 500);
+     } catch (error) {
+       if (error instanceof AxiosError) {
+         toast.warn(error.response?.data.message);
+       }
++    } finally {
++      setSubmitting(false);
+     }
+   };
++
++  useEffect(() => {
++    return () => {
++      if (handleCloseTimeoutRef.current !== null) clearTimeout(handleCloseTimeoutRef.current);
++    };
++  }, []);
+ 
+   return (
+     <Dialog
+-      open={open}
++      open={open || isSubmitting}
+       maxWidth='xs'
+       PaperProps={{
+         sx: {
+@@ -82,9 +95,17 @@
+         >
+           NO, CANCEL
+         </Button>
+-        <Button variant='contained' color='secondary' fullWidth onClick={handleDelete}>
++        <LoadingButton
++          loading={isSubmitting}
++          startIcon={<></>}
++          loadingPosition='start'
++          variant='contained'
++          color='secondary'
++          fullWidth
++          onClick={handleDelete}
++        >
+           YES, DELETE
+-        </Button>
++        </LoadingButton>
+       </DialogActions>
+     </Dialog>
+   );
+Index: interactive-comments-section/src/types.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import data from './data.json';\r\n\r\ntype Data = typeof data;\r\n\r\nexport type User = {\r\n  username: string;\r\n  email: string;\r\n  image: string;\r\n};\r\n\r\nexport type Mentions = { user: User }[];\r\n\r\nexport type Comment = Omit<Data['comments']['0'], 'user'> & {\r\n  user: User;\r\n  votes: Votes;\r\n  mentions: Mentions;\r\n};\r\n\r\nexport type Votes = [{ amount: -1 | 1 }];\r\n\r\nexport type Reply = Comment & { parentCommentId: string; parentReplyId: string };\r\n\r\nexport type CommentOrReply = Comment & Reply & { hasReplies: boolean };\r\n\r\nexport type CommentsOrReplies = (CommentOrReply & { replies: CommentsOrReplies })[];\r\n\r\nexport type RepliesOf = Record<string, CommentOrReply[]>;\r\n\r\nexport type Credentials = Readonly<{ email: string; password: string }>;\r\n\r\nexport type Notification = {\r\n  id: string;\r\n  action: string;\r\n  type: string;\r\n  seen: boolean;\r\n  createdAt: string;\r\n  updatedAt: string;\r\n  userId: string;\r\n  targetId: string;\r\n  targetOwnerId: string;\r\n  content: string;\r\n  comment: {\r\n    content: string;\r\n  };\r\n  reply: {\r\n    content: string;\r\n  };\r\n};\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/interactive-comments-section/src/types.ts b/interactive-comments-section/src/types.ts
+--- a/interactive-comments-section/src/types.ts	(revision c135006b945493a9affd999f73addf2225c82431)
++++ b/interactive-comments-section/src/types.ts	(date 1686344872773)
+@@ -30,8 +30,8 @@
+ 
+ export type Notification = {
+   id: string;
+-  action: string;
+-  type: string;
++  action: 'reply' | 'vote' | 'mention';
++  type: 'comment' | 'reply';
+   seen: boolean;
+   createdAt: string;
+   updatedAt: string;
+@@ -39,6 +39,10 @@
+   targetId: string;
+   targetOwnerId: string;
+   content: string;
++  user: {
++    username: string;
++    image: string;
++  };
+   comment: {
+     content: string;
+   };
+Index: gallery/src/data/projects.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/launch-countdown-timer/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://mahmoudacm.github.io/frontend-mentor/launch-countdown-timer\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/launch-countdown-timer\"\r\n  },\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/interactive-comments-section/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://mahmoudacm.github.io/frontend-mentor/interactive-comments-section/dist/\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/interactive-comments-section\"\r\n  },\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/interactive-card-details-form/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://mahmoudacm.github.io/frontend-mentor/interactive-card-details-form/\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/interactive-card-details-form\"\r\n  },\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/rock-paper-scissors/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://mahmoudacm.github.io/frontend-mentor/rock-paper-scissors/dist\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/rock-paper-scissors\"\r\n  },\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/static-job-listings/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://mahmoudacm.github.io/frontend-mentor/static-job-listings/dist\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/static-job-listings\"\r\n  },\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/bookmark-landing-page/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://mahmoudacm.github.io/frontend-mentor/bookmark-landing-page/dist\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/bookmark-landing-page\"\r\n  },\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/rest-countries-api-with-color-theme-switcher/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://mahmoudacm.github.io/frontend-mentor/rest-countries-api-with-color-theme-switcher/dist/#/countries\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/rest-countries-api-with-color-theme-switcher\"\r\n  },\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/multi-step-form/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://mahmoudacm.github.io/frontend-mentor/multi-step-form/dist\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/multi-step-form\"\r\n  },\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/ip-address-tracker/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://mahmoudacm.github.io/frontend-mentor/ip-address-tracker/dist\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/ip-address-tracker\"\r\n  },\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/space-tourism-website/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://space-tourism-website-mahmoudtarek-bldai.vercel.app/\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/space-tourism-website\"\r\n  },\r\n  {\r\n    \"src\": \"https://mahmoudacm.github.io/frontend-mentor/calculator-app/design/screenshot.png\",\r\n    \"livePreviewLink\": \"https://mahmoudacm.github.io/frontend-mentor/calculator-app/dist/\",\r\n    \"sourceCodeLink\": \"https://github.com/mahmoudAcm/frontend-mentor/tree/master/calculator-app\"\r\n  }\r\n]
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gallery/src/data/projects.json b/gallery/src/data/projects.json
+--- a/gallery/src/data/projects.json	(revision c135006b945493a9affd999f73addf2225c82431)
++++ b/gallery/src/data/projects.json	(date 1686585430731)
+@@ -53,5 +53,10 @@
+     "src": "https://mahmoudacm.github.io/frontend-mentor/calculator-app/design/screenshot.png",
+     "livePreviewLink": "https://mahmoudacm.github.io/frontend-mentor/calculator-app/dist/",
+     "sourceCodeLink": "https://github.com/mahmoudAcm/frontend-mentor/tree/master/calculator-app"
++  },
++  {
++    "src": "https://mahmoudacm.github.io/frontend-mentor/intro-section-with-dropdown-navigation/design/screenshot.png",
++    "livePreviewLink": "https://mahmoudacm.github.io/frontend-mentor/intro-section-with-dropdown-navigation/dist/",
++    "sourceCodeLink": "https://github.com/mahmoudAcm/frontend-mentor/tree/master/intro-section-with-dropdown-navigation"
+   }
+ ]
+\ No newline at end of file
+Index: interactive-comments-section/src/components/Notifications/Notification.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { Avatar, Box, ListItem, styled, Typography } from '@mui/material';\r\nimport Badge from '@mui/material/Badge';\r\nimport moment from 'moment/moment';\r\n\r\nconst NotificationRoot = styled(Box)(({ theme }) => ({\r\n  minHeight: '80px',\r\n  padding: '20px 17px 18px',\r\n  display: 'flex',\r\n  gap: '19px',\r\n  borderRadius: '8px',\r\n  [theme.breakpoints.down('md')]: {\r\n    padding: '16px',\r\n    gap: '13px'\r\n  }\r\n}));\r\n\r\nconst PersonAvatar = styled(Avatar)(({ theme }) => ({\r\n  width: '45px',\r\n  height: '45px',\r\n  border: '1px solid rgba(0, 0, 0, 0.0464)',\r\n  [theme.breakpoints.down('md')]: {\r\n    width: '39px',\r\n    height: '39px'\r\n  }\r\n}));\r\n\r\nconst Text = styled(Typography)(({ theme }) => ({\r\n  fontFamily: 'var(--plus-jakarta-font)',\r\n  lineHeight: 1.26,\r\n  alignItems: 'center',\r\n  breakWord: 'break-all',\r\n  '& span:nth-of-type(2)': {\r\n    marginLeft: '7px',\r\n    marginRight: '7px'\r\n  },\r\n  '& span:nth-of-type(3)': {\r\n    marginRight: '7px'\r\n  },\r\n  [theme.breakpoints.down('md')]: {\r\n    fontSize: '0.875rem'\r\n  }\r\n}));\r\n\r\nconst Time = styled(Typography)(({ theme }) => ({\r\n  fontFamily: 'var(--plus-jakarta-font)',\r\n  lineHeight: 1.26,\r\n  color: 'rgba(147, 156, 173, 1)',\r\n  marginTop: '3px',\r\n  [theme.breakpoints.down('md')]: {\r\n    fontSize: '0.875rem'\r\n  }\r\n}));\r\n\r\nconst StyledBadge = styled(Badge)(() => ({\r\n  '& .MuiBadge-badge': {\r\n    background: 'rgba(246, 85, 82, 1)'\r\n  }\r\n}));\r\n\r\nconst mapActionAndReplyToText = (action: string, type: 'comment' | 'reply') => {\r\n  if (action === 'reply') return `replied on your ${type}`;\r\n  if (action === 'vote') return `reacted to your ${type}`;\r\n  if (action === 'mention') return `mentioned you on this ${type}`;\r\n};\r\n\r\ninterface NotificationProps {\r\n  seen?: boolean;\r\n  type: 'comment' | 'reply';\r\n  action: 'reply' | 'vote' | 'mention';\r\n  content: string;\r\n  createdAt: number;\r\n  user: {\r\n    image: string;\r\n    username: string;\r\n  };\r\n}\r\n\r\nexport default function Notification(props: NotificationProps) {\r\n  return (\r\n    <ListItem\r\n      sx={{ p: 0, background: props.seen ? undefined : 'rgba(247, 250, 253, 1)' }}\r\n      aria-label={`${props.user.username} ${mapActionAndReplyToText(props.action, props.type)} ${props.content}`}\r\n      tabIndex={0}\r\n    >\r\n      <NotificationRoot component='article'>\r\n        <PersonAvatar src={props.user.image} alt={`${props.user.username} profile picture`} />\r\n        <Box>\r\n          <Text>\r\n            <span style={{ fontWeight: 800, color: 'rgba(28, 32, 43, 1)' }}>{props.user.username}</span>\r\n            <span style={{ color: 'rgba(94, 103, 120, 1)' }}>{mapActionAndReplyToText(props.action, props.type)}</span>\r\n            <span\r\n              style={{\r\n                fontWeight: 800,\r\n                color: 'rgba(94, 103, 120, 1)',\r\n                cursor: 'pointer'\r\n              }}\r\n            >\r\n              {props.content}\r\n            </span>\r\n            {props.seen ? <></> : <StyledBadge variant='dot' />}\r\n          </Text>\r\n          <Time>{moment(props.createdAt).fromNow()}</Time>\r\n        </Box>\r\n      </NotificationRoot>\r\n    </ListItem>\r\n  );\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/interactive-comments-section/src/components/Notifications/Notification.tsx b/interactive-comments-section/src/components/Notifications/Notification.tsx
+--- a/interactive-comments-section/src/components/Notifications/Notification.tsx	(revision c135006b945493a9affd999f73addf2225c82431)
++++ b/interactive-comments-section/src/components/Notifications/Notification.tsx	(date 1686344916780)
+@@ -68,7 +68,7 @@
+   type: 'comment' | 'reply';
+   action: 'reply' | 'vote' | 'mention';
+   content: string;
+-  createdAt: number;
++  createdAt: string;
+   user: {
+     image: string;
+     username: string;
+Index: interactive-comments-section/src/pages/app.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import Head from 'next/head';\r\nimport CommentOrReplay from '@/src/components/Comment';\r\nimport { Box } from '@mui/material';\r\nimport Form from '@/src/components/Comment/Form';\r\nimport { useEffect } from 'react';\r\nimport Replies from '@/src/components/Comment/Replies';\r\nimport { useAppDispatch } from '@/src/store';\r\nimport { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';\r\nimport useCommentsOrRepliesSelector from '@/src/hooks/useCommentsOrRepliesSelector';\r\nimport Empty from '@/src/components/Empty';\r\nimport LoadingScreen from '@/src/components/Comment/LoadingScreen';\r\n\r\nfunction Home() {\r\n  const { comments } = useCommentsOrRepliesSelector();\r\n  const dispatch = useAppDispatch();\r\n\r\n  useEffect(() => {\r\n    if (!comments.length) dispatch(commentsOrRepliesActions.getComments()).then();\r\n    // eslint-disable-next-line\r\n  }, [dispatch]);\r\n\r\n  if (!comments.length) return <Empty />;\r\n\r\n  return (\r\n    <>\r\n      <Head>\r\n        <title>Frontend Mentor | Interactive comments section </title>\r\n      </Head>\r\n      <LoadingScreen />\r\n      {comments.map(comment => (\r\n        <Box key={comment.id}>\r\n          <CommentOrReplay\r\n            id={comment.id}\r\n            type='comment'\r\n            content={comment.content}\r\n            createdAt={comment.createdAt}\r\n            username={comment.user.username}\r\n            avatar={comment.user.image}\r\n            score={comment.score}\r\n            parentCommentId={comment.parentCommentId}\r\n            parentReplyId={comment.parentReplyId}\r\n            votes={comment.votes}\r\n            mentions={comment.mentions}\r\n          />\r\n          <Replies parentCommentOrReplyId={comment.id} lvl={1} />\r\n        </Box>\r\n      ))}\r\n      <Form type='comment' />\r\n    </>\r\n  );\r\n}\r\n\r\nHome.authGuard = true;\r\n\r\nexport default Home;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/interactive-comments-section/src/pages/app.tsx b/interactive-comments-section/src/pages/app.tsx
+--- a/interactive-comments-section/src/pages/app.tsx	(revision c135006b945493a9affd999f73addf2225c82431)
++++ b/interactive-comments-section/src/pages/app.tsx	(date 1686397437856)
+@@ -9,6 +9,7 @@
+ import useCommentsOrRepliesSelector from '@/src/hooks/useCommentsOrRepliesSelector';
+ import Empty from '@/src/components/Empty';
+ import LoadingScreen from '@/src/components/Comment/LoadingScreen';
++import Image from 'next/image';
+ 
+ function Home() {
+   const { comments } = useCommentsOrRepliesSelector();
+Index: interactive-comments-section/prisma/schema.prisma
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>datasource db {\r\n  provider     = \"mysql\"\r\n  url          = env(\"DEV_DATABASE_URL\")\r\n  relationMode = \"prisma\"\r\n}\r\n\r\ngenerator client {\r\n  provider = \"prisma-client-js\"\r\n}\r\n\r\nmodel User {\r\n  id            String         @id @default(cuid())\r\n  username      String         @unique\r\n  email         String         @unique\r\n  password      String\r\n  emailVerified DateTime?\r\n  image         String?\r\n  comments      Comment[]\r\n  replies       Reply[]\r\n  votes         Vote[]\r\n  notifications Notification[]\r\n  mentions      Mention[]\r\n\r\n  @@index([username])\r\n}\r\n\r\nmodel Comment {\r\n  id            String         @id @default(cuid())\r\n  userId        String\r\n  content       String         @db.LongText()\r\n  score         Int            @default(0)\r\n  createdAt     DateTime       @default(now())\r\n  updatedAt     DateTime       @updatedAt\r\n  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)\r\n  replies       Reply[]\r\n  votes         Vote[]\r\n  notifications Notification[]\r\n  mentions      Mention[]\r\n\r\n  @@unique([userId, id])\r\n  @@index([id])\r\n}\r\n\r\nmodel Reply {\r\n  id              String         @id @default(cuid())\r\n  content         String         @db.LongText()\r\n  createdAt       DateTime       @default(now())\r\n  updatedAt       DateTime       @updatedAt\r\n  parentCommentId String?\r\n  parentReplyId   String?\r\n  score           Int            @default(0)\r\n  parentComment   Comment?       @relation(fields: [parentCommentId], references: [id], onDelete: Cascade)\r\n  parentReply     Reply?         @relation(\"NestedReply\", fields: [parentReplyId], references: [id], onDelete: NoAction, onUpdate: NoAction)\r\n  replies         Reply[]        @relation(\"NestedReply\")\r\n  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)\r\n  userId          String\r\n  votes           Vote[]\r\n  notifications   Notification[]\r\n  mentions        Mention[]\r\n\r\n  @@unique([userId, id])\r\n  @@index([id])\r\n  @@index([parentCommentId])\r\n  @@index([parentReplyId])\r\n}\r\n\r\nmodel Vote {\r\n  id        String   @id @default(cuid())\r\n  amount    Int\r\n  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)\r\n  commentId String?\r\n  reply     Reply?   @relation(fields: [replyId], references: [id], onDelete: Cascade)\r\n  replyId   String?\r\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\r\n  userId    String\r\n\r\n  @@unique([userId, commentId])\r\n  @@unique([userId, replyId])\r\n  @@index([id])\r\n  @@index([commentId])\r\n  @@index([replyId])\r\n}\r\n\r\nmodel Notification {\r\n  id            String   @id @default(cuid())\r\n  action        Actions\r\n  type          Types\r\n  seen          Boolean  @default(false)\r\n  createdAt     DateTime @default(now())\r\n  updatedAt     DateTime @updatedAt\r\n  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)\r\n  userId        String\r\n  comment       Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)\r\n  reply         Reply?   @relation(fields: [replyId], references: [id], onDelete: Cascade)\r\n  commentId     String?\r\n  replyId       String?\r\n  targetId      String\r\n  targetOwnerId String\r\n\r\n  @@index([id])\r\n  @@index([userId])\r\n  @@index([commentId])\r\n  @@index([replyId])\r\n}\r\n\r\nenum Actions {\r\n  reply\r\n  vote\r\n  mention\r\n}\r\n\r\nenum Types {\r\n  comment\r\n  reply\r\n}\r\n\r\nmodel Mention {\r\n  id        String   @id @default(cuid())\r\n  createdAt DateTime @default(now())\r\n  updatedAt DateTime @updatedAt\r\n  user      User?    @relation(fields: [username], references: [username], onDelete: Cascade)\r\n  username  String\r\n  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)\r\n  reply     Reply?   @relation(fields: [replyId], references: [id], onDelete: Cascade)\r\n  commentId String?\r\n  replyId   String?\r\n\r\n  @@index([username])\r\n  @@index([commentId])\r\n  @@index([replyId])\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/interactive-comments-section/prisma/schema.prisma b/interactive-comments-section/prisma/schema.prisma
+--- a/interactive-comments-section/prisma/schema.prisma	(revision c135006b945493a9affd999f73addf2225c82431)
++++ b/interactive-comments-section/prisma/schema.prisma	(date 1686345517338)
+@@ -1,6 +1,6 @@
+ datasource db {
+   provider     = "mysql"
+-  url          = env("DEV_DATABASE_URL")
++  url          = env("PROD_DATABASE_URL")
+   relationMode = "prisma"
+ }
+ 
+Index: interactive-comments-section/src/components/Layout.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { Box, Container, styled } from '@mui/material';\r\nimport { ReactNode } from 'react';\r\nimport DeleteDialog from '@/src/components/Comment/DeleteDialog';\r\nimport Header from '@/src/components/Header';\r\nimport AddCommentDialog__unstable from '@/src/components/AddCommentDialog__unstable';\r\nimport Footer from '@/src/components/Footer';\r\nimport { useRouter } from 'next/router';\r\n\r\nconst StyledContainer = styled(Container)(({ theme }) => ({\r\n  [theme.breakpoints.down('md')]: {\r\n    '&.notification-container': {\r\n      paddingLeft: 0,\r\n      paddingRight: 0,\r\n      '& .layout': {\r\n        marginTop: 0,\r\n        marginBottom: 0,\r\n        maxWidth: '100%'\r\n      }\r\n    }\r\n  }\r\n}));\r\n\r\nexport const LayoutRoot = styled(Box)(({ theme }) => ({\r\n  display: 'grid',\r\n  maxWidth: '730px',\r\n  gap: '20px',\r\n  justifyContent: 'center',\r\n  margin: '64px auto',\r\n  marginBottom: '40px',\r\n  gridTemplateColumns: '1fr',\r\n  position: 'relative',\r\n  [theme.breakpoints.down('md')]: {\r\n    margin: '32px auto',\r\n    marginBottom: '40px'\r\n  }\r\n}));\r\n\r\nexport default function Layout({ children }: { children: ReactNode }) {\r\n  const router = useRouter();\r\n\r\n  return (\r\n    <>\r\n      <Header />\r\n      <StyledContainer className={router.route === '/notifications' ? 'notification-container' : undefined}>\r\n        <LayoutRoot className='layout'>{children}</LayoutRoot>\r\n        {router.route === '/notifications' ? <></> : <Footer />}\r\n      </StyledContainer>\r\n      <DeleteDialog />\r\n      <AddCommentDialog__unstable />\r\n    </>\r\n  );\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/interactive-comments-section/src/components/Layout.tsx b/interactive-comments-section/src/components/Layout.tsx
+--- a/interactive-comments-section/src/components/Layout.tsx	(revision c135006b945493a9affd999f73addf2225c82431)
++++ b/interactive-comments-section/src/components/Layout.tsx	(date 1686402249574)
+@@ -5,6 +5,7 @@
+ import AddCommentDialog__unstable from '@/src/components/AddCommentDialog__unstable';
+ import Footer from '@/src/components/Footer';
+ import { useRouter } from 'next/router';
++import Image from 'next/image';
+ 
+ const StyledContainer = styled(Container)(({ theme }) => ({
+   [theme.breakpoints.down('md')]: {
+@@ -47,6 +48,16 @@
+       </StyledContainer>
+       <DeleteDialog />
+       <AddCommentDialog__unstable />
++      <Box
++        sx={{
++          position: 'fixed',
++          inset: 0,
++          backgroundImage: 'url(/images/illiesteration/bg.svg)',
++          backgroundSize: 'cover',
++          backgroundPosition: 'center',
++          zIndex: -1
++        }}
++      ></Box>
+     </>
+   );
+ }

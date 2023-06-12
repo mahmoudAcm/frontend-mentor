@@ -4,83 +4,112 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="building challenges home page.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/.prettierrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/.vscode/extensions.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/design/active-states.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/design/desktop-design.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/design/desktop-modal.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/design/desktop-preview.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/design/mobile-design.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/design/mobile-modal.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/design/screenshot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/assets/index.2041e2db.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/assets/index.dc15c569.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/avatars/image-amyrobson.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/avatars/image-amyrobson.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/avatars/image-juliusomo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/avatars/image-juliusomo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/avatars/image-maxblagun.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/avatars/image-maxblagun.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/avatars/image-ramsesmiron.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/avatars/image-ramsesmiron.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/favicon-32x32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/icon-delete.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/icon-edit.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/icon-minus.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/icon-plus.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/images/icon-reply.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/dist/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/avatars/image-amyrobson.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/avatars/image-amyrobson.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/avatars/image-juliusomo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/avatars/image-juliusomo.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/avatars/image-maxblagun.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/avatars/image-maxblagun.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/avatars/image-ramsesmiron.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/avatars/image-ramsesmiron.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/favicon-32x32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/icon-delete.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/icon-edit.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/icon-minus.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/icon-plus.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/images/icon-reply.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/postcss.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/comment-actions.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/comment-form.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/comment-header.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/comment.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/context.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/data.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/delete-modal.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/format-time-to-relative.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/hooks/useMaxWidth.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/icons/BaseIcon.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/icons/delete.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/icons/edit.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/icons/minus.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/icons/plus.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/icons/replay.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/main.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/vite-env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/vote-btn.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/style-guide.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/tailwind.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/vite.config.ts" beforeDir="false" />
+    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="building the home page.">
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/active-states.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/desktop-design.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/desktop-preview.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/mobile-design.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/mobile-menu-collapsed.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/mobile-menu-expanded.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/screenshot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/assets/index-add946f0.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/assets/index-c3ec1e2b.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/favicon-32x32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/client-audiophile.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/client-databiz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/client-maker.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/client-meet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-arrow-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-arrow-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-calendar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-close-menu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-menu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-planning.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-reminders.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-todo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/image-hero-desktop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/image-hero-mobile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/postcss.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/favicon-32x32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/client-audiophile.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/client-databiz.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/client-maker.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/client-meet.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-arrow-down.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-arrow-up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-calendar.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-close-menu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-menu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-planning.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-reminders.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-todo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/image-hero-desktop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/image-hero-mobile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/App.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/comp.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/CompanyMenu.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/Drawer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/FeaturesMenu.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/Header.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/Home.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/Menu.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/main.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/vite-env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/style-guide.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/tailwind.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/tsconfig.node.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/vite.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230513184852_init_0/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230514082959_init_1/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230515195415_init_4/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230515195503_init_4/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230516120106_init_5/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230516141855_init_7/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230517092702_init_8/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230517092833_init_10/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230517094308_init_11/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230522142155_init_13/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230522172400_init_14/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230523124324_init_15/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230523174253_init_16/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230527195318_init_17/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230527202350_init_18/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230528102425_init_19/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230528192013_init_20/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230528194234_init_21/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230602195306_init_22/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230602195750_init_22/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230602201313_init_23/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230602213932_init_23/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230602214232_init_23/migration.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/migration_lock.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/components/Comment/DeleteDialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/components/Comment/DeleteDialog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/components/DemoUsers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/components/DemoUsers.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/components/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/components/Notifications/Notification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/components/Notifications/Notification.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/pages/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/pages/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -130,6 +159,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "interactive-comments-section",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/frontend/frontend-mentor/interactive-comments-section",
     "list.type.of.created.stylesheet": "CSS",
@@ -139,7 +169,7 @@
     "nodejs_package_manager_path": "yarn",
     "prettierjs.PrettierConfiguration.Package": "D:\\frontend\\frontend-mentor\\space-tourism-website\\node_modules\\prettier",
     "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "D:\\frontend\\frontend-mentor\\gallery\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "D:\\frontend\\frontend-mentor\\interactive-comments-section\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -154,6 +184,9 @@
       <recent name="D:\frontend\frontend-mentor\gallery\public" />
       <recent name="D:\frontend\frontend-mentor\gallery\public\assets" />
     </key>
+  </component>
+  <component name="ShelveChangesManager">
+    <option name="remove_strategy" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -185,6 +218,9 @@
       <workItem from="1681784643428" duration="1416000" />
       <workItem from="1682595125562" duration="6000" />
       <workItem from="1682595196487" duration="204000" />
+      <workItem from="1686585367350" duration="211000" />
+      <workItem from="1686585633420" duration="4000" />
+      <workItem from="1686585705814" duration="288000" />
     </task>
     <task id="LOCAL-00002" summary="Merged the 'nextJs' branch into the 'master' branch.">
       <created>1681272326905</created>
@@ -235,7 +271,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681619316975</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="building the home page.">
+      <created>1686586000496</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1686586000496</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,6 +316,7 @@
     <MESSAGE value="I have finished the project components, designed the app layout, and incorporated accessibility features." />
     <MESSAGE value="changing page title and adding favicon." />
     <MESSAGE value="building challenges home page." />
-    <option name="LAST_COMMIT_MESSAGE" value="building challenges home page." />
+    <MESSAGE value="building the home page." />
+    <option name="LAST_COMMIT_MESSAGE" value="building the home page." />
   </component>
 </project>
