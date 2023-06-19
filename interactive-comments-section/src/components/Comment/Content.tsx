@@ -1,4 +1,4 @@
-import { Box, FormControl, FormHelperText, Link, styled } from '@mui/material';
+import { Box, Button, FormControl, FormHelperText, Link, styled } from '@mui/material';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import Linkify from 'linkify-react';
@@ -142,10 +142,13 @@ export default function Content() {
             </Mentions>
             <FormHelperText>{errors.content?.message}</FormHelperText>
           </FormControl>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+            <Button sx={{ mt: '16px', padding: '12px 21px 12px 20px', mr: '16px' }} onClick={closeEdit}>
+              Cancel
+            </Button>
             <LoadingButton
               variant='contained'
-              sx={{ marginLeft: 'auto', marginTop: '16px', padding: '12px 21px 12px 20px' }}
+              sx={{ mt: '16px', padding: '12px 21px 12px 20px' }}
               type='submit'
               loading={isSubmitting}
             >

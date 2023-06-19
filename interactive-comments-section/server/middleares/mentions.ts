@@ -54,6 +54,15 @@ export async function createMentions(req: NextApiRequest, payload: Payload, meta
     }
   }
 
+  const targetId = [(payload as any).commentId, (payload as any).repayId].filter(Boolean).join('');
+
+  await prisma.notification.deleteMany({
+    where: {
+      targetId,
+      action: 'mention'
+    }
+  });
+
   const notifications: Notification[] = [];
   for (const mention of __mentions) {
     const notification = (await createNotifications({
@@ -61,7 +70,7 @@ export async function createMentions(req: NextApiRequest, payload: Payload, meta
       ...meta,
       action: 'mention',
       type: (payload as any).commentId ? 'comment' : 'reply',
-      targetId: [(payload as any).commentId, (payload as any).repayId].filter(Boolean).join(''),
+      targetId,
       targetOwnerId: mention.user!.id
     })) as unknown as Notification;
 
