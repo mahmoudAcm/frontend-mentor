@@ -53,7 +53,7 @@ export async function signIn(req: NextApiRequest, res: NextApiResponse) {
     logger.error(error);
     if (error instanceof HTTPNotAuthorizedError) return res.status(401).json(error.getError());
     if (error instanceof PrismaClientKnownRequestError) {
-      if (error.code === 'P2025') res.status(404).json({ message: 'This email was not found' });
+      if (error.code === 'P2025') return res.status(404).json({ message: 'This email was not found' });
     }
     res.status(401).json({ message: error.message });
   }

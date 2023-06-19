@@ -1,6 +1,7 @@
 import { Avatar, Box, ListItem, styled, Typography } from '@mui/material';
 import Badge from '@mui/material/Badge';
 import moment from 'moment/moment';
+import useNotificationsSelector from '@/src/hooks/useNotificationsSelector';
 
 const NotificationRoot = styled(Box)(({ theme }) => ({
   minHeight: '80px',
@@ -57,6 +58,47 @@ const StyledBadge = styled(Badge)(() => ({
   }
 }));
 
+export function WelcomeMessage() {
+  const { isFetching } = useNotificationsSelector();
+  if (isFetching) return <></>;
+  return (
+    <Box sx={{ p: 0, borderRadius: '8px', userSelect: 'none' }} tabIndex={0}>
+      <NotificationRoot component='article'>
+        <PersonAvatar
+          src='/images/avatars/community.png'
+          alt='community profile picture'
+          sx={{ borderColor: 'transparent' }}
+        />
+        <Box sx={{ display: 'grid', gap: '20px' }}>
+          <Text>🎉 Welcome to our community! 🎉</Text>
+          {/*Error:(76, 58) ESLint: `'` can be escaped with `&amp;apos;`, `&amp;lsquo;`, `&amp;#39;`, `&amp;rsquo;`.*/}
+          {/*(react/no-unescaped-entities)*/}
+          <Text>
+            We are thrilled to have you join us! Whether you&apos;re a new member or returning, we want to extend a warm
+            welcome to you.
+          </Text>
+          <Text>
+            This is a place where you can connect with like-minded individuals, share ideas, and explore new horizons.
+            Our diverse community is filled with people from various backgrounds, all coming together to learn and grow.
+          </Text>
+          <Text>
+            Feel free to ask questions, seek advice, or start conversations on any topic that interests you. Our goal is
+            to foster a supportive and inclusive environment where everyone&apos;s voice is valued.
+          </Text>
+          <Text>
+            Once again, welcome! We hope you have a fantastic time here and forge lasting connections. Let the journey
+            begin!
+          </Text>
+          <Text>
+            <Text>Best regards,</Text>
+            <Text>Frontend Mentor</Text>
+          </Text>
+        </Box>
+      </NotificationRoot>
+    </Box>
+  );
+}
+
 const mapActionAndReplyToText = (action: string, type: 'comment' | 'reply') => {
   if (action === 'reply') return `replied on your ${type}`;
   if (action === 'vote') return `reacted to your ${type}`;
@@ -68,7 +110,7 @@ interface NotificationProps {
   type: 'comment' | 'reply';
   action: 'reply' | 'vote' | 'mention';
   content: string;
-  createdAt: number;
+  createdAt: string;
   user: {
     image: string;
     username: string;
@@ -78,7 +120,12 @@ interface NotificationProps {
 export default function Notification(props: NotificationProps) {
   return (
     <ListItem
-      sx={{ p: 0, background: props.seen ? undefined : 'rgba(247, 250, 253, 1)' }}
+      sx={{
+        p: 0,
+        background: props.seen ? undefined : 'rgba(247, 250, 253, 1)',
+        borderRadius: '8px',
+        userSelect: 'none'
+      }}
       aria-label={`${props.user.username} ${mapActionAndReplyToText(props.action, props.type)} ${props.content}`}
       tabIndex={0}
     >

@@ -24,7 +24,7 @@ const StyledMenuItem = styled(MenuItem)(() => ({
   }
 }));
 
-export default function UserDropDown() {
+export default function UserDropDown__unstable() {
   const [anchorEl, setAnchorEl] = useState<HTMLSpanElement | null>(null);
   const open = Boolean(anchorEl);
   const { user, logout } = useAuthContext();

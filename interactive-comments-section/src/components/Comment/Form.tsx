@@ -10,6 +10,7 @@ import useSocketContext from '@/src/hooks/useSocketContext';
 import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import Mentions from '@/src/components/Mentions';
+import useCommentsOrRepliesSelector from '@/src/hooks/useCommentsOrRepliesSelector';
 
 const FormRoot = styled('form')(({ theme }) => ({
   maxWidth: '730px',
@@ -103,6 +104,7 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
   const dispatch = useAppDispatch();
   const { emit, notify, notifyMentionedUsers } = useSocketContext();
   const [isSubmitting, setSubmitting] = useState(false);
+  const { isFetching } = useCommentsOrRepliesSelector();
 
   const inputProps = register('content');
 
@@ -189,6 +191,7 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
         sx={{ padding: '12px 30px 12px 31px' }}
         aria-label={mapTypeToButton[type]}
         type='submit'
+        disabled={isFetching}
         loading={isSubmitting}
       >
         {mapTypeToButton[type]}

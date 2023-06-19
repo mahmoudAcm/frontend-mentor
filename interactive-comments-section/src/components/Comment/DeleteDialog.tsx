@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import useSocketContext from '@/src/hooks/useSocketContext';
+import { LoadingButton } from '@mui/lab';
+import { useEffect, useRef, useState } from 'react';
 
 const mapTypeToMessage: Record<string, string> = {
   comment: 'comment',
@@ -22,11 +24,14 @@ export default function DeleteDialog() {
   } = useDialogsSelector();
   const dispatch = useAppDispatch();
   const { emit } = useSocketContext();
+  const [isSubmitting, setSubmitting] = useState(false);
+  const handleCloseTimeoutRef = useRef<any>(null);
 
   const handleClose = () => dispatch(dialogsActions.closeDialog(DIALOGS['DELETE_COMMENTS/DELETE_REPLIES']));
 
   const handleDelete = async () => {
     try {
+      setSubmitting(true);
       if (details.type !== 'comment') {
         const data = await dispatch(commentsOrRepliesActions.removeReply(details.id, details.type));
         emit(SOCKET_EVENTS.DEL_REPLY, data);
@@ -37,17 +42,25 @@ export default function DeleteDialog() {
         const data = await dispatch(commentsOrRepliesActions.removeComment(details.id));
         emit(SOCKET_EVENTS.DEL_COMMENT, data);
       }
-      handleClose();
+      handleCloseTimeoutRef.current = setTimeout(handleClose, 500);
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.warn(error.response?.data.message);
       }
+    } finally {
+      setSubmitting(false);
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (handleCloseTimeoutRef.current !== null) clearTimeout(handleCloseTimeoutRef.current);
+    };
+  }, []);
+
   return (
     <Dialog
-      open={open}
+      open={open || isSubmitting}
       maxWidth='xs'
       PaperProps={{
         sx: {
@@ -82,9 +95,17 @@ export default function DeleteDialog() {
         >
           NO, CANCEL
         </Button>
-        <Button variant='contained' color='secondary' fullWidth onClick={handleDelete}>
+        <LoadingButton
+          loading={isSubmitting}
+          startIcon={<></>}
+          loadingPosition='start'
+          variant='contained'
+          color='secondary'
+          fullWidth
+          onClick={handleDelete}
+        >
           YES, DELETE
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

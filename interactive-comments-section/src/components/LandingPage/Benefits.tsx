@@ -70,7 +70,7 @@ function Benefits() {
         />
         <Box sx={{ position: 'relative', m: 'auto' }}>
           <StyledImage
-            src='/images/illiesteration/top.png'
+            src='/images/illiesteration/Home-01.png'
             alt=''
             width={1155}
             height={1437}

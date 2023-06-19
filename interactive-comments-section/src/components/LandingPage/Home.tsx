@@ -214,7 +214,7 @@ function Home() {
           </LeftSide>
           <Illustration>
             <Image
-              src='/images/illiesteration/top.png'
+              src='/images/illiesteration/Home-02.png'
               alt=''
               width={1155}
               height={1437}

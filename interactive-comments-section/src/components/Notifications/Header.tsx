@@ -43,10 +43,11 @@ const MarkAllAsRead = styled(Typography)(({ theme }) => ({
   }
 }));
 
-const Badge = styled(Typography)(() => ({
+const Badge = styled(Typography)(({ theme }) => ({
   width: '32px',
   height: '25px',
-  background: 'rgba(10, 50, 123, 1)',
+  // background: 'rgba(10, 50, 123, 1)',
+  background: theme.palette.primary.main,
   borderRadius: '6px',
   fontFamily: 'var(--plus-jakarta-font)',
   lineHeight: 1.26,

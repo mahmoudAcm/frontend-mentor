@@ -3,9 +3,11 @@ import { CommentOrReply, CommentsOrReplies, Mentions, Notification, RepliesOf, R
 import { AppDispatch } from '@/src/store';
 import api from '@/src/axios';
 import mapNestedRepliesToRepliesOf from '@/src/libs/mapNestedRepliesToReplyOf';
+import sleep from '@/src/libs/sleep';
 
 type State = {
   isFetching: boolean;
+  isFetchingRepliesOf: boolean;
   comments: CommentOrReply[];
   repliesOf: RepliesOf;
   parents: Record<string, Reply>;
@@ -29,6 +31,7 @@ const slice = createSlice({
   name: 'commentsOrReplies',
   initialState: {
     isFetching: false,
+    isFetchingRepliesOf: false,
     comments: [],
     repliesOf: {},
     parents: {}
@@ -36,6 +39,9 @@ const slice = createSlice({
   reducers: {
     setIsFetching(state, action: PayloadAction<boolean>) {
       state.isFetching = action.payload;
+    },
+    setIsFetchingRepliesOf(state, action: PayloadAction<boolean>) {
+      state.isFetchingRepliesOf = action.payload;
     },
     setComments(state, action: PayloadAction<{ comments: CommentOrReply[]; repliesOf: RepliesOf }>) {
       state.comments = action.payload.comments;
@@ -45,7 +51,7 @@ const slice = createSlice({
     mergeRepliesOf(state, action: PayloadAction<{ repliesOf: RepliesOf; repliesParent: Reply }>) {
       Object.assign(state.repliesOf, action.payload.repliesOf);
       Object.assign(state.parents, { [action.payload.repliesParent.id]: action.payload.repliesParent });
-      state.isFetching = false;
+      state.isFetchingRepliesOf = false;
     },
     appendComment(state, action: PayloadAction<CommentOrReply>) {
       state.comments.push(action.payload);
@@ -121,6 +127,7 @@ function getComments() {
   return async (dispatch: AppDispatch) => {
     dispatch(slice.actions.setIsFetching(true));
     const response = await api.get<CommentsOrReplies>('/comments');
+    await sleep(500);
     dispatch(
       slice.actions.setComments({
         comments: response.data,
@@ -132,9 +139,10 @@ function getComments() {
 
 function getRepliesOf(parentCommentOrReplyId: string) {
   return async (dispatch: AppDispatch) => {
-    dispatch(slice.actions.setIsFetching(true));
+    dispatch(slice.actions.setIsFetchingRepliesOf(true));
     const response = await api.get<CommentsOrReplies['0']>('/repliesOf/' + parentCommentOrReplyId);
     const { replies, ...repliesParent } = response.data;
+    await sleep(500);
     dispatch(
       slice.actions.mergeRepliesOf({
         repliesOf: mapNestedRepliesToRepliesOf({}, [{ replies, ...repliesParent }], 1),

@@ -3,10 +3,10 @@ import prisma, { replySchema } from '../../prisma/client';
 import { isAuthenticated } from '../middleares/user';
 import logger from '@/src/pages/api/logger';
 import { Prisma } from '.prisma/client';
-import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import { HTTPNotAuthorizedError, HTTPNotFoundError } from '../libs/custom-errors';
 import { createMentions, editMentions } from '../middleares/mentions';
 import { createNotifications } from '../middleares/notifications';
+import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 
 export async function createReply(req: NextApiRequest, res: NextApiResponse) {
   try {

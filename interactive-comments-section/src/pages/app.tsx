@@ -7,7 +7,6 @@ import Replies from '@/src/components/Comment/Replies';
 import { useAppDispatch } from '@/src/store';
 import { commentsOrRepliesActions } from '@/src/slices/commentsOrReplies';
 import useCommentsOrRepliesSelector from '@/src/hooks/useCommentsOrRepliesSelector';
-import Empty from '@/src/components/Empty';
 import LoadingScreen from '@/src/components/Comment/LoadingScreen';
 
 function Home() {
@@ -19,32 +18,31 @@ function Home() {
     // eslint-disable-next-line
   }, [dispatch]);
 
-  if (!comments.length) return <Empty />;
-
   return (
     <>
       <Head>
         <title>Frontend Mentor | Interactive comments section </title>
       </Head>
       <LoadingScreen />
-      {comments.map(comment => (
-        <Box key={comment.id}>
-          <CommentOrReplay
-            id={comment.id}
-            type='comment'
-            content={comment.content}
-            createdAt={comment.createdAt}
-            username={comment.user.username}
-            avatar={comment.user.image}
-            score={comment.score}
-            parentCommentId={comment.parentCommentId}
-            parentReplyId={comment.parentReplyId}
-            votes={comment.votes}
-            mentions={comment.mentions}
-          />
-          <Replies parentCommentOrReplyId={comment.id} lvl={1} />
-        </Box>
-      ))}
+      {comments &&
+        comments.map(comment => (
+          <Box key={comment.id}>
+            <CommentOrReplay
+              id={comment.id}
+              type='comment'
+              content={comment.content}
+              createdAt={comment.createdAt}
+              username={comment.user.username}
+              avatar={comment.user.image}
+              score={comment.score}
+              parentCommentId={comment.parentCommentId}
+              parentReplyId={comment.parentReplyId}
+              votes={comment.votes}
+              mentions={comment.mentions}
+            />
+            <Replies parentCommentOrReplyId={comment.id} lvl={1} />
+          </Box>
+        ))}
       <Form type='comment' />
     </>
   );

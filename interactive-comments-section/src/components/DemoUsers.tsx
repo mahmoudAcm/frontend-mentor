@@ -11,12 +11,36 @@ import {
 } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import NextLink from 'next/link';
 import { LOCAL_STORAGE_KEYS } from '@/src/constants';
 import { useRouter } from 'next/router';
 import useAuthContext from '@/src/hooks/useAuthContext';
+import { toast } from 'react-toastify';
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  width: 'min(100%, 700px)',
+  boxShadow: 'var(--shadow)',
+  [theme.breakpoints.up('md')]: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    '& .MuiCardHeader-root': {
+      paddingTop: '20px'
+    }
+  },
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+    minHeight: '100vh',
+    paddingTop: 40
+  },
+  [theme.breakpoints.down('sm')]: {
+    '& .MuiCardContent-root, & .MuiCardHeader-root': {
+      paddingLeft: '16px',
+      paddingRight: '16px'
+    }
+  }
+}));
 
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
@@ -32,6 +56,7 @@ export default function DemoUsers() {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const { signin } = useAuthContext();
+  const signInTimeoutRef = useRef<any>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -43,25 +68,33 @@ export default function DemoUsers() {
   }, []);
 
   const handleSignIn = (user: string) => () => {
+    const toastId = toast('signin...', {
+      isLoading: true
+    });
     setUsername(user);
     localStorage.setItem(LOCAL_STORAGE_KEYS.DEMO_USER, user);
-    setTimeout(async () => {
+    signInTimeoutRef.current = setTimeout(async () => {
       try {
         await signin({ email: user + '@gmail.com', password: user });
       } catch (error) {
-        alert("You can't login in with demo users now try again later");
+        toast.update(toastId, {
+          type: 'info',
+          isLoading: false,
+          autoClose: 3000,
+          render: "You can't login in with demo users now try again later"
+        });
       }
     }, 500);
   };
 
+  useEffect(() => {
+    return () => {
+      if (signInTimeoutRef.current !== null) clearTimeout(signInTimeoutRef.current);
+    };
+  }, []);
+
   return (
-    <Card
-      sx={{
-        width: 'min(100%, 700px)',
-        mx: 'auto',
-        boxShadow: 'var(--shadow)'
-      }}
-    >
+    <StyledCard>
       <CardHeader
         sx={{ px: '24px' }}
         title={
@@ -121,6 +154,6 @@ export default function DemoUsers() {
           ))}
         </List>
       </CardContent>
-    </Card>
+    </StyledCard>
   );
 }

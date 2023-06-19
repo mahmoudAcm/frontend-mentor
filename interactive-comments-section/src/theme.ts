@@ -60,6 +60,7 @@ export default createTheme({
           '--shadow': 'rgba(0, 0, 0, 0.08) 0px 3px 14px',
           '--rubik-font': rubikFont.style.fontFamily,
           '--plus-jakarta-font': plusJakartaSansFont.style.fontFamily
+          // scrollbarGutter: 'stable'
         }
       }
     },

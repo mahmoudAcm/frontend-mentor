@@ -30,8 +30,8 @@ export type Credentials = Readonly<{ email: string; password: string }>;
 
 export type Notification = {
   id: string;
-  action: string;
-  type: string;
+  action: 'reply' | 'vote' | 'mention';
+  type: 'comment' | 'reply';
   seen: boolean;
   createdAt: string;
   updatedAt: string;
@@ -39,6 +39,10 @@ export type Notification = {
   targetId: string;
   targetOwnerId: string;
   content: string;
+  user: {
+    username: string;
+    image: string;
+  };
   comment: {
     content: string;
   };

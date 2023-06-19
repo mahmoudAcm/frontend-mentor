@@ -14,7 +14,7 @@ function Demo() {
   );
 }
 
-Demo.getLayout = (page: ReactNode) => <AuthLayout>{page}</AuthLayout>;
+Demo.getLayout = (page: ReactNode) => <AuthLayout className='demo'>{page}</AuthLayout>;
 
 Demo.guestGuard = true;
 

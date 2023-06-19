@@ -1,19 +1,41 @@
 import { Box, Container } from '@mui/material';
 import { ReactNode } from 'react';
+import { styled } from '@mui/material/styles';
 
-export default function AuthLayout({ children }: { children: ReactNode }) {
+const StyledContainer = styled(Container)(({ theme }) => ({
+  paddingTop: '30px',
+  paddingBottom: '30px',
+  '&.demo': {
+    [theme.breakpoints.down('md')]: {
+      padding: 0
+    }
+  }
+}));
+
+export default function AuthLayout({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <Container>
+    <>
       <Box
         sx={{
-          display: 'grid',
-          minHeight: '100vh',
-          alignItems: 'center',
-          py: '30px'
+          position: 'fixed',
+          inset: 0,
+          backgroundImage: 'url(/images/illiesteration/bg.svg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: -1
         }}
-      >
-        {children}
-      </Box>
-    </Container>
+      ></Box>
+      <StyledContainer className={className}>
+        <Box
+          sx={{
+            display: 'grid',
+            minHeight: '100vh',
+            alignItems: 'center'
+          }}
+        >
+          {children}
+        </Box>
+      </StyledContainer>
+    </>
   );
 }
