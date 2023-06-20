@@ -143,7 +143,11 @@ export default function Content() {
             <FormHelperText>{errors.content?.message}</FormHelperText>
           </FormControl>
           <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-            <Button sx={{ mt: '16px', padding: '12px 21px 12px 20px', mr: '16px' }} onClick={closeEdit}>
+            <Button
+              sx={{ mt: '16px', padding: '12px 21px 12px 20px', mr: '16px' }}
+              onClick={closeEdit}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
             <LoadingButton

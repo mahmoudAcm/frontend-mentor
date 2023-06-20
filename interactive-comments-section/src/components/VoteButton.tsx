@@ -42,12 +42,26 @@ export default function VoteButton() {
   const { emit, notify } = useSocketContext();
 
   const vote = (amount: -1 | 1) => async () => {
+    const toastId = toast('voting...', {
+      isLoading: true
+    });
     try {
       const data = await dispatch(commentsOrRepliesActions.vote(notify, id, type, amount, score, parentId!));
       emit(SOCKET_EVENTS.VOTE, data);
+      toast.update(toastId, {
+        type: 'success',
+        isLoading: false,
+        render: 'your vote has been applied',
+        autoClose: 5000
+      });
     } catch (error) {
       if (error instanceof AxiosError) {
-        toast.warn(error.response?.data.message);
+        toast.update(toastId, {
+          type: 'warning',
+          isLoading: false,
+          autoClose: 5000,
+          render: error.response?.data.message
+        });
       }
     }
   };
