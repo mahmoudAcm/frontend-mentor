@@ -1,8 +1,8 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import AuthLayout from '@/src/components/Auth/AuthLayout';
 import { AuthPaper, StyledFormControl, StyledInput, UploadButton } from '@/src/components/Auth';
-import { Alert, Avatar, FormHelperText, FormLabel, Link, Typography } from '@mui/material';
+import { Button, FormHelperText, FormLabel, Link, Typography } from '@mui/material';
 import NextLink from 'next/link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,13 +10,15 @@ import * as yup from 'yup';
 import { LoadingButton } from '@mui/lab';
 import api from '@/src/axios';
 import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+import AvatarEditor from 'react-avatar-editor';
 
 const schema = yup.object().shape({
   username: yup
     .string()
     .required("Can't be blank")
     .matches(
-      /^[a-z][a-z\d-_]{7,20}$/gi,
+      /^[a-z][a-z\d-_]{6,20}$/gi,
       'It should start with a letter and consist of 7 to 20 characters, which can be letters, digits, hyphens, or underscores'
     ),
   email: yup.string().email('It is not a valid email').required("Can't be blank"),
@@ -40,11 +42,11 @@ const schema = yup.object().shape({
 });
 
 function Signup() {
-  const [userCreated, setUserCreated] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     watch,
     formState: { errors }
@@ -59,7 +61,7 @@ function Signup() {
     mode: 'onSubmit'
   });
   const [image, setImage] = useState('');
-  const [error, setError] = useState('');
+  const imageRef = useRef<AvatarEditor | null>(null);
 
   const files = watch('image');
   useEffect(() => {
@@ -78,21 +80,18 @@ function Signup() {
   const onSubmit = async (data: { username: string; email: string; image: undefined; password: string }) => {
     try {
       setSubmitting(true);
-      await api.post('/auth/signup', { ...data, image });
-      setUserCreated(true);
-      setError('');
+      await api.post('/auth/signup', { ...data, image: imageRef.current?.getImage().toDataURL() ?? image });
       reset();
       setImage('');
+      toast.success('User has been created you may now sign in');
     } catch (error) {
       if (error instanceof AxiosError) {
-        return setError(error.response?.data.message);
+        return toast.error(error.response?.data.message);
       }
 
       if (error instanceof Error) {
-        return setError(error.message);
+        return toast.error(error.message);
       }
-
-      setUserCreated(false);
     } finally {
       setSubmitting(false);
     }
@@ -104,8 +103,6 @@ function Signup() {
         <title>Frontend Mentor | Sign Up</title>
       </Head>
       <AuthPaper sx={{ width: `min(100%, 310px)` }} elevation={0}>
-        {userCreated ? <Alert color='success'>User has been created successfully you may now sign in</Alert> : <></>}
-        {error ? <Alert color='error'>{error}</Alert> : <></>}
         {!image || errors.image?.message ? (
           <UploadButton id='image' error={errors.image?.message}>
             <StyledInput
@@ -118,10 +115,30 @@ function Signup() {
             />
           </UploadButton>
         ) : (
-          <Avatar alt='profile picture' src={image} sx={{ width: '100px', height: '100px', margin: 'auto' }} />
+          <>
+            <AvatarEditor
+              ref={editor => {
+                imageRef.current = editor;
+              }}
+              width={242}
+              height={200}
+              border={10}
+              image={image}
+              color={[235, 237, 248]}
+            />
+            <Button
+              sx={{ textTransform: 'none' }}
+              onClick={() => {
+                setImage('');
+                setValue('image', undefined);
+              }}
+            >
+              Clear Image
+            </Button>
+          </>
         )}
         <StyledFormControl fullWidth aria-label='Name' error={Boolean(errors.username?.message)}>
-          <FormLabel htmlFor='username'>Name</FormLabel>
+          <FormLabel htmlFor='username'> Name</FormLabel>
           <StyledInput
             placeholder='Jhon Smith'
             id='username'

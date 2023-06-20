@@ -9,7 +9,7 @@ import cloudinaryApi from 'cloudinary';
 import { Prisma } from '.prisma/client';
 import { ValidationError } from 'yup';
 import logger from '@/src/pages/api/logger';
-import { HTTPNotAuthorizedError } from '../libs/custom-errors';
+import { HTTPBadRequestError, HTTPNotAuthorizedError } from '../libs/custom-errors';
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 
 const cloudinary = cloudinaryApi.v2;
@@ -66,9 +66,17 @@ export async function signUp(req: NextApiRequest, res: NextApiResponse) {
     //validate the user
     await userSchema.validate(data);
 
-    const { url: image } = await cloudinary.uploader.upload(data.image);
-
     const hashedPassword = await bcrypt.hash(data.password, await genSalt());
+
+    const storedUser = await prisma.user.findUnique({ where: { username: data.username } });
+    if (storedUser) {
+      throw new HTTPBadRequestError();
+    }
+
+    const { url: image } = await cloudinary.uploader.upload(data.image, {
+      folder: '/ics/avatars'
+    });
+
     const user = await prisma.user.create({
       data: {
         ...data,
@@ -80,7 +88,7 @@ export async function signUp(req: NextApiRequest, res: NextApiResponse) {
     res.status(201).json(user);
   } catch (error: any) {
     logger.error(error);
-    if (error instanceof PrismaClientKnownRequestError)
+    if (error instanceof PrismaClientKnownRequestError || error instanceof HTTPBadRequestError)
       return res.status(400).json({ message: 'This email is already in use' });
 
     if (error instanceof ValidationError)

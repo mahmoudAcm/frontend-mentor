@@ -72,7 +72,7 @@ export default function UserProfileCard({ className, onClose }: { className?: st
   return (
     <UserProfileCardRoot className={className}>
       <Box className='image-bg'>
-        <Image src='/images/illiesteration/Rectangle 385.png' alt='bg' width='295' height='107' />
+        <Image src='/images/illiesteration/Rectangle 385.png' alt='bg' width='295' height='107' priority />
         <span
           role='button'
           aria-label='close menu'

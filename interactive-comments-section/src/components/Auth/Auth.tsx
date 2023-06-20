@@ -2,7 +2,6 @@ import { Box, FormControl, FormHelperText, FormLabel, Paper, styled, Typography 
 import SuccessIcon from '@/src/icons/Success';
 import InputBase from '@mui/material/InputBase';
 import { ReactNode } from 'react';
-import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 
 export const AuthPaper = styled(Paper)(() => ({
   padding: '24px',
@@ -52,23 +51,37 @@ export function UploadButton({ children, id, error }: { children: ReactNode; id:
       <FormLabel
         htmlFor={id}
         sx={{
-          width: '100px',
-          height: '100px',
-          borderRadius: '50%',
+          width: '100%',
+          height: '200px',
+          borderRadius: '4px',
           border: theme => `1px dashed ${theme.palette.primary.main}`,
           position: 'relative',
           cursor: 'pointer',
           margin: 'auto'
         }}
       >
-        <FileUploadOutlinedIcon
+        {/*<FileUploadOutlinedIcon*/}
+        {/*  fontSize='medium'*/}
+        {/*  sx={{*/}
+        {/*    margin: 'auto',*/}
+        {/*    position: 'absolute',*/}
+        {/*    inset: 0*/}
+        {/*  }}*/}
+        {/*  color='primary'*/}
+        {/*/>*/}
+        <Typography
+          variant='body1'
+          color='primary'
           sx={{
+            width: 'fit-content',
+            height: 'fit-content',
             margin: 'auto',
             position: 'absolute',
             inset: 0
           }}
-          color='primary'
-        />
+        >
+          Choose an image
+        </Typography>
       </FormLabel>
       {children}
       <FormHelperText sx={{ textAlign: 'center', color: theme => theme.palette.secondary.main }}>
