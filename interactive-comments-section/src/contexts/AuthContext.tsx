@@ -6,7 +6,13 @@ import * as yup from 'yup';
 import api from '@/src/axios';
 
 type Status = 'unauthenticated' | 'authenticated' | 'loading';
-export type User = { email: string; username: string; emailVerified?: boolean; image: any };
+export type User = {
+  email: string;
+  username: string;
+  emailVerified?: boolean;
+  image: any;
+  cookie: { expiresIn: Date };
+};
 
 export const AuthContext = createContext<{
   status: Status;
@@ -22,7 +28,7 @@ const userSchema = yup.object({
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [status, setStatus] = useState<Status>('loading');
-  const [user, setUser] = useState({ email: '', username: '', image: '' });
+  const [user, setUser] = useState<User>({ email: '', username: '', image: '', cookie: { expiresIn: new Date() } });
 
   const logout = useCallback(async () => {
     deleteCookie('next-token');

@@ -35,7 +35,7 @@ export async function signIn(req: NextApiRequest, res: NextApiResponse) {
       const { password, ...rest } = user;
       const expiresIn = new Date(Date.now() + MAX_AGE * 1000);
 
-      const token = jwt.sign({ id: user.id }, process.env.SECRET_OR_PRIVATE_KEY!, {
+      const token = jwt.sign({ id: user.id, expiresIn }, process.env.SECRET_OR_PRIVATE_KEY!, {
         expiresIn: '30d'
       });
 

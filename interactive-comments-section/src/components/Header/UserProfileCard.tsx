@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import RightArrowIcon from '@/src/icons/RightArrow';
 import { useRouter } from 'next/router';
 import CloseIcon from '@/src/icons/Close';
+import moment from 'moment';
 
 const robotoFonts = Roboto({
   weight: ['400', '500', '700'],
@@ -66,7 +67,11 @@ export default function UserProfileCard({ className, onClose }: { className?: st
   const router = useRouter();
   const {
     logout,
-    user: { username, image }
+    user: {
+      username,
+      image,
+      cookie: { expiresIn }
+    }
   } = useAuthContext();
 
   return (
@@ -93,7 +98,7 @@ export default function UserProfileCard({ className, onClose }: { className?: st
       />
       <Box sx={{ p: '24px', mt: '54px', pb: '14px' }} className='actions'>
         <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#111111' }}>
-          Your session will remain active until August 12, 2023.
+          Your session will remain active until {moment(expiresIn).format('LL')}.
         </Typography>
         <StyledButton
           fullWidth
