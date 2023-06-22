@@ -1,7 +1,7 @@
 import '@/src/styles/globals.css';
 import { EmotionCache } from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 import type { AppProps as DefaultAppProps } from 'next/app';
 import createEmotionCache from '../libs/createEmotionCache';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
@@ -76,18 +76,30 @@ const App: FunctionComponent<AppProps> = props => {
         <ThemeProvider theme={theme}>
           <Direction direction='ltr'>
             <CssBaseline />
-            <ToastContainer
-              position='bottom-left'
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme='light'
-            />
+            <Box
+              sx={{
+                '@media (max-width: 480px)': {
+                  '& .Toastify__toast-container': {
+                    width: 'calc(100vw - 2 * 16px)',
+                    mx: '16px',
+                    mb: '16px'
+                  }
+                }
+              }}
+            >
+              <ToastContainer
+                position='bottom-left'
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme='light'
+              />
+            </Box>
             <MainLoadingScreen loading={loading} />
             <AuthProvider>
               <Guard authGuard={authGuard} guestGuard={guestGuard}>

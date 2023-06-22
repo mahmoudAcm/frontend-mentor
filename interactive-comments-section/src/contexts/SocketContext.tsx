@@ -29,11 +29,13 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const dispatch = useAppDispatch();
   const {
+    status,
     user: { email },
     logout
   } = useAuthContext();
 
   useEffect(() => {
+    if (status !== 'authenticated') return;
     fetch('/api/socket').then(() => {
       setSocket(
         io({
@@ -41,7 +43,7 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
         })
       );
     });
-  }, []);
+  }, [status]);
 
   function onConnect() {
     console.log('client is online');
@@ -206,20 +208,22 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
   }, [email, emit]);
 
   useEffect(() => {
+    if (status !== 'authenticated') return;
     dispatch(notificationsActions.getNotifications()).catch(error => {
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) logout();
       }
     });
-  }, [dispatch, logout]);
+  }, [dispatch, logout, status]);
 
   useEffect(() => {
+    if (status !== 'authenticated') return;
     dispatch(usersActions.getFirst20Users()).catch(error => {
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) logout();
       }
     });
-  }, [dispatch, logout]);
+  }, [dispatch, logout, status]);
 
   return <SocketContext.Provider value={{ emit, notify, notifyMentionedUsers }}>{children}</SocketContext.Provider>;
 }

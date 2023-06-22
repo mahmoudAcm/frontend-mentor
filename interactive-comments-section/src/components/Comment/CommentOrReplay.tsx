@@ -1,4 +1,5 @@
-import { Avatar, Box, Chip, Paper, styled, Typography } from '@mui/material';
+import { Box, Chip, Paper, styled, Typography } from '@mui/material';
+import Avatar from '@/src/components/MuiAvatar';
 import VoteButton from '@/src/components/VoteButton';
 import Actions from '@/src/components/Comment/Actions';
 import Content from '@/src/components/Comment/Content';

@@ -1,4 +1,5 @@
-import { Avatar, Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
+import Avatar from '@/src/components/MuiAvatar';
 import Image from 'next/image';
 import { Roboto } from 'next/font/google';
 import useAuthContext from '@/src/hooks/useAuthContext';
@@ -94,7 +95,8 @@ export default function UserProfileCard({ className, onClose }: { className?: st
       <Avatar
         src={image}
         alt={`${username} profile picture`}
-        sx={{ width: '96px', height: '96px', border: '2px solid white', m: '-54px auto' }}
+        sx={{ width: '96px', height: '96px' }}
+        overlaySx={{ border: '2px solid white', m: '-54px auto' }}
       />
       <Box sx={{ p: '24px', mt: '54px', pb: '14px' }} className='actions'>
         <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#111111' }}>

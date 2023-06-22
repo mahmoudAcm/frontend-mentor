@@ -1,6 +1,7 @@
 import { Box, Container } from '@mui/material';
 import { ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
+import Image from 'next/image';
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   paddingTop: '30px',
@@ -15,16 +16,14 @@ const StyledContainer = styled(Container)(({ theme }) => ({
 export default function AuthLayout({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <>
-      <Box
-        sx={{
-          position: 'fixed',
-          inset: 0,
-          backgroundImage: 'url(/images/illiesteration/bg.svg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          zIndex: -1
-        }}
-      ></Box>
+      <Image
+        src='/images/illiesteration/bg.svg'
+        width='1440'
+        height='560'
+        alt='background pattern'
+        style={{ position: 'fixed', zIndex: -1, inset: 0, width: '100%', height: '100%' }}
+        priority
+      />
       <StyledContainer className={className}>
         <Box
           sx={{

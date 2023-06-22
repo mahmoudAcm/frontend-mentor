@@ -1,4 +1,5 @@
-import { Avatar, Box, ListItem, styled, Typography } from '@mui/material';
+import { Box, ListItem, styled, Typography } from '@mui/material';
+import Avatar from '@/src/components/MuiAvatar';
 import Badge from '@mui/material/Badge';
 import moment from 'moment/moment';
 import useNotificationsSelector from '@/src/hooks/useNotificationsSelector';
@@ -68,6 +69,7 @@ export function WelcomeMessage() {
           src='/images/avatars/community.png'
           alt='community profile picture'
           sx={{ borderColor: 'transparent' }}
+          overlaySx={{ width: '45px', height: '45px' }}
         />
         <Box sx={{ display: 'grid', gap: '20px' }}>
           <Text>🎉 Welcome to our community! 🎉</Text>

@@ -1,5 +1,6 @@
 import useCommentOrReplyContext from '@/src/hooks/useCommentOrReplyContext';
-import { Avatar, Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
+import Avatar from '@/src/components/MuiAvatar';
 
 export default function Mention({ children }: { children: string }) {
   const { mentions } = useCommentOrReplyContext();

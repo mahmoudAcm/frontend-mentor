@@ -1,4 +1,5 @@
-import { Avatar, FormControl, FormHelperText, InputBase, PaperProps, styled } from '@mui/material';
+import { FormControl, FormHelperText, InputBase, PaperProps, styled } from '@mui/material';
+import Avatar from '@/src/components/MuiAvatar';
 import useAuthContext from '@/src/hooks/useAuthContext';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -28,7 +29,7 @@ const FormRoot = styled('form')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     alignItems: 'center',
     padding: '16px 16px 13px',
-    '& .MuiAvatar-root': {
+    '& .avatar--overlay, .MuiAvatar-root': {
       order: 2,
       width: '32px',
       height: '32px'
@@ -159,7 +160,7 @@ export default function Form({ type, placeholder, sx, parentType, replyingTo, ..
 
   return (
     <FormRoot aria-label={`${type} form`} sx={sx} onSubmit={handleSubmit(onSubmit)}>
-      <Avatar src={user.image} alt={`${user.username} profile picture`} sx={{ marginRight: 'auto' }} />
+      <Avatar src={user.image} alt={`${user.username} profile picture`} overlaySx={{ marginRight: 'auto' }} />
       <FormControl error={Boolean(errors.content?.message)}>
         <Mentions inputHeight={100} style={{ display: 'flex' }}>
           {({ inputRef, onChange, ...props }) => (
