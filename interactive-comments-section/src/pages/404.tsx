@@ -53,6 +53,6 @@ function Error404() {
   );
 }
 
-Error404.getLayout = (page: ReactNode) => <LayoutRoot>{page}</LayoutRoot>;
+Error404.getLayout = (page: ReactNode) => <LayoutRoot sx={{ gridTemplateColumns: '1fr' }}>{page}</LayoutRoot>;
 
 export default Error404;

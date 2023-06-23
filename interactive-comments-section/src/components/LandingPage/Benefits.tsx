@@ -53,6 +53,8 @@ const Benefit = styled(Box)(({ theme }) => ({
   }
 }));
 
+const prefix = process.env.NODE_ENV === 'development' ? '' : '.';
+
 function Benefits() {
   return (
     <StyledContainer>
@@ -70,11 +72,11 @@ function Benefits() {
         />
         <Box sx={{ position: 'relative', m: 'auto' }}>
           <StyledImage
-            src='/images/illiesteration/Home-01.png'
+            src={prefix + '/images/illiesteration/Home-01.png'}
             alt=''
             width={1155}
             height={1437}
-            blurDataURL='/images/illiesteration/top.jpg'
+            blurDataURL={prefix + '/images/illiesteration/top.jpg'}
           />
           <Box
             sx={{
