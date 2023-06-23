@@ -10,20 +10,15 @@ const StyledContainer = styled(Container)(({ theme }) => ({
     [theme.breakpoints.down('md')]: {
       padding: 0
     }
+  },
+  '& img': {
+    userSelect: 'none'
   }
 }));
 
 export default function AuthLayout({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <>
-      <Image
-        src='/images/illiesteration/bg.svg'
-        width='1440'
-        height='560'
-        alt='background pattern'
-        style={{ position: 'fixed', zIndex: -1, inset: 0, width: '100%', height: '100%' }}
-        priority
-      />
       <StyledContainer className={className}>
         <Box
           sx={{
@@ -32,6 +27,20 @@ export default function AuthLayout({ children, className }: { children: ReactNod
             alignItems: 'center'
           }}
         >
+          <Image
+            src='/images/illiesteration/bg.svg'
+            width='1440'
+            height='560'
+            alt='background pattern'
+            style={{
+              position: 'fixed',
+              zIndex: -1,
+              inset: 0,
+              width: '100%',
+              height: '100%'
+            }}
+            priority
+          />
           {children}
         </Box>
       </StyledContainer>
