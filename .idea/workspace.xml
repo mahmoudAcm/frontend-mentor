@@ -4,102 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="building the home page.">
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/active-states.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/desktop-design.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/desktop-preview.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/mobile-design.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/mobile-menu-collapsed.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/mobile-menu-expanded.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/design/screenshot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/assets/index-add946f0.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/assets/index-c3ec1e2b.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/favicon-32x32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/client-audiophile.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/client-databiz.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/client-maker.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/client-meet.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-arrow-down.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-arrow-up.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-calendar.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-close-menu.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-menu.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-planning.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-reminders.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/icon-todo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/image-hero-desktop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/image-hero-mobile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/images/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/dist/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/postcss.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/favicon-32x32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/client-audiophile.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/client-databiz.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/client-maker.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/client-meet.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-arrow-down.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-arrow-up.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-calendar.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-close-menu.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-menu.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-planning.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-reminders.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/icon-todo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/image-hero-desktop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/image-hero-mobile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/public/images/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/App.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/comp.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/CompanyMenu.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/Drawer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/FeaturesMenu.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/Header.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/Home.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/components/Menu.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/main.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/src/vite-env.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/style-guide.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/tailwind.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/tsconfig.node.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/vite.config.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/intro-section-with-dropdown-navigation/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230513184852_init_0/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230514082959_init_1/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230515195415_init_4/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230515195503_init_4/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230516120106_init_5/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230516141855_init_7/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230517092702_init_8/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230517092833_init_10/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230517094308_init_11/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230522142155_init_13/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230522172400_init_14/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230523124324_init_15/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230523174253_init_16/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230527195318_init_17/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230527202350_init_18/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230528102425_init_19/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230528192013_init_20/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230528194234_init_21/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230602195306_init_22/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230602195750_init_22/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230602201313_init_23/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230602213932_init_23/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/20230602214232_init_23/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/migrations/migration_lock.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/components/Comment/DeleteDialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/components/Comment/DeleteDialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/components/DemoUsers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/components/DemoUsers.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/components/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/components/Notifications/Notification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/components/Notifications/Notification.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/pages/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/pages/app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactive-comments-section/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/interactive-comments-section/src/types.ts" afterDir="false" />
+    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="UPDATE screenshot.png">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/src/data/projects.json" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/data/projects.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +66,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "interactive-comments-section",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/frontend/frontend-mentor/interactive-comments-section",
     "list.type.of.created.stylesheet": "CSS",
@@ -180,6 +87,7 @@
       <recent name="D:\frontend\frontend-mentor\gallery" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\frontend\frontend-mentor\interactive-comments-section\design" />
       <recent name="D:\frontend\frontend-mentor\calculator-app\design" />
       <recent name="D:\frontend\frontend-mentor\gallery\public" />
       <recent name="D:\frontend\frontend-mentor\gallery\public\assets" />
@@ -221,6 +129,7 @@
       <workItem from="1686585367350" duration="211000" />
       <workItem from="1686585633420" duration="4000" />
       <workItem from="1686585705814" duration="288000" />
+      <workItem from="1687626263660" duration="489000" />
     </task>
     <task id="LOCAL-00002" summary="Merged the 'nextJs' branch into the 'master' branch.">
       <created>1681272326905</created>
@@ -278,7 +187,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686586000496</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="UPDATE screenshot.png">
+      <created>1687626513618</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1687626513618</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,6 +233,7 @@
     <MESSAGE value="changing page title and adding favicon." />
     <MESSAGE value="building challenges home page." />
     <MESSAGE value="building the home page." />
-    <option name="LAST_COMMIT_MESSAGE" value="building the home page." />
+    <MESSAGE value="UPDATE screenshot.png" />
+    <option name="LAST_COMMIT_MESSAGE" value="UPDATE screenshot.png" />
   </component>
 </project>
