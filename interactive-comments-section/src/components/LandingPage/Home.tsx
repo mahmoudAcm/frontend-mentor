@@ -148,8 +148,6 @@ const Illustration = styled(Box)(({ theme }) => ({
   }
 }));
 
-const prefix = process.env.NODE_ENV === 'development' ? '' : '.';
-
 function Home() {
   return (
     <Box sx={{ position: 'relative' }}>
@@ -216,11 +214,11 @@ function Home() {
           </LeftSide>
           <Illustration>
             <Image
-              src={prefix + '/images/illiesteration/Home-02.png'}
+              src='/images/illiesteration/Home-02.png'
               alt=''
               width={1155}
               height={1437}
-              blurDataURL={prefix + '/images/illiesteration/top.jpg'}
+              blurDataURL='/images/illiesteration/top.jpg'
             />
           </Illustration>
         </Box>

@@ -29,6 +29,7 @@ export default function AuthLayout({ children, className }: { children: ReactNod
         >
           <Image
             src='/images/illiesteration/bg.svg'
+            blurDataURL='/images/illiesteration/bg-blur.jpg'
             width='1440'
             height='560'
             alt='background pattern'
