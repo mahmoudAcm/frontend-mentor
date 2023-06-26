@@ -5,6 +5,8 @@ import { notificationsActions } from '@/src/slices/notifications';
 import useSocketContext from '@/src/hooks/useSocketContext';
 import { SOCKET_EVENTS } from '@/src/constants';
 import useAuthContext from '@/src/hooks/useAuthContext';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 const HeaderRoot = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -67,8 +69,29 @@ export default function Header() {
 
   const markAll = async () => {
     if (unreadCount) {
-      await dispatch(notificationsActions.markAll());
-      emit(SOCKET_EVENTS.MARK_NOTIFICATIONS_AS_READ, email);
+      let toastId: any;
+      try {
+        toastId = toast('Marking all your notifications as read', {
+          isLoading: true
+        });
+        await dispatch(notificationsActions.markAll());
+        emit(SOCKET_EVENTS.MARK_NOTIFICATIONS_AS_READ, email);
+        toast.update(toastId, {
+          isLoading: false,
+          autoClose: 5000,
+          type: 'success',
+          render: 'All notifications marked as read'
+        });
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          toast.update(toastId!, {
+            isLoading: false,
+            type: 'error',
+            autoClose: 5000,
+            render: error.response?.data.message! ?? 'Something went wrong'
+          });
+        }
+      }
     }
   };
 
