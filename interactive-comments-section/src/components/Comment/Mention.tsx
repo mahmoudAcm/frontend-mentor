@@ -1,12 +1,13 @@
 import useCommentOrReplyContext from '@/src/hooks/useCommentOrReplyContext';
 import { Box, Paper, Popover, Typography } from '@mui/material';
 import Avatar from '@/src/components/MuiAvatar';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useId, useState } from 'react';
 
 export default function Mention({ children }: { children: string }) {
   const { mentions } = useCommentOrReplyContext();
   const userData = mentions.find(mention => mention.user.username === children.slice(1))?.user!;
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const id = useId();
 
   const open = Boolean(anchorEl);
 
@@ -29,14 +30,14 @@ export default function Mention({ children }: { children: string }) {
         cursor: 'pointer',
         display: 'inline-block'
       }}
-      aria-owns={open ? 'mouse-over-popover' : undefined}
+      aria-owns={open ? id + 'mouse-over-popover' : undefined}
       aria-haspopup='true'
       onMouseEnter={handlePopoverOpen}
       onMouseLeave={handlePopoverClose}
     >
       {children}
       <Popover
-        id='mouse-over-popover'
+        id={id + 'mouse-over-popover'}
         sx={{
           pointerEvents: 'none'
         }}

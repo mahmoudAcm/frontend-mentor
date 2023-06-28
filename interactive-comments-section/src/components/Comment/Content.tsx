@@ -126,7 +126,7 @@ export default function Content() {
                 <Input
                   multiline={isEditing}
                   placeholder={`Edit the ${type}...`}
-                  rows={4}
+                  minRows={3}
                   {...inputProps}
                   {...props}
                   inputRef={el => {
