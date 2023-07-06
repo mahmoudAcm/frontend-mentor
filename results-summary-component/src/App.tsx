@@ -24,7 +24,7 @@ export default function App() {
               of 100
             </p>
           </div>
-          <div className='md:max-w-[246px] max-w-[256px] text-center mx-auto mt-[27px]'>
+          <div className='md:max-w-[246px] max-w-[256px] text-center mx-auto mt-[27px] mb-[16px]'>
             <h3 className='text-purple-50 text-[1.5279375rem] md:text-[2.009375rem] font-medium leading-[1.368] tracking-[-0.244px] md:tracking-[-0.643px]'>
               Great
             </h3>
