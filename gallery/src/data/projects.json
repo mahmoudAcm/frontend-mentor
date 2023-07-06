@@ -58,5 +58,10 @@
     "src": "https://mahmoudacm.github.io/frontend-mentor/intro-section-with-dropdown-navigation/design/screenshot.png",
     "livePreviewLink": "https://mahmoudacm.github.io/frontend-mentor/intro-section-with-dropdown-navigation/dist/",
     "sourceCodeLink": "https://github.com/mahmoudAcm/frontend-mentor/tree/master/intro-section-with-dropdown-navigation"
+  },
+  {
+    "src": "https://mahmoudacm.github.io/frontend-mentor/results-summary-component/design/screenshot.png",
+    "livePreviewLink": "https://mahmoudacm.github.io/frontend-mentor/results-summary-component/dest/",
+    "sourceCodeLink": "https://github.com/mahmoudAcm/frontend-mentor/tree/master/results-summary-component"
   }
 ]
