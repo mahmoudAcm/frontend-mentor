@@ -4,7 +4,10 @@ export default function App() {
   return (
     <div className='md:min-h-screen grid items-center md:py-[24px]'>
       <div className='font-ft-base w-[min(736px,100%)] md:h-[512px] md:rounded-[28px] bg-white md:shadow-[10px_10px_35px_0px_#E8EEFC]  grid md:grid-cols-2 md:grid-rows-none grid-rows-[356px,1fr] overflow-hidden mx-auto'>
-        <div style={{ backgroundImage: 'linear-gradient(180deg, #7857FF 0%, #2E2BE9 100%)' }}>
+        <div
+          style={{ backgroundImage: 'linear-gradient(180deg, #7857FF 0%, #2E2BE9 100%)' }}
+          className='rounded-b-[28px] md:rounded-[28px]'
+        >
           <h2 className='text-indigo-200 text-[1.159125rem] md:text-[1.59071rem] font-bold text-center mt-[24px] md:mt-[37px] leading-[1.25729]'>
             Your Result
           </h2>

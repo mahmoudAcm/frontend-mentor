@@ -30,7 +30,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Solution](https://github.com/mahmoudAcm/frontend-mentor/tree/master/results-summary-component)
-- Live Site URL: [Live Site](https://mahmoudacm.github.io/frontend-mentor/results-summary-component/dist/)
+- Live Site URL: [Live Site](https://mahmoudacm.github.io/frontend-mentor/results-summary-component/dest/)
 
 ## My process
 
