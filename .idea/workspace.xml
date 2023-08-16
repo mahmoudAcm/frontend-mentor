@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="building the home page.">
-      <change beforePath="$PROJECT_DIR$/gallery/src/data/projects.json" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/src/data/projects.json" afterDir="false" />
-    </list>
+    <list default="true" id="be25afe4-09f3-49f3-8399-e1847fc1da4b" name="Changes" comment="building the home page." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -130,6 +128,7 @@
       <workItem from="1686585705814" duration="288000" />
       <workItem from="1687626263660" duration="838000" />
       <workItem from="1688669346527" duration="94000" />
+      <workItem from="1689235871868" duration="13000" />
     </task>
     <task id="LOCAL-00002" summary="Merged the 'nextJs' branch into the 'master' branch.">
       <created>1681272326905</created>
