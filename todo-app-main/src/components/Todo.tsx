@@ -1,9 +1,9 @@
-import { Box, IconButton, styled, Typography } from '@mui/material';
-import { useState } from 'react';
+import { alpha, IconButton, styled, Typography } from '@mui/material';
+import { Ref, useState } from 'react';
 import CrossIcon from '@/src/icons/CrossIcon';
 import CheckIcon from '@/src/icons/CheckIcon';
 
-const TodoRoot = styled(Box)(({ theme }) => ({
+const TodoRoot = styled('li')(({ theme }) => ({
   padding: '20px 23px',
   background: theme.palette.background.paper,
   display: 'flex',
@@ -31,6 +31,13 @@ const TodoRoot = styled(Box)(({ theme }) => ({
       color: theme.palette.__mode === 'DARK' ? 'hsl(235, 13%, 34%)' : 'hsl(233, 11%, 84%)',
       textDecoration: 'line-through'
     }
+  },
+  '&:focus': {
+    outline: 'none',
+    '& .crossIcon': {
+      display: 'inline-flex'
+    },
+    background: alpha(theme.palette.background.default, theme.palette.__mode === 'DARK' ? 0.2 : 0.9)
   },
   [theme.breakpoints.down('md')]: {
     padding: '14px 20px'
@@ -97,11 +104,26 @@ const RemoveButton = styled(IconButton)(({ theme }) => ({
   }
 }));
 
-export default function Todo() {
+interface TodoProps {
+  todoRef: Ref<HTMLLIElement>;
+}
+
+export default function Todo(props: TodoProps) {
   const [checked, setChecked] = useState(false);
 
   return (
-    <TodoRoot className={checked ? 'checked' : undefined} onClick={() => setChecked(prevState => !prevState)}>
+    <TodoRoot
+      className={checked ? 'checked' : undefined}
+      onClick={() => {
+        setChecked(prevState => !prevState);
+      }}
+      onKeyDown={evt => {
+        if (evt.key === 'Enter') setChecked(prevState => !prevState);
+      }}
+      role='listitem'
+      tabIndex={-1}
+      ref={props.todoRef}
+    >
       <CheckBox className='checkbox'>
         <input
           hidden
@@ -120,6 +142,7 @@ export default function Todo() {
         onClick={evt => {
           evt.stopPropagation();
         }}
+        tabIndex={1}
       >
         <CrossIcon />
       </RemoveButton>

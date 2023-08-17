@@ -1,4 +1,5 @@
-import { Box, styled, Typography } from '@mui/material';
+import { Box, styled } from '@mui/material';
+import Link from 'next/link';
 
 const TodosFilterRoot = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -22,24 +23,36 @@ const TodosFilterRoot = styled(Box)(({ theme }) => ({
   }
 }));
 
-const FilterButton = styled(Typography)(({ theme }) => ({
+const FilterButton = styled(Link)(({ theme }) => ({
   fontSize: 13.6 / 16 + 'rem',
   color: theme.palette.__mode === 'DARK' ? 'hsl(238, 14%, 41%)' : 'hsl(250, 3%, 60%)',
   lineHeight: 14 / 13.6,
   fontWeight: 700,
   transition: theme.transitions.create('color'),
+  textDecoration: 'none',
   '&:hover:not(.info)': {
     color: theme.palette.__mode === 'DARK' ? 'hsl(230, 64%, 95%)' : 'hsl(237, 10%, 43%)'
   },
-  cursor: 'pointer'
+  cursor: 'pointer',
+  '&:focus': {
+    outlineOffset: 8,
+    outline: '2px dashed currentColor',
+    borderRadius: '0.5px'
+  }
 }));
 
 export default function TodosFilter({ media }: { media: 'desktop' | 'mobile' }) {
   return (
     <TodosFilterRoot className={`todosFilter-${media}`}>
-      <FilterButton sx={{ color: 'hsl(220, 98%, 61%) ' }}>All</FilterButton>
-      <FilterButton>Active</FilterButton>
-      <FilterButton>Completed</FilterButton>
+      <FilterButton sx={{ color: 'hsl(220, 98%, 61%) !important' }} href='#all' aria-label='get all todos'>
+        All
+      </FilterButton>
+      <FilterButton href='#active' aria-label='get active todos'>
+        Active
+      </FilterButton>
+      <FilterButton href='#completed' aria-label='get completed todos'>
+        Completed
+      </FilterButton>
     </TodosFilterRoot>
   );
 }

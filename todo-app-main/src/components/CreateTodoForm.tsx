@@ -6,7 +6,9 @@ const CreateTodoFormRoot = styled('form')(({ theme }) => ({
   background: theme.palette.background.paper,
   display: 'flex',
   alignItems: 'center',
+  '--_margin': '-15px',
   [theme.breakpoints.down('md')]: {
+    '--_margin': '-10px',
     padding: '14px 20px'
   }
 }));
@@ -28,6 +30,10 @@ const Input = styled(InputBase)(({ theme }) => ({
   fontWeight: 400,
   lineHeight: 'normal',
   letterSpacing: '-0.272px',
+  marginTop: 'var(--_margin)',
+  marginBottom: 'var(--_margin)',
+  paddingTop: 'calc(-1 * var(--_margin))',
+  paddingBottom: 'calc(-1 * var(--_margin))',
   flex: 1,
   '& input': {
     padding: 0,
