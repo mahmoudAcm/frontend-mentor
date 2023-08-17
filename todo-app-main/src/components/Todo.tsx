@@ -2,6 +2,7 @@ import { alpha, IconButton, styled, Typography } from '@mui/material';
 import { Ref, useState } from 'react';
 import CrossIcon from '@/src/icons/CrossIcon';
 import CheckIcon from '@/src/icons/CheckIcon';
+import useTodosContext from '@/src/hooks/useTodosContext';
 
 const TodoRoot = styled('li')(({ theme }) => ({
   padding: '20px 23px',
@@ -87,6 +88,8 @@ const TodoTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.__mode === 'DARK' ? 'hsl(235, 18%, 75%)' : 'hsl(235, 19%, 35%)',
   flex: 1,
   cursor: 'pointer',
+  wordBreak: 'break-word',
+  whiteSpace: 'pre-wrap',
   [theme.breakpoints.down('md')]: {
     fontSize: 12.032 / 16 + 'rem',
     lineHeight: 11.301 / 12.032,
@@ -105,42 +108,51 @@ const RemoveButton = styled(IconButton)(({ theme }) => ({
 }));
 
 interface TodoProps {
+  id: string;
+  title: string;
+  isCompleted: boolean;
   todoRef: Ref<HTMLLIElement>;
 }
 
 export default function Todo(props: TodoProps) {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(props.isCompleted);
+  const { removeTodo, editTodo } = useTodosContext();
+
+  const handleTodoCheck = () => {
+    editTodo({ id: props.id, isCompleted: !checked });
+    setChecked(!checked);
+  };
 
   return (
     <TodoRoot
       className={checked ? 'checked' : undefined}
-      onClick={() => {
-        setChecked(prevState => !prevState);
-      }}
+      onClick={handleTodoCheck}
       onKeyDown={evt => {
-        if (evt.key === 'Enter') setChecked(prevState => !prevState);
+        if (evt.key === 'Enter') handleTodoCheck();
       }}
       role='listitem'
       tabIndex={-1}
       ref={props.todoRef}
     >
-      <CheckBox className='checkbox'>
+      <CheckBox className='checkbox' onClick={event => event.preventDefault()}>
         <input
           hidden
           type='checkbox'
           checked={checked}
-          onChange={() => {
-            setChecked(prevState => !prevState);
+          onChange={event => {
+            const newVal = event.target.checked;
+            setChecked(newVal);
           }}
         />
         <CheckIcon className='checkIcon' />
       </CheckBox>
-      <TodoTitle className='title'>Jog around the park 3x</TodoTitle>
+      <TodoTitle className='title'>{props.title}</TodoTitle>
       <RemoveButton
         aria-label='remove todo'
         className='crossIcon'
         onClick={evt => {
           evt.stopPropagation();
+          removeTodo(props.id);
         }}
         tabIndex={1}
       >

@@ -1,4 +1,5 @@
 import { styled, Typography } from '@mui/material';
+import useTodosContext from '@/src/hooks/useTodosContext';
 
 const Note = styled(Typography)(({ theme }) => ({
   fontSize: 13.6 / 16 + 'rem',
@@ -13,8 +14,10 @@ const Note = styled(Typography)(({ theme }) => ({
 }));
 
 export default function Footer() {
+  const { todosCount } = useTodosContext();
+
   return (
-    <footer>
+    <footer style={{ marginTop: !todosCount ? '100px' : undefined }}>
       <Note align='center'>Drag and drop to reorder list</Note>
     </footer>
   );

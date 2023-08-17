@@ -1,5 +1,7 @@
 import { Box, styled } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import useTodosContext from '@/src/hooks/useTodosContext';
 
 const TodosFilterRoot = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -34,6 +36,9 @@ const FilterButton = styled(Link)(({ theme }) => ({
     color: theme.palette.__mode === 'DARK' ? 'hsl(230, 64%, 95%)' : 'hsl(237, 10%, 43%)'
   },
   cursor: 'pointer',
+  '&.active': {
+    color: 'hsl(220, 98%, 61%) !important'
+  },
   '&:focus': {
     outlineOffset: 8,
     outline: '2px dashed currentColor',
@@ -42,15 +47,29 @@ const FilterButton = styled(Link)(({ theme }) => ({
 }));
 
 export default function TodosFilter({ media }: { media: 'desktop' | 'mobile' }) {
+  const { todosCount } = useTodosContext();
+  const router = useRouter();
+  const hash = router.asPath.split('#')[1] ?? '';
+
+  if (!todosCount) return <></>;
+
   return (
     <TodosFilterRoot className={`todosFilter-${media}`}>
-      <FilterButton sx={{ color: 'hsl(220, 98%, 61%) !important' }} href='#all' aria-label='get all todos'>
+      <FilterButton
+        className={!['active', 'completed'].includes(hash) ? 'active' : undefined}
+        href='#all'
+        aria-label='get all todos'
+      >
         All
       </FilterButton>
-      <FilterButton href='#active' aria-label='get active todos'>
+      <FilterButton className={hash === 'active' ? 'active' : undefined} href='#active' aria-label='get active todos'>
         Active
       </FilterButton>
-      <FilterButton href='#completed' aria-label='get completed todos'>
+      <FilterButton
+        className={hash === 'completed' ? 'active' : undefined}
+        href='#completed'
+        aria-label='get completed todos'
+      >
         Completed
       </FilterButton>
     </TodosFilterRoot>

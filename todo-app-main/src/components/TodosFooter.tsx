@@ -1,6 +1,7 @@
 import { Box, styled, Typography } from '@mui/material';
 import TodosFilter from '@/src/components/TodosFilter';
 import Link from 'next/link';
+import useTodosContext from '@/src/hooks/useTodosContext';
 
 const TodosFooterRoot = styled('li')(({ theme }) => ({
   padding: '18px 24px',
@@ -22,16 +23,24 @@ const StyledTypography = styled(Box)(({ theme }) => ({
 }));
 
 export default function TodosFooter() {
+  const { todosCount, activeTodosCount, removeAllTodos } = useTodosContext();
+
+  if (!todosCount) return <></>;
+
   return (
     <TodosFooterRoot tabIndex={-1}>
       <StyledTypography component={Typography} className='info' sx={{ fontWeight: '400 !important', flex: 1 }}>
-        5 items left
+        {activeTodosCount} items left
       </StyledTypography>
       <TodosFilter media='desktop' />
       <StyledTypography
         component={Link}
         //@ts-ignore
         href='#clear-all'
+        onClick={evt => {
+          evt.preventDefault();
+          removeAllTodos();
+        }}
         sx={{
           fontWeight: '400 !important',
           cursor: 'pointer',

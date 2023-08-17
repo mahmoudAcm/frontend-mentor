@@ -2,6 +2,8 @@ import { Box, ClickAwayListener, styled } from '@mui/material';
 import TodosFooter from '@/src/components/TodosFooter';
 import Todo from '@/src/components/Todo';
 import { KeyboardEvent, useRef } from 'react';
+import useTodosContext from '@/src/hooks/useTodosContext';
+import TodosFilter from '@/src/components/TodosFilter';
 
 const TodosRoot = styled(Box)(({ theme }) => ({
   borderRadius: 4,
@@ -18,14 +20,14 @@ const TodosRoot = styled(Box)(({ theme }) => ({
   }
 }));
 
-const size = 6;
-const arr = new Array(size);
-
 export default function Todos() {
   const items = useRef<(HTMLLIElement | null)[]>([]);
   const activeTodoIndex = useRef(-1);
+  const { activeTodosCount, getAll } = useTodosContext();
 
-  items.current = arr.fill(null);
+  const todos = getAll();
+
+  items.current = new Array(activeTodosCount).fill(null);
 
   const handleKeyDown = (evt: KeyboardEvent) => {
     if (evt.key === 'ArrowDown' || evt.key === 'ArrowUp') {
@@ -33,8 +35,8 @@ export default function Todos() {
       resetActiveIndex();
 
       activeTodoIndex.current += evt.key === 'ArrowDown' ? 1 : -1;
-      if (activeTodoIndex.current >= items.current.length) activeTodoIndex.current = 0;
-      else if (activeTodoIndex.current < 0) activeTodoIndex.current = items.current.length - 1;
+      if (activeTodoIndex.current >= todos.length) activeTodoIndex.current = 0;
+      else if (activeTodoIndex.current < 0) activeTodoIndex.current = todos.length - 1;
 
       const item = items.current[activeTodoIndex.current];
       item?.setAttribute('tabindex', '0');
@@ -55,19 +57,22 @@ export default function Todos() {
   };
 
   return (
-    <ClickAwayListener onClickAway={handleResetActiveIndex}>
-      <TodosRoot
-        onMouseMove={handleResetActiveIndex}
-        onKeyDown={handleKeyDown}
-        role='list'
-        aria-label='List of Todos'
-        tabIndex={0}
-      >
-        {arr.fill(0).map((_, index) => (
-          <Todo key={index} todoRef={el => (items.current[index] = el)} />
-        ))}
-        <TodosFooter />
-      </TodosRoot>
-    </ClickAwayListener>
+    <>
+      <ClickAwayListener onClickAway={handleResetActiveIndex}>
+        <TodosRoot
+          onMouseMove={handleResetActiveIndex}
+          onKeyDown={handleKeyDown}
+          role='list'
+          aria-label='List of Todos'
+          tabIndex={0}
+        >
+          {todos.map((todo, index) => (
+            <Todo {...todo} key={todo.id} todoRef={el => (items.current[index] = el)} />
+          ))}
+          <TodosFooter />
+        </TodosRoot>
+      </ClickAwayListener>
+      <TodosFilter media='mobile' />
+    </>
   );
 }

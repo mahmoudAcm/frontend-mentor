@@ -1,4 +1,6 @@
 import { Box, InputBase, styled } from '@mui/material';
+import useTodosContext from '@/src/hooks/useTodosContext';
+import { useRef } from 'react';
 
 const CreateTodoFormRoot = styled('form')(({ theme }) => ({
   padding: '20px 23px',
@@ -53,10 +55,22 @@ const Input = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function CreateTodoForm() {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const { addTodo } = useTodosContext();
+
   return (
-    <CreateTodoFormRoot>
+    <CreateTodoFormRoot
+      onSubmit={event => {
+        event.preventDefault();
+        const input = inputRef.current;
+        if (input?.value && !input.value.match(/^\s*$/)) {
+          addTodo({ isCompleted: false, title: input.value });
+          input.value = '';
+        }
+      }}
+    >
       <CheckBox />
-      <Input placeholder='Create a new todo...' />
+      <Input placeholder='Create a new todo...' inputRef={inputRef} />
     </CreateTodoFormRoot>
   );
 }
