@@ -3,8 +3,10 @@ import { Ref, useState } from 'react';
 import CrossIcon from '@/src/icons/CrossIcon';
 import CheckIcon from '@/src/icons/CheckIcon';
 import useTodosContext from '@/src/hooks/useTodosContext';
+import { CheckBox } from '@/src/components/CreateTodoForm';
 
 const TodoRoot = styled('li')(({ theme }) => ({
+  position: 'relative',
   padding: '20px 23px',
   background: theme.palette.background.paper,
   display: 'flex',
@@ -45,41 +47,6 @@ const TodoRoot = styled('li')(({ theme }) => ({
   }
 }));
 
-const CheckBox = styled('label')(({ theme }) => ({
-  width: '26px',
-  height: '26px',
-  borderRadius: '50%',
-  border: '1px solid transparent',
-  borderColor: theme.palette.__mode === 'DARK' ? 'hsl(235, 19%, 23%)' : 'hsl(233, 17%, 94%)',
-  marginRight: '21px',
-  transition: theme.transitions.create('background-image'),
-  backgroundSize: '31px 27px',
-  backgroundPosition: '-1px',
-  overflow: 'hidden',
-  position: 'relative',
-  cursor: 'pointer',
-  display: 'grid',
-  placeItems: 'center',
-  '& .checkIcon': {
-    display: 'none'
-  },
-  '&:hover': {
-    borderColor: 'transparent',
-    backgroundImage: 'linear-gradient(120deg, #57DDFF 0%, #CB58F3 100%, rgba(217, 217, 217, 0.00) 100%);',
-    '&::after': {
-      content: '" "',
-      position: 'absolute',
-      inset: 0,
-      background: theme.palette.background.paper,
-      zIndex: 1
-    }
-  },
-  [theme.breakpoints.down('md')]: {
-    width: '20px',
-    height: '20px'
-  }
-}));
-
 const TodoTitle = styled(Typography)(({ theme }) => ({
   fontSize: 18.1 / 16 + 'rem',
   fontWeight: 400,
@@ -98,11 +65,16 @@ const TodoTitle = styled(Typography)(({ theme }) => ({
 }));
 
 const RemoveButton = styled(IconButton)(({ theme }) => ({
-  margin: -8,
   display: 'none',
+  position: 'absolute',
+  right: '-8px',
+  marginRight: '23px',
+  zIndex: 1,
   [theme.breakpoints.down('md')]: {
+    marginRight: '20px',
     '& svg': {
-      width: '12px !important'
+      width: '12px !important',
+      height: '12px !important'
     }
   }
 }));
@@ -154,7 +126,7 @@ export default function Todo(props: TodoProps) {
           evt.stopPropagation();
           removeTodo(props.id);
         }}
-        tabIndex={1}
+        tabIndex={0}
       >
         <CrossIcon />
       </RemoveButton>
