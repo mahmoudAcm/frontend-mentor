@@ -35,7 +35,15 @@ export default function Home() {
           tabIndex={-1}
           priority
         />
-        <Container sx={{ maxWidth: 'calc(540px + 24px * 2) !important', px: '24px !important' }}>
+        <Container
+          sx={{
+            maxWidth: 'calc(540px + 24px * 2) !important',
+            px: '24px !important',
+            [theme.breakpoints.down(350)]: {
+              px: '16px !important'
+            }
+          }}
+        >
           <Header />
           <main>
             <CreateTodoForm />
