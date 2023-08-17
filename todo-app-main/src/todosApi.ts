@@ -42,8 +42,8 @@ class TodosApi {
     return this.todos;
   }
 
-  removeAll() {
-    this.todos = [];
+  removeCompleted() {
+    this.todos = this.getAllActive();
     localStorage.setItem('todos', JSON.stringify(this.todos));
     return this.todos;
   }

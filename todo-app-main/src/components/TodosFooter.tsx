@@ -23,7 +23,7 @@ const StyledTypography = styled(Box)(({ theme }) => ({
 }));
 
 export default function TodosFooter() {
-  const { todosCount, activeTodosCount, removeAllTodos } = useTodosContext();
+  const { todosCount, activeTodosCount, removeCompletedTodos } = useTodosContext();
 
   if (!todosCount) return <></>;
 
@@ -39,7 +39,7 @@ export default function TodosFooter() {
         href='#clear-all'
         onClick={evt => {
           evt.preventDefault();
-          removeAllTodos();
+          removeCompletedTodos();
         }}
         sx={{
           fontWeight: '400 !important',

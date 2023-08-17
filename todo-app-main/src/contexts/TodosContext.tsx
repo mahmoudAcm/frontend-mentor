@@ -9,7 +9,7 @@ interface State {
   addTodo: (newTodo: Omit<Todo, 'id'>) => void;
   editTodo: (todo: Partial<Omit<Todo, 'id'>> & { id: string }) => void;
   removeTodo: (id: string) => void;
-  removeAllTodos: () => void;
+  removeCompletedTodos: () => void;
 }
 
 export const TodosContext = createContext<State | null>(null);
@@ -48,8 +48,8 @@ export function TodosProvider({ children }: { children: ReactNode }) {
     setTodos(todosApi.remove(id));
   };
 
-  const removeAllTodos = () => {
-    setTodos(todosApi.removeAll());
+  const removeCompletedTodos = () => {
+    setTodos(todosApi.removeCompleted());
   };
 
   return (
@@ -61,7 +61,7 @@ export function TodosProvider({ children }: { children: ReactNode }) {
         addTodo,
         editTodo,
         removeTodo,
-        removeAllTodos
+        removeCompletedTodos
       }}
     >
       {children}
