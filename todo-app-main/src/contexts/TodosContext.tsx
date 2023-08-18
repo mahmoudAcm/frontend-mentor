@@ -2,7 +2,7 @@ import { createContext, ReactNode, useCallback, useEffect, useState } from 'reac
 import { Todo, todosApi } from '@/src/todosApi';
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
-import { Backdrop, IconButton, Typography } from '@mui/material';
+import { Backdrop, Box, Fade, IconButton, Typography } from '@mui/material';
 import CrossIcon from '@/src/icons/CrossIcon';
 
 interface State {
@@ -99,7 +99,7 @@ export function TodosProvider({ children }: { children: ReactNode }) {
       <Backdrop
         open={isLoading}
         appear={false}
-        timeout={0}
+        timeout={500}
         sx={{
           position: 'fixed',
           zIndex: theme => theme.zIndex.appBar,
@@ -109,7 +109,9 @@ export function TodosProvider({ children }: { children: ReactNode }) {
       >
         <Typography variant='h4'>Loading...</Typography>
       </Backdrop>
-      {children}
+      <Fade in={!isLoading} style={{ transitionDelay: '500ms' }}>
+        <Box>{children}</Box>
+      </Fade>
     </TodosContext.Provider>
   );
 }
