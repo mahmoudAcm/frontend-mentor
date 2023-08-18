@@ -1,19 +1,15 @@
 import Head from 'next/head';
 import { Box, Container, useMediaQuery, useTheme } from '@mui/material';
-import Image from 'next/image';
 import Header from '@/src/components/Header';
 import Footer from '@/src/components/Footer';
 import CreateTodoForm from '@/src/components/CreateTodoForm';
 import Todos from '@/src/components/Todos';
 import { TodosProvider } from '@/src/contexts/TodosContext';
+import ImageBackground from '@/src/components/ImageBackground';
 
 export default function Home() {
   const theme = useTheme();
   const isDesktop = useMediaQuery(() => theme.breakpoints.up('md'));
-
-  const media = isDesktop ? 'desktop' : 'mobile';
-  const mode = theme.palette.__mode === 'DARK' ? 'dark' : 'light';
-  const imgSrc = `/images/bg-${media}-${mode}.jpg`;
 
   return (
     <TodosProvider>
@@ -24,17 +20,7 @@ export default function Home() {
         <link rel='icon' type='image/png' sizes='32x32' href='/images/favicon-32x32.png' />
       </Head>
       <Box sx={{ display: 'grid', gridTemplateRows: `${isDesktop ? 300 : 200}px 1fr` }}>
-        <Image
-          src={imgSrc}
-          alt='layout top backgrond'
-          width={1440}
-          height={isDesktop ? 300 : 200}
-          style={{ width: '100%', userSelect: 'none' }}
-          draggable='false'
-          aria-hidden='true'
-          tabIndex={-1}
-          priority
-        />
+        <ImageBackground />
         <Container
           sx={{
             maxWidth: 'calc(540px + 24px * 2) !important',
