@@ -1,7 +1,9 @@
-import { InputBase, styled } from '@mui/material';
+import { IconButton, InputBase, styled } from '@mui/material';
 import useTodosContext from '@/src/hooks/useTodosContext';
 import { useRef, useState } from 'react';
 import CheckIcon from '@/src/icons/CheckIcon';
+import { useSnackbar } from 'notistack';
+import CrossIcon from '@/src/icons/CrossIcon';
 
 const CreateTodoFormRoot = styled('form')(({ theme }) => ({
   padding: '20px 23px',
@@ -17,12 +19,12 @@ const CreateTodoFormRoot = styled('form')(({ theme }) => ({
 }));
 
 export const CheckBox = styled('label')(({ theme }) => ({
-  width: '26px',
-  height: '26px',
+  width: 24,
+  height: 24,
   borderRadius: '50%',
   border: '1px solid transparent',
   borderColor: theme.palette.__mode === 'DARK' ? 'hsl(235, 19%, 23%)' : 'hsl(233, 17%, 94%)',
-  marginRight: '21px',
+  marginRight: '20.81px',
   transition: theme.transitions.create('background-image'),
   backgroundSize: '31px 27px',
   backgroundPosition: '-1px',
@@ -56,8 +58,9 @@ export const CheckBox = styled('label')(({ theme }) => ({
     }
   },
   [theme.breakpoints.down('md')]: {
-    width: '20px',
-    height: '20px'
+    width: 20,
+    height: 20,
+    marginRight: 12
   }
 }));
 
@@ -91,6 +94,7 @@ export default function CreateTodoForm() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [checked, setChecked] = useState(false);
   const { addTodo } = useTodosContext();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   return (
     <CreateTodoFormRoot
@@ -98,6 +102,25 @@ export default function CreateTodoForm() {
         event.preventDefault();
         const input = inputRef.current;
         if (input?.value && !input.value.match(/^\s*$/)) {
+          if (input.value.length > 500) {
+            const key = enqueueSnackbar('Maximum length for a todo is at most 500 characters.', {
+              autoHideDuration: 10000,
+              action: (
+                <IconButton onClick={() => closeSnackbar(key)}>
+                  <CrossIcon
+                    sx={{
+                      width: '14px !important',
+                      height: '14px !important',
+                      '& path': {
+                        fill: 'white !important'
+                      }
+                    }}
+                  />
+                </IconButton>
+              )
+            });
+            return;
+          }
           addTodo({ isCompleted: checked, title: input.value });
           input.value = '';
           setChecked(false);

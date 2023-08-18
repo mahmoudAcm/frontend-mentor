@@ -23,7 +23,7 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' type='image/png' sizes='32x32' href='/images/favicon-32x32.png' />
       </Head>
-      <Box sx={{ display: 'grid', gridTemplateRows: `${isDesktop ? 300 : 200} 1fr` }}>
+      <Box sx={{ display: 'grid', gridTemplateRows: `${isDesktop ? 300 : 200}px 1fr` }}>
         <Image
           src={imgSrc}
           alt='layout top backgrond'

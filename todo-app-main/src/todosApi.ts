@@ -1,29 +1,62 @@
 import generateId from '@/src/libs/generateId';
 
+const LIMIT = 0.04; // limit in mb
+
 export interface Todo {
   id: string;
   title: string;
   isCompleted: boolean;
 }
 
+class LocalStorageService {
+  private static storageKey = 'todos';
+
+  static saveData<T = any>(data: T) {
+    if (typeof window === 'undefined') return;
+
+    const json = JSON.stringify(data);
+    const storage = parseFloat((json.length / 1024 ** 2).toFixed(3));
+
+    if (storage > LIMIT) throw new Error(`Exceeded the storage limit ${LIMIT}mb.`);
+
+    try {
+      localStorage.setItem(this.storageKey, json);
+    } catch (error) {
+      throw new Error('Your device storage has been exceeded.');
+    }
+  }
+
+  static loadData<T = any>() {
+    if (typeof window === 'undefined') return null;
+    const data = localStorage.getItem(this.storageKey);
+    return data ? (JSON.parse(data) as T) : null;
+  }
+}
+
 class TodosApi {
   private todos: Todo[] = [];
 
   constructor() {
-    if (typeof window === 'undefined') return;
-    this.todos = (JSON.parse(localStorage.getItem('todos') ?? '[]') ?? []) as Todo[];
+    this.todos = LocalStorageService.loadData<Todo[]>() ?? [];
+  }
+
+  private updateLocalStorage() {
+    LocalStorageService.saveData(this.todos);
   }
 
   getAll = () => this.todos;
 
   getAllActive = () => this.todos.filter(({ isCompleted }) => !isCompleted);
 
-  getAllCompleted = () => this.todos.filter(({ isCompleted }) => isCompleted);
-
   add(newTodo: Omit<Todo, 'id'>) {
     const todo = { ...newTodo, id: generateId() };
-    this.todos = [todo, ...this.todos];
-    localStorage.setItem('todos', JSON.stringify(this.todos));
+    try {
+      this.todos = [todo, ...this.todos];
+      this.updateLocalStorage();
+    } catch (error) {
+      this.todos.splice(0, 1);
+      throw error;
+    }
     return this.todos;
   }
 
@@ -32,19 +65,19 @@ class TodosApi {
     if (todoIndex !== -1) {
       Object.assign(this.todos[todoIndex], todo);
     }
-    localStorage.setItem('todos', JSON.stringify(this.todos));
+    this.updateLocalStorage();
     return this.todos;
   }
 
   remove(id: string) {
     this.todos = this.todos.filter(({ id: todoId }) => todoId !== id);
-    localStorage.setItem('todos', JSON.stringify(this.todos));
+    this.updateLocalStorage();
     return this.todos;
   }
 
   removeCompleted() {
     this.todos = this.getAllActive();
-    localStorage.setItem('todos', JSON.stringify(this.todos));
+    this.updateLocalStorage();
     return this.todos;
   }
 }

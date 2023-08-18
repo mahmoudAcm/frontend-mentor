@@ -10,7 +10,7 @@ const TodosRoot = styled(Box)(({ theme }) => ({
   overflow: 'hidden',
   background: theme.palette.background.paper,
   marginTop: '24px',
-  boxShadow: `0px 28px 40px -15px ${theme.palette.__mode === 'DARK' ? 'hsl(240, 21%, 7%)' : 'hsl(240, 0%, 78%)'}`,
+  boxShadow: `0px 29px 50px -10px ${theme.palette.__mode === 'DARK' ? 'hsl(240, 21%, 7%)' : 'hsl(250, 14%, 91%)'}`,
   '&:focus': {
     outline: '2px dashed hsl(220, 98%, 61%)',
     outlineOffset: 6

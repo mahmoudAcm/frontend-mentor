@@ -1,6 +1,9 @@
 import { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
 import { Todo, todosApi } from '@/src/todosApi';
 import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
+import { Backdrop, IconButton, Typography } from '@mui/material';
+import CrossIcon from '@/src/icons/CrossIcon';
 
 interface State {
   todosCount: number;
@@ -15,12 +18,20 @@ interface State {
 export const TodosContext = createContext<State | null>(null);
 
 export function TodosProvider({ children }: { children: ReactNode }) {
+  const [isLoading, setLoading] = useState(true);
   const [todos, setTodos] = useState<Todo[]>([]);
   const router = useRouter();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   //getting the initial data
   useEffect(() => {
     setTodos(todosApi.getAll());
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 700);
+    return () => {
+      if (timeout !== null) clearTimeout(timeout);
+    };
   }, []);
 
   const getAllTodos = useCallback(() => todos, [todos]);
@@ -37,7 +48,28 @@ export function TodosProvider({ children }: { children: ReactNode }) {
   }, [getAllTodos, getActiveTodos, getCompletedTodos, router.asPath]);
 
   const addTodo: State['addTodo'] = newTodo => {
-    setTodos(todosApi.add(newTodo));
+    try {
+      setTodos(todosApi.add(newTodo));
+    } catch (error) {
+      if (error instanceof Error) {
+        const key = enqueueSnackbar(error.message, {
+          autoHideDuration: 10000,
+          action: (
+            <IconButton onClick={() => closeSnackbar(key)}>
+              <CrossIcon
+                sx={{
+                  width: '14px !important',
+                  height: '14px !important',
+                  '& path': {
+                    fill: 'white !important'
+                  }
+                }}
+              />
+            </IconButton>
+          )
+        });
+      }
+    }
   };
 
   const editTodo: State['editTodo'] = todo => {
@@ -64,6 +96,19 @@ export function TodosProvider({ children }: { children: ReactNode }) {
         removeCompletedTodos
       }}
     >
+      <Backdrop
+        open={isLoading}
+        appear={false}
+        timeout={0}
+        sx={{
+          position: 'fixed',
+          zIndex: theme => theme.zIndex.appBar,
+          background: 'hsl(0, 0%, 98%)',
+          userSelect: 'none'
+        }}
+      >
+        <Typography variant='h4'>Loading...</Typography>
+      </Backdrop>
       {children}
     </TodosContext.Provider>
   );

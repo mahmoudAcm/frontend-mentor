@@ -43,24 +43,26 @@ const TodoRoot = styled('li')(({ theme }) => ({
     background: alpha(theme.palette.background.default, theme.palette.__mode === 'DARK' ? 0.2 : 0.9)
   },
   [theme.breakpoints.down('md')]: {
-    padding: '14px 20px'
+    padding: '16px 20px'
   }
 }));
 
 const TodoTitle = styled(Typography)(({ theme }) => ({
   fontSize: 18.1 / 16 + 'rem',
   fontWeight: 400,
-  lineHeight: 16 / 18.1,
-  letterSpacing: '-0.272px',
+  lineHeight: 1.6,
+  letterSpacing: -0.416,
   color: theme.palette.__mode === 'DARK' ? 'hsl(235, 18%, 75%)' : 'hsl(235, 19%, 35%)',
   flex: 1,
   cursor: 'pointer',
   wordBreak: 'break-word',
   whiteSpace: 'pre-wrap',
+  paddingRight: 29,
+  marginTop: -2,
+  marginBottom: -4,
   [theme.breakpoints.down('md')]: {
-    fontSize: 12.032 / 16 + 'rem',
-    lineHeight: 11.301 / 12.032,
-    letterSpacing: '-0.18px'
+    fontSize: 12 / 16 + 'rem',
+    letterSpacing: -0.18
   }
 }));
 

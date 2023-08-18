@@ -6,6 +6,7 @@ import type { AppProps as DefaultAppProps } from 'next/app';
 import createEmotionCache from '../libs/createEmotionCache';
 import { FunctionComponent } from 'react';
 import { CustomThemeProvider } from '@/src/contexts/CustomThemeContext';
+import { SnackbarProvider } from 'notistack';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -20,7 +21,9 @@ const App: FunctionComponent<AppProps> = props => {
     <CacheProvider value={emotionCache}>
       <CustomThemeProvider>
         <CssBaseline />
-        <Component {...pageProps} />
+        <SnackbarProvider maxSnack={3}>
+          <Component {...pageProps} />
+        </SnackbarProvider>
       </CustomThemeProvider>
     </CacheProvider>
   );
