@@ -4,6 +4,7 @@ import Todo from '@/src/components/Todo';
 import { KeyboardEvent, useRef } from 'react';
 import useTodosContext from '@/src/hooks/useTodosContext';
 import TodosFilter from '@/src/components/TodosFilter';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 const TodosRoot = styled(Box)(({ theme }) => ({
   borderRadius: 4,
@@ -23,9 +24,7 @@ const TodosRoot = styled(Box)(({ theme }) => ({
 export default function Todos() {
   const items = useRef<(HTMLLIElement | null)[]>([]);
   const activeTodoIndex = useRef(-1);
-  const { activeTodosCount, getAll } = useTodosContext();
-
-  const todos = getAll();
+  const { activeTodosCount, filteredTodos, reorderTodos } = useTodosContext();
 
   items.current = new Array(activeTodosCount).fill(null);
 
@@ -35,8 +34,8 @@ export default function Todos() {
       resetActiveIndex();
 
       activeTodoIndex.current += evt.key === 'ArrowDown' ? 1 : -1;
-      if (activeTodoIndex.current >= todos.length) activeTodoIndex.current = 0;
-      else if (activeTodoIndex.current < 0) activeTodoIndex.current = todos.length - 1;
+      if (activeTodoIndex.current >= filteredTodos.length) activeTodoIndex.current = 0;
+      else if (activeTodoIndex.current < 0) activeTodoIndex.current = filteredTodos.length - 1;
 
       const item = items.current[activeTodoIndex.current];
       item?.setAttribute('tabindex', '0');
@@ -57,22 +56,48 @@ export default function Todos() {
   };
 
   return (
-    <>
+    <DragDropContext
+      onDragEnd={result => {
+        if (!result.destination || result.destination.index === result.source.index) return;
+        reorderTodos(result.source.index, result.destination.index);
+      }}
+    >
       <ClickAwayListener onClickAway={handleResetActiveIndex}>
-        <TodosRoot
-          onMouseMove={handleResetActiveIndex}
-          onKeyDown={handleKeyDown}
-          role='list'
-          aria-label='List of Todos'
-          tabIndex={0}
-        >
-          {todos.map((todo, index) => (
-            <Todo {...todo} key={todo.id} todoRef={el => (items.current[index] = el)} />
-          ))}
-          <TodosFooter />
-        </TodosRoot>
+        <Droppable droppableId='column-1'>
+          {provided => {
+            return (
+              <TodosRoot
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                onMouseMove={handleResetActiveIndex}
+                onKeyDown={handleKeyDown}
+                role='list'
+                aria-label='List of Todos'
+                tabIndex={0}
+              >
+                {filteredTodos.map((todo, index) => (
+                  <Draggable key={todo.id} draggableId={todo.id} index={index}>
+                    {(provided, snapshot) => (
+                      <Todo
+                        {...todo}
+                        {...provided}
+                        isDragging={snapshot.isDragging && !snapshot.isDropAnimating}
+                        todoRef={el => {
+                          items.current[index] = el;
+                          provided.innerRef(el);
+                        }}
+                      />
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+                <TodosFooter />
+              </TodosRoot>
+            );
+          }}
+        </Droppable>
       </ClickAwayListener>
       <TodosFilter media='mobile' />
-    </>
+    </DragDropContext>
   );
 }

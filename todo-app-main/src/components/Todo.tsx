@@ -1,9 +1,10 @@
-import { alpha, IconButton, styled, Typography } from '@mui/material';
+import { alpha, BoxProps, IconButton, styled, Typography } from '@mui/material';
 import { Ref, useState } from 'react';
 import CrossIcon from '@/src/icons/CrossIcon';
 import CheckIcon from '@/src/icons/CheckIcon';
 import useTodosContext from '@/src/hooks/useTodosContext';
 import { CheckBox } from '@/src/components/CreateTodoForm';
+import { DraggableProvided } from 'react-beautiful-dnd';
 
 const TodoRoot = styled('li')(({ theme }) => ({
   position: 'relative',
@@ -81,11 +82,12 @@ const RemoveButton = styled(IconButton)(({ theme }) => ({
   }
 }));
 
-interface TodoProps {
+interface TodoProps extends Omit<DraggableProvided, 'innerRef'> {
   id: string;
   title: string;
   isCompleted: boolean;
   todoRef: Ref<HTMLLIElement>;
+  isDragging: boolean;
 }
 
 export default function Todo(props: TodoProps) {
@@ -97,8 +99,22 @@ export default function Todo(props: TodoProps) {
     setChecked(!checked);
   };
 
+  const draggableStyle: BoxProps['sx'] = props.isDragging
+    ? {
+        borderBottom: 'none',
+        opacity: 1,
+        borderRadius: 'inherit',
+        boxShadow: theme =>
+          `0px 4px 8px ${theme.palette.__mode === 'DARK' ? 'hsl(240, 21%, 7%)' : 'hsla(0, 0%, 0%, 0.1)'}`
+      }
+    : {};
+
   return (
     <TodoRoot
+      ref={props.todoRef}
+      {...props.dragHandleProps}
+      {...props.draggableProps}
+      sx={draggableStyle}
       className={checked ? 'checked' : undefined}
       onClick={handleTodoCheck}
       onKeyDown={evt => {
@@ -106,7 +122,6 @@ export default function Todo(props: TodoProps) {
       }}
       role='listitem'
       tabIndex={-1}
-      ref={props.todoRef}
     >
       <CheckBox className='checkbox' onClick={event => event.preventDefault()}>
         <input

@@ -80,6 +80,15 @@ class TodosApi {
     this.updateLocalStorage();
     return this.todos;
   }
+
+  reorder(srcIndex: number, destIndex: number) {
+    const newTodos = Array.from(this.todos);
+    const [removed] = newTodos.splice(srcIndex, 1);
+    newTodos.splice(destIndex, 0, removed);
+    this.todos = newTodos;
+    this.updateLocalStorage();
+    return this.todos;
+  }
 }
 
 export const todosApi = new TodosApi();
