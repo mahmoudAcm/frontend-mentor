@@ -7,7 +7,7 @@ import Todos from '@/src/components/Todos';
 import { TodosProvider } from '@/src/contexts/TodosContext';
 import ImageBackground from '@/src/components/ImageBackground';
 
-export default function Home() {
+export default function TodosPage() {
   const theme = useTheme();
   const isDesktop = useMediaQuery(() => theme.breakpoints.up('md'));
 

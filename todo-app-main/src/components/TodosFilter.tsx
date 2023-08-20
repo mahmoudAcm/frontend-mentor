@@ -49,25 +49,32 @@ const FilterButton = styled(Link)(({ theme }) => ({
 export default function TodosFilter({ media }: { media: 'desktop' | 'mobile' }) {
   const { todosCount } = useTodosContext();
   const router = useRouter();
-  const hash = router.asPath.split('#')[1] ?? '';
+  const filter = router.query.filter as string;
 
   if (!todosCount) return <></>;
 
   return (
     <TodosFilterRoot className={`todosFilter-${media}`}>
       <FilterButton
-        className={!['active', 'completed'].includes(hash) ? 'active' : undefined}
-        href='#all'
+        scroll={false}
+        className={!['active', 'completed'].includes(filter) ? 'active' : undefined}
+        href='?filter=all'
         aria-label='get all todos'
       >
         All
       </FilterButton>
-      <FilterButton className={hash === 'active' ? 'active' : undefined} href='#active' aria-label='get active todos'>
+      <FilterButton
+        scroll={false}
+        className={filter === 'active' ? 'active' : undefined}
+        href='?filter=active'
+        aria-label='get active todos'
+      >
         Active
       </FilterButton>
       <FilterButton
-        className={hash === 'completed' ? 'active' : undefined}
-        href='#completed'
+        scroll={false}
+        className={filter === 'completed' ? 'active' : undefined}
+        href='?filter=completed'
         aria-label='get completed todos'
       >
         Completed

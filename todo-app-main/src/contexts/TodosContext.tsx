@@ -51,11 +51,11 @@ export function TodosProvider({ children }: { children: ReactNode }) {
   const getCompletedTodos = useCallback(() => todos.filter(({ isCompleted }) => isCompleted), [todos]);
 
   const filteredTodos = useMemo(() => {
-    const hash = router.asPath.split('#')[1] ?? '';
-    if (hash === 'active') return getActiveTodos();
-    else if (hash === 'completed') return getCompletedTodos();
+    const filter = router.query.filter;
+    if (filter === 'active') return getActiveTodos();
+    else if (filter === 'completed') return getCompletedTodos();
     return getAllTodos();
-  }, [getAllTodos, getActiveTodos, getCompletedTodos, router.asPath]);
+  }, [getAllTodos, getActiveTodos, getCompletedTodos, router.query]);
 
   const addTodo: State['addTodo'] = newTodo => {
     try {
