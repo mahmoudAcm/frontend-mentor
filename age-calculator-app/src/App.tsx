@@ -18,25 +18,46 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-const StyledPaper = styled(Paper)(() => ({
-  width: 840,
-  height: 651,
-  padding: 56,
-  borderRadius: '24px 24px 198px',
-  margin: 'auto'
+const md = 840 + 24 * 2;
+
+const AppRoot = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  minHeight: '100vh',
+  paddingTop: 154,
+  paddingBottom: 155,
+  [theme.breakpoints.down(md)]: {
+    paddingTop: 88
+  }
 }));
 
-const Form = styled('form')(() => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  width: 840,
+  minHeight: 651,
+  padding: '56px 56px 61.27px',
+  borderRadius: '24px 24px 198px',
+  margin: 'auto',
+  [theme.breakpoints.down(md)]: {
+    width: '100%',
+    minHeight: 486,
+    borderRadius: '24px 24px 100px',
+    padding: '47px 24px 49.02px'
+  }
+}));
+
+const Form = styled('form')(({ theme }) => ({
   display: 'flex',
   gap: 32,
   paddingBottom: 47,
   borderBottom: '2px solid hsl(0, 0%, 94%)',
-  position: 'relative'
+  position: 'relative',
+  [theme.breakpoints.down(md)]: {
+    paddingBottom: 63,
+    gap: 16
+  }
 }));
 
-const StyledFormControl = styled(FormControl)(() => ({
+const StyledFormControl = styled(FormControl)(({ theme }) => ({
   width: 160,
-  position: 'relative',
   '& label': {
     fontSize: 13.8 / 16 + 'rem',
     lineHeight: 1.6,
@@ -59,16 +80,20 @@ const StyledFormControl = styled(FormControl)(() => ({
     letterSpacing: 0.138,
     marginTop: 7,
     marginLeft: 0,
-    position: 'absolute',
-    bottom: -29.07,
-    zIndex: 1,
     '&.Mui-error': {
       color: 'hsl(358, 89%, 66%)'
+    }
+  },
+  [theme.breakpoints.down(md)]: {
+    flex: 1,
+    '& label': {
+      fontSize: 11.86 / 16 + 'rem',
+      letterSpacing: 3.203
     }
   }
 }));
 
-const Input = styled(InputBase)(() => ({
+const Input = styled(InputBase)(({ theme }) => ({
   borderRadius: 7,
   border: '1px solid hsl(0, 0%, 87%)',
   fontSize: 31 / 16 + 'rem',
@@ -88,20 +113,38 @@ const Input = styled(InputBase)(() => ({
   },
   '&.Mui-error': {
     borderColor: 'hsl(358, 89%, 66%)'
+  },
+  [theme.breakpoints.down(md)]: {
+    fontSize: 19.894 / 16 + 'rem',
+    letterSpacing: 0.099,
+    marginTop: 4.05,
+    '& input': {
+      padding: '10.7px 16px 11.62px'
+    }
   }
 }));
 
-const Button = styled(IconButton)(() => ({
+const Button = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
-  width: 96,
-  height: 96,
+  '--_radius': '96px',
+  width: 'var(--_radius)',
+  height: 'var(--_radius)',
   borderRadius: '50%',
   background: 'hsl(259, 100%, 65%)',
-  bottom: (-1 * (96 - 2)) / 2,
+  bottom: 'calc(-1 * ((var(--_radius) - 2px) / 2))',
   right: 0,
   zIndex: 1,
   '&:hover': {
     background: 'hsl(0, 0%, 8%)'
+  },
+  [theme.breakpoints.down(md)]: {
+    '--_radius': '66px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    '& svg': {
+      width: 24,
+      height: 24
+    }
   }
 }));
 
@@ -111,7 +154,7 @@ const Result = styled(Box)(() => ({
   gap: 10.27
 }));
 
-const Text = styled(Typography)(() => ({
+const Text = styled(Typography)(({ theme }) => ({
   fontSize: 103.729 / 16 + 'rem',
   fontWeight: 800,
   fontStyle: 'italic',
@@ -124,6 +167,18 @@ const Text = styled(Typography)(() => ({
     letterSpacing: -2.075,
     color: 'hsl(0, 0%, 8%)',
     marginLeft: 8
+  },
+  [theme.breakpoints.down(md)]: {
+    fontSize: 'clamp(3.438rem, 0.938rem + 10.663vw, 6.483rem)',
+    '& span:nth-of-type(1)': {
+      letterSpacing: -0.275
+    },
+    '& span:nth-of-type(2)': {
+      letterSpacing: -0.825
+    }
+  },
+  [theme.breakpoints.down(375)]: {
+    fontSize: 'clamp(2.625rem, -0.625rem + 17.333vw, 3.438rem)'
   }
 }));
 
@@ -228,8 +283,8 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container>
-        <Box sx={{ display: 'flex', minHeight: '100vh', pt: '154px', pb: '155px' }}>
-          <StyledPaper elevation={0}>
+        <AppRoot>
+          <StyledPaper elevation={0} className={!isValid ? 'invalid' : undefined}>
             <Form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete='off'>
               <StyledFormControl error={!isValid}>
                 <FormLabel htmlFor='day'>DAY</FormLabel>
@@ -269,7 +324,7 @@ export default function App() {
               </Text>
             </Result>
           </StyledPaper>
-        </Box>
+        </AppRoot>
       </Container>
     </ThemeProvider>
   );
