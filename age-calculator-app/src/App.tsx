@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import Animate from './Animate';
 
 const md = 840 + 24 * 2;
 
@@ -310,18 +311,24 @@ export default function App() {
               </Button>
             </Form>
             <Result>
-              <Text variant='h1'>
-                <span>{animatedYears}</span>
-                <span>years</span>
-              </Text>
-              <Text variant='h1'>
-                <span>{animatedMonths}</span>
-                <span>months</span>
-              </Text>
-              <Text variant='h1'>
-                <span>{animatedDays}</span>
-                <span>days</span>
-              </Text>
+              <Animate order={3}>
+                <Text variant='h1'>
+                  <span>{animatedYears}</span>
+                  <span>years</span>
+                </Text>
+              </Animate>
+              <Animate order={2}>
+                <Text variant='h1'>
+                  <span>{animatedMonths}</span>
+                  <span>months</span>
+                </Text>
+              </Animate>
+              <Animate order={1}>
+                <Text variant='h1'>
+                  <span>{animatedDays}</span>
+                  <span>days</span>
+                </Text>
+              </Animate>
             </Result>
           </StyledPaper>
         </AppRoot>
