@@ -8,12 +8,13 @@ import MenuIcon from '@/src/icons/MenuIcon';
 import Cart from '@/src/app/(Cart)/Cart';
 import { MouseEvent, useState } from 'react';
 
-const HeaderRoot = styled('header')(() => ({
+const HeaderRoot = styled('header')(({ theme }) => ({
   paddingLeft: 24,
   paddingRight: 24,
   position: 'sticky',
   top: 0,
-  background: 'white'
+  background: 'white',
+  zIndex: theme.zIndex.appBar
 }));
 
 const Toolbar = styled(Box)(({ theme }) => ({
