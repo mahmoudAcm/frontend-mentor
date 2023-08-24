@@ -2,11 +2,12 @@
 
 import LogoIcon from '@/src/icons/LogoIcon';
 import Link from 'next/link';
-import { Avatar, Box, IconButton, styled } from '@mui/material';
+import { Avatar, Box, Drawer, IconButton, styled, useMediaQuery, useTheme } from '@mui/material';
 import CartIcon from '@/src/icons/CartIcon';
 import MenuIcon from '@/src/icons/MenuIcon';
 import Cart from '@/src/app/(Cart)/Cart';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
+import CloseIcon from '@/src/icons/CloseIcon';
 
 const HeaderRoot = styled('header')(({ theme }) => ({
   paddingLeft: 24,
@@ -62,7 +63,13 @@ const List = styled('ul')(({ theme }) => ({
   marginTop: 12,
   marginLeft: 56,
   [theme.breakpoints.down('md')]: {
-    display: 'none'
+    display: 'none',
+    '&.drawer': {
+      display: 'grid',
+      gap: 19,
+      marginTop: 42,
+      marginLeft: 25
+    }
   }
 }));
 
@@ -71,11 +78,23 @@ const Item = styled('li')(({ theme }) => ({
   lineHeight: 1.5,
   color: 'hsl(218, 4%, 43%)',
   position: 'relative',
+  '&.drawer-item': {
+    fontSize: 17.72 / 16 + 'rem',
+    fontWeight: 700,
+    color: 'hsl(220, 9%, 7%)',
+    '& a:focus': {
+      outlineOffset: 6,
+      outline: '2px dotted hsl(25, 99%, 56%)',
+      borderRadius: 1
+    }
+  },
   '& a': {
     font: 'inherit',
     lineHeight: 'inherit',
     textDecoration: 'none',
-    color: 'currentColor',
+    color: 'currentColor'
+  },
+  '&:not(.drawer-item) a': {
     '&::after': {
       content: '" "',
       transform: 'scaleX(0)',
@@ -90,7 +109,7 @@ const Item = styled('li')(({ theme }) => ({
       })
     }
   },
-  '& a:hover, & a:focus': {
+  '&:not(.drawer-item) a:hover, &:not(.drawer-item) a:focus': {
     color: 'hsl(200, 9%, 7%)',
     outline: 'none',
     '&::after': {
@@ -135,7 +154,10 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(() => theme.breakpoints.down('md'));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [open, setOpen] = useState(true);
 
   const handleCartClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -145,31 +167,53 @@ export default function Header() {
     setAnchorEl(null);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    if (!isMobile) handleClose();
+  }, [isMobile]);
+
+  const list = (type?: 'drawer') => {
+    const listClasName = type === 'drawer' ? type : undefined;
+    const itemClassName = type === 'drawer' ? 'drawer-item' : undefined;
+
+    return (
+      <List className={listClasName}>
+        <Item className={itemClassName}>
+          <Link href='/collections'>Collections</Link>
+        </Item>
+        <Item className={itemClassName}>
+          <Link href='/men'>Men</Link>
+        </Item>
+        <Item className={itemClassName}>
+          <Link href='/women'>Women</Link>
+        </Item>
+        <Item className={itemClassName}>
+          <Link href='/about'>About</Link>
+        </Item>
+        <Item className={itemClassName}>
+          <Link href='/contract'>Contracts</Link>
+        </Item>
+      </List>
+    );
+  };
+
   return (
     <HeaderRoot>
       <Toolbar>
-        <MenuButton>
+        <MenuButton
+          aria-label='Open Menu'
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
           <MenuIcon />
         </MenuButton>
         <Logo />
         <Nav>
-          <List>
-            <Item>
-              <Link href='/collections'>Collections</Link>
-            </Item>
-            <Item>
-              <Link href='/men'>Men</Link>
-            </Item>
-            <Item>
-              <Link href='/women'>Women</Link>
-            </Item>
-            <Item>
-              <Link href='/about'>About</Link>
-            </Item>
-            <Item>
-              <Link href='/contract'>Contracts</Link>
-            </Item>
-          </List>
+          {list()}
           <Actions>
             <CartButton aria-label='See Cart' onClick={handleCartClick}>
               <CartIcon />
@@ -179,6 +223,23 @@ export default function Header() {
         </Nav>
       </Toolbar>
       <Cart anchorEl={anchorEl} onClose={onCartClose} />
+      <Drawer
+        open={open && isMobile}
+        SlideProps={{
+          timeout: !isMobile ? 0 : undefined
+        }}
+        PaperProps={{
+          sx: {
+            width: 250,
+            alignItems: 'flex-start'
+          }
+        }}
+      >
+        <IconButton aria-label='Close Menu' sx={{ ml: '17px', mt: '16px' }} onClick={handleClose}>
+          <CloseIcon />
+        </IconButton>
+        {list('drawer')}
+      </Drawer>
     </HeaderRoot>
   );
 }
