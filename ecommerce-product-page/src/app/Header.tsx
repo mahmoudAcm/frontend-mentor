@@ -2,12 +2,13 @@
 
 import LogoIcon from '@/src/icons/LogoIcon';
 import Link from 'next/link';
-import { Avatar, Box, Drawer, IconButton, styled, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Badge, Box, Drawer, IconButton, styled, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import CartIcon from '@/src/icons/CartIcon';
 import MenuIcon from '@/src/icons/MenuIcon';
 import Cart from '@/src/app/(Cart)/Cart';
 import { MouseEvent, useEffect, useState } from 'react';
 import CloseIcon from '@/src/icons/CloseIcon';
+import useCartContext from '@/src/hooks/useCartContext';
 
 const HeaderRoot = styled('header')(({ theme }) => ({
   paddingLeft: 24,
@@ -26,7 +27,9 @@ const Toolbar = styled(Box)(({ theme }) => ({
   paddingBottom: 33,
   borderBottom: '1px solid hsl(240, 5%, 91%)',
   [theme.breakpoints.down('lg')]: {
-    border: 'none'
+    '&:not(.not-found)': {
+      border: 'none'
+    }
   },
   [theme.breakpoints.down('md')]: {
     padding: '20px 0 24px',
@@ -129,6 +132,24 @@ const Actions = styled(Box)(({ theme }) => ({
   }
 }));
 
+const StyledBadge = styled(Badge)(() => ({
+  '& .MuiBadge-badge': {
+    display: 'inline-flex',
+    fontSize: 10.5 / 16 + 'rem',
+    fontWeight: 700,
+    letterSpacing: 0,
+    lineHeight: 1,
+    minWidth: 0,
+    height: 'auto',
+    color: 'white',
+    padding: '3px 7px',
+    marginTop: 7,
+    marginRight: 10,
+    background: 'hsl(25, 99%, 56%)',
+    borderRadius: '100vw'
+  }
+}));
+
 const CartButton = styled(IconButton)(({ theme }) => ({
   padding: '9px 8px',
   [theme.breakpoints.down('md')]: {
@@ -153,11 +174,12 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
   }
 }));
 
-export default function Header() {
+export default function Header({ className }: { className?: string }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(() => theme.breakpoints.down('md'));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [open, setOpen] = useState(false);
+  const { totalAmount } = useCartContext();
 
   const handleCartClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -202,7 +224,7 @@ export default function Header() {
 
   return (
     <HeaderRoot>
-      <Toolbar>
+      <Toolbar className={className}>
         <MenuButton
           aria-label='Open Menu'
           onClick={() => {
@@ -215,10 +237,14 @@ export default function Header() {
         <Nav>
           {list()}
           <Actions>
-            <CartButton aria-label='See Cart' onClick={handleCartClick}>
-              <CartIcon />
-            </CartButton>
-            <StyledAvatar src='/images/image-avatar.png' alt='profile image' tabIndex={0} />
+            <StyledBadge badgeContent={totalAmount}>
+              <CartButton aria-label='See Cart' onClick={handleCartClick}>
+                <CartIcon />
+              </CartButton>
+            </StyledBadge>
+            <Tooltip title='Still under development.'>
+              <StyledAvatar src='/images/image-avatar.png' alt='profile image' tabIndex={0} />
+            </Tooltip>
           </Actions>
         </Nav>
       </Toolbar>

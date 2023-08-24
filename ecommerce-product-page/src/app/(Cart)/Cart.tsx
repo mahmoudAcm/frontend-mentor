@@ -1,5 +1,7 @@
 import { Box, Button, ClickAwayListener, Popover, PopoverProps, styled, Typography } from '@mui/material';
 import CartItem from '@/src/app/(Cart)/CartItem';
+import useCartContext from '@/src/hooks/useCartContext';
+import { useRouter } from 'next/navigation';
 
 const CartRoot = styled(Box)(({ theme }) => ({
   width: 'min(calc(100vw - 24px), 360px)',
@@ -30,6 +32,16 @@ const CartBody = styled(Box)(() => ({
   padding: '24px 24px 32px'
 }));
 
+const EmptyCartText = styled(Typography)(() => ({
+  fontSize: '1rem',
+  fontWeight: 700,
+  lineHeight: 1.66113,
+  letterSpacing: 0.08,
+  marginTop: 51,
+  textAlign: 'center',
+  color: 'hsl(231, 6%, 46%)'
+}));
+
 const CheckoutButton = styled(Button)(() => ({
   fontSize: '1rem',
   fontWeight: 700,
@@ -52,7 +64,9 @@ interface CartProps {
 }
 
 export default function Cart(props: CartProps) {
+  const router = useRouter();
   const open = Boolean(props.anchorEl);
+  const { products } = useCartContext();
   return (
     <Popover
       open={open}
@@ -77,8 +91,16 @@ export default function Cart(props: CartProps) {
         <CartRoot>
           <Title>Cart</Title>
           <CartBody>
-            <CartItem />
-            <CheckoutButton fullWidth>Checkout</CheckoutButton>
+            {products.map((product, index) => (
+              <CartItem {...product} key={index} />
+            ))}
+            {products.length ? (
+              <CheckoutButton fullWidth onClick={() => router.push('/checkout')}>
+                Checkout
+              </CheckoutButton>
+            ) : (
+              <EmptyCartText>Your cart is empty.</EmptyCartText>
+            )}
           </CartBody>
         </CartRoot>
       </ClickAwayListener>

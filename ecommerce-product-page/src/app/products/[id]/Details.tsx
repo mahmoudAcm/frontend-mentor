@@ -4,6 +4,8 @@ import { Box, Button, IconButton, styled, Typography } from '@mui/material';
 import MinusIcon from '@/src/icons/MinusIcon';
 import PlusIcon from '@/src/icons/PlusIcon';
 import CartIcon from '@/src/icons/CartIcon';
+import { useState } from 'react';
+import useCartContext from '@/src/hooks/useCartContext';
 
 const DetailsRoot = styled(Box)(({ theme }) => ({
   paddingTop: 58,
@@ -121,7 +123,7 @@ const IncreaseOrDecrease = styled(Box)(({ theme }) => ({
 const ItemCount = styled(OldPrice)(() => ({
   textDecoration: 'none',
   color: 'hsl(230, 10%, 12%)',
-  margin: 'auto'
+  margin: 'auto !important'
 }));
 
 const AddToCartButton = styled(Button)(({ theme }) => ({
@@ -138,12 +140,35 @@ const AddToCartButton = styled(Button)(({ theme }) => ({
   '&:hover': {
     background: 'hsl(27, 100%, 71%)'
   },
+  '&:disabled': {
+    background: 'hsl(27, 100%, 71%)',
+    boxShadow: 'none'
+  },
   [theme.breakpoints.down('sm')]: {
     width: '100%'
   }
 }));
 
 export default function Details() {
+  const productId = '1';
+  const [count, setCount] = useState(0);
+  const { addToCart } = useCartContext();
+
+  const handleCount = (amount: number) => () => {
+    setCount(count => Math.max(0, count + amount));
+  };
+
+  const handleAddToCart = () => {
+    if (!count) return;
+    addToCart({
+      id: productId,
+      amount: count,
+      image: '/images/image-product-1-thumbnail.jpg',
+      name: 'Fall Limited Edition Sneakers',
+      price: 125.0
+    });
+  };
+
   return (
     <DetailsRoot>
       <Type>SNEAKER COMPANY</Type>
@@ -161,15 +186,16 @@ export default function Details() {
       </PriceSection>
       <Actions>
         <IncreaseOrDecrease>
-          <IconButton aria-label='add item' sx={{ py: '12px' }}>
+          <IconButton aria-label='add item' sx={{ py: '12px' }} onClick={handleCount(-1)}>
             <MinusIcon />
           </IconButton>
-          <ItemCount>0</ItemCount>
-          <IconButton aria-label='remove item'>
+          <ItemCount>{count}</ItemCount>
+          <IconButton aria-label='remove item' onClick={handleCount(1)}>
             <PlusIcon />
           </IconButton>
         </IncreaseOrDecrease>
         <AddToCartButton
+          disabled={!count}
           startIcon={
             <CartIcon
               sx={{
@@ -181,6 +207,7 @@ export default function Details() {
               }}
             />
           }
+          onClick={handleAddToCart}
         >
           Add to cart
         </AddToCartButton>
