@@ -29,7 +29,8 @@ export default function ImageViewerDialog() {
           width: '100%',
           boxShadow: 'none',
           background: 'none',
-          marginTop: '102px'
+          mt: '102px',
+          mb: '87px'
         }
       }}
     >
