@@ -44,6 +44,7 @@ export default function ImageViewerDialog() {
             }
           }}
           onClick={closeImageViewerDialog}
+          aria-label='Close Image Viewer'
         >
           <CloseIcon />
         </IconButton>

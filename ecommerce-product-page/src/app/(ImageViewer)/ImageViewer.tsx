@@ -174,10 +174,10 @@ export default function ImageViewer(props: { className?: string; activeImageInde
   return (
     <ImageViewerRoot onKeyDown={handleKeydown} className={props.className}>
       <Box sx={{ position: 'relative' }}>
-        <SliderButton className={sliderButtonClassName} onClick={handlePrev}>
+        <SliderButton className={sliderButtonClassName} onClick={handlePrev} aria-label='Previous Product Slide'>
           <PrevIcon />
         </SliderButton>
-        <SliderButton className={sliderButtonClassName} onClick={handleNext}>
+        <SliderButton className={sliderButtonClassName} onClick={handleNext} aria-label='Next Product Slide'>
           <NextIcon />
         </SliderButton>
         <ActiveImage
