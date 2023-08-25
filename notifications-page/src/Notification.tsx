@@ -99,7 +99,7 @@ export default function Notification(props: NotificationProps) {
       {/* if the target was a picture we just show the picture not the content */}
       {(props.type === 'reaction' || props.type === 'comment' || props.type === 'reply') &&
       props.target === 'picture' ? (
-        <img src={props.picture} alt='picture' className='w-[45px] h-[45px]' />
+        <img src={props.picture} alt='picture' className='w-[39px] h-[39px] ml-[8px]' />
       ) : (
         <></>
       )}
