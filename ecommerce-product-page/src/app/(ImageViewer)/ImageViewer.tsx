@@ -30,11 +30,14 @@ const ActiveImage = styled(Image)(({ theme }) => ({
   height: 445,
   borderRadius: 13,
   userSelect: 'none',
+  cursor: 'pointer',
   [theme.breakpoints.down('lg')]: {
     width: '100%',
-    borderRadius: 0
+    height: 'auto',
+    borderRadius: 0,
+    cursor: 'default'
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down(377)]: {
     height: 300
   }
 }));

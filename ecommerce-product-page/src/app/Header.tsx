@@ -216,7 +216,7 @@ export default function Header({ className }: { className?: string }) {
           <Link href='/about'>About</Link>
         </Item>
         <Item className={itemClassName}>
-          <Link href='/contract'>Contracts</Link>
+          <Link href='/contract'>Contract</Link>
         </Item>
       </List>
     );
