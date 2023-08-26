@@ -1,8 +1,9 @@
 import Notifications from './Notifications.tsx';
+import AddNotificationDialog from './AddNotificationDialog';
 
 export default function App() {
   return (
-    <div className='font-base md:max-w-[730px] mx-auto bg-white md:mt-[63px] md:mb-[89px] md:rounded-[15px]'>
+    <div className='mx-auto bg-white font-base md:max-w-[730px] md:mt-[63px] md:mb-[89px] md:rounded-[15px]'>
       <div className='container mx-auto flex items-center justify-between px-[16px] pt-[24px] md:px-[30px] md:pt-[33px]'>
         <h1 className='text-[1.25rem] leading-[1.25] text-[hsl(224,21%,14%)] font-extrabold flex items-center'>
           Notifications
@@ -10,9 +11,12 @@ export default function App() {
             3
           </span>
         </h1>
-        <h5 className='text-[0.875rem] leading-[calc(18/14)] text-[hsl(219,12%,42%)]'>Mark all as read</h5>
+        <span className='text-[0.875rem] leading-[calc(18/14)] text-[hsl(219,12%,42%)] cursor-pointer hover:text-[hsl(219,85%,26%)]'>
+          Mark all as read
+        </span>
       </div>
       <Notifications />
+      <AddNotificationDialog />
     </div>
   );
 }

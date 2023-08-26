@@ -64,6 +64,10 @@ export default function Notification(props: NotificationProps) {
     <></>
   );
 
+  const showAlert = () => {
+    alert('Still under development.');
+  };
+
   return (
     <div
       className={[
@@ -76,12 +80,22 @@ export default function Notification(props: NotificationProps) {
       <img src={props.avatar} alt='avatar image' className='w-[39px] h-[39px]' />
       <div className='flex-1 font-medium ml-[13px] md:ml-[19px]'>
         <p className='notification-body | text-[hsl(219,12%,42%)]'>
-          <span className='font-extrabold text-[hsl(224,21%,14%)]'>{props.full_name}</span>
+          <span
+            className='font-extrabold text-[hsl(224,21%,14%)] cursor-pointer hover:text-[hsl(219,85%,26%)]'
+            onClick={showAlert}
+          >
+            {props.full_name}
+          </span>
           <span className='text-[hsl(219,12%,42%)] ml-[6px]'>{getText()}</span>
           {props.type === 'follow' || props.type === 'private-message' ? (
             badge
           ) : (
-            <span className={['font-bold ml-[6px]', getGroupNameClassName()].filter(Boolean).join(' ')}>
+            <span
+              className={['font-bold ml-[6px] cursor-pointer hover:text-[hsl(219,85%,26%)]', getGroupNameClassName()]
+                .filter(Boolean)
+                .join(' ')}
+              onClick={showAlert}
+            >
               {props.content}
               {badge}
             </span>
@@ -89,7 +103,10 @@ export default function Notification(props: NotificationProps) {
         </p>
         <span className='text-[hsl(219,14%,63%)] mt-[3px]'>{props.createdAt}</span>
         {props.type === 'private-message' ? (
-          <p className='text-[hsl(219,12%,42%)] mt-[12px] p-[16px] border rounded-[5px] md:px-[20px] md:py-[17px]'>
+          <p
+            className='text-[hsl(219,12%,42%)] mt-[12px] p-[16px] border rounded-[5px] cursor-pointer transition-colors md:px-[20px] md:py-[17px] hover:bg-[hsl(211,68%,94%)] hover:border-[hsl(205,33%,90%)]'
+            onClick={showAlert}
+          >
             {props.content}
           </p>
         ) : (
@@ -99,7 +116,12 @@ export default function Notification(props: NotificationProps) {
       {/* if the target was a picture we just show the picture not the content */}
       {(props.type === 'reaction' || props.type === 'comment' || props.type === 'reply') &&
       props.target === 'picture' ? (
-        <img src={props.picture} alt='picture' className='w-[39px] h-[39px] ml-[8px]' />
+        <img
+          src={props.picture}
+          alt='picture'
+          className='cursor-pointer w-[39px] h-[39px] ml-[8px]'
+          onClick={showAlert}
+        />
       ) : (
         <></>
       )}
