@@ -39,7 +39,7 @@ Users should be able to:
 
 - Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
-- [Taildwind Css](https://tailwindcss.com/) - For styles
+- [Tailwind Css](https://tailwindcss.com/) - For styles
 
 ## Author
 
