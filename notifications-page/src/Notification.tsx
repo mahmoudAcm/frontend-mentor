@@ -48,7 +48,7 @@ export default function Notification(props: NotificationProps) {
   return (
     <div
       className={[
-        'notification | flex text-[0.875rem] leading-[calc(18/14)] p-[16px] rounded-[8px] md:px-[20px] md:pt-[18px] md:text-[1rem] md:leading-[calc(20/16)]',
+        'notification | min-h-[80px] flex text-[0.875rem] leading-[calc(18/14)] p-[16px] rounded-[8px] md:px-[20px] md:pt-[18px] md:text-[1rem] md:leading-[calc(21/16)]',
         !props.seen ? 'bg-[hsl(210,60%,98%)]' : undefined
       ]
         .filter(Boolean)
@@ -86,7 +86,7 @@ export default function Notification(props: NotificationProps) {
         <span className='text-[hsl(219,14%,63%)] mt-[3px]'>{props.createdAt}</span>
         {props.type === 'private-message' ? (
           <p
-            className='text-[hsl(219,12%,42%)] mt-[12px] p-[16px] border rounded-[5px] cursor-pointer transition-colors md:px-[20px] md:py-[17px] hover:bg-[hsl(211,68%,94%)] hover:border-[hsl(205,33%,90%)] break-all break-words'
+            className='text-[hsl(219,12%,42%)] mt-[12px] p-[16px] border rounded-[5px] cursor-pointer transition-colors md:px-[20px] md:py-[17px] hover:bg-[hsl(211,68%,94%)] hover:border-[hsl(205,33%,90%)]  break-words'
             onClick={showAlert}
           >
             {props.content}
@@ -100,7 +100,7 @@ export default function Notification(props: NotificationProps) {
         <img
           src={props.picture}
           alt='picture'
-          className='cursor-pointer w-[39px] h-[39px] ml-[8px] rounded-[7px]'
+          className='cursor-pointer w-[39px] h-[39px] md:w-[45px] md:h-[45px] ml-[8px] rounded-[7px]'
           onClick={showAlert}
         />
       ) : (
