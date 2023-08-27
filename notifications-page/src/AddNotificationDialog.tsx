@@ -7,12 +7,17 @@ import { useCallback, useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InferType } from 'yup';
-import profiles from './profiles.ts';
+import useNotificationContext from './hooks/useNotificationContext';
+import { Notification, profiles, pics } from './data';
 
 const schema = yup.object({
   type: yup.string().required('Must select notification type'),
   target: yup.string().when('type', ([type], schema) => {
     if (type === 'reaction' || type === 'reply' || type === 'comment') return schema.required('This field is required');
+    return schema.optional();
+  }),
+  picture: yup.string().when('target', ([target], schema) => {
+    if (target === 'picture') return schema.required('This field is required');
     return schema.optional();
   }),
   user: yup.string().required('This field is required'),
@@ -35,9 +40,11 @@ function AddNotificationDialog() {
     resolver: yupResolver(schema),
     reValidateMode: 'onSubmit'
   });
+  const { addNotification } = useNotificationContext();
 
   const typeRegister = register('type');
   const targetRegister = register('target');
+  const pictureRegister = register('picture');
   const userRegister = register('user');
 
   const type = watch('type');
@@ -53,8 +60,24 @@ function AddNotificationDialog() {
     reset({ type: '', target: '', user: '', content: '' });
   }, [reset]);
 
-  const onSubmit = (data: InferType<typeof schema>) => {
-    console.log(data);
+  const onSubmit = ({ user, picture, ...data }: InferType<typeof schema>) => {
+    const profile = profiles.find(profile => profile.id === user)!;
+    const pic = pics.find(pic => pic.id === picture)!;
+
+    let name: Notification['name'] = 'user-activity';
+    if (['reaction', 'reply', 'comment'].includes(type) && target !== 'picture') name = 'social-interaction';
+    else if (target === 'picture') name = 'picture-interaction';
+    else if (type === 'follow') name = 'follower-notification';
+
+    addNotification({
+      ...data,
+      name,
+      full_name: profile.name,
+      avatar: profile.avatar,
+      picture: pic?.url,
+      createdAt: 'a moment ago'
+    } as Notification);
+
     setOpen(false);
     resetForm();
   };
@@ -113,7 +136,7 @@ function AddNotificationDialog() {
                 error={!!errors.type?.message}
               >
                 <Select.Group>
-                  <Select.SelectItem value='join' className=' h-auto py-1.5 min-h-[25px]'>
+                  <Select.SelectItem value='join' className='h-auto py-1.5 min-h-[25px]'>
                     Join
                   </Select.SelectItem>
                   <Select.SelectItem value='leave' className='h-auto py-1.5 min-h-[25px]'>
@@ -159,7 +182,7 @@ function AddNotificationDialog() {
                   error={!!errors.target?.message}
                 >
                   <Select.Group>
-                    <Select.SelectItem value='post' className=' h-auto py-1.5 min-h-[25px]'>
+                    <Select.SelectItem value='post' className='h-auto py-1.5 min-h-[25px]'>
                       Post
                     </Select.SelectItem>
                     <Select.SelectItem value='comment' className='h-auto py-1.5 min-h-[25px]'>
@@ -172,6 +195,40 @@ function AddNotificationDialog() {
                 </Select.Root>
                 {errors.target?.message ? (
                   <span className='text-xs text-red-400'>{errors.target?.message}</span>
+                ) : (
+                  <></>
+                )}
+              </fieldset>
+            ) : (
+              <></>
+            )}
+            {target === 'picture' ? (
+              <fieldset className='grid gap-1 mb-[15px]'>
+                <label className='text-gray10 w-[90px] text-[15px]'>Picture</label>
+                <Select.Root
+                  id='picture'
+                  placeholder='Select Picture'
+                  ariaLabel='Select a picture'
+                  ref={pictureRegister.ref}
+                  onValueChange={value => {
+                    setValue('picture', value);
+                  }}
+                  name={pictureRegister.name}
+                  error={!!errors.picture?.message}
+                >
+                  <Select.Group>
+                    {pics.map((picture, index) => (
+                      <Select.SelectItem key={index} value={picture.id} className='h-auto py-1.5 min-h-[25px]'>
+                        <div className='flex items-center gap-2'>
+                          <img src={picture.url} alt='picture image' className='h-7 w-7 rounded-[7px]' />
+                          <span>{picture.url.replace('./images/pics/', '')}</span>
+                        </div>
+                      </Select.SelectItem>
+                    ))}
+                  </Select.Group>
+                </Select.Root>
+                {errors.picture?.message ? (
+                  <span className='text-xs text-red-400'>{errors.picture?.message}</span>
                 ) : (
                   <></>
                 )}
@@ -215,7 +272,7 @@ function AddNotificationDialog() {
                 <textarea
                   rows={5}
                   className={twMerge(
-                    'inline-flex w-full outline-none text-gray11 shadow-gray8 leading-[1.5] min-h-[35px] rounded-[4px] py-[12px] px-[15px] text-[15px] shadow-[0_0_0_1px]',
+                    'inline-flex w-full outline-none text-gray11 shadow-gray8 leading-[1.5] min-h-[35px] rounded-[4px] py-[12px] px-[15px] text-[15px] shadow-[0_0_0_1px] focus:shadow-[0_0_0_2px]',
                     !errors.content?.message
                       ? ''
                       : 'shadow-red-300 focus:shadow-red-500 data-[placeholder]:text-red-500'
@@ -231,14 +288,14 @@ function AddNotificationDialog() {
               </fieldset>
             )}
             <button
-              className='inline-flex mt-2 w-full select-none appearance-none items-center justify-center text-white rounded-[5px] px-[30px] py-1.5 bg-gray10 hover:bg-gray8 focus:shadow-[0_0_0_2px] focus:outline-none'
+              className='mt-2 inline-flex w-full select-none appearance-none items-center justify-center text-white rounded-[5px] px-[30px] py-1.5 bg-gray-500 hover:bg-gray-400 focus:shadow-[0_0_0_2px] focus:outline-none'
               aria-label='Notify'
             >
               Add Notification
             </button>
             <Dialog.Close asChild>
               <button
-                className='absolute inline-flex appearance-none items-center justify-center rounded-full text-gray11 top-[10px] right-[10px] h-[25px] w-[25px] hover:bg-gray4 focus:shadow-gray7 focus:shadow-[0_0_0_2px] focus:outline-none'
+                className='absolute hidden appearance-none items-center justify-center rounded-full text-gray11 top-[10px] right-[10px] h-[25px] w-[25px] hover:bg-gray4 focus:shadow-gray7 focus:shadow-[0_0_0_2px] focus:outline-none'
                 aria-label='Close'
               >
                 <Cross2Icon />

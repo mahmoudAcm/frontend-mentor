@@ -19,23 +19,23 @@ const Select = forwardRef<
     <DefaultSelect.Root {...props}>
       <DefaultSelect.Trigger
         className={twMerge(
-          'w-full inline-flex items-center justify-center rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white shadow-gray8 text-gray11 shadow-[0_0_0_1px] hover:bg-gray3 data-[placeholder]:text-gray11 outline-none',
+          'w-full inline-flex items-center justify-center rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white shadow-gray8 text-gray11 shadow-[0_0_0_1px] hover:bg-gray3 data-[placeholder]:text-gray11 outline-none focus:shadow-[0_0_0_2px]',
           error ? 'shadow-red-300 focus:shadow-red-500 data-[placeholder]:text-red-500' : ''
         )}
         aria-label={ariaLabel}
       >
         <DefaultSelect.Value placeholder={placeholder} ref={forwardedRef} />
-        <DefaultSelect.Icon className='text-current ml-auto'>
+        <DefaultSelect.Icon className='ml-auto text-current'>
           <ChevronDownIcon />
         </DefaultSelect.Icon>
       </DefaultSelect.Trigger>
       <DefaultSelect.Portal>
         <DefaultSelect.Content className='overflow-hidden bg-white rounded-md shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]'>
-          <DefaultSelect.ScrollUpButton className='flex cursor-default items-center justify-center bg-white h-[25px] text-current'>
+          <DefaultSelect.ScrollUpButton className='flex cursor-default items-center justify-center bg-white text-current h-[25px]'>
             <ChevronUpIcon />
           </DefaultSelect.ScrollUpButton>
           <DefaultSelect.Viewport className='p-[5px]'>{children}</DefaultSelect.Viewport>
-          <DefaultSelect.ScrollDownButton className='flex cursor-default items-center justify-center bg-white h-[25px] text-current'>
+          <DefaultSelect.ScrollDownButton className='flex cursor-default items-center justify-center bg-white text-current h-[25px]'>
             <ChevronDownIcon />
           </DefaultSelect.ScrollDownButton>
         </DefaultSelect.Content>
@@ -49,7 +49,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps & RefAttrib
     return (
       <DefaultSelect.Item
         className={twMerge(
-          'text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-gray8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1',
+          'text-[13px] leading-none text-gray11 rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[disabled]:text-gray8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-gray-400 data-[highlighted]:text-white',
           className
         )}
         {...props}

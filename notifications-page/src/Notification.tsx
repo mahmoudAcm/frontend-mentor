@@ -1,60 +1,35 @@
+import getNotificationText from './libs/getNotificationText';
+
 type UserActivity = {
+  name: 'user-activity';
   type: 'join' | 'leave' | 'private-message';
   content: string;
 };
 
-type FollowerNotification = { type: 'follow' };
+type FollowerNotification = { name: 'follower-notification'; type: 'follow' };
 
 type SocialInteraction = {
+  name: 'social-interaction';
   type: 'reaction' | 'comment' | 'reply';
   target: 'comment' | 'post';
   content: string;
 };
 
 type PictureInteraction = {
+  name: 'picture-interaction';
   type: SocialInteraction['type'];
   target: 'picture';
   picture: string;
-  content?: string;
 };
 
-type NotificationProps = { full_name: string; avatar: string; createdAt: string; seen?: boolean } & (
+export type NotificationProps = { full_name: string; avatar: string; createdAt: string; seen?: boolean } & (
   | UserActivity
   | FollowerNotification
   | SocialInteraction
   | PictureInteraction
 );
 
-const mapTypeToText = {
-  join: 'has joined your group',
-  leave: 'left the group',
-  follow: 'followed you',
-  reaction: {
-    comment: 'reacted to your recent comment',
-    post: 'reacted to your recent post',
-    picture: 'reacted to your recent picture'
-  },
-  comment: {
-    comment: 'commented on your comment',
-    post: 'commented on your post',
-    picture: 'commented on your picture'
-  },
-  reply: {
-    comment: 'replied on your comment',
-    post: 'replied on your post',
-    picture: 'replied on your picture'
-  },
-  'private-message': 'sent you a private message'
-};
-
 export default function Notification(props: NotificationProps) {
-  const getText = () => {
-    if (props.type === 'reaction' || props.type === 'comment' || props.type === 'reply') {
-      return (mapTypeToText[props.type] as Record<string, string>)[props.target];
-    }
-    return <>{mapTypeToText[props.type]}</>;
-  };
-
   const getGroupNameClassName = () =>
     props.type === 'join' || props.type === 'leave' ? 'text-[hsl(219,85%,26%)]' : undefined;
 
@@ -67,6 +42,8 @@ export default function Notification(props: NotificationProps) {
   const showAlert = () => {
     alert('Still under development.');
   };
+
+  const hasTarget = props.name === 'picture-interaction' || props.name === 'social-interaction';
 
   return (
     <div
@@ -86,12 +63,17 @@ export default function Notification(props: NotificationProps) {
           >
             {props.full_name}
           </span>
-          <span className='text-[hsl(219,12%,42%)] ml-[6px]'>{getText()}</span>
-          {props.type === 'follow' || props.type === 'private-message' ? (
+          <span className='text-[hsl(219,12%,42%)] ml-[6px]'>
+            {getNotificationText(props.type, hasTarget ? props.target : undefined)}
+          </span>
+          {props.type === 'follow' || props.type === 'private-message' || props.name === 'picture-interaction' ? (
             badge
           ) : (
             <span
-              className={['font-bold ml-[6px] cursor-pointer hover:text-[hsl(219,85%,26%)]', getGroupNameClassName()]
+              className={[
+                'font-bold ml-[6px] cursor-pointer hover:text-[hsl(219,85%,26%)] break-all break-words',
+                getGroupNameClassName()
+              ]
                 .filter(Boolean)
                 .join(' ')}
               onClick={showAlert}
@@ -104,7 +86,7 @@ export default function Notification(props: NotificationProps) {
         <span className='text-[hsl(219,14%,63%)] mt-[3px]'>{props.createdAt}</span>
         {props.type === 'private-message' ? (
           <p
-            className='text-[hsl(219,12%,42%)] mt-[12px] p-[16px] border rounded-[5px] cursor-pointer transition-colors md:px-[20px] md:py-[17px] hover:bg-[hsl(211,68%,94%)] hover:border-[hsl(205,33%,90%)]'
+            className='text-[hsl(219,12%,42%)] mt-[12px] p-[16px] border rounded-[5px] cursor-pointer transition-colors md:px-[20px] md:py-[17px] hover:bg-[hsl(211,68%,94%)] hover:border-[hsl(205,33%,90%)] break-all break-words'
             onClick={showAlert}
           >
             {props.content}
@@ -114,12 +96,11 @@ export default function Notification(props: NotificationProps) {
         )}
       </div>
       {/* if the target was a picture we just show the picture not the content */}
-      {(props.type === 'reaction' || props.type === 'comment' || props.type === 'reply') &&
-      props.target === 'picture' ? (
+      {props.name === 'picture-interaction' ? (
         <img
           src={props.picture}
           alt='picture'
-          className='cursor-pointer w-[39px] h-[39px] ml-[8px]'
+          className='cursor-pointer w-[39px] h-[39px] ml-[8px] rounded-[7px]'
           onClick={showAlert}
         />
       ) : (
