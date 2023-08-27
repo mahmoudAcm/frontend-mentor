@@ -54,7 +54,7 @@ export default function Notification(props: NotificationProps) {
         .filter(Boolean)
         .join(' ')}
     >
-      <img src={props.avatar} alt='avatar image' className='w-[39px] h-[39px]' />
+      <img src={props.avatar} alt='avatar image' className='w-[39px] h-[39px] md:w-[45px] md:h-[45px]' />
       <div className='flex-1 font-medium ml-[13px] md:ml-[19px]'>
         <p className='notification-body | text-[hsl(219,12%,42%)]'>
           <span
@@ -71,7 +71,7 @@ export default function Notification(props: NotificationProps) {
           ) : (
             <span
               className={[
-                'font-bold ml-[6px] cursor-pointer hover:text-[hsl(219,85%,26%)] break-all break-words',
+                'font-bold ml-[6px] cursor-pointer hover:text-[hsl(219,85%,26%)] break-words',
                 getGroupNameClassName()
               ]
                 .filter(Boolean)
@@ -86,7 +86,7 @@ export default function Notification(props: NotificationProps) {
         <span className='text-[hsl(219,14%,63%)] mt-[3px]'>{props.createdAt}</span>
         {props.type === 'private-message' ? (
           <p
-            className='text-[hsl(219,12%,42%)] mt-[12px] p-[16px] border rounded-[5px] cursor-pointer transition-colors md:px-[20px] md:py-[17px] hover:bg-[hsl(211,68%,94%)] hover:border-[hsl(205,33%,90%)]  break-words'
+            className='text-[hsl(219,12%,42%)] mt-[12px] p-[16px] border rounded-[5px] cursor-pointer transition-colors md:px-[20px] md:py-[17px] hover:bg-[hsl(211,68%,94%)] hover:border-[hsl(205,33%,90%)] break-words'
             onClick={showAlert}
           >
             {props.content}
