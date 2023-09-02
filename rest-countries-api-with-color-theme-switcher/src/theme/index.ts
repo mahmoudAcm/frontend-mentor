@@ -3,7 +3,7 @@ import { Nunito_Sans } from 'next/font/google';
 import { THEMES } from '@/src/constants';
 
 const nunitoSansFont = Nunito_Sans({
-  weight: ['300', '600', '800'],
+  weight: ['300', '400', '600', '700', '800'],
   subsets: ['latin'],
   display: 'swap'
 });
@@ -30,7 +30,8 @@ const themeOptions: Record<keyof typeof THEMES, ThemeOptions> = {
     palette: {
       __mode: THEMES.DARK,
       background: {
-        default: 'hsl(205, 25%, 17%)'
+        default: 'hsl(205, 25%, 17%)',
+        paper: 'hsl(210, 22%, 22%)'
       },
       text: {
         primary: 'hsl(0, 0%, 100%)'
