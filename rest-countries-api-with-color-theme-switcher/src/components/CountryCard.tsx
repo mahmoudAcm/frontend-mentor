@@ -2,6 +2,7 @@
 
 import { Box, styled, Typography } from '@mui/material';
 import Image from 'next/image';
+import { Country } from '@/src/types';
 
 const Card = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -57,22 +58,32 @@ const Stat = styled(Typography)(({ theme }) => ({
   }
 }));
 
-export default function CountryCard() {
+interface CountryCardProps extends Country {}
+
+export default function CountryCard(props: CountryCardProps) {
   return (
     <Card tabIndex={0}>
-      <Flag src='/er.svg' width={200} height={600} alt='country flag' priority />
+      <Flag
+        src={props.flags?.svg ?? 'No_flag.svg.png'}
+        width={200}
+        height={600}
+        alt={props.flags.alt ?? 'country flag'}
+        priority
+      />
       <Content>
-        <CountryName>Germany</CountryName>
+        <CountryName>{props.name.common}</CountryName>
         <Stats>
           <Stat>
-            PopuIation: <span>81,770,900</span>
+            PopuIation: <span>{props.population.toLocaleString()}</span>
           </Stat>
           <Stat>
-            Region: <span>Europ</span>
+            Region: <span>{props.region}</span>
           </Stat>
-          <Stat>
-            CapitaI: <span>BerIin</span>
-          </Stat>
+          {props.capital && (
+            <Stat>
+              CapitaI: <span>{props.capital?.join(' ')}</span>
+            </Stat>
+          )}
         </Stats>
       </Content>
     </Card>

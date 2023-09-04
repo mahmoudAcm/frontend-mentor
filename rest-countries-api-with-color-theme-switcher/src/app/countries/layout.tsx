@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react';
 import { Box, styled } from '@mui/material';
+import CountriesFilters from '@/src/components/CountriesFilters';
 
 const Container = styled(Box)(() => ({
   maxWidth: 1312,
@@ -12,9 +13,8 @@ const Container = styled(Box)(() => ({
 
 const Grid = styled(Box)(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(264px, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(264px, 1fr))',
   gap: 74,
-  marginTop: 48,
   marginBottom: 45,
   [theme.breakpoints.down(657)]: {
     gridTemplateColumns: '328px',
@@ -28,6 +28,7 @@ const Grid = styled(Box)(({ theme }) => ({
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <Container>
+      <CountriesFilters />
       <Grid>{children}</Grid>
     </Container>
   );
