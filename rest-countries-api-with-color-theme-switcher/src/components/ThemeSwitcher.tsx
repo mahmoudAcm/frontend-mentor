@@ -1,7 +1,6 @@
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
-import { Box, Button, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import useThemeContext from '@/src/hooks/useThemeContext';
 
 const SwitchButton = styled(Box)(({ theme }) => ({
@@ -23,6 +22,9 @@ const SwitchButton = styled(Box)(({ theme }) => ({
     outline: 'none',
     boxShadow: '0 0 0 2px currentColor',
     borderRadius: 2
+  },
+  [theme.breakpoints.down('sm')]: {
+    letterSpacing: -0.64
   }
 }));
 
@@ -37,7 +39,7 @@ export default function ThemeSwitcher() {
       tabIndex={0}
     >
       {mode === 'DARK' ? <Brightness5Icon fontSize='small' /> : <DarkModeOutlinedIcon />}
-      {mode === 'DARK' ? 'Light' : 'Dark'} Mood
+      {mode === 'DARK' ? 'Light' : 'Dark'} Mode
     </SwitchButton>
   );
 }

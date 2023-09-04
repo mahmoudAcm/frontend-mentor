@@ -9,11 +9,15 @@ const AppBar = styled('header')(({ theme }) => ({
   boxShadow: '0px 2.5px 20px var(--_shadow-color)'
 }));
 
-const Container = styled(Box)(() => ({
-  maxWidth: 1312,
+const Container = styled(Box)(({ theme }) => ({
+  '--_px': '32px',
+  maxWidth: 'calc(1280px + 2 * var(--_px))',
   margin: 'auto',
-  paddingLeft: 16,
-  paddingRight: 16
+  paddingLeft: 'var(--_px)',
+  paddingRight: 'var(--_px)',
+  [theme.breakpoints.down('sm')]: {
+    '--_px': '16px'
+  }
 }));
 
 const Toolbar = styled(Box)(() => ({
@@ -28,7 +32,12 @@ const AppBarTitle = styled(Typography)(({ theme }) => ({
   lineHeight: 32 / 23.25,
   letterSpacing: 0.233,
   pointerEvents: 'none',
-  userSelect: 'none'
+  userSelect: 'none',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 19 / theme.typography.htmlFontSize + 'rem',
+    lineHeight: 26 / 19,
+    letterSpacing: -0.855
+  }
 }));
 
 export default function Header() {

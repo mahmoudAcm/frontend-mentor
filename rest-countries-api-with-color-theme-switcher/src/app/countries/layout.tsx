@@ -4,11 +4,15 @@ import { ReactNode } from 'react';
 import { Box, styled } from '@mui/material';
 import CountriesFilters from '@/src/components/CountriesFilters';
 
-const Container = styled(Box)(() => ({
-  maxWidth: 1312,
+const Container = styled(Box)(({ theme }) => ({
+  '--_px': '32px',
+  maxWidth: 'calc(1280px + 2 * var(--_px))',
   margin: 'auto',
-  paddingLeft: 16,
-  paddingRight: 16
+  paddingLeft: 'var(--_px)',
+  paddingRight: 'var(--_px)',
+  [theme.breakpoints.down('sm')]: {
+    '--_px': '16px'
+  }
 }));
 
 const Grid = styled(Box)(({ theme }) => ({
