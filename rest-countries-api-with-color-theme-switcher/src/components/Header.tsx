@@ -2,22 +2,16 @@
 
 import { Box, styled, Typography } from '@mui/material';
 import ThemeSwitcher from '@/src/components/ThemeSwitcher';
+import { Container } from '@/src/components/Container';
 
 const AppBar = styled('header')(({ theme }) => ({
+  width: '100%',
   background: theme.palette.__mode === 'DARK' ? 'hsl(210, 22%, 22%)' : 'hsl(0, 0%, 100%)',
   '--_shadow-color': theme.palette.__mode === 'DARK' ? 'hsl(205, 28%, 16%)' : 'hsl(0, 0%, 93%)',
-  boxShadow: '0px 2.5px 20px var(--_shadow-color)'
-}));
-
-const Container = styled(Box)(({ theme }) => ({
-  '--_px': '32px',
-  maxWidth: 'calc(1280px + 2 * var(--_px))',
-  margin: 'auto',
-  paddingLeft: 'var(--_px)',
-  paddingRight: 'var(--_px)',
-  [theme.breakpoints.down('sm')]: {
-    '--_px': '16px'
-  }
+  boxShadow: '0px 2.5px 20px var(--_shadow-color)',
+  position: 'sticky',
+  top: 0,
+  zIndex: theme.zIndex.appBar
 }));
 
 const Toolbar = styled(Box)(() => ({

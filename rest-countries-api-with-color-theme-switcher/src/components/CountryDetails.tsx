@@ -1,0 +1,179 @@
+import { Container } from '@/src/components/Container';
+import { Box, BoxProps, styled, Typography } from '@mui/material';
+import Image from 'next/image';
+import { ReactNode } from 'react';
+
+const Flex = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: 70,
+  marginTop: 81,
+  justifyContent: 'space-between',
+  alignItems: 'start',
+  [theme.breakpoints.down('lg')]: {
+    flexDirection: 'column',
+    gap: 50
+  }
+}));
+
+const Flag = styled(Image)(({ theme }) => ({
+  maxWidth: 'min(560px, 100%)',
+  height: 'auto',
+  '--_shadow-color': theme.palette.__mode === 'DARK' ? 'hsl(205, 26%, 16%)' : 'transparent',
+  boxShadow: '0 0 0 24px var(--_shadow-color)',
+  borderRadius: 4,
+  [theme.breakpoints.down('lg')]: {
+    maxWidth: 'min(641px, 100%)',
+    margin: 'auto'
+  }
+}));
+
+const DetailsContainer = styled(Box)(({ theme }) => ({
+  width: 'min(571px, 100%)',
+  marginTop: 38,
+  [theme.breakpoints.down('lg')]: {
+    width: '100%'
+  }
+}));
+
+const CountryName = styled(Typography)(({ theme }) => ({
+  fontSize: 33.12 / theme.typography.htmlFontSize + 'rem',
+  fontWeight: 800,
+  lineHeight: 45 / 33.12,
+  letterSpacing: -0.994,
+  [theme.breakpoints.between('sm', 'lg')]: {
+    fontSize: 45 / theme.typography.htmlFontSize + 'rem',
+    letterSpacing: -1.35
+  }
+}));
+
+const StatRoot = styled(Typography)(({ theme }) => ({
+  fontSize: 15.7 / theme.typography.htmlFontSize + 'rem',
+  fontWeight: 600,
+  lineHeight: 21 / 15.7,
+  color: theme.palette.__mode === 'DARK' ? 'hsl(208, 18%, 86%)' : undefined,
+  '& span': {
+    fontWeight: 300
+  },
+  [theme.breakpoints.between('sm', 'lg')]: {
+    fontSize: 30 / theme.typography.htmlFontSize + 'rem',
+    letterSpacing: -1.35
+  }
+}));
+
+const Chip = styled(StatRoot)(({ theme }) => ({
+  fontWeight: 500,
+  padding: '3px 26px 4px',
+  background: theme.palette.background.paper,
+  borderRadius: 4,
+  '--_shadow-color': theme.palette.__mode === 'DARK' ? 'hsl(205, 28%, 16%)' : 'hsl(0, 0%, 93%)',
+  boxShadow: '0 0 20px 2px var(--_shadow-color)'
+}));
+
+function Stat<T extends any>(props: { pair: [string, T]; sx?: BoxProps['sx']; children?: (value: T) => ReactNode }) {
+  const [key, value] = props.pair;
+
+  if (props.children) {
+    return (
+      <StatRoot as={Box} sx={props.sx}>
+        {key}: {props.children(value)}
+      </StatRoot>
+    );
+  }
+
+  if (!value) return <></>;
+
+  if (typeof value === 'string')
+    return (
+      <StatRoot sx={props.sx}>
+        {key}: <span>{value}</span>
+      </StatRoot>
+    );
+
+  if (typeof value === 'number')
+    return (
+      <StatRoot sx={props.sx}>
+        {key}: <span>{value.toLocaleString()}</span>
+      </StatRoot>
+    );
+
+  if (typeof value === 'object' && value instanceof Array && value.length) {
+    return (
+      <StatRoot sx={props.sx}>
+        {key}: <span>{value.join(', ')}</span>
+      </StatRoot>
+    );
+  }
+
+  throw 'Not implemented';
+}
+
+export default function CountryDetails() {
+  return (
+    <Box
+      sx={{
+        height: '85vh',
+        overflow: 'auto'
+      }}
+    >
+      <Box
+        sx={{
+          background: ({ palette: { __mode } }) =>
+            __mode === 'DARK' ? 'rgba(212, 212, 216, 0.5)' : 'rgba(212, 212, 216, 1)',
+          width: '60px',
+          height: '6px',
+          borderRadius: 9999,
+          mx: 'auto',
+          mt: '20px'
+        }}
+      />
+      <Container>
+        <Flex>
+          <Flag src='/er.svg' width={1200} height={600} alt='contry flag' />
+          <DetailsContainer>
+            <CountryName>Belgium</CountryName>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: { lg: '1fr 1fr' },
+                gap: { xs: '23px', lg: '11.57px' },
+                mt: { xs: '43px', lg: '27.43px' }
+              }}
+            >
+              <Stat pair={['Native Name', 'Belgie']} sx={{ gridColumn: 1, gridRow: 1 }} />
+              <Stat pair={['PopuIation', 11319511]} sx={{ gridColumn: 1, gridRow: 2 }} />
+              <Stat pair={['Region', 'Europe']} sx={{ gridColumn: 1, gridRow: 3 }} />
+              <Stat pair={['Sub Region', ['Western Europe']]} sx={{ gridColumn: 1, gridRow: 4 }} />
+              <Stat pair={['Capital', ['Brussels']]} sx={{ gridColumn: 1, gridRow: 5 }} />
+              <Stat
+                pair={['Top Level Domain', ['.be']]}
+                sx={{ gridColumn: { lg: 2 }, gridRow: { lg: 1 }, mt: { xs: '44px', sm: '88px', lg: 0 } }}
+              />
+              <Stat pair={['Currencies', ['Euro']]} sx={{ gridColumn: { lg: 2 }, gridRow: { lg: 2 } }} />
+              <Stat
+                pair={['Languages', ['Dutch', 'French', 'German']]}
+                sx={{ gridColumn: { lg: 2 }, gridRow: { lg: 3 } }}
+              />
+            </Box>
+
+            <Stat
+              sx={{ mt: '75px', display: 'flex', flexWrap: 'wrap', gap: '15px', alignItems: 'center', mb: '124px' }}
+              pair={['Border Countries', ['France', 'Germany', 'Netherlands']]}
+            >
+              {values => {
+                if (values.length)
+                  return (
+                    <Box sx={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                      {values.map((value, index) => (
+                        <Chip key={index}>{value}</Chip>
+                      ))}
+                    </Box>
+                  );
+                return <></>;
+              }}
+            </Stat>
+          </DetailsContainer>
+        </Flex>
+      </Container>
+    </Box>
+  );
+}

@@ -3,17 +3,8 @@
 import { ReactNode } from 'react';
 import { Box, styled } from '@mui/material';
 import CountriesFilters from '@/src/components/CountriesFilters';
-
-const Container = styled(Box)(({ theme }) => ({
-  '--_px': '32px',
-  maxWidth: 'calc(1280px + 2 * var(--_px))',
-  margin: 'auto',
-  paddingLeft: 'var(--_px)',
-  paddingRight: 'var(--_px)',
-  [theme.breakpoints.down('sm')]: {
-    '--_px': '16px'
-  }
-}));
+import CountryDetailsDialog from '@/src/components/CountryDetailsDialog';
+import { Container } from '@/src/components/Container';
 
 const Grid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -33,6 +24,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <Container>
       <CountriesFilters />
+      <CountryDetailsDialog />
       <Grid>{children}</Grid>
     </Container>
   );
