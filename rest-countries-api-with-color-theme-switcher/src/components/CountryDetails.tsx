@@ -2,6 +2,7 @@ import { Container } from '@/src/components/Container';
 import { Box, BoxProps, styled, Typography } from '@mui/material';
 import Image from 'next/image';
 import { ReactNode } from 'react';
+import useCountryDetailsContext from '@/src/hooks/useCountryDetailsContext';
 
 const Flex = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -72,6 +73,8 @@ const Chip = styled(StatRoot)(({ theme }) => ({
 function Stat<T extends any>(props: { pair: [string, T]; sx?: BoxProps['sx']; children?: (value: T) => ReactNode }) {
   const [key, value] = props.pair;
 
+  if (!value) return <></>;
+
   if (props.children) {
     return (
       <StatRoot as={Box} sx={props.sx}>
@@ -79,8 +82,6 @@ function Stat<T extends any>(props: { pair: [string, T]; sx?: BoxProps['sx']; ch
       </StatRoot>
     );
   }
-
-  if (!value) return <></>;
 
   if (typeof value === 'string')
     return (
@@ -108,6 +109,31 @@ function Stat<T extends any>(props: { pair: [string, T]; sx?: BoxProps['sx']; ch
 }
 
 export default function CountryDetails() {
+  const { details } = useCountryDetailsContext();
+
+  if (!details) return <></>;
+
+  const getNativeName = () => {
+    const keys = Object.keys(details.languages ?? {});
+    if (keys.length) return details.name.nativeName[keys[0]].common;
+    return details.name.official;
+  };
+
+  const getLanguages = () => {
+    return Object.values(details.languages ?? {});
+  };
+
+  const getCurrencies = () => {
+    return Object.keys(details.currencies ?? {});
+  };
+
+  const ColumnSx: BoxProps['sx'] = {
+    display: 'grid',
+    alignContent: 'start',
+    gap: { xs: '23px', lg: '11.57px' },
+    mt: { xs: '43px', lg: '27.43px' }
+  };
+
   return (
     <Box
       sx={{
@@ -128,36 +154,45 @@ export default function CountryDetails() {
       />
       <Container>
         <Flex>
-          <Flag src='/er.svg' width={1200} height={600} alt='contry flag' />
+          <Flag
+            src={details.flags.svg ?? '/No_flag.svg.png'}
+            width={1200}
+            height={600}
+            alt={details.flags.alt ?? 'contry flag'}
+          />
           <DetailsContainer>
-            <CountryName>Belgium</CountryName>
+            <CountryName>{details.name.common}</CountryName>
             <Box
               sx={{
                 display: 'grid',
-                gridTemplateColumns: { lg: '1fr 1fr' },
-                gap: { xs: '23px', lg: '11.57px' },
-                mt: { xs: '43px', lg: '27.43px' }
+                gridTemplateColumns: { lg: '1fr 1fr' }
               }}
             >
-              <Stat pair={['Native Name', 'Belgie']} sx={{ gridColumn: 1, gridRow: 1 }} />
-              <Stat pair={['PopuIation', 11319511]} sx={{ gridColumn: 1, gridRow: 2 }} />
-              <Stat pair={['Region', 'Europe']} sx={{ gridColumn: 1, gridRow: 3 }} />
-              <Stat pair={['Sub Region', ['Western Europe']]} sx={{ gridColumn: 1, gridRow: 4 }} />
-              <Stat pair={['Capital', ['Brussels']]} sx={{ gridColumn: 1, gridRow: 5 }} />
-              <Stat
-                pair={['Top Level Domain', ['.be']]}
-                sx={{ gridColumn: { lg: 2 }, gridRow: { lg: 1 }, mt: { xs: '44px', sm: '88px', lg: 0 } }}
-              />
-              <Stat pair={['Currencies', ['Euro']]} sx={{ gridColumn: { lg: 2 }, gridRow: { lg: 2 } }} />
-              <Stat
-                pair={['Languages', ['Dutch', 'French', 'German']]}
-                sx={{ gridColumn: { lg: 2 }, gridRow: { lg: 3 } }}
-              />
+              <Box sx={ColumnSx}>
+                <Stat pair={['Native Name', getNativeName()]} />
+                <Stat pair={['PopuIation', details.population]} />
+                <Stat pair={['Region', details.region]} />
+                <Stat pair={['Sub Region', details.subregion]} />
+                <Stat pair={['Capital', details.capital]} />
+              </Box>
+
+              <Box sx={ColumnSx}>
+                <Stat pair={['Top Level Domain', details.tld]} sx={{ mt: { xs: '44px', sm: '88px', lg: 0 } }} />
+                <Stat pair={['Currencies', getCurrencies()]} />
+                <Stat pair={['Languages', getLanguages()]} />
+              </Box>
             </Box>
 
             <Stat
-              sx={{ mt: '75px', display: 'flex', flexWrap: 'wrap', gap: '15px', alignItems: 'center', mb: '124px' }}
-              pair={['Border Countries', ['France', 'Germany', 'Netherlands']]}
+              sx={{
+                mt: '75px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '15px',
+                alignItems: 'center',
+                mb: '124px'
+              }}
+              pair={['Border Countries', details.borders]}
             >
               {values => {
                 if (values.length)

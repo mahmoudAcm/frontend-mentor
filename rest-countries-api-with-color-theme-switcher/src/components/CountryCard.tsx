@@ -3,6 +3,7 @@
 import { Box, styled, Typography } from '@mui/material';
 import Image from 'next/image';
 import { Country } from '@/src/types';
+import useCountryDetailsContext from '@/src/hooks/useCountryDetailsContext';
 
 const Card = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -26,6 +27,7 @@ const Flag = styled(Image)(({ theme }) => ({
   minHeight: 160,
   maxHeight: 170,
   objectFit: 'cover',
+  cursor: 'pointer',
   [theme.breakpoints.down('md')]: {
     minHeight: 199
   }
@@ -61,10 +63,18 @@ const Stat = styled(Typography)(({ theme }) => ({
 interface CountryCardProps extends Country {}
 
 export default function CountryCard(props: CountryCardProps) {
+  const { setDialogOpen, setDetails } = useCountryDetailsContext();
+
   return (
-    <Card tabIndex={0}>
+    <Card
+      tabIndex={0}
+      onClick={() => {
+        setDialogOpen(true);
+        setDetails(props);
+      }}
+    >
       <Flag
-        src={props.flags?.svg ?? 'No_flag.svg.png'}
+        src={props.flags?.svg ?? '/No_flag.svg.png'}
         width={200}
         height={600}
         alt={props.flags.alt ?? 'country flag'}

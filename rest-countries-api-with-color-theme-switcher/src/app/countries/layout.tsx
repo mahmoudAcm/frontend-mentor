@@ -5,6 +5,7 @@ import { Box, styled } from '@mui/material';
 import CountriesFilters from '@/src/components/CountriesFilters';
 import CountryDetailsDialog from '@/src/components/CountryDetailsDialog';
 import { Container } from '@/src/components/Container';
+import CountryDetailsProvider from '@/src/contexts/CountryDetailsContext';
 
 const Grid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -24,8 +25,10 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <Container>
       <CountriesFilters />
-      <CountryDetailsDialog />
-      <Grid>{children}</Grid>
+      <CountryDetailsProvider>
+        <CountryDetailsDialog />
+        <Grid>{children}</Grid>
+      </CountryDetailsProvider>
     </Container>
   );
 }
