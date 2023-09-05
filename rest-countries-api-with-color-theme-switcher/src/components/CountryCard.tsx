@@ -23,13 +23,11 @@ const Card = styled(Box)(({ theme }) => ({
 
 const Flag = styled(Image)(({ theme }) => ({
   minWidth: '100%',
-  height: 'auto',
-  minHeight: 160,
-  maxHeight: 170,
+  height: 160,
   objectFit: 'cover',
   cursor: 'pointer',
   [theme.breakpoints.down('md')]: {
-    minHeight: 199
+    height: 199
   }
 }));
 
@@ -79,6 +77,8 @@ export default function CountryCard(props: CountryCardProps) {
         height={600}
         alt={props.flags.alt ?? 'country flag'}
         priority
+        placeholder='blur'
+        blurDataURL='/199.webp'
       />
       <Content>
         <CountryName>{props.name.common}</CountryName>

@@ -9,7 +9,7 @@ const AppBar = styled('header')(({ theme }) => ({
   background: theme.palette.__mode === 'DARK' ? 'hsl(210, 22%, 22%)' : 'hsl(0, 0%, 100%)',
   '--_shadow-color': theme.palette.__mode === 'DARK' ? 'hsl(205, 28%, 16%)' : 'hsl(0, 0%, 93%)',
   boxShadow: '0px 2.5px 20px var(--_shadow-color)',
-  position: 'sticky',
+  position: 'fixed',
   top: 0,
   zIndex: theme.zIndex.appBar
 }));
@@ -19,6 +19,9 @@ const Toolbar = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center'
 }));
+
+//used to be a placeholder for the header as it has position fixed.
+const DummyToolbar = styled(Toolbar)('');
 
 const AppBarTitle = styled(Typography)(({ theme }) => ({
   fontSize: 23.25 / theme.typography.htmlFontSize + 'rem',
@@ -36,13 +39,16 @@ const AppBarTitle = styled(Typography)(({ theme }) => ({
 
 export default function Header() {
   return (
-    <AppBar>
-      <Container>
-        <Toolbar>
-          <AppBarTitle>Where in the worId?</AppBarTitle>
-          <ThemeSwitcher />
-        </Toolbar>
-      </Container>
-    </AppBar>
+    <>
+      <DummyToolbar />
+      <AppBar>
+        <Container>
+          <Toolbar>
+            <AppBarTitle>Where in the worId?</AppBarTitle>
+            <ThemeSwitcher />
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </>
   );
 }

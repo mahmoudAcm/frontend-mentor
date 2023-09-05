@@ -1,7 +1,7 @@
 import { Box, InputBase, MenuItem, OutlinedInput, Select, SelectChangeEvent, styled } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, Dispatch, memo, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const Filters = styled(Box)(({ theme }) => ({
@@ -103,7 +103,11 @@ const RegionItem = styled(MenuItem)(({ theme }) => ({
 
 const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 
-export default function CountriesFilters() {
+interface CountriesFiltersProps {
+  onChange: Dispatch<boolean>;
+}
+
+function CountriesFilters(props: CountriesFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -114,6 +118,17 @@ export default function CountriesFilters() {
     return '';
   });
 
+  const timeoutRef = useRef<any>(null);
+
+  const debounce = (cb: () => void) => {
+    props.onChange(true);
+    if (timeoutRef.current !== null) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(cb, 250);
+  };
+
   const setSearchParams = (init: Record<string, string>) => {
     const params = new URLSearchParams(init).toString();
     router.replace('?' + params, {
@@ -123,13 +138,18 @@ export default function CountriesFilters() {
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
-    setSearchParams({ filter: event.target.value, region });
+    debounce(() => setSearchParams({ filter: event.target.value, region }));
   };
 
   const handleRegionChange = (event: SelectChangeEvent) => {
     setRegion(event.target.value);
-    setSearchParams({ filter: search, region: event.target.value });
+    debounce(() => setSearchParams({ filter: search, region: event.target.value }));
   };
+
+  //when the route changes this means the data has been loaded
+  useEffect(() => {
+    props.onChange(false);
+  }, [props, searchParams]);
 
   return (
     <Filters>
@@ -176,3 +196,5 @@ export default function CountriesFilters() {
     </Filters>
   );
 }
+
+export default memo(CountriesFilters);

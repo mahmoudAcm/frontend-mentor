@@ -1,11 +1,12 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { Box, styled } from '@mui/material';
 import CountriesFilters from '@/src/components/CountriesFilters';
 import CountryDetailsDialog from '@/src/components/CountryDetailsDialog';
 import { Container } from '@/src/components/Container';
 import CountryDetailsProvider from '@/src/contexts/CountryDetailsContext';
+import CountriesLoadingSkeleton from '@/src/components/CountriesLoadingSkeleton';
 
 const Grid = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -22,12 +23,13 @@ const Grid = styled(Box)(({ theme }) => ({
 }));
 
 export default function Layout({ children }: { children: ReactNode }) {
+  const [loading, setLoading] = useState(false);
   return (
     <Container>
-      <CountriesFilters />
+      <CountriesFilters onChange={setLoading} />
       <CountryDetailsProvider>
         <CountryDetailsDialog />
-        <Grid>{children}</Grid>
+        <Grid>{loading ? <CountriesLoadingSkeleton /> : children} </Grid>
       </CountryDetailsProvider>
     </Container>
   );
