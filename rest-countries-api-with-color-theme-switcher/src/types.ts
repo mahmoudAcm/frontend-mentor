@@ -2,7 +2,7 @@ export type Country = {
   name: {
     common: string;
     official: string;
-    nativeName: Record<string, { common: string }>;
+    nativeName: Record<string, { common: string; official: string }>;
   };
   region: string;
   subregion: string;

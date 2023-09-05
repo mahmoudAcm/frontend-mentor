@@ -113,9 +113,9 @@ export default function CountryDetails() {
 
   if (!details) return <></>;
 
-  const getNativeName = () => {
-    const keys = Object.keys(details.languages ?? {});
-    if (keys.length) return details.name.nativeName[keys[0]].common;
+  const getCommonOrOfficialNativeName = () => {
+    const keys = Object.keys(details.name.nativeName ?? {});
+    if (keys.length) return details.name.nativeName?.[keys[0]]?.common ?? details.name.nativeName?.[keys[0]]?.official;
     return details.name.official;
   };
 
@@ -169,7 +169,7 @@ export default function CountryDetails() {
               }}
             >
               <Box sx={ColumnSx}>
-                <Stat pair={['Native Name', getNativeName()]} />
+                <Stat pair={['Native Name', getCommonOrOfficialNativeName()]} />
                 <Stat pair={['PopuIation', details.population]} />
                 <Stat pair={['Region', details.region]} />
                 <Stat pair={['Sub Region', details.subregion]} />
