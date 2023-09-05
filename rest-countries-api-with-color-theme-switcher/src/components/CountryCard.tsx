@@ -4,6 +4,7 @@ import { Box, styled, Typography } from '@mui/material';
 import Image from 'next/image';
 import { Country } from '@/src/types';
 import useCountryDetailsContext from '@/src/hooks/useCountryDetailsContext';
+import { dataBlurUrl } from '@/src/components/data-blur-url';
 
 const Card = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -77,8 +78,7 @@ export default function CountryCard(props: CountryCardProps) {
         height={600}
         alt={props.flags.alt ?? 'country flag'}
         priority
-        placeholder='blur'
-        blurDataURL='/199.webp'
+        placeholder={dataBlurUrl}
       />
       <Content>
         <CountryName>{props.name.common}</CountryName>

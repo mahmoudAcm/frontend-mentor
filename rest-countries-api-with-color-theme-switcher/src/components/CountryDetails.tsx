@@ -3,6 +3,7 @@ import { Box, BoxProps, styled, Typography } from '@mui/material';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import useCountryDetailsContext from '@/src/hooks/useCountryDetailsContext';
+import { dataBlurUrl } from '@/src/components/data-blur-url';
 
 const Flex = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -159,6 +160,7 @@ export default function CountryDetails() {
             width={1200}
             height={600}
             alt={details.flags.alt ?? 'contry flag'}
+            placeholder={dataBlurUrl}
           />
           <DetailsContainer>
             <CountryName>{details.name.common}</CountryName>
