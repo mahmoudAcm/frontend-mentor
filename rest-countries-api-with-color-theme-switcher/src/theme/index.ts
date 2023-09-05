@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from '@mui/material';
+import { alpha, createTheme, ThemeOptions } from '@mui/material';
 import { Nunito_Sans } from 'next/font/google';
 import { THEMES } from '@/src/constants';
 
@@ -11,6 +11,30 @@ const nunitoSansFont = Nunito_Sans({
 const baseOptions: ThemeOptions = {
   typography: {
     ...nunitoSansFont.style
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          margin: 'auto',
+          textTransform: 'none',
+          background: theme.palette.background.paper,
+          padding: '8px 25px',
+          color: theme.palette.text.primary,
+          transition: '0s',
+          '--_shadow-color': theme.palette.__mode === 'DARK' ? 'hsl(205, 31%, 14%)' : 'hsl(0, 0%, 87%)',
+          boxShadow: '0 0 20px var(--_shadow-color)',
+          '&:hover': {
+            background: alpha(theme.palette.background.paper, 0.5)
+          },
+          '&.Mui-disabled': {
+            color: alpha(theme.palette.text.primary, 0.5),
+            pointerEvents: 'auto',
+            cursor: 'not-allowed'
+          }
+        })
+      }
+    }
   }
 };
 
