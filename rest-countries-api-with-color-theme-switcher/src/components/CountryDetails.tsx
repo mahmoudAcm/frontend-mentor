@@ -19,7 +19,7 @@ const Flex = styled(Box)(({ theme }) => ({
 const Flag = styled(Image)(({ theme }) => ({
   maxWidth: 'min(560px, 100%)',
   height: 'auto',
-  '--_shadow-color': theme.palette.__mode === 'DARK' ? 'hsl(205, 26%, 16%)' : 'transparent',
+  '--_shadow-color': theme.palette.__mode === 'DARK' ? 'hsl(205, 26%, 16%)' : 'hsla(0, 0%, 50%, 5%)',
   boxShadow: '0 0 0 24px var(--_shadow-color)',
   borderRadius: 4,
   [theme.breakpoints.down('lg')]: {
