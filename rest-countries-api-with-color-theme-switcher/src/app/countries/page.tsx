@@ -22,7 +22,7 @@ export default async function CountriesPage({ searchParams }: { searchParams: Re
 
   const filterByIdd = (country: Country) => {
     if (country.idd && country.idd.root && country.idd.suffixes?.length) {
-      return filter ? (country.idd.root + country.idd.suffixes.join('')).includes(filter) : true;
+      return filter ? country.idd?.suffixes?.some(suffix => (country.idd?.root + suffix).includes(filter)) : true;
     }
     return false;
   };
