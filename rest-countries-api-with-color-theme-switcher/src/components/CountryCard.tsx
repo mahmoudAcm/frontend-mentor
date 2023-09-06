@@ -81,6 +81,11 @@ interface CountryCardProps extends Country {
 export default function CountryCard(props: CountryCardProps) {
   const { setDialogOpen, setDetails } = useCountryDetailsContext();
 
+  const openDialog = () => {
+    setDialogOpen(true);
+    setDetails(props);
+  };
+
   return (
     <Box
       sx={{
@@ -92,9 +97,9 @@ export default function CountryCard(props: CountryCardProps) {
     >
       <Card
         tabIndex={0}
-        onClick={() => {
-          setDialogOpen(true);
-          setDetails(props);
+        onClick={openDialog}
+        onKeyDown={evt => {
+          if (evt.key === 'Enter') openDialog();
         }}
       >
         <Flag
