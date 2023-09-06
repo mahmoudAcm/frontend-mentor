@@ -13,6 +13,7 @@ export default function NoResults() {
     const urlSearchParams = new URLSearchParams(searchParams);
     urlSearchParams.delete('filter');
     urlSearchParams.delete('limit');
+    urlSearchParams.append('clear', 'true');
     const search = urlSearchParams.toString();
     router.replace('?' + search);
   };

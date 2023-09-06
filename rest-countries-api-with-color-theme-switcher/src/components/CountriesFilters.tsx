@@ -149,8 +149,11 @@ function CountriesFilters(props: CountriesFiltersProps) {
   //when the route changes this means the data has been loaded
   useEffect(() => {
     props.onChange(false);
-    const filter = searchParams.get('filter') ?? '';
-    setSearch(filter);
+    const clear = searchParams.get('clear') ?? '';
+
+    if (clear === 'true') {
+      setSearch('');
+    }
   }, [props, searchParams]);
 
   return (
