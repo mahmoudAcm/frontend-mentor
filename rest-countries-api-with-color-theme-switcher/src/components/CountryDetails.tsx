@@ -1,5 +1,5 @@
 import { Container } from '@/src/components/Container';
-import { Box, BoxProps, styled, Typography } from '@mui/material';
+import { Box, BoxProps, Button, styled, Typography } from '@mui/material';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import useCountryDetailsContext from '@/src/hooks/useCountryDetailsContext';
@@ -17,16 +17,69 @@ const Flex = styled(Box)(({ theme }) => ({
   }
 }));
 
-const Flag = styled(Image)(({ theme }) => ({
+const FlagWrapper = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  placeItems: 'center',
   maxWidth: 'min(560px, 100%)',
-  height: 'auto',
-  '--_shadow-color': theme.palette.__mode === 'DARK' ? 'hsl(205, 26%, 16%)' : 'hsla(0, 0%, 50%, 5%)',
-  boxShadow: '0 0 0 24px var(--_shadow-color)',
-  borderRadius: 4,
+  position: 'relative',
+  marginBottom: '24px',
+  ['@media(hover:hover)']: {
+    '&::after': {
+      content: '" "',
+      position: 'absolute',
+      inset: 0,
+      transition: theme.transitions.create(['background'])
+    },
+    '&:hover': {
+      '& .map--btn': {
+        zIndex: 1,
+        opacity: 1,
+        transform: 'translateY(0px)',
+        transition: theme.transitions.create(['transform', 'opacity'])
+      },
+      '&::after': {
+        background: 'hsla(0, 0%, 0%, 50%)'
+      }
+    }
+  },
   [theme.breakpoints.down('lg')]: {
     maxWidth: 'min(641px, 100%)',
     margin: 'auto'
   }
+}));
+
+const OpenMapButton = styled(Button)(({ theme }) => ({
+  ['@media(hover: none)']: {
+    marginTop: '38px',
+    color: theme.palette.text.primary
+  },
+  ['@media(hover:hover)']: {
+    zIndex: -1,
+    opacity: 0,
+    position: 'absolute',
+    color: 'white',
+    transform: 'translateY(30px)',
+    '&:hover': {
+      background: 'none'
+    }
+  },
+  '&::after': {
+    content: '" "',
+    position: 'absolute',
+    bottom: -2,
+    width: '100%',
+    height: '3px',
+    background: 'currentColor',
+    transform: 'scaleX(0.4)'
+  }
+}));
+
+const Flag = styled(Image)(({ theme }) => ({
+  maxWidth: 'inherit',
+  height: 'auto',
+  '--_shadow-color': theme.palette.__mode === 'DARK' ? 'hsl(205, 26%, 16%)' : 'hsla(0, 0%, 50%, 5%)',
+  boxShadow: '0 0 0 24px var(--_shadow-color)',
+  borderRadius: 4
 }));
 
 const DetailsContainer = styled(Box)(({ theme }) => ({
@@ -155,13 +208,20 @@ export default function CountryDetails() {
       />
       <Container>
         <Flex>
-          <Flag
-            src={details.flags.svg ?? '/No_flag.svg.png'}
-            width={1200}
-            height={600}
-            alt={details.flags.alt ?? 'contry flag'}
-            placeholder={dataBlurUrl}
-          />
+          <FlagWrapper>
+            <Flag
+              src={details.flags.svg ?? '/No_flag.svg.png'}
+              width={1200}
+              height={600}
+              alt={details.flags.alt ?? 'country flag'}
+              placeholder={dataBlurUrl}
+            />
+
+            {/*//@ts-ignore*/}
+            <OpenMapButton className='map--btn' variant='text' target='_blank' href={details.maps.googleMaps}>
+              open map
+            </OpenMapButton>
+          </FlagWrapper>
           <DetailsContainer>
             <CountryName>{details.name.common}</CountryName>
             <Box
@@ -176,12 +236,17 @@ export default function CountryDetails() {
                 <Stat pair={['Region', details.region]} />
                 <Stat pair={['Sub Region', details.subregion]} />
                 <Stat pair={['Capital', details.capital]} />
+                <Stat pair={['Start Of Week', details.startOfWeek]}>
+                  {startOfWeek => <span style={{ textTransform: 'capitalize' }}>{startOfWeek}</span>}
+                </Stat>
               </Box>
 
               <Box sx={ColumnSx}>
                 <Stat pair={['Top Level Domain', details.tld]} sx={{ mt: { xs: '44px', sm: '88px', lg: 0 } }} />
                 <Stat pair={['Currencies', getCurrencies()]} />
                 <Stat pair={['Languages', getLanguages()]} />
+                <Stat pair={['Country Codes', details.idd?.suffixes?.map(suffix => details.idd?.root + suffix)]} />
+                {/*<Stat pair={['Map', details.maps?.googleMaps]}>{value => <Link href={value!}> GoogIe maps</Link>}</Stat>*/}
               </Box>
             </Box>
 

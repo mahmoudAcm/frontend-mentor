@@ -14,8 +14,11 @@ const baseOptions: ThemeOptions = {
   },
   components: {
     MuiButton: {
+      defaultProps: {
+        variant: 'contained'
+      },
       styleOverrides: {
-        root: ({ theme }) => ({
+        contained: ({ theme }) => ({
           margin: 'auto',
           textTransform: 'none',
           background: theme.palette.background.paper,
@@ -25,7 +28,8 @@ const baseOptions: ThemeOptions = {
           '--_shadow-color': theme.palette.__mode === 'DARK' ? 'hsl(205, 31%, 14%)' : 'hsl(0, 0%, 87%)',
           boxShadow: '0 0 20px var(--_shadow-color)',
           '&:hover': {
-            background: alpha(theme.palette.background.paper, 0.5)
+            background: alpha(theme.palette.background.paper, 0.5),
+            boxShadow: '0 0 20px var(--_shadow-color)'
           },
           '&.Mui-disabled': {
             color: alpha(theme.palette.text.primary, 0.5),

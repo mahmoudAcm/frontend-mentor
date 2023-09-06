@@ -20,5 +20,11 @@ export type Country = {
   languages?: Record<string, string>;
   borders: string[];
   tld: string[];
+  timezones: string[];
   currencies: Record<string, { name: string }>;
+  maps: Partial<{
+    googleMaps: string;
+    openStreetMaps: string;
+  }>;
+  startOfWeek: string;
 };

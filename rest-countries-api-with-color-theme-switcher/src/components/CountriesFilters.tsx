@@ -101,7 +101,7 @@ const RegionItem = styled(MenuItem)(({ theme }) => ({
   }
 }));
 
-const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+const regions = ['All', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 
 interface CountriesFiltersProps {
   onChange: Dispatch<boolean>;
@@ -190,7 +190,7 @@ function CountriesFilters(props: CountriesFiltersProps) {
         }}
       >
         {regions.map((region, index) => (
-          <RegionItem key={index} value={region}>
+          <RegionItem key={index} value={region === 'All' ? '' : region}>
             {region}
           </RegionItem>
         ))}
