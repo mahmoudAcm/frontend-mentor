@@ -55,7 +55,7 @@ export default async function CountriesPage({ searchParams }: { searchParams: Re
   return (
     <>
       {filteredCountries.slice(0, limit).map((country, index) => (
-        <CountryCard key={index} {...country} />
+        <CountryCard key={index} {...country} animationDelay={(index % COUNTRIES_PER_PAGE) * 90} />
       ))}
       <Box sx={{ gridColumn: '1 / -1', display: hasMore ? 'flex' : 'none' }}>
         <LoudMoreButton limit={limit} countriesCount={filteredCountries.length} />
