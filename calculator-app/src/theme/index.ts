@@ -7,11 +7,18 @@ const baseTheme: ThemeOptions = {
     fontWeightBold: 700
   },
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: "'League Spartan', sans-serif"
+        }
+      }
+    },
     MuiButton: {
       styleOverrides: {
         root: ({ theme, ownerState }) => {
           let shadowColor = 'var(--btn-default-shadow)';
-          let hoverColor = 'var(--btn-default-hover)';
+          let hoverColor = 'white';
           if (ownerState.variant === 'contained') {
             if (ownerState.color === 'primary') {
               shadowColor = theme.palette.primary.dark;
@@ -21,17 +28,14 @@ const baseTheme: ThemeOptions = {
               hoverColor = theme.palette.secondary.light;
             }
           }
+
+          const isDefaultVariant = !ownerState.variant || ownerState.variant == 'text';
           return {
-            backgroundColor: !ownerState.variant || ownerState.variant == 'text' ? 'var(--btn-default-bg)' : '',
-            boxShadow: `0 4px 0 ${shadowColor} !important`,
+            fontFamily: "'League Spartan', sans-serif",
+            backgroundColor: isDefaultVariant ? '#E5E4E0' : '',
+            color: isDefaultVariant ? theme.palette.text.primary : '',
+            boxShadow: `0 3.5px 0 ${shadowColor} !important`,
             borderRadius: '8px',
-            '&:active': {
-              boxShadow: `0 1.5px 0 ${shadowColor} !important`
-            },
-            '&.active': {
-              boxShadow: `0 1.5px 0 ${shadowColor} !important`,
-              background: hoverColor
-            },
             '&:hover': {
               background: hoverColor
             }
@@ -53,41 +57,7 @@ const baseTheme: ThemeOptions = {
 };
 
 const themes: Record<string, ThemeOptions> = {
-  [THEMES.THEME1]: {
-    palette: {
-      primary: {
-        main: 'hsl(6, 63%, 50%)',
-        light: 'hsl(6, 93%, 67%)',
-        dark: 'hsl(6, 70%, 34%)'
-      },
-      secondary: {
-        main: 'hsl(225, 21%, 49%)',
-        light: 'hsl(224, 51%, 76%)',
-        dark: 'hsl(224, 28%, 35%)'
-      },
-      background: {
-        default: 'hsl(222, 26%, 31%)',
-        paper: 'hsl(223, 31%, 20%)'
-      },
-      text: {
-        primary: 'hsl(221, 14%, 31%)',
-        secondary: 'hsl(0, 0%, 100%)'
-      }
-    },
-    components: {
-      MuiCssBaseline: {
-        styleOverrides: {
-          ':root': {
-            '--bg-screen': 'hsl(224, 36%, 15%)',
-            '--btn-default-bg': 'hsl(32, 25%, 88%)',
-            '--btn-default-shadow': 'hsl(21, 16%, 66%)',
-            '--btn-default-hover': 'white'
-          }
-        }
-      }
-    }
-  },
-  [THEMES.THEME2]: {
+  [THEMES.LIGHT]: {
     palette: {
       primary: {
         main: 'hsl(25, 98%, 40%)',
@@ -113,56 +83,22 @@ const themes: Record<string, ThemeOptions> = {
         styleOverrides: {
           ':root': {
             '--bg-screen': 'hsl(0, 0%, 93%)',
-            '--btn-default-bg': '#E5E4E0',
-            '--btn-default-shadow': 'hsl(35, 11%, 61%)',
-            '--btn-default-hover': 'white'
+            '--btn-default-shadow': 'hsl(35, 11%, 61%)'
           }
         }
       }
     }
   },
-  [THEMES.THEME3]: {
-    palette: {
-      primary: {
-        main: 'hsl(176, 100%, 44%)',
-        light: 'hsl(177, 91%, 77%)',
-        dark: 'hsl(177, 92%, 70%)'
-      },
-      secondary: {
-        main: 'hsl(281, 89%, 26%)',
-        light: 'hsl(280, 56%, 44%)',
-        dark: 'hsl(286, 91%, 52%)'
-      },
-      background: {
-        default: 'hsl(268, 75%, 9%)',
-        paper: 'hsl(268, 71%, 12%)'
-      },
-      text: {
-        primary: 'hsl(52, 100%, 62%)',
-        secondary: 'hsl(198, 20%, 13%)'
-      }
-    },
-    components: {
-      MuiCssBaseline: {
-        styleOverrides: {
-          ':root': {
-            '--bg-screen': 'hsl(268, 71%, 12%)',
-            '--btn-default-bg': '#331B4D',
-            '--btn-default-shadow': 'hsl(288, 67.54%, 37.45%)',
-            '--btn-default-hover': '#6B34AC'
-          }
-        }
-      }
-    }
-  }
+  [THEMES.DARK1]: {},
+  [THEMES.DARK2]: {}
 };
 
-export default function createCustomTheme(config: { theme?: string }) {
+export default function createCustomTheme(config: { theme?: keyof typeof THEMES }) {
   let theme = themes[config.theme!];
 
   if (!theme) {
     console.warn('You passed the wrong theme!');
-    theme = themes[THEMES.THEME2];
+    theme = themes[THEMES.LIGHT];
   }
 
   return createTheme({}, baseTheme, theme);
