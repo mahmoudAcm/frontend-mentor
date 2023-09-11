@@ -11,8 +11,15 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.0.18",
+    "@vee-validate/yup": "^4.11.3",
+    "@vue-use-form/yup": "^0.0.1",
     "tailwind-merge": "^1.14.0",
-    "vue": "^3.3.4"
+    "vee-validate": "^4.11.3",
+    "vue": "^3.3.4",
+    "vue-class-component": "^8.0.0-rc.1",
+    "vue-property-decorator": "^9.1.2",
+    "vue-use-form": "^0.1.3",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       screens: {
+        tablet: '460px',
         desktop: '1000px'
       },
       backgroundImage: {

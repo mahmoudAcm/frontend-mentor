@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue';
 import StepsNavigationItem from './StepsNavigationItem.vue';
 import { twMerge } from 'tailwind-merge';
+import { injectStore } from '../providers/FormProvider.ts';
 
 export default defineComponent({
   name: 'StepsNavigation',
@@ -9,16 +10,14 @@ export default defineComponent({
   props: {
     className: String
   },
-  data() {
+  setup() {
+    const store = injectStore();
     return {
-      activeStep: 1
+      store
     };
   },
   methods: {
-    twMerge,
-    setActiveStep(step: number) {
-      this.activeStep = step;
-    }
+    twMerge
   }
 });
 </script>
@@ -33,15 +32,10 @@ export default defineComponent({
       )
     "
   >
-    <steps-navigation-item :stepNumber="1" name="your info" :active="activeStep === 1" :activate-step="setActiveStep" />
-    <steps-navigation-item
-      :stepNumber="2"
-      name="select plan"
-      :active="activeStep === 2"
-      :activate-step="setActiveStep"
-    />
-    <steps-navigation-item :stepNumber="3" name="add-ons" :active="activeStep === 3" :activate-step="setActiveStep" />
-    <steps-navigation-item :stepNumber="4" name="summary" :active="activeStep === 4" :activate-step="setActiveStep" />
+    <steps-navigation-item :stepNumber="1" name="your info" :active="store.activeStep === 1" />
+    <steps-navigation-item :stepNumber="2" name="select plan" :active="store.activeStep === 2" />
+    <steps-navigation-item :stepNumber="3" name="add-ons" :active="store.activeStep === 3" />
+    <steps-navigation-item :stepNumber="4" name="summary" :active="store.activeStep === 4" />
   </div>
 </template>
 
