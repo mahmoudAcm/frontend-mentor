@@ -24,7 +24,7 @@ export default defineComponent({
     changePlan() {
       this.store.activeStep = 2;
     },
-    getFormattedPrice(price) {
+    getFormattedPrice(price: number) {
       return `$${price}/${this.period}`;
     }
   }
