@@ -32,15 +32,16 @@ export interface FormStore extends PersonalInfo {
 const FORM_STORE_KEY = 'formStore';
 
 export const personInfoSchema = yup.object().shape({
-  name: yup.string() /*.required('This field is required')*/,
-  email: yup.string() /*.required('This field is required').email('Not a valid email')*/,
-  phoneNumber: yup.string() /*
+  name: yup.string().required('This field is required'),
+  email: yup.string().required('This field is required').email('Not a valid email'),
+  phoneNumber: yup
+    .string()
     .matches(/^\+[1-9]+\d{9,}$/, 'Not a valid number')
-    .required('This field is required')*/
+    .required('This field is required')
 });
 
 const formStore = ref<FormStore>({
-  activeStep: 4,
+  activeStep: 1,
   isStepOneFinished: false,
   name: '',
   email: '',

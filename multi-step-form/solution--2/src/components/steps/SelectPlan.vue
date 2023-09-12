@@ -57,7 +57,7 @@ export default defineComponent({
 <template>
   <step-header title="Select your plan" subTitle="You have the option of monthly or yearly billing." />
   <div>
-    <RadioGroup v-model="store.plan" class="flex desktop:flex-row flex-col gap-[16px] justify-between">
+    <RadioGroup v-model="store.plan" class="flex desktop:flex-row flex-col justify-between gap-[16px]">
       <Plan type="Arcade" :price="arcadePrice" :offer="offer">
         <template v-slot:icon>
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">

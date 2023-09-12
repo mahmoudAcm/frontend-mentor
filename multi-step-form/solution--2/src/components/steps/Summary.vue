@@ -51,7 +51,7 @@ export default defineComponent({
           getFormattedPrice(summary.planPrice)
         }}</span>
       </div>
-      <div class="divide-gray-400 border-b pb-[23px]" v-if="summary.selectedAddOns.length"></div>
+      <div class="border-b divide-gray-400 pb-[23px]" v-if="summary.selectedAddOns.length"></div>
       <div class="grid gap-[15.53px] mt-[15.43px]" v-if="summary.selectedAddOns.length">
         <div v-for="addons of summary.selectedAddOns" class="flex text-[calc(14/16_*_1rem)]">
           <h2 class="text-gray-400">{{ addons.title }}</h2>

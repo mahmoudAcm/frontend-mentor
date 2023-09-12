@@ -16,7 +16,7 @@ export default defineComponent({
   >
     {{ title }}
   </h1>
-  <p class="tablet:text-[calc(16.81/16_*_1rem)] font-normal leading-[1.5] text-[#999A9F] mt-[3px] mb-[39px]">
+  <p class="tablet:text-[calc(16.81/16_*_1rem)] font-normal leading-[1.5] text-gray-500 mt-[3px] mb-[39px]">
     {{ subTitle }}
   </p>
 </template>

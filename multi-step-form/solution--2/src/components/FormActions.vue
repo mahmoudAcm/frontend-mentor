@@ -40,19 +40,19 @@ export default defineComponent({
     "
   >
     <Button
-      className="bg-transparent text-[#AAAAB4] desktop:-ml-[24px] -ml-[16px] desktop:px-[24px] desktop:pt-[11px] desktop:pb-[13px]"
+      className="bg-transparent text-[#AAAAB4] desktop:-ml-[24px] -ml-[16px] desktop:px-[24px] desktop:pt-[11px] desktop:pb-[13px] hover:text-[#03285C] transition-colors"
       v-if="store.activeStep > 1"
       @click="handleBack"
       >Go Back
     </Button>
     <Button
-      className="ml-auto desktop:px-[24px] desktop:pt-[11px] desktop:pb-[13px]"
+      className="ml-auto desktop:px-[24px] desktop:pt-[11px] desktop:pb-[13px] hover:bg-[#174A8B] transition-colors"
       v-if="store.activeStep < 4"
       @click="handleNext"
       >Next Step
     </Button>
     <Button
-      className="ml-auto bg-[#483EFF] desktop:px-[24px] desktop:pt-[11px] desktop:pb-[13px]"
+      className="ml-auto bg-[#483EFF] desktop:px-[24px] desktop:pt-[11px] desktop:pb-[13px] hover:bg-[#9792F2] transition-colors"
       v-if="store.activeStep === 4"
       @click="handleConfirmation"
       >Confirm

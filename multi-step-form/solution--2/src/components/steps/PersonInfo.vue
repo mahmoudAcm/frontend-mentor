@@ -68,6 +68,9 @@ export default defineComponent({
         placeholder="e.g. +1 234567890"
         v-model="store.phoneNumber"
       />
+      <span class="ml-[16px] text-xs text-gray-500 mt-1"
+        >Please start with '+' followed by the country code and the phone number.</span
+      >
     </div>
   </div>
 </template>

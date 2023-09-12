@@ -7,10 +7,22 @@ import AddOns from './steps/PickAddOns.vue';
 import Summary from './steps/Summary.vue';
 import { injectStore } from '../providers/FormProvider.ts';
 import FormActions from './FormActions.vue';
+import Greeting from './Greeting.vue';
+import { TransitionChild, TransitionRoot } from '@headlessui/vue';
 
 export default defineComponent({
   name: 'MultiStepForm',
-  components: { FormActions, Summary, AddOns, SelectPlan, PersonInfo, StepsNavigation },
+  components: {
+    TransitionChild,
+    TransitionRoot,
+    Greeting,
+    FormActions,
+    Summary,
+    AddOns,
+    SelectPlan,
+    PersonInfo,
+    StepsNavigation
+  },
   setup() {
     return injectStore();
   }
@@ -20,13 +32,16 @@ export default defineComponent({
 <template>
   <div class="paper">
     <steps-navigation className="desktop:grid hidden" />
-    <div class="desktop:px-[80px] grid grid-rows-[auto_auto_1fr] h-full items-start">
+    <div class="grid h-full items-start desktop:px-[80px] grid-rows-[auto_auto_1fr]">
       <template v-if="!isConfirmed">
         <person-info v-if="activeStep === 1" />
         <select-plan v-if="activeStep === 2" />
         <add-ons v-if="activeStep === 3" />
         <Summary v-if="activeStep === 4" />
         <FormActions />
+      </template>
+      <template v-if="isConfirmed">
+        <Greeting />
       </template>
     </div>
   </div>

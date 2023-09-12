@@ -71,7 +71,7 @@ export default defineComponent({
     @click="event => toggleCheck('click')(event)"
   >
     <label
-      class="w-[21px] h-[21px] block relative rounded-[4px] border"
+      class="relative block border w-[21px] h-[21px] rounded-[4px]"
       :class="isChecked ? 'bg-[#453FF9] border-transparent' : ''"
       @keydown="event => toggleCheck('keydown')(event)"
     >
@@ -82,12 +82,12 @@ export default defineComponent({
         height="9"
         viewBox="0 0 12 9"
         v-if="isChecked"
-        class="absolute m-auto inset-0"
+        class="absolute inset-0 m-auto"
       >
         <path fill="none" stroke="#FFF" stroke-width="2" d="m1 4 3.433 3.433L10.866 1" />
       </svg>
     </label>
-    <div class="leading-[1.4] tablet:leading-[1.5] tablet:ml-[24px] ml-[16px] flex-1">
+    <div class="flex-1 leading-[1.4] tablet:leading-[1.5] tablet:ml-[24px] ml-[16px]">
       <h2 class="text-[calc(14.41/16_*_1rem)] tablet:text-[calc(16.5/16_*_1rem)] text-[#02275B]">{{ title }}</h2>
       <span class="text-[calc(12/16_*_1rem)] tablet:text-[calc(14/16_*_1rem)] text-gray-400">{{ service }}</span>
     </div>
