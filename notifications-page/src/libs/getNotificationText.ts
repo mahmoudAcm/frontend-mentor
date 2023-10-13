@@ -1,4 +1,8 @@
-const mapTypeToText = {
+type ReactionCommentReplyMessage = Record<string, string>;
+
+type MapTypeToText = ReactionCommentReplyMessage | string;
+
+const mapTypeToText: Record<string, MapTypeToText> = {
   join: 'has joined your group',
   leave: 'left the group',
   follow: 'followed you',
@@ -20,9 +24,18 @@ const mapTypeToText = {
   'private-message': 'sent you a private message'
 };
 
-export default function getNotificationText(type: keyof typeof mapTypeToText, target?: string) {
-  if (type === 'reaction' || type === 'comment' || type === 'reply') {
-    return (mapTypeToText[type] as Record<string, string>)[target!];
-  }
-  return mapTypeToText[type];
+function isReactionCommentReplyMessage(message: MapTypeToText): message is ReactionCommentReplyMessage {
+  return typeof message !== 'string';
 }
+
+function getNotificationText(type: keyof typeof mapTypeToText, target?: string) {
+  const messageType = mapTypeToText[type];
+
+  if (target && isReactionCommentReplyMessage(messageType)) {
+    return messageType[target] || '';
+  }
+
+  return (messageType as string) || '';
+}
+
+export default getNotificationText;
