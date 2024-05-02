@@ -1,5 +1,5 @@
 export default {
-  ip: "XXX.XXX.XXX.XXX",
+  ip: "N/A",
   isp: "SpaceX Starlink",
   city: "Brooklyn",
   region: "NY",
